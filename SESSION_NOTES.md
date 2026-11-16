@@ -188,6 +188,28 @@
 - HUD: score top-right (scripts/score_label.gd). Banner shows the final score.
 - Not done: floating "+10" numbers, saving best scores (comes with the world map).
 
+## Session 10 (2026-11-16): build step 3, power-ups
+
+### Decisions made
+- scripts/mega_bean_can.gd + scenes/mega_bean_can.tscn: small green tin. Tank instantly full, 25 points.
+- scripts/chilli.gd + scenes/chilli.tscn: red pepper pickup, 25 points.
+- scripts/chilli_power.gd (ChilliPower node under Player): 6 seconds of hot farts.
+  Runs 1.8x faster, jumps 1.25x harder, glows red, can't be hurt, squashes any enemy he
+  touches (they still score). Eating another chilli restarts the timer.
+- scripts/flame_trail.gd (FlameTrail node under Player): orange puffs that shrink away.
+- The power lives in its own scripts so player.gd stays readable; the player only asks
+  "how much faster am I right now?".
+- Test level: Chilli just after the toilet with three Burplings in a row to run through,
+  Mega Bean Can just before the big Bean Can. Six Burplings in total now.
+- Not done: any warning that the chilli is about to wear off.
+
+### Tested
+- Automated headless run: Mega Bean Can fills an empty tank; Chilli gives 1.80x speed,
+  red glow and a trail; running through the row squashes all three with no hearts lost;
+  a hot Thunder reaches 8.17 m (normal 5.25); after 6 seconds everything returns to normal
+  and the puffs are gone. All earlier tests still pass.
+- Not checked by eye: how the glow and flame trail look, and whether 1.8x feels controllable.
+
 ### What to do next
 1. Press F5 and play the whole test level start to finish.
-2. Build step 3 of GAME_DESIGN.md: power-ups (Mega Bean Can, then Chilli Pepper).
+2. Build step 4 of GAME_DESIGN.md: flight mode and the Rocket Burrito.

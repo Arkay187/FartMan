@@ -44,7 +44,10 @@ func _physics_process(delta: float) -> void:
 		var player := body as Player
 		if player == null:
 			continue
-		if player.can_stomp() and _is_on_top(player):
+		if player.is_hot():
+			# Chilli power: he just runs straight through us.
+			_get_squashed()
+		elif player.can_stomp() and _is_on_top(player):
 			player.stomp_bounce()
 			_get_squashed()
 		else:

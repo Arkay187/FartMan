@@ -1,0 +1,37 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/mega_bean_can.gd" id="1_atxk5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gxg4t"]
+radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svuog"]
+albedo_color = Color(0.2, 0.7, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yd4sc"]
+material = SubResource("StandardMaterial3D_svuog")
+top_radius = 0.35
+bottom_radius = 0.35
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojn37"]
+albedo_color = Color(0.85, 0.85, 0.9, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_heikq"]
+material = SubResource("StandardMaterial3D_ojn37")
+top_radius = 0.38
+bottom_radius = 0.38
+height = 0.1
+
+[node name="MegaBeanCan" type="Area3D" unique_id=91793830]
+script = ExtResource("1_atxk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1518884900]
+shape = SubResource("SphereShape3D_gxg4t")
+
+[node name="Tin" type="MeshInstance3D" parent="." unique_id=47738638]
+mesh = SubResource("CylinderMesh_yd4sc")
+
+[node name="Lid" type="MeshInstance3D" parent="." unique_id=941654826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("CylinderMesh_heikq")

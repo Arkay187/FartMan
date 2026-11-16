@@ -1,43 +1,55 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_qhqgy"]
-[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_dqkch"]
-[ext_resource type="Script" path="res://scripts/hearts.gd" id="3_qlg0r"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_qlg0r"]
+[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_tuyoq"]
+[ext_resource type="Script" path="res://scripts/hearts.gd" id="3_fjrip"]
+[ext_resource type="Script" path="res://scripts/flame_trail.gd" id="4_smehm"]
+[ext_resource type="Script" path="res://scripts/chilli_power.gd" id="5_ur7pv"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_tuyoq"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y4r1p"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrip"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2wvv"]
 albedo_color = Color(0.95, 0.55, 0.5, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_smehm"]
-material = SubResource("StandardMaterial3D_fjrip")
+[sub_resource type="SphereMesh" id="SphereMesh_3v2ag"]
+material = SubResource("StandardMaterial3D_d2wvv")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ur7pv"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jej6c"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1136115267 node_paths=PackedStringArray("gas_tank", "hearts", "visual", "belly")]
-script = ExtResource("1_qhqgy")
+[node name="Player" type="CharacterBody3D" unique_id=1030790292 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "visual", "belly")]
+script = ExtResource("1_qlg0r")
 gas_tank = NodePath("GasTank")
 hearts = NodePath("Hearts")
+chilli = NodePath("ChilliPower")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Visual" type="Node3D" parent="." unique_id=1359659097]
+[node name="Visual" type="Node3D" parent="." unique_id=1783877406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=930846615]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1935942731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_tuyoq")
+mesh = SubResource("CapsuleMesh_y4r1p")
 
-[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=1976916664]
+[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=986926515]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.9, 0)
 visible = false
-mesh = SubResource("SphereMesh_smehm")
+mesh = SubResource("SphereMesh_3v2ag")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2045751940]
-shape = SubResource("CapsuleShape3D_ur7pv")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1911647316]
+shape = SubResource("CapsuleShape3D_jej6c")
 
-[node name="GasTank" type="Node" parent="." unique_id=1448287015]
-script = ExtResource("2_dqkch")
+[node name="GasTank" type="Node" parent="." unique_id=1242035138]
+script = ExtResource("2_tuyoq")
 
-[node name="Hearts" type="Node" parent="." unique_id=349907028]
-script = ExtResource("3_qlg0r")
+[node name="Hearts" type="Node" parent="." unique_id=2129242851]
+script = ExtResource("3_fjrip")
+
+[node name="FlameTrail" type="Node3D" parent="." unique_id=1315375682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+script = ExtResource("4_smehm")
+
+[node name="ChilliPower" type="Node" parent="." unique_id=1778753163 node_paths=PackedStringArray("body", "trail")]
+script = ExtResource("5_ur7pv")
+body = NodePath("../Visual/MeshInstance3D")
+trail = NodePath("../FlameTrail")

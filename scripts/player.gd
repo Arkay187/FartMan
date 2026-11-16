@@ -86,6 +86,10 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## What he says when hurt. Leave empty for nothing.
 @export var hurt_words: String = "OUCH!"
 
+@export_group("Power-ups")
+## His Chilli Pepper power. Leave empty and chillies do nothing.
+@export var chilli: ChilliPower
+
 @export_group("Looks")
 ## The part of him that turns to face the way he walks.
 @export var visual: Node3D
@@ -142,7 +146,12 @@ func _physics_process(delta: float) -> void:
 	# Left / right. direction is -1, 0 or 1.
 	var direction: float = Input.get_axis(left_action, right_action)
 	var acceleration: float = ground_acceleration if is_on_floor() else air_acceleration
-	velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
+	var speed: float = move_speed
+	if chilli != null:
+		# Hot farts: faster, and quicker to get going.
+		speed *= chilli.speed_boost()
+		acceleration *= chilli.speed_boost()
+	velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
 
 	# Turn to face the way he is walking.
 	if visual != null and direction != 0.0:
@@ -158,6 +167,11 @@ func _physics_process(delta: float) -> void:
 ## Enemies ask this to decide: did he land on me, or walk into me?
 func can_stomp() -> bool:
 	return stomp_window_left > 0.0
+
+
+## True while the Chilli Pepper is working. Enemies he touches get squashed.
+func is_hot() -> bool:
+	return chilli != null and chilli.is_hot()
 
 
 ## Pops a speech bubble over his head.
@@ -188,8 +202,8 @@ func stomp_bounce() -> void:
 
 ## Called by anything that hurts him. from_x is where the nasty thing is.
 func hurt(from_x: float) -> void:
-	# Can't be hurt again while still flashing.
-	if flashing_left > 0.0:
+	# Can't be hurt while still flashing, or while hot from a chilli.
+	if flashing_left > 0.0 or is_hot():
 		return
 	_stop_charging()
 
@@ -308,6 +322,8 @@ func _launch(tier: Tier) -> void:
 		tier = Tier.TOOT
 
 	velocity.y = _power_for(tier)
+	if chilli != null:
+		velocity.y *= chilli.jump_boost()
 	_stop_charging()
 	farted.emit(TIER_NAMES[tier])
 	if print_farts:
