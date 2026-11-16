@@ -27,13 +27,13 @@ const TIER_NAMES: Array[String] = ["Hop", "Toot", "Trump", "Thunder", "Pfft"]
 
 @export_group("Charge times (seconds held)")
 ## Let go before this and it is just a hop.
-@export var toot_time: float = 0.15
+@export var toot_time: float = 0.1
 ## Hold this long for a Trump.
-@export var trump_time: float = 0.5
+@export var trump_time: float = 0.25
 ## Hold this long for a Thunder.
-@export var thunder_time: float = 1.0
+@export var thunder_time: float = 0.5
 ## Hold this long and it goes off by itself as a weak pfft.
-@export var pfft_time: float = 1.6
+@export var pfft_time: float = 0.85
 
 @export_group("Launch power")
 @export var hop_power: float = 6.0

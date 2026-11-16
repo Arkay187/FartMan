@@ -58,8 +58,12 @@
   Thunder 5.25 m, Pfft 0.35 m. Walking 6 m/s, Z stays 0.
 - Not yet seen by human eyes: camera framing, lighting and how it feels.
 
+### Faster charging (same day)
+- Rich wants a fast-paced game, so charge times were roughly halved:
+  Toot 0.1s, Trump 0.25s, Thunder 0.5s, Pfft 0.85s (was 0.15 / 0.5 / 1.0 / 1.6).
+- Launch powers unchanged.
+
 ### What to do next
-1. Delete the old CLAUDE.md.txt.
-2. Press F5 and play. Tune times and powers on the Player in the Inspector.
+1. Press F5 and play. Tune times and powers on the Player in the Inspector.
 3. Add the gas tank (drains per fart) and bean pickups.
 4. Make the camera follow the player.
