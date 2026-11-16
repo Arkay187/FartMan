@@ -12,6 +12,10 @@ func _init() -> void:
 	_build_powerups()
 	_build_flight_things()
 	_build_level()
+	_build_world_map()
+	_build_storybook()
+	_build_boot()
+	_register_project()
 	quit()
 
 
@@ -503,6 +507,7 @@ func _build_level() -> void:
 	var root := Node3D.new()
 	root.name = "TestLevel"
 	root.set_script(load("res://scripts/stage.gd"))
+	root.set("stage_id", "1-1")
 
 	_box(root, "Floor", Vector3(60, 1, 4), Vector3(12, 0, 0))
 	# Three ledges: one each for Toot, Trump and Thunder to reach.
@@ -666,3 +671,122 @@ func _build_level() -> void:
 	banner.set("stage", root)
 
 	_save(root, "res://scenes/test_level.tscn")
+
+
+## A label with big outlined letters, added to a parent.
+func _big_label(root: Node, label_name: String, text: String, size: int) -> Label:
+	var label := Label.new()
+	label.name = label_name
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_color_override("font_outline_color", Color.BLACK)
+	label.add_theme_constant_override("outline_size", maxi(size / 6, 4))
+	root.add_child(label)
+	label.owner = root
+	return label
+
+
+func _build_world_map() -> void:
+	var root := Control.new()
+	root.name = "WorldMap"
+	root.set_script(load("res://scripts/world_map.gd"))
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+	var canvas := Control.new()
+	canvas.name = "Canvas"
+	canvas.set_script(load("res://scripts/map_canvas.gd"))
+	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(canvas)
+	canvas.owner = root
+
+	var marker := Node2D.new()
+	marker.name = "Marker"
+	marker.set_script(load("res://scripts/map_marker.gd"))
+	root.add_child(marker)
+	marker.owner = root
+
+	# Stop name big at the top, beans and score at the bottom, COMING SOON in the middle.
+	var title := _big_label(root, "NameLabel", "", 64)
+	title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	title.custom_minimum_size.y = 90
+	title.position.y = 20
+	var info := _big_label(root, "InfoLabel", "", 40)
+	info.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	info.custom_minimum_size.y = 70
+	info.position.y = -80
+	var soon := _big_label(root, "SoonLabel", "COMING SOON!", 96)
+	soon.add_theme_color_override("font_color", Color(1.0, 0.85, 0.1))
+	soon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	soon.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	soon.grow_vertical = Control.GROW_DIRECTION_BOTH
+	soon.hide()
+
+	root.set("marker", marker)
+	root.set("name_label", title)
+	root.set("info_label", info)
+	root.set("soon_label", soon)
+	root.set("canvas", canvas)
+	_save(root, "res://scenes/world_map.tscn")
+
+
+func _build_storybook() -> void:
+	var root := Control.new()
+	root.name = "Storybook"
+	root.set_script(load("res://scripts/storybook.gd"))
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+	var back := ColorRect.new()
+	back.name = "Background"
+	back.color = Color(0.12, 0.1, 0.18)
+	back.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(back)
+	back.owner = root
+
+	# The big card. A drawing goes in the Picture inside it.
+	var card := ColorRect.new()
+	card.name = "Card"
+	card.color = Color(0.5, 0.5, 0.5)
+	card.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	card.offset_left = 120
+	card.offset_right = -120
+	card.offset_top = 40
+	card.offset_bottom = -200
+	root.add_child(card)
+	card.owner = root
+
+	var picture := TextureRect.new()
+	picture.name = "Picture"
+	picture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	picture.visible = false
+	card.add_child(picture)
+	picture.owner = root
+
+	var caption := _big_label(root, "Caption", "", 64)
+	caption.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	caption.offset_top = -180
+	caption.offset_bottom = -20
+	caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
+	root.set("card", card)
+	root.set("picture", picture)
+	root.set("caption", caption)
+	root.set("next_scene", "res://scenes/world_map.tscn")
+	_save(root, "res://scenes/storybook.tscn")
+
+
+func _build_boot() -> void:
+	var root := Node.new()
+	root.name = "Boot"
+	root.set_script(load("res://scripts/boot.gd"))
+	_save(root, "res://scenes/boot.tscn")
+
+
+## Writes the autoload and main scene into project.godot using the engine itself.
+func _register_project() -> void:
+	ProjectSettings.set_setting("autoload/SaveGame", "*res://scripts/save_game.gd")
+	ProjectSettings.set_setting("application/run/main_scene", "res://scenes/boot.tscn")
+	print("project save: ", ProjectSettings.save())

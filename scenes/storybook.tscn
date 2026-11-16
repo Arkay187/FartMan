@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/storybook.gd" id="1_7w1n3"]
+
+[node name="Storybook" type="Control" unique_id=178757625 node_paths=PackedStringArray("card", "picture", "caption")]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_7w1n3")
+card = NodePath("Card")
+picture = NodePath("Card/Picture")
+caption = NodePath("Caption")
+next_scene = "res://scenes/world_map.tscn"
+
+[node name="Background" type="ColorRect" parent="." unique_id=835252813]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.12, 0.1, 0.18, 1)
+
+[node name="Card" type="ColorRect" parent="." unique_id=1425782056]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 40.0
+offset_right = -120.0
+offset_bottom = -200.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Picture" type="TextureRect" parent="Card" unique_id=599302202]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Caption" type="Label" parent="." unique_id=989477378]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 64
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

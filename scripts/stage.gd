@@ -7,7 +7,7 @@ extends Node3D
 signal score_changed(score: int)
 ## Sent when a Golden Bean is found. The Golden Bean bar listens to this.
 signal golden_beans_changed(found: int, total: int)
-## Sent when the Bean Can is opened. Later this will go back to the world map.
+## Sent when the Bean Can is opened. A few seconds later we go back to the world map.
 signal stage_cleared
 
 ## Fart Man, so he can say something when the stage starts.
@@ -15,10 +15,23 @@ signal stage_cleared
 ## What he says at the start. Leave empty for nothing.
 @export var opening_words: String = "LET'S GET THOSE BEANS!"
 
+## Which stop on the world map this is, like "1-1". Empty = do not save anything.
+@export var stage_id: String = ""
+## Where to go after the stage is cleared.
+@export_file("*.tscn") var map_scene: String = "res://scenes/world_map.tscn"
+## How long the STAGE CLEAR banner stays before going back to the map.
+@export var return_delay: float = 4.0
+## Pressing this after a short moment goes back to the map straight away.
+@export var skip_action: StringName = &"ui_accept"
+## How long to wait before that button counts (so the jump onto the can does not skip it).
+@export var skip_after: float = 0.8
+
 var score: int = 0
 var golden_found: int = 0
 var golden_total: int = 0
 var is_cleared: bool = false
+var _clear_time: float = 0.0
+var _leaving: bool = false
 
 
 ## Gives points to whichever stage is being played. Use it from any script:
@@ -38,6 +51,7 @@ func add_points(points: int) -> void:
 
 func _ready() -> void:
 	add_to_group(&"stage")
+	set_process(false)  # only needed after the stage is cleared
 	# Find every Golden Bean and Bean Can in the stage and listen to them.
 	for bean: Node in get_tree().get_nodes_in_group(&"golden_beans"):
 		golden_total += 1
@@ -60,4 +74,18 @@ func _on_bean_can_opened() -> void:
 	if is_cleared:
 		return
 	is_cleared = true
+	# Remember the result, then count down to going back to the map.
+	var save: SaveData = SaveLookup.find(self)
+	if save != null:
+		save.record_stage(stage_id, golden_found, score)
+	set_process(true)
 	stage_cleared.emit()
+
+
+func _process(delta: float) -> void:
+	if not is_cleared or _leaving:
+		return
+	_clear_time += delta
+	if _clear_time >= return_delay or (_clear_time >= skip_after and Input.is_action_just_pressed(skip_action)):
+		_leaving = true
+		get_tree().change_scene_to_file(map_scene)

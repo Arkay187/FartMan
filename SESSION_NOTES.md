@@ -259,3 +259,65 @@
 ### What to do next
 1. Press F5 and play the whole test level start to finish, especially the flight.
 2. Build step 5 of GAME_DESIGN.md: world map with saving, storybook viewer and opening story.
+
+
+## Session 12 (2026-11-16): build step 5, world map, saving, storybook and opening story
+
+### Decisions made
+- scripts/save_game.gd (`class_name SaveData`, autoload named `SaveGame`, registered by the
+  scene builder through ProjectSettings so the engine wrote project.godot). Saves JSON to
+  `user://save.json`: per stage id cleared / best Golden Beans / best score, "seen" flags and
+  the last map stop. Other scripts use `SaveLookup.find(self)`, which returns null if the
+  autoload is missing, and then just carry on without saving.
+- Tests never touch the real save: a headless run saves to `user://save_headless.json`, and
+  tests switch to their own file with `use_file(path)`. (In a `--script` test the autoload IS
+  present, but its `_ready` runs late, so `use_file` marks the path as chosen and `_ready`
+  leaves it alone.)
+- Stage (scripts/stage.gd) has `stage_id` (test_level is "1-1"), `return_delay` (4 s),
+  `skip_after` (0.8 s) and `map_scene`. When the can opens it records the result, keeps the
+  banner up, then goes to the world map after the delay or when jump is pressed. F6 on
+  test_level still works.
+- World map (scenes/world_map.tscn): Control. Stops, worlds and positions are plain lists in
+  scripts/map_stops.gd. scripts/world_map.gd does the walking rules, scripts/map_canvas.gd
+  draws it (a colour band per world, dotted path, round spots, bigger red bosses, light-blue
+  flight stops, flag and three bean dots on cleared stops), scripts/map_marker.gd is Fart Man.
+  Left/right = one stop with a 0.25 s slide, never past the first uncleared stop. Jump enters;
+  only 1-1 has a scene, the rest show COMING SOON!. The marker starts on the last stop
+  entered/cleared. The stop name is big at the top, "GOLDEN BEANS n/3  BEST score" at the bottom.
+- Storybook (scenes/storybook.tscn, scripts/storybook.gd): coloured card (or the picture, if
+  the page's image file exists) with one big line under it. Gentle wobble, slow zoom and a pop
+  on each page. Jump turns the page; after the last page it emits `finished` and changes to
+  `next_scene` (the map). Hold jump for 1 s to skip everything.
+- Pages are in scripts/story_pages.gd (the 5-page opening). Pages point at
+  res://art/story/opening_1.png ... opening_5.png; drop drawings there and they appear.
+- Boot (scenes/boot.tscn, scripts/boot.gd) is now the main scene: shows the opening story
+  the first time (flag "intro_story", marked as seen when it starts), else the world map.
+- Claude's interpretations: "seen" is set when the story starts, not when it ends, so
+  skipping or quitting never shows it twice. A stage without an id (empty) saves nothing.
+
+### Files
+- New scripts: save_game, save_lookup, map_stops, map_canvas, map_marker, world_map,
+  story_pages, storybook, boot. Changed: stage.gd.
+- New scenes (built by tools/build_scenes.gd): world_map, storybook, boot. test_level now has stage_id "1-1".
+- New tests: test_save_game, test_world_map, test_storybook, test_stage_return.
+
+### Tested (headless, all 11 tests pass, 0 errors or warnings)
+- Save: record, best-of rules, reload from file, reset, broken file, separate test file.
+- Map: blocked at the first uncleared stop, can go to 1-2 after clearing 1-1, cleared stop shows
+  beans and best score, COMING SOON! shows and fades, marker returns to the last stop.
+- Storybook: five pages advance on jump, finishes after the last, wobble moves, holding jump skips.
+- Clearing the test level records "1-1" (score, beans), then switches to the world map, by
+  timer and by pressing jump. The boot scene also runs clean headless.
+
+### NOT checked by eye
+- How the map looks (colours, path curves, spot sizes, name text size, whether anything
+  overlaps at other window shapes), how the marker slide feels, and where the flag and beans sit.
+- How the storybook looks (card size, wobble amount, text size and wrapping on long lines).
+- Playing it for real: boot > story > map > stage > banner > map in the editor.
+- The existing scenes were rebuilt, so their .tscn files changed on disk; reload them in the editor.
+
+### What to do next
+1. Press F5: watch the story, walk the map, play 1-1 and come back to the map.
+2. Build step 6 of GAME_DESIGN.md: the scene player (lists of steps: walk, say, wait, shake)
+   and World 1 complete: The Greenhouse, Over the Rooftops, and Sneezy Weezy with hello and
+   goodbye scenes. Give each new stage a scene path in map_stops.gd and a stage_id.
