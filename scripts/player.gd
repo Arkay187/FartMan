@@ -15,6 +15,8 @@ signal farted(tier_name: String)
 ## Sent when the long squeaky leak starts and stops. Use these later for the sound.
 signal squeak_started
 signal squeak_stopped
+## Sent when he falls off the level and pops back to the start.
+signal respawned
 
 enum Tier { TOOT, TRUMP, THUNDER }
 const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
@@ -28,6 +30,8 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export var air_acceleration: float = 25.0
 ## How strongly he is pulled down.
 @export var gravity: float = 25.0
+## Fall below this height and he pops back to where he started.
+@export var fall_limit_y: float = -10.0
 
 @export_group("Charge times (seconds)")
 ## Let go before this and it counts as a tap: small jump.
@@ -79,13 +83,21 @@ var is_squeaking: bool = false
 var charge_time: float = 0.0
 ## How full the belly is: 0 = empty, 1 = full.
 var belly_fill: float = 0.0
+## Where he started the level. He comes back here if he falls off.
+var start_position: Vector3
 
 
 func _ready() -> void:
+	start_position = global_position
 	_show_belly()
 
 
 func _physics_process(delta: float) -> void:
+	# Fell off the level? Pop back to the start.
+	if global_position.y < fall_limit_y:
+		_respawn()
+		return
+
 	# Fall when in the air.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -197,6 +209,13 @@ func _launch(tier: Tier) -> void:
 	farted.emit(TIER_NAMES[tier])
 	if print_farts:
 		print(TIER_NAMES[tier], "!")
+
+
+func _respawn() -> void:
+	global_position = start_position
+	velocity = Vector3.ZERO
+	_stop_charging()
+	respawned.emit()
 
 
 func _stop_charging() -> void:

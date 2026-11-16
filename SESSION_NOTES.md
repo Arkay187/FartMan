@@ -107,8 +107,22 @@
   holding 4 seconds (one squeak, no jump until release, 15 gas leaked), empty tank, facing.
 - Not checked by eye: how the belly looks and whether the timing feels right.
 
+## Session 6 (2026-11-16): follow camera and respawn
+
+### Decisions made
+- scripts/follow_camera.gd on the level's Camera3D: follows the Player smoothly.
+  Tunables: offset (0, 3, 16) and follow_speed 6.
+- Falling below y = -10 (fall_limit_y on Player) pops him back to where the level started.
+  Gas and eaten beans are NOT reset on respawn. No lives or checkpoints yet.
+- New signal on Player: respawned.
+
+### Tested
+- Automated headless run: camera starts on him, keeps up while walking, settles when he stops;
+  walking off the left end of the floor respawns him at the start exactly once.
+- Not checked by eye: whether the camera distance and smoothness feel right.
+
 ### What to do next
 1. Press F5 and play. Tune times, powers and gas costs on the Player in the Inspector.
-2. Make the camera follow the player.
-3. Falling off the level: respawn.
-4. Start the Garden level.
+2. Decide what respawn should cost (lose gas? reset beans? lives?).
+3. Start the Garden level: grey-box layout first.
+4. Sounds for Toot, Trump, Thunder and the squeak (signals are ready).

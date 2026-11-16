@@ -13,26 +13,26 @@ material = SubResource("StandardMaterial3D_qlg0r")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fjrip"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1745349648 node_paths=PackedStringArray("gas_tank", "visual", "belly")]
+[node name="Player" type="CharacterBody3D" unique_id=1980105885 node_paths=PackedStringArray("gas_tank", "visual", "belly")]
 script = ExtResource("1_g2els")
 gas_tank = NodePath("GasTank")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Visual" type="Node3D" parent="." unique_id=783898739]
+[node name="Visual" type="Node3D" parent="." unique_id=1508604799]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1821925967]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1567121354]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_dqkch")
 
-[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=1924059830]
+[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=2134222915]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.9, 0)
 visible = false
 mesh = SubResource("SphereMesh_tuyoq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=840231237]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1203822426]
 shape = SubResource("CapsuleShape3D_fjrip")
 
-[node name="GasTank" type="Node" parent="." unique_id=264642013]
+[node name="GasTank" type="Node" parent="." unique_id=1150370972]
 script = ExtResource("2_qhqgy")

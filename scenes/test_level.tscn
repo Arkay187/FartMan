@@ -1,22 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_tmr53"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="2_qcd3b"]
-[ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="3_88ety"]
-[ext_resource type="Script" path="res://scripts/bean.gd" id="4_ahbqi"]
-[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="5_7gix3"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_4asn1"]
-size = Vector3(44, 1, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dw7u0"]
-size = Vector3(44, 1, 4)
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_qcd3b"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_88ety"]
+[ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="3_ahbqi"]
+[ext_resource type="Script" path="res://scripts/bean.gd" id="4_7gix3"]
+[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="5_4asn1"]
+[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="6_dw7u0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fyxdr"]
-size = Vector3(3, 0.5, 4)
+size = Vector3(44, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kpk0m"]
-size = Vector3(3, 0.5, 4)
+size = Vector3(44, 1, 4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qs1vn"]
 size = Vector3(3, 0.5, 4)
@@ -30,83 +25,91 @@ size = Vector3(3, 0.5, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_bakr3"]
 size = Vector3(3, 0.5, 4)
 
-[node name="TestLevel" type="Node3D" unique_id=1962721696]
+[sub_resource type="BoxMesh" id="BoxMesh_jqmoj"]
+size = Vector3(3, 0.5, 4)
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=33156764]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ni2ok"]
+size = Vector3(3, 0.5, 4)
+
+[node name="TestLevel" type="Node3D" unique_id=983543820]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=943350136]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1022829056]
-mesh = SubResource("BoxMesh_4asn1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=830570104]
-shape = SubResource("BoxShape3D_dw7u0")
-
-[node name="TootLedge" type="StaticBody3D" parent="." unique_id=583453139]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.05, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=1589567270]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1423061005]
 mesh = SubResource("BoxMesh_fyxdr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=1239719449]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=292491529]
 shape = SubResource("BoxShape3D_kpk0m")
 
-[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=1289902098]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.55, 0)
+[node name="TootLedge" type="StaticBody3D" parent="." unique_id=700601912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.05, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=1439032890]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=548003816]
 mesh = SubResource("BoxMesh_qs1vn")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=1189963233]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=839544123]
 shape = SubResource("BoxShape3D_13hs1")
 
-[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=1027977609]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 4.85, 0)
+[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=807073832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.55, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=1439802233]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=98321626]
 mesh = SubResource("BoxMesh_fptmo")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=893615746]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=365784371]
 shape = SubResource("BoxShape3D_bakr3")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1745349648 node_paths=PackedStringArray("gas_tank", "visual", "belly") instance=ExtResource("1_tmr53")]
+[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=161438302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 4.85, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=527678873]
+mesh = SubResource("BoxMesh_jqmoj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=191904365]
+shape = SubResource("BoxShape3D_ni2ok")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1980105885 node_paths=PackedStringArray("gas_tank", "visual", "belly") instance=ExtResource("1_qcd3b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
-script = ExtResource("2_qcd3b")
+script = ExtResource("2_88ety")
 gas_tank = NodePath("GasTank")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Beans" type="Node3D" parent="." unique_id=293102140]
+[node name="Beans" type="Node3D" parent="." unique_id=631068944]
 
-[node name="Bean1" type="Area3D" parent="Beans" unique_id=2005849170 instance=ExtResource("3_88ety")]
+[node name="Bean1" type="Area3D" parent="Beans" unique_id=1315924464 instance=ExtResource("3_ahbqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.3, 0)
-script = ExtResource("4_ahbqi")
+script = ExtResource("4_7gix3")
 
-[node name="Bean2" type="Area3D" parent="Beans" unique_id=468647692 instance=ExtResource("3_88ety")]
+[node name="Bean2" type="Area3D" parent="Beans" unique_id=1496145421 instance=ExtResource("3_ahbqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.3, 0)
-script = ExtResource("4_ahbqi")
+script = ExtResource("4_7gix3")
 
-[node name="Bean3" type="Area3D" parent="Beans" unique_id=622160805 instance=ExtResource("3_88ety")]
+[node name="Bean3" type="Area3D" parent="Beans" unique_id=1117633753 instance=ExtResource("3_ahbqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.1, 0)
-script = ExtResource("4_ahbqi")
+script = ExtResource("4_7gix3")
 
-[node name="Bean4" type="Area3D" parent="Beans" unique_id=1028509668 instance=ExtResource("3_88ety")]
+[node name="Bean4" type="Area3D" parent="Beans" unique_id=969675024 instance=ExtResource("3_ahbqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3.6, 0)
-script = ExtResource("4_ahbqi")
+script = ExtResource("4_7gix3")
 
-[node name="Bean5" type="Area3D" parent="Beans" unique_id=149302926 instance=ExtResource("3_88ety")]
+[node name="Bean5" type="Area3D" parent="Beans" unique_id=1059468297 instance=ExtResource("3_ahbqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5.9, 0)
-script = ExtResource("4_ahbqi")
+script = ExtResource("4_7gix3")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=319425206]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 17)
+[node name="Camera3D" type="Camera3D" parent="." unique_id=297414611 node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 5, 16)
+script = ExtResource("5_4asn1")
+target = NodePath("../Player")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2029522064]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=304867236]
 transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
 shadow_enabled = true
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=797409880]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1682901398]
 
-[node name="GasLabel" type="Label" parent="HUD" unique_id=761497587]
+[node name="GasLabel" type="Label" parent="HUD" unique_id=1039898162]
 offset_left = 20.0
 offset_top = 18.0
 offset_right = 20.0
@@ -114,11 +117,11 @@ offset_bottom = 18.0
 theme_override_font_sizes/font_size = 24
 text = "GAS"
 
-[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=1283370667 node_paths=PackedStringArray("player")]
+[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=769186492 node_paths=PackedStringArray("player")]
 offset_left = 90.0
 offset_top = 20.0
 offset_right = 390.0
 offset_bottom = 50.0
 show_percentage = false
-script = ExtResource("5_7gix3")
+script = ExtResource("6_dw7u0")
 player = NodePath("../../Player")
