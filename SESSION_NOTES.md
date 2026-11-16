@@ -65,6 +65,11 @@
 - No slowdown while charging (removed). He runs at full speed the whole time;
   the fun is in timing the release.
 
+### Ledges spread out (same day)
+- The capsule (1 m wide) was getting stuck in the 1 m gaps between ledges.
+- Ledges now have 4 m gaps (x = 2, 9, 16), the floor is 44 m wide, and the camera is
+  pulled back to fit. Rule of thumb for later levels: gaps of at least 3 m, or none.
+
 ### What to do next
 1. Press F5 and play. Tune times and powers on the Player in the Inspector.
 3. Add the gas tank (drains per fart) and bean pickups.
