@@ -7,6 +7,8 @@ signal collected
 
 ## How fast it spins.
 @export var spin_speed: float = 4.0
+## How many points it is worth.
+@export var points: int = 100
 ## What Fart Man says when he finds one. Leave empty for nothing.
 @export var found_words: String = "GOLDEN BEAN!"
 
@@ -25,5 +27,6 @@ func _on_body_entered(body: Node3D) -> void:
 	if player == null:
 		return
 	collected.emit()
+	Stage.award(self, points)
 	player.say(found_words)
 	queue_free()

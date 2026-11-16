@@ -12,5 +12,5 @@ func _ready() -> void:
 
 
 func _on_stage_cleared() -> void:
-	text = "STAGE CLEAR!\nGOLDEN BEANS %d / %d" % [stage.golden_found, stage.golden_total]
+	text = "STAGE CLEAR!\nGOLDEN BEANS %d / %d\nSCORE %d" % [stage.golden_found, stage.golden_total, stage.score]
 	show()

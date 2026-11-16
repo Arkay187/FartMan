@@ -135,6 +135,9 @@ func _physics_process(delta: float) -> void:
 	_update_stomp_window(delta)
 	_update_flashing(delta)
 	_update_charge(delta)
+	# The tank does not refill while he is holding one in.
+	if gas_tank != null:
+		gas_tank.refill_paused = is_charging
 
 	# Left / right. direction is -1, 0 or 1.
 	var direction: float = Input.get_axis(left_action, right_action)

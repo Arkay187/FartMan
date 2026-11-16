@@ -177,6 +177,17 @@
   with the right words. All earlier tests still pass.
 - Not checked by eye: how bubbles, toilet, can and banner look, and where bubbles sit on screen.
 
+### Gas refill and score (same day)
+- Rich's idea: gas should come back gradually so running out of gas and beans is never a dead end,
+  with beans speeding it up and scoring points.
+- GasTank now refills by itself: 8 gas per second after a 0.6s pause, not while charging.
+- Claude's interpretation of "beans accelerate it": a bean still gives +25 gas instantly
+  (a visible jump on the bar) rather than a hidden refill-speed boost. Easy to change.
+- Score lives on the Stage. Any script can call `Stage.award(self, points)`.
+  Bean 10, Burpling 50, Golden Bean 100, Bean Can 500. All @export on each thing.
+- HUD: score top-right (scripts/score_label.gd). Banner shows the final score.
+- Not done: floating "+10" numbers, saving best scores (comes with the world map).
+
 ### What to do next
 1. Press F5 and play the whole test level start to finish.
 2. Build step 3 of GAME_DESIGN.md: power-ups (Mega Bean Can, then Chilli Pepper).

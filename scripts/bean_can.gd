@@ -10,6 +10,8 @@ signal opened
 @export var lid: Node3D
 ## The invisible zone just above the lid that notices Fart Man landing.
 @export var lid_sensor: Area3D
+## How many points opening it is worth.
+@export var points: int = 500
 ## What Fart Man shouts when it opens. Leave empty for nothing.
 @export var open_words: String = "BEANS! TOOT TOOT!"
 ## How high the lid flies, and how long it takes.
@@ -30,6 +32,7 @@ func _on_lid_touched(body: Node3D) -> void:
 	if player == null or is_open:
 		return
 	is_open = true
+	Stage.award(self, points)
 	player.say(open_words, 3.0)
 	_pop_lid()
 	opened.emit()

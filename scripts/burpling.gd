@@ -14,6 +14,8 @@ signal squashed
 @export var squash_time: float = 0.25
 ## How close to its middle he must be to squash it when landing low. Bigger = easier.
 @export var stomp_width: float = 0.6
+## How many points squashing it is worth.
+@export var points: int = 50
 ## What it says when squashed. Leave empty for nothing.
 @export var squash_words: String = "POP!"
 ## The blob model, so it can be flattened when squashed.
@@ -59,6 +61,7 @@ func _is_on_top(player: Player) -> bool:
 
 func _get_squashed() -> void:
 	is_squashed = true
+	Stage.award(self, points)
 	SpeechBubble.say(self, squash_words, 0.6, 1.0)
 	squashed.emit()
 	if visual == null:

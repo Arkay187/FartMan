@@ -37,7 +37,12 @@ That is the whole control scheme. No other buttons.
 ## Core rules
 
 - **Gas tank.** Trump and Thunder cost gas. Toots are free, so you can never get stuck.
-  Beans refill a bit of gas.
+- **Gas comes back by itself.** The tank slowly refills all the time (empty to full in about
+  12 seconds), after a short pause each time gas is used. It does not refill while he is
+  holding a charge in. So running out is never the end: wait a moment, or go and find beans.
+- **Beans are the fast way.** A bean gives a big chunk of gas straight away, and points.
+- **Score.** Beans 10, squashing an enemy 50, Golden Bean 100, opening the Bean Can 500.
+  The score shows on screen and on the STAGE CLEAR banner. Best scores will show on the map.
 - **Stomping.** Land on top of an enemy and it is squashed with a "pop". You bounce off
   it for free, and get a little gas back. Hold jump as you land to bounce higher.
 - **Hearts.** Three hearts. Touching an enemy from the side costs one heart and you flash
