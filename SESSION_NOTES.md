@@ -341,3 +341,13 @@
 2. Build step 6 of GAME_DESIGN.md: the scene player (lists of steps: walk, say, wait, shake)
    and World 1 complete: The Greenhouse, Over the Rooftops, and Sneezy Weezy with hello and
    goodbye scenes. Give each new stage a scene path in map_stops.gd and a stage_id.
+
+## Animation hooks (ART_PLAN phase 1)
+- New: scripts/character_animator.gd (base: play / play_once, real AnimationPlayer clips or code-made
+  squash and stretch, clip name lists, missing_clips check), player_animator.gd (listens to Player,
+  picks idle/run/jump/fall/land/charge/squeak/hurt/stomp/flight), enemy_animator.gd (walk, squash).
+- Player and Burpling scenes now have an "Animator" node (built by tools/build_scenes.gd).
+  Burpling squashes through its animator.
+- Test: tools/tests/test_animation.gd (19 checks, all pass; all older tests still pass).
+- Not checked by eye: how the squash and stretch looks. Tune the FALLBACKS table in character_animator.gd.
+- Next: Rich answers the ART_PLAN questions (who makes Fart Man, style); the instant tap-jump choice is still open.

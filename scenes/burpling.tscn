@@ -1,24 +1,30 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/burpling.gd" id="1_taf83"]
+[ext_resource type="Script" path="res://scripts/burpling.gd" id="1_csuut"]
+[ext_resource type="Script" path="res://scripts/enemy_animator.gd" id="2_km1x2"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_csuut"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tg2fn"]
 albedo_color = Color(0.35, 0.75, 0.25, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_km1x2"]
-material = SubResource("StandardMaterial3D_csuut")
+[sub_resource type="SphereMesh" id="SphereMesh_5tjlh"]
+material = SubResource("StandardMaterial3D_tg2fn")
 radius = 0.45
 height = 0.8
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_tg2fn"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_b73yl"]
 radius = 0.45
 
-[node name="Burpling" type="Area3D" unique_id=748665070 node_paths=PackedStringArray("visual")]
-script = ExtResource("1_taf83")
+[node name="Burpling" type="Area3D" unique_id=1391215623 node_paths=PackedStringArray("visual", "animator")]
+script = ExtResource("1_csuut")
 visual = NodePath("MeshInstance3D")
+animator = NodePath("Animator")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1749466397]
-mesh = SubResource("SphereMesh_km1x2")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2052739499]
+mesh = SubResource("SphereMesh_5tjlh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1839361524]
-shape = SubResource("SphereShape3D_tg2fn")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=331379837]
+shape = SubResource("SphereShape3D_b73yl")
+
+[node name="Animator" type="Node" parent="." unique_id=1011677374 node_paths=PackedStringArray("squash_target")]
+script = ExtResource("2_km1x2")
+squash_target = NodePath("../MeshInstance3D")

@@ -112,6 +112,14 @@ func _build_player() -> void:
 	flight.set("trail", rainbow)
 	player.set("flight", flight)
 
+	# Animator: plays run, jump, charge, hurt... Grey box now, real model later.
+	var animator := Node.new()
+	animator.name = "Animator"
+	animator.set_script(load("res://scripts/player_animator.gd"))
+	player.add_child(animator)
+	animator.owner = player
+	animator.set("squash_target", visual)
+
 	player.set("visual", visual)
 	player.set("belly", belly)
 	player.set("gas_tank", tank)
@@ -172,7 +180,16 @@ func _build_burpling() -> void:
 	burp.add_child(col)
 	col.owner = burp
 
+	# Animator: plays "walk" and "squash". Grey box now, real model later.
+	var animator := Node.new()
+	animator.name = "Animator"
+	animator.set_script(load("res://scripts/enemy_animator.gd"))
+	burp.add_child(animator)
+	animator.owner = burp
+	animator.set("squash_target", mesh)
+
 	burp.set("visual", mesh)
+	burp.set("animator", animator)
 	_save(burp, "res://scenes/burpling.tscn")
 
 

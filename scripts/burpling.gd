@@ -20,6 +20,8 @@ signal squashed
 @export var squash_words: String = "POP!"
 ## The blob model, so it can be flattened when squashed.
 @export var visual: Node3D
+## Plays its walk and squash clips. Leave empty for the plain flatten-and-vanish.
+@export var animator: EnemyAnimator
 
 var is_squashed: bool = false
 var direction: float = 1.0
@@ -67,6 +69,11 @@ func _get_squashed() -> void:
 	Stage.award(self, points)
 	SpeechBubble.say(self, squash_words, 0.6, 1.0)
 	squashed.emit()
+	if animator != null:
+		# The animator does the flattening, we just wait for it.
+		var wait: float = maxf(animator.squash(), squash_time)
+		get_tree().create_timer(wait).timeout.connect(queue_free)
+		return
 	if visual == null:
 		queue_free()
 		return
