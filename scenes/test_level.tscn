@@ -1,0 +1,77 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_paw1w"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_j6w7d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x4b8f"]
+size = Vector3(30, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tmr53"]
+size = Vector3(30, 1, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qcd3b"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_88ety"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ahbqi"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7gix3"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4asn1"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dw7u0"]
+size = Vector3(3, 0.5, 4)
+
+[node name="TestLevel" type="Node3D" unique_id=1232502899]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1614271663]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=2095311400]
+mesh = SubResource("BoxMesh_x4b8f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=353832553]
+shape = SubResource("BoxShape3D_tmr53")
+
+[node name="TootLedge" type="StaticBody3D" parent="." unique_id=69804915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.55, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=814235198]
+mesh = SubResource("BoxMesh_qcd3b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=899867722]
+shape = SubResource("BoxShape3D_88ety")
+
+[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=162391274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.95, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=1027437955]
+mesh = SubResource("BoxMesh_ahbqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=1679785359]
+shape = SubResource("BoxShape3D_7gix3")
+
+[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=1527121522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4.85, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=1311581309]
+mesh = SubResource("BoxMesh_4asn1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=1670961616]
+shape = SubResource("BoxShape3D_dw7u0")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=75877774 node_paths=PackedStringArray("squash_target") instance=ExtResource("1_paw1w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 0)
+script = ExtResource("2_j6w7d")
+squash_target = NodePath("Visual")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1518582378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 14)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1574172597]
+transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
+shadow_enabled = true
