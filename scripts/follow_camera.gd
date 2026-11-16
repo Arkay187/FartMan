@@ -13,7 +13,7 @@ extends Camera3D
 @export_group("Flying view (behind his shoulder)")
 ## Where the camera sits while he is flying. Minus x = behind him, z = off to the side.
 ## Make z smaller to sit more directly behind, bigger to see him more from the side.
-@export var flight_offset: Vector3 = Vector3(-13.0, 5.0, 9.0)
+@export var flight_offset: Vector3 = Vector3(-17.0, 6.0, 10.0)
 ## The camera looks at a spot this far in front of him while flying.
 @export var flight_look_ahead: Vector3 = Vector3(10.0, 0.0, 0.0)
 

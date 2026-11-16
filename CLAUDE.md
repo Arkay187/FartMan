@@ -16,6 +16,17 @@ A silly 2.5D platformer for a 6 year old and his dad. Fun and readable beat clev
 - Update SESSION_NOTES.md at the end of each session: decisions made, files created, what to do next.
 - Commit finished, tested work and push it to GitHub (origin main) automatically. No need to ask first.
 
+## How scenes get made and tested (for Claude)
+- Scenes are not hand-edited. `tools/build_scenes.gd` builds every .tscn with the engine itself.
+  To add or change a scene, edit that script and rebuild. It overwrites the scenes, so first
+  check `git status scenes` is clean in case Rich changed one in the editor.
+- `pwsh tools/run_tests.ps1 -Build` rebuilds all scenes and runs every headless play-test in
+  `tools/tests`. Each test fakes key presses and prints what happened. Add a test for each
+  new feature, and keep the old ones passing.
+- Tests can't see the screen. Always say plainly what was not checked by eye.
+- Rich usually has the Godot editor open. Never close or kill it; only headless runs are ours.
+- Git is at `C:\Program Files\Git\cmd` and may not be on PATH in a fresh shell.
+
 ## Core mechanic
 - Three jumps: Toot (tap, small), Trump (hold, medium), Thunder (belly full, big).
 - Holding jump grows his belly (a proxy model for now). Letting go hides it and launches.
