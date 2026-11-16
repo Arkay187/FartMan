@@ -253,6 +253,11 @@
 - Gameplay is still on the flat 2D plane: he only moves up and down. Not checked by eye:
   whether hoops, beans and spiky balls are easy to line up with from this angle.
 
+### Full belly holds longer (2026-11-16, Rich's request)
+- A full belly now stays full for 0.75s before the squeaky leak starts (was 0.35s, which was
+  too short to notice). Thunder window is now 0.5s to 1.25s of holding.
+- Tunable: Full Hold Time on the Player.
+
 ### Testing tip for future sessions
 - A broken test script can hang headless Godot forever. Always run tests with a time limit.
 

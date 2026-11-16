@@ -44,7 +44,7 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## How long to hold until the belly is full.
 @export var full_charge_time: float = 0.5
 ## How long the belly stays full before it starts to leak.
-@export var full_hold_time: float = 0.35
+@export var full_hold_time: float = 0.75
 ## How long a full belly takes to leak away completely.
 @export var squeak_time: float = 1.5
 

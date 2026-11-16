@@ -26,7 +26,8 @@ func _run(level: Node) -> void:
 	var rest_y: float = player.position.y
 	print("start: gas=%.0f belly_visible=%s" % [tank.gas, belly.visible])
 
-	for hold: float in [0.05, 0.3, 0.6, 1.6, 4.0]:
+	# 1.1s is inside the "belly stays full" pause, 1.9s is just after the leak starts.
+	for hold: float in [0.05, 0.3, 0.6, 1.1, 1.9, 4.0]:
 		tank.refill(100.0)
 		farts.clear()
 		squeaks = 0

@@ -1,36 +1,24 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c308bf1wr8psu"]
 
-[ext_resource type="Script" path="res://scripts/stage.gd" id="1_dlpwt"]
+[ext_resource type="Script" uid="uid://ck1tgek0vjkdl" path="res://scripts/stage.gd" id="1_dlpwt"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_cslnn"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="3_l0wrk"]
 [ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="4_y50l8"]
-[ext_resource type="Script" path="res://scripts/bean.gd" id="5_37urb"]
 [ext_resource type="PackedScene" path="res://scenes/burpling.tscn" id="6_7c1bf"]
-[ext_resource type="Script" path="res://scripts/burpling.gd" id="7_4stoq"]
 [ext_resource type="PackedScene" path="res://scenes/toilet.tscn" id="8_p6yy4"]
-[ext_resource type="Script" path="res://scripts/toilet.gd" id="9_6o85p"]
 [ext_resource type="PackedScene" path="res://scenes/golden_bean.tscn" id="10_sbwxm"]
-[ext_resource type="Script" path="res://scripts/golden_bean.gd" id="11_cgwmx"]
 [ext_resource type="PackedScene" path="res://scenes/hoop.tscn" id="12_l8bcr"]
-[ext_resource type="Script" path="res://scripts/hoop.gd" id="13_p5ain"]
 [ext_resource type="PackedScene" path="res://scenes/spiky_ball.tscn" id="14_uublg"]
-[ext_resource type="Script" path="res://scripts/hazard.gd" id="15_4ifyl"]
 [ext_resource type="PackedScene" path="res://scenes/landing_zone.tscn" id="16_sy7yu"]
-[ext_resource type="Script" path="res://scripts/landing_zone.gd" id="17_3an11"]
 [ext_resource type="PackedScene" path="res://scenes/bean_can.tscn" id="18_nqt0b"]
-[ext_resource type="Script" path="res://scripts/bean_can.gd" id="19_j2dix"]
 [ext_resource type="PackedScene" path="res://scenes/chilli.tscn" id="20_ftu0w"]
-[ext_resource type="Script" path="res://scripts/chilli.gd" id="21_pih33"]
 [ext_resource type="PackedScene" path="res://scenes/mega_bean_can.tscn" id="22_kl48o"]
-[ext_resource type="Script" path="res://scripts/mega_bean_can.gd" id="23_5drlt"]
 [ext_resource type="PackedScene" path="res://scenes/rocket_burrito.tscn" id="24_78coo"]
-[ext_resource type="Script" path="res://scripts/rocket_burrito.gd" id="25_kjs22"]
-[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="26_12kp5"]
-[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="27_g2x6w"]
-[ext_resource type="Script" path="res://scripts/hearts_bar.gd" id="28_jj3jk"]
-[ext_resource type="Script" path="res://scripts/golden_bean_bar.gd" id="29_85706"]
-[ext_resource type="Script" path="res://scripts/score_label.gd" id="30_o042n"]
-[ext_resource type="Script" path="res://scripts/stage_clear_banner.gd" id="31_yeogr"]
+[ext_resource type="Script" uid="uid://1v24jeryh8pu" path="res://scripts/follow_camera.gd" id="26_12kp5"]
+[ext_resource type="Script" uid="uid://dqbfvyj1fdd7g" path="res://scripts/gas_bar.gd" id="27_g2x6w"]
+[ext_resource type="Script" uid="uid://blb7opi2to1ob" path="res://scripts/hearts_bar.gd" id="28_jj3jk"]
+[ext_resource type="Script" uid="uid://dhgb3x5sc4gn4" path="res://scripts/golden_bean_bar.gd" id="29_85706"]
+[ext_resource type="Script" uid="uid://v5dtfj68b701" path="res://scripts/score_label.gd" id="30_o042n"]
+[ext_resource type="Script" uid="uid://dd43i2qbuwt5f" path="res://scripts/stage_clear_banner.gd" id="31_yeogr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r5uc8"]
 size = Vector3(60, 1, 4)
@@ -740,303 +728,217 @@ mesh = SubResource("BoxMesh_not75")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=927425620]
 shape = SubResource("BoxShape3D_q3m3a")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=2042537424 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly") instance=ExtResource("2_cslnn")]
+[node name="Player" parent="." unique_id=2042537424 instance=ExtResource("2_cslnn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
-script = ExtResource("3_l0wrk")
-gas_tank = NodePath("GasTank")
-hearts = NodePath("Hearts")
-chilli = NodePath("ChilliPower")
-flight = NodePath("FlightPower")
-visual = NodePath("Visual")
-belly = NodePath("Visual/Belly")
 
 [node name="Beans" type="Node3D" parent="." unique_id=957652179]
 
-[node name="Bean1" type="Area3D" parent="Beans" unique_id=70073934 instance=ExtResource("4_y50l8")]
+[node name="Bean1" parent="Beans" unique_id=70073934 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.3, 0)
-script = ExtResource("5_37urb")
 
-[node name="Bean2" type="Area3D" parent="Beans" unique_id=877866424 instance=ExtResource("4_y50l8")]
+[node name="Bean2" parent="Beans" unique_id=877866424 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.3, 0)
-script = ExtResource("5_37urb")
 
-[node name="Bean3" type="Area3D" parent="Beans" unique_id=1398716193 instance=ExtResource("4_y50l8")]
+[node name="Bean3" parent="Beans" unique_id=1398716193 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.1, 0)
-script = ExtResource("5_37urb")
 
-[node name="Bean4" type="Area3D" parent="Beans" unique_id=677339137 instance=ExtResource("4_y50l8")]
+[node name="Bean4" parent="Beans" unique_id=677339137 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3.6, 0)
-script = ExtResource("5_37urb")
 
-[node name="Bean5" type="Area3D" parent="Beans" unique_id=2003441287 instance=ExtResource("4_y50l8")]
+[node name="Bean5" parent="Beans" unique_id=2003441287 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5.9, 0)
-script = ExtResource("5_37urb")
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1660472047]
 
-[node name="Burpling1" type="Area3D" parent="Enemies" unique_id=748665070 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="Burpling1" parent="Enemies" unique_id=748665070 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 1.5
-visual = NodePath("MeshInstance3D")
 
-[node name="Burpling2" type="Area3D" parent="Enemies" unique_id=1659911227 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="Burpling2" parent="Enemies" unique_id=1659911227 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 1.2
-visual = NodePath("MeshInstance3D")
 
-[node name="Burpling3" type="Area3D" parent="Enemies" unique_id=304144452 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="Burpling3" parent="Enemies" unique_id=304144452 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 1.2
-visual = NodePath("MeshInstance3D")
 
-[node name="Burpling4" type="Area3D" parent="Enemies" unique_id=1174027939 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="Burpling4" parent="Enemies" unique_id=1174027939 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 0.9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 0.8
-visual = NodePath("MeshInstance3D")
 
-[node name="Burpling5" type="Area3D" parent="Enemies" unique_id=496086670 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="Burpling5" parent="Enemies" unique_id=496086670 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 0.8
-visual = NodePath("MeshInstance3D")
 
-[node name="Burpling6" type="Area3D" parent="Enemies" unique_id=1894837603 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="Burpling6" parent="Enemies" unique_id=1894837603 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 0.9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 0.8
-visual = NodePath("MeshInstance3D")
 
-[node name="Toilet" type="Area3D" parent="." unique_id=1843033243 node_paths=PackedStringArray("visual") instance=ExtResource("8_p6yy4")]
+[node name="Toilet" parent="." unique_id=1843033243 instance=ExtResource("8_p6yy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.5, 0)
-script = ExtResource("9_6o85p")
-visual = NodePath("Visual")
 
 [node name="GoldenBeans" type="Node3D" parent="." unique_id=36827486]
 
-[node name="GoldenBean1" type="Area3D" parent="GoldenBeans" unique_id=1886747532 instance=ExtResource("10_sbwxm")]
+[node name="GoldenBean1" parent="GoldenBeans" unique_id=1886747532 instance=ExtResource("10_sbwxm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.5, 0)
-script = ExtResource("11_cgwmx")
 
-[node name="GoldenBean2" type="Area3D" parent="GoldenBeans" unique_id=2124933964 instance=ExtResource("10_sbwxm")]
+[node name="GoldenBean2" parent="GoldenBeans" unique_id=2124933964 instance=ExtResource("10_sbwxm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 8, 0)
-script = ExtResource("11_cgwmx")
 
-[node name="GoldenBean3" type="Area3D" parent="GoldenBeans" unique_id=2129629360 instance=ExtResource("10_sbwxm")]
+[node name="GoldenBean3" parent="GoldenBeans" unique_id=2129629360 instance=ExtResource("10_sbwxm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188, 14.5, 0)
-script = ExtResource("11_cgwmx")
 
 [node name="FlightSection" type="Node3D" parent="." unique_id=443028222]
 
-[node name="SkyBean1" type="Area3D" parent="FlightSection" unique_id=854527076 instance=ExtResource("4_y50l8")]
+[node name="SkyBean1" parent="FlightSection" unique_id=854527076 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 8.382338, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean2" type="Area3D" parent="FlightSection" unique_id=1686352270 instance=ExtResource("4_y50l8")]
+[node name="SkyBean2" parent="FlightSection" unique_id=1686352270 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 9.806956, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean3" type="Area3D" parent="FlightSection" unique_id=712467659 instance=ExtResource("4_y50l8")]
+[node name="SkyBean3" parent="FlightSection" unique_id=712467659 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 11.192222, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean4" type="Area3D" parent="FlightSection" unique_id=1123018133 instance=ExtResource("4_y50l8")]
+[node name="SkyBean4" parent="FlightSection" unique_id=1123018133 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59, 12.360533, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean5" type="Area3D" parent="FlightSection" unique_id=1753851278 instance=ExtResource("4_y50l8")]
+[node name="SkyBean5" parent="FlightSection" unique_id=1753851278 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62, 13.162106, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean6" type="Area3D" parent="FlightSection" unique_id=1469044327 instance=ExtResource("4_y50l8")]
+[node name="SkyBean6" parent="FlightSection" unique_id=1469044327 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 13.494173, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean7" type="Area3D" parent="FlightSection" unique_id=792490988 instance=ExtResource("4_y50l8")]
+[node name="SkyBean7" parent="FlightSection" unique_id=792490988 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68, 13.314162, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean8" type="Area3D" parent="FlightSection" unique_id=1461818964 instance=ExtResource("4_y50l8")]
+[node name="SkyBean8" parent="FlightSection" unique_id=1461818964 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71, 12.645152, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean9" type="Area3D" parent="FlightSection" unique_id=53384243 instance=ExtResource("4_y50l8")]
+[node name="SkyBean9" parent="FlightSection" unique_id=53384243 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74, 11.572913, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean10" type="Area3D" parent="FlightSection" unique_id=1582575748 instance=ExtResource("4_y50l8")]
+[node name="SkyBean10" parent="FlightSection" unique_id=1582575748 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 10.234913, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean11" type="Area3D" parent="FlightSection" unique_id=18624600 instance=ExtResource("4_y50l8")]
+[node name="SkyBean11" parent="FlightSection" unique_id=18624600 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 8.802692, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean12" type="Area3D" parent="FlightSection" unique_id=502482485 instance=ExtResource("4_y50l8")]
+[node name="SkyBean12" parent="FlightSection" unique_id=502482485 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, 7.459872, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean13" type="Area3D" parent="FlightSection" unique_id=1976922139 instance=ExtResource("4_y50l8")]
+[node name="SkyBean13" parent="FlightSection" unique_id=1976922139 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 6.378608, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean14" type="Area3D" parent="FlightSection" unique_id=615229759 instance=ExtResource("4_y50l8")]
+[node name="SkyBean14" parent="FlightSection" unique_id=615229759 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 5.697527, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean15" type="Area3D" parent="FlightSection" unique_id=382398987 instance=ExtResource("4_y50l8")]
+[node name="SkyBean15" parent="FlightSection" unique_id=382398987 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92, 5.503947, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean16" type="Area3D" parent="FlightSection" unique_id=1745558899 instance=ExtResource("4_y50l8")]
+[node name="SkyBean16" parent="FlightSection" unique_id=1745558899 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95, 5.8226857, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean17" type="Area3D" parent="FlightSection" unique_id=936137697 instance=ExtResource("4_y50l8")]
+[node name="SkyBean17" parent="FlightSection" unique_id=936137697 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98, 6.61288, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean18" type="Area3D" parent="FlightSection" unique_id=1809730401 instance=ExtResource("4_y50l8")]
+[node name="SkyBean18" parent="FlightSection" unique_id=1809730401 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 7.609248, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean19" type="Area3D" parent="FlightSection" unique_id=1740338517 instance=ExtResource("4_y50l8")]
+[node name="SkyBean19" parent="FlightSection" unique_id=1740338517 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 133, 6.486936, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean20" type="Area3D" parent="FlightSection" unique_id=1806383067 instance=ExtResource("4_y50l8")]
+[node name="SkyBean20" parent="FlightSection" unique_id=1806383067 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 136, 5.633772, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean21" type="Area3D" parent="FlightSection" unique_id=1370110271 instance=ExtResource("4_y50l8")]
+[node name="SkyBean21" parent="FlightSection" unique_id=1370110271 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 5.125966, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean22" type="Area3D" parent="FlightSection" unique_id=1076276828 instance=ExtResource("4_y50l8")]
+[node name="SkyBean22" parent="FlightSection" unique_id=1076276828 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142, 5.00888, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean23" type="Area3D" parent="FlightSection" unique_id=446993086 instance=ExtResource("4_y50l8")]
+[node name="SkyBean23" parent="FlightSection" unique_id=446993086 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 5.292972, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean24" type="Area3D" parent="FlightSection" unique_id=1675880207 instance=ExtResource("4_y50l8")]
+[node name="SkyBean24" parent="FlightSection" unique_id=1675880207 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 5.9528656, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean25" type="Area3D" parent="FlightSection" unique_id=1366473998 instance=ExtResource("4_y50l8")]
+[node name="SkyBean25" parent="FlightSection" unique_id=1366473998 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 6.929614, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean26" type="Area3D" parent="FlightSection" unique_id=642147323 instance=ExtResource("4_y50l8")]
+[node name="SkyBean26" parent="FlightSection" unique_id=642147323 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 154, 8.135967, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean27" type="Area3D" parent="FlightSection" unique_id=991640222 instance=ExtResource("4_y50l8")]
+[node name="SkyBean27" parent="FlightSection" unique_id=991640222 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 157, 9.464166, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean28" type="Area3D" parent="FlightSection" unique_id=1876692374 instance=ExtResource("4_y50l8")]
+[node name="SkyBean28" parent="FlightSection" unique_id=1876692374 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160, 10.795565, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean29" type="Area3D" parent="FlightSection" unique_id=749500547 instance=ExtResource("4_y50l8")]
+[node name="SkyBean29" parent="FlightSection" unique_id=749500547 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 12.011235, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean30" type="Area3D" parent="FlightSection" unique_id=1354101631 instance=ExtResource("4_y50l8")]
+[node name="SkyBean30" parent="FlightSection" unique_id=1354101631 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 166, 13.002584, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean31" type="Area3D" parent="FlightSection" unique_id=1545435331 instance=ExtResource("4_y50l8")]
+[node name="SkyBean31" parent="FlightSection" unique_id=1545435331 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 169, 13.681058, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean32" type="Area3D" parent="FlightSection" unique_id=942716664 instance=ExtResource("4_y50l8")]
+[node name="SkyBean32" parent="FlightSection" unique_id=942716664 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 172, 13.986051, 0)
-script = ExtResource("5_37urb")
 
-[node name="SkyBean33" type="Area3D" parent="FlightSection" unique_id=1966043751 instance=ExtResource("4_y50l8")]
+[node name="SkyBean33" parent="FlightSection" unique_id=1966043751 instance=ExtResource("4_y50l8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 175, 13.890317, 0)
-script = ExtResource("5_37urb")
 
-[node name="Hoop1" type="Area3D" parent="FlightSection" unique_id=1432051670 node_paths=PackedStringArray("ring") instance=ExtResource("12_l8bcr")]
+[node name="Hoop1" parent="FlightSection" unique_id=1432051670 instance=ExtResource("12_l8bcr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 12.5, 0)
-script = ExtResource("13_p5ain")
-ring = NodePath("Ring")
 
-[node name="Hoop2" type="Area3D" parent="FlightSection" unique_id=925330037 node_paths=PackedStringArray("ring") instance=ExtResource("12_l8bcr")]
+[node name="Hoop2" parent="FlightSection" unique_id=925330037 instance=ExtResource("12_l8bcr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, 6, 0)
-script = ExtResource("13_p5ain")
-ring = NodePath("Ring")
 
-[node name="Hoop3" type="Area3D" parent="FlightSection" unique_id=2019414626 node_paths=PackedStringArray("ring") instance=ExtResource("12_l8bcr")]
+[node name="Hoop3" parent="FlightSection" unique_id=2019414626 instance=ExtResource("12_l8bcr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142, 11, 0)
-script = ExtResource("13_p5ain")
-ring = NodePath("Ring")
 
-[node name="Hoop4" type="Area3D" parent="FlightSection" unique_id=833384925 node_paths=PackedStringArray("ring") instance=ExtResource("12_l8bcr")]
+[node name="Hoop4" parent="FlightSection" unique_id=833384925 instance=ExtResource("12_l8bcr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182, 7, 0)
-script = ExtResource("13_p5ain")
-ring = NodePath("Ring")
 
-[node name="Hoop5" type="Area3D" parent="FlightSection" unique_id=956537052 node_paths=PackedStringArray("ring") instance=ExtResource("12_l8bcr")]
+[node name="Hoop5" parent="FlightSection" unique_id=956537052 instance=ExtResource("12_l8bcr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210, 10, 0)
-script = ExtResource("13_p5ain")
-ring = NodePath("Ring")
 
-[node name="SpikyBall1" type="Area3D" parent="FlightSection" unique_id=877787646 instance=ExtResource("14_uublg")]
+[node name="SpikyBall1" parent="FlightSection" unique_id=877787646 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, 4.5, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SpikyBall2" type="Area3D" parent="FlightSection" unique_id=1825961545 instance=ExtResource("14_uublg")]
+[node name="SpikyBall2" parent="FlightSection" unique_id=1825961545 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 13, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SpikyBall3" type="Area3D" parent="FlightSection" unique_id=690785519 instance=ExtResource("14_uublg")]
+[node name="SpikyBall3" parent="FlightSection" unique_id=690785519 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124, 5, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SpikyBall4" type="Area3D" parent="FlightSection" unique_id=1488323620 instance=ExtResource("14_uublg")]
+[node name="SpikyBall4" parent="FlightSection" unique_id=1488323620 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160, 14, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SpikyBall5" type="Area3D" parent="FlightSection" unique_id=1677716523 instance=ExtResource("14_uublg")]
+[node name="SpikyBall5" parent="FlightSection" unique_id=1677716523 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165, 4, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SpikyBall6" type="Area3D" parent="FlightSection" unique_id=372425179 instance=ExtResource("14_uublg")]
+[node name="SpikyBall6" parent="FlightSection" unique_id=372425179 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196, 12.5, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SpikyBall7" type="Area3D" parent="FlightSection" unique_id=820805808 instance=ExtResource("14_uublg")]
+[node name="SpikyBall7" parent="FlightSection" unique_id=820805808 instance=ExtResource("14_uublg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 5, 0)
-script = ExtResource("15_4ifyl")
 
-[node name="SkyBurpling1" type="Area3D" parent="FlightSection" unique_id=1508540607 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="SkyBurpling1" parent="FlightSection" unique_id=1508540607 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112, 9, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 1.0
-visual = NodePath("MeshInstance3D")
 
-[node name="SkyBurpling2" type="Area3D" parent="FlightSection" unique_id=1409200026 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="SkyBurpling2" parent="FlightSection" unique_id=1409200026 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152, 7, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 1.0
-visual = NodePath("MeshInstance3D")
 
-[node name="SkyBurpling3" type="Area3D" parent="FlightSection" unique_id=244808794 node_paths=PackedStringArray("visual") instance=ExtResource("6_7c1bf")]
+[node name="SkyBurpling3" parent="FlightSection" unique_id=244808794 instance=ExtResource("6_7c1bf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 174, 12, 0)
-script = ExtResource("7_4stoq")
 patrol_distance = 1.0
-visual = NodePath("MeshInstance3D")
 
-[node name="LandingZone" type="Area3D" parent="FlightSection" unique_id=232682755 instance=ExtResource("16_sy7yu")]
+[node name="LandingZone" parent="FlightSection" unique_id=232682755 instance=ExtResource("16_sy7yu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 226, 0, 0)
-script = ExtResource("17_3an11")
 
 [node name="Landscape" type="Node3D" parent="FlightSection" unique_id=1730239564]
 
@@ -1413,30 +1315,22 @@ mesh = SubResource("BoxMesh_tjbr7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LandingGround" unique_id=319423187]
 shape = SubResource("BoxShape3D_hqmnq")
 
-[node name="Toilet2" type="Area3D" parent="." unique_id=292874793 node_paths=PackedStringArray("visual") instance=ExtResource("8_p6yy4")]
+[node name="Toilet2" parent="." unique_id=292874793 instance=ExtResource("8_p6yy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 232, 0.5, 0)
-script = ExtResource("9_6o85p")
-visual = NodePath("Visual")
 
-[node name="BeanCan" type="StaticBody3D" parent="." unique_id=278605738 node_paths=PackedStringArray("lid", "lid_sensor") instance=ExtResource("18_nqt0b")]
+[node name="BeanCan" parent="." unique_id=278605738 instance=ExtResource("18_nqt0b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 0.5, 0)
-script = ExtResource("19_j2dix")
-lid = NodePath("Lid")
-lid_sensor = NodePath("LidSensor")
 
 [node name="PowerUps" type="Node3D" parent="." unique_id=1711850569]
 
-[node name="Chilli" type="Area3D" parent="PowerUps" unique_id=1411504846 instance=ExtResource("20_ftu0w")]
+[node name="Chilli" parent="PowerUps" unique_id=1411504846 instance=ExtResource("20_ftu0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1.4, 0)
-script = ExtResource("21_pih33")
 
-[node name="MegaBeanCan" type="Area3D" parent="PowerUps" unique_id=1118923954 instance=ExtResource("22_kl48o")]
+[node name="MegaBeanCan" parent="PowerUps" unique_id=1118923954 instance=ExtResource("22_kl48o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 241, 1.3, 0)
-script = ExtResource("23_5drlt")
 
-[node name="RocketBurrito" type="Area3D" parent="PowerUps" unique_id=246783509 instance=ExtResource("24_78coo")]
+[node name="RocketBurrito" parent="PowerUps" unique_id=246783509 instance=ExtResource("24_78coo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 1.6, 0)
-script = ExtResource("25_kjs22")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1811635335 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 5, 16)
@@ -1494,9 +1388,9 @@ offset_top = 16.0
 offset_right = -20.0
 offset_bottom = 56.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 32
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
 text = "SCORE 0"
 horizontal_alignment = 2
 script = ExtResource("30_o042n")
@@ -1511,9 +1405,9 @@ offset_top = 120.0
 offset_right = 53.5
 offset_bottom = 143.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 64
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 64
 text = "STAGE CLEAR!"
 horizontal_alignment = 1
 script = ExtResource("31_yeogr")
