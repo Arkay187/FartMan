@@ -121,8 +121,15 @@
   walking off the left end of the floor respawns him at the start exactly once.
 - Not checked by eye: whether the camera distance and smoothness feel right.
 
+## Session 7 (2026-11-16): game design approved
+
+### Decisions made
+- GAME_DESIGN.md written and approved by Rich. It is now the plan; follow its build order.
+- Rich's changes during review: no low-gravity Moon world, use an alien gas planet instead
+  (Planet Whiff); add animated sequences and speech bubbles for the story.
+- Story is told three ways: speech bubbles, puppet-show scenes (lists of steps), storybook pages.
+- Respawn question is settled by the design: 3 hearts, no lives, toilets are checkpoints.
+
 ### What to do next
-1. Press F5 and play. Tune times, powers and gas costs on the Player in the Inspector.
-2. Decide what respawn should cost (lose gas? reset beans? lives?).
-3. Start the Garden level: grey-box layout first.
-4. Sounds for Toot, Trump, Thunder and the squeak (signals are ready).
+1. Press F5 and play what exists. Tune on the Player in the Inspector.
+2. Build step 1 of GAME_DESIGN.md: enemies (Burpling), stomping and hearts.

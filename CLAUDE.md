@@ -25,5 +25,7 @@ A silly 2.5D platformer for a 6 year old and his dad. Fun and readable beat clev
 - Gas tank drains per fart, refills from bean pickups. Tap jumps are free.
 
 ## Planned scope
-- 3 levels: Garden, Bean Factory, Space.
-- 1 boss: Big Bad Burp.
+- The approved design is in GAME_DESIGN.md. Read it before adding features and follow its build order.
+- 3 worlds (Grandma's Garden, Bean Factory, Planet Whiff), each 2 running stages, 1 flight stage and a boss.
+- Bosses: Sneezy Weezy, Colonel Cork, Big Bad Burp. No low gravity anywhere.
+- Story is told with speech bubbles, short puppet-show scenes and storybook pages. Very few words.
