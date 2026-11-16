@@ -218,6 +218,8 @@ Each step is playable on its own, so we can stop and play after every one.
    goodbye scenes. **This is the first "real game".**
 7. World 2, then World 3 and the ending.
 8. Sounds, our own storybook drawings and proper art, replacing the grey boxes.
+   The plan for character models and animations is in ART_PLAN.md (draft). Its first phase,
+   the animation hooks that work with grey boxes, can be built at any time.
 
 ## Changes from the original plan
 

@@ -258,6 +258,21 @@
   too short to notice). Thunder window is now 0.5s to 1.25s of holding.
 - Tunable: Full Hold Time on the Player.
 
+### Art plan drafted (2026-11-16, Rich asked how to get character models and animations in)
+- ART_PLAN.md written, waiting for approval. Summary: build animation hooks first (animator
+  script listening to Player signals, shared clip names, grey-box squash and stretch fallback),
+  Fart Man's look comes from his son's drawings, free CC0 packs as enemy stand-ins, glTF (.glb)
+  files in art/characters/, belly stays a separate scalable part named "Belly".
+- Open questions for Rich: who makes Fart Man (Blender, image-to-3D, commission), the style,
+  and permission to start phase 1.
+
+### Open design question: instant tap jump
+- Rich wants the small jump to fire the instant the button is pressed. Today every jump fires on
+  RELEASE (that is how charging works), so a tap always lags by the length of the tap.
+- Firing on press conflicts with charging: a Toot hop lasts only about 0.6s in the air, but the
+  belly needs 0.5s to fill and the Thunder window runs to 1.25s. Needs a design decision;
+  nothing has been changed in player.gd yet.
+
 ### Testing tip for future sessions
 - A broken test script can hang headless Godot forever. Always run tests with a time limit.
 
