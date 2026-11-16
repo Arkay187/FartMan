@@ -1,7 +1,7 @@
 class_name FlameTrail
 extends Node3D
-## Leaves a trail of orange puffs that shrink away. Put it under Fart Man, near his bottom.
-## Switch it on and off with `emitting`.
+## Leaves a trail of glowing puffs that shrink away. Put it under Fart Man, near his bottom.
+## Switch it on and off with `emitting`. Used for chilli flames and the rainbow flight trail.
 
 ## Seconds between puffs. Smaller = thicker trail.
 @export var puff_every: float = 0.04
@@ -10,19 +10,18 @@ extends Node3D
 ## How big a puff starts.
 @export var puff_size: float = 0.7
 @export var puff_color: Color = Color(1.0, 0.55, 0.1)
+## Tick this and every puff is the next colour of the rainbow instead.
+@export var rainbow: bool = false
 
 var emitting: bool = false
 var wait_left: float = 0.0
+var hue: float = 0.0
 var puff_mesh: SphereMesh
 
 
 func _ready() -> void:
-	# One shared ball shape for every puff. Unshaded so it glows.
-	var paint := StandardMaterial3D.new()
-	paint.albedo_color = puff_color
-	paint.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	# One shared ball shape for every puff.
 	puff_mesh = SphereMesh.new()
-	puff_mesh.material = paint
 
 
 func _physics_process(delta: float) -> void:
@@ -35,9 +34,18 @@ func _physics_process(delta: float) -> void:
 
 
 func _make_puff() -> void:
+	# Unshaded paint so it glows.
+	var paint := StandardMaterial3D.new()
+	paint.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	paint.albedo_color = puff_color
+	if rainbow:
+		paint.albedo_color = Color.from_hsv(hue, 0.85, 1.0)
+		hue = fmod(hue + 0.06, 1.0)
+
 	var puff := MeshInstance3D.new()
 	puff.mesh = puff_mesh
-	# Puffs belong to the level, not to Fart Man, so they stay behind as he runs.
+	puff.material_override = paint
+	# Puffs belong to the level, not to Fart Man, so they stay behind as he moves.
 	get_tree().root.add_child(puff)
 	var wobble := Vector3(randf_range(-0.15, 0.15), randf_range(-0.15, 0.15), 0.0)
 	puff.global_position = global_position + wobble

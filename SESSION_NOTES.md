@@ -210,6 +210,42 @@
   and the puffs are gone. All earlier tests still pass.
 - Not checked by eye: how the glow and flame trail look, and whether 1.8x feels controllable.
 
+## Session 11 (2026-11-16): build step 4, flight and the Rocket Burrito
+
+### Decisions made
+- scripts/flight_power.gd (FlightPower node under Player): while flying he moves forward by
+  himself at 14 m/s. Hold jump to climb, let go to sink (9 m/s each way). He leans forward
+  like a superhero. Normal walking, charging and gravity are switched off during flight.
+- The sky has a bottom and a top (set on each burrito: 3 and 16 here), so he can't fall out.
+- scripts/rocket_burrito.gd: starts a flight. It is never used up, so after a respawn he
+  can always take off again. Points only the first time.
+- scripts/landing_zone.gd: a tall see-through green curtain that ends the flight.
+- scripts/hazard.gd + scenes/spiky_ball.tscn: hurts to touch, can't be squashed. Reusable
+  on the ground later (this is the Prickle idea).
+- scripts/hoop.gd + scenes/hoop.tscn: gold ring, 50 points, turns green once flown through.
+- flame_trail.gd gained a `rainbow` tick box; the flight trail is a second trail node.
+- follow_camera.gd pulls back to 34 m and looks 9 m ahead while flying, then comes back in.
+- Getting hurt in flight costs a heart and a bump but the flight carries on. Losing the last
+  heart sends him back to the last toilet and the flight is over.
+- Test level is now much longer: ground, Rocket Burrito at x=38, a 184 m flight (about 13
+  seconds) with two wavy bean lines, 5 hoops, 7 spiky balls and 3 floating Burplings over a
+  landscape of hills and houses, then landing ground with a second toilet, the Mega Bean Can
+  and the Bean Can at x=250. Golden Bean 3 is now up in the sky.
+
+### Tested
+- Automated headless run: take-off, sinking to the sky floor, climbing to the sky top,
+  14 m/s forward, rainbow puffs, camera pull-back, hoop scoring, spiky ball costs a heart
+  without ending the flight, squashing a floating Burpling, landing and standing up straight,
+  camera returning, taking off a second time, and last-heart respawn ending the flight.
+  All earlier tests still pass.
+- Not checked by eye: this is the step that most needs looking at. Speed, how the climb and
+  sink feel, whether the hoops and spiky balls are fair, and how the landscape reads.
+- Known weak spot: bouncing off a floating Burpling barely lifts him, because flight pulls
+  him straight back to sinking speed.
+
+### Testing tip for future sessions
+- A broken test script can hang headless Godot forever. Always run tests with a time limit.
+
 ### What to do next
-1. Press F5 and play the whole test level start to finish.
-2. Build step 4 of GAME_DESIGN.md: flight mode and the Rocket Burrito.
+1. Press F5 and play the whole test level start to finish, especially the flight.
+2. Build step 5 of GAME_DESIGN.md: world map with saving, storybook viewer and opening story.

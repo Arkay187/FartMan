@@ -1,0 +1,101 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/hazard.gd" id="1_syp8c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lond"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_imlge"]
+material = SubResource("StandardMaterial3D_0lond")
+radius = 0.8
+height = 1.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0ir1"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kqqt8"]
+material = SubResource("StandardMaterial3D_r0ir1")
+top_radius = 0.0
+bottom_radius = 0.25
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6i1g"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k0xgh"]
+material = SubResource("StandardMaterial3D_a6i1g")
+top_radius = 0.0
+bottom_radius = 0.25
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2v0b"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ft30h"]
+material = SubResource("StandardMaterial3D_l2v0b")
+top_radius = 0.0
+bottom_radius = 0.25
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_prli3"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8pa6a"]
+material = SubResource("StandardMaterial3D_prli3")
+top_radius = 0.0
+bottom_radius = 0.25
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gnan"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hgm5u"]
+material = SubResource("StandardMaterial3D_2gnan")
+top_radius = 0.0
+bottom_radius = 0.25
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4u6g"]
+albedo_color = Color(0.25, 0.1, 0.3, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uio1i"]
+material = SubResource("StandardMaterial3D_u4u6g")
+top_radius = 0.0
+bottom_radius = 0.25
+height = 0.7
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ron5"]
+radius = 0.9
+
+[node name="SpikyBall" type="Area3D" unique_id=1923953423]
+script = ExtResource("1_syp8c")
+
+[node name="Ball" type="MeshInstance3D" parent="." unique_id=1511324049]
+mesh = SubResource("SphereMesh_imlge")
+
+[node name="Spike1" type="MeshInstance3D" parent="." unique_id=1822422000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_kqqt8")
+
+[node name="Spike2" type="MeshInstance3D" parent="." unique_id=2001940882]
+transform = Transform3D(0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0, 1, 0.8660254, 0.5, 0)
+mesh = SubResource("CylinderMesh_k0xgh")
+
+[node name="Spike3" type="MeshInstance3D" parent="." unique_id=1066861485]
+transform = Transform3D(-0.50000006, 0.8660254, 0, -0.8660254, -0.50000006, 0, 0, 0, 1, 0.8660254, -0.5, 0)
+mesh = SubResource("CylinderMesh_ft30h")
+
+[node name="Spike4" type="MeshInstance3D" parent="." unique_id=1239302009]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 1.2246064e-16, -1, 0)
+mesh = SubResource("CylinderMesh_8pa6a")
+
+[node name="Spike5" type="MeshInstance3D" parent="." unique_id=1975912823]
+transform = Transform3D(-0.4999999, -0.86602545, 0, 0.86602545, -0.4999999, 0, 0, 0, 1, -0.8660254, -0.5, 0)
+mesh = SubResource("CylinderMesh_hgm5u")
+
+[node name="Spike6" type="MeshInstance3D" parent="." unique_id=320925165]
+transform = Transform3D(0.4999999, -0.86602545, 0, 0.86602545, 0.4999999, 0, 0, 0, 1, -0.8660254, 0.5, 0)
+mesh = SubResource("CylinderMesh_uio1i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=423103832]
+shape = SubResource("SphereShape3D_8ron5")

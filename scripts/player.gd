@@ -89,6 +89,8 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export_group("Power-ups")
 ## His Chilli Pepper power. Leave empty and chillies do nothing.
 @export var chilli: ChilliPower
+## His Rocket Burrito flight power. Leave empty and burritos do nothing.
+@export var flight: FlightPower
 
 @export_group("Looks")
 ## The part of him that turns to face the way he walks.
@@ -132,6 +134,13 @@ func _physics_process(delta: float) -> void:
 		_respawn()
 		return
 
+	# Flying? The flight power does all the moving instead.
+	if is_flying():
+		_update_stomp_window(delta)
+		_update_flashing(delta)
+		flight.fly(self, delta)
+		return
+
 	# Fall when in the air.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -172,6 +181,25 @@ func can_stomp() -> bool:
 ## True while the Chilli Pepper is working. Enemies he touches get squashed.
 func is_hot() -> bool:
 	return chilli != null and chilli.is_hot()
+
+
+## True while a Rocket Burrito flight is going.
+func is_flying() -> bool:
+	return flight != null and flight.is_flying
+
+
+## Rocket Burritos call this. lowest and highest are the edges of the sky.
+func start_flying(lowest: float, highest: float) -> void:
+	if flight == null:
+		return
+	_stop_charging()
+	flight.start(lowest, highest)
+
+
+## Landing zones call this.
+func stop_flying() -> void:
+	if flight != null:
+		flight.stop(self)
 
 
 ## Pops a speech bubble over his head.
@@ -331,6 +359,7 @@ func _launch(tier: Tier) -> void:
 
 
 func _respawn() -> void:
+	stop_flying()
 	global_position = checkpoint_position
 	velocity = Vector3.ZERO
 	_stop_charging()
