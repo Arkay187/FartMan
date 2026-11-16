@@ -7,6 +7,8 @@ extends CharacterBody3D
 ## Let go when the belly is full: big jump (Thunder).
 ## Hold too long: a long squeaky fart leaks out, the belly slowly goes down
 ## and gas drains away. Let go any time and he jumps with whatever belly is left.
+##
+## Land on an enemy to squash it and bounce. Touch one any other way and lose a heart.
 
 ## Sent when he starts charging.
 signal charge_started
@@ -15,6 +17,9 @@ signal farted(tier_name: String)
 ## Sent when the long squeaky leak starts and stops. Use these later for the sound.
 signal squeak_started
 signal squeak_stopped
+## Sent when he squashes an enemy, and when something hurts him.
+signal stomped
+signal got_hurt
 ## Sent when he falls off the level and pops back to the start.
 signal respawned
 
@@ -60,6 +65,25 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## Gas wasted each second while the squeaky leak is going.
 @export var squeak_gas_per_second: float = 10.0
 
+@export_group("Stomping")
+## Bounce after squashing an enemy.
+@export var stomp_bounce_power: float = 9.0
+## Bigger bounce if you are holding jump when you land on it.
+@export var stomp_high_bounce_power: float = 13.0
+## Gas you get back for each squash.
+@export var stomp_gas_reward: float = 5.0
+## How forgiving stomping is. Bigger = easier to squash things.
+@export var stomp_grace_time: float = 0.12
+
+@export_group("Getting hurt")
+## His hearts. Leave empty and he can't be hurt.
+@export var hearts: Hearts
+## How long he blinks and can't be hurt again, in seconds.
+@export var flash_time: float = 1.5
+## How hard he is knocked sideways and upwards.
+@export var knockback_speed: float = 6.0
+@export var knockback_jump: float = 7.0
+
 @export_group("Looks")
 ## The part of him that turns to face the way he walks.
 @export var visual: Node3D
@@ -85,6 +109,10 @@ var charge_time: float = 0.0
 var belly_fill: float = 0.0
 ## Where he started the level. He comes back here if he falls off.
 var start_position: Vector3
+## Counts down after falling: while above zero, touching an enemy squashes it.
+var stomp_window_left: float = 0.0
+## Counts down after being hurt: while above zero, he blinks and can't be hurt.
+var flashing_left: float = 0.0
 
 
 func _ready() -> void:
@@ -102,6 +130,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	_update_stomp_window(delta)
+	_update_flashing(delta)
 	_update_charge(delta)
 
 	# Left / right. direction is -1, 0 or 1.
@@ -117,6 +147,63 @@ func _physics_process(delta: float) -> void:
 	velocity.z = 0.0
 	move_and_slide()
 	position.z = 0.0
+
+
+## True while he is falling, and for a split second after landing.
+## Enemies ask this to decide: did he land on me, or walk into me?
+func can_stomp() -> bool:
+	return stomp_window_left > 0.0
+
+
+## How high off the ground his feet are. His middle is 1 metre above his feet.
+func get_feet_y() -> float:
+	return global_position.y - 1.0
+
+
+## Called by an enemy he just landed on. Bounces him back up.
+func stomp_bounce() -> void:
+	# Hold jump as you land for a bigger bounce.
+	var high: bool = Input.is_action_pressed(jump_action)
+	velocity.y = stomp_high_bounce_power if high else stomp_bounce_power
+	stomp_window_left = 0.0
+	if gas_tank != null:
+		gas_tank.refill(stomp_gas_reward)
+	stomped.emit()
+
+
+## Called by anything that hurts him. from_x is where the nasty thing is.
+func hurt(from_x: float) -> void:
+	# Can't be hurt again while still flashing.
+	if flashing_left > 0.0:
+		return
+	_stop_charging()
+
+	# Last heart gone? Back to the start with full hearts.
+	if hearts != null and not hearts.lose_one():
+		_respawn()
+		return
+
+	# Knocked back, away from whatever hurt him.
+	flashing_left = flash_time
+	var away: float = 1.0 if global_position.x >= from_x else -1.0
+	velocity = Vector3(away * knockback_speed, knockback_jump, 0.0)
+	got_hurt.emit()
+
+
+func _update_stomp_window(delta: float) -> void:
+	if not is_on_floor() and velocity.y < 0.0:
+		stomp_window_left = stomp_grace_time
+	else:
+		stomp_window_left = maxf(stomp_window_left - delta, 0.0)
+
+
+## Blinks on and off after being hurt.
+func _update_flashing(delta: float) -> void:
+	if flashing_left <= 0.0:
+		return
+	flashing_left = maxf(flashing_left - delta, 0.0)
+	if visual != null:
+		visual.visible = flashing_left <= 0.0 or fmod(flashing_left, 0.2) < 0.1
 
 
 ## Handles holding, charging and letting go of the jump button.
@@ -215,6 +302,10 @@ func _respawn() -> void:
 	global_position = start_position
 	velocity = Vector3.ZERO
 	_stop_charging()
+	# Blink for a moment after coming back, safe from harm.
+	flashing_left = flash_time
+	if hearts != null:
+		hearts.refill()
 	respawned.emit()
 
 

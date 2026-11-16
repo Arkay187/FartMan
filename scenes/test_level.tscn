@@ -1,115 +1,145 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_qcd3b"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="2_88ety"]
-[ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="3_ahbqi"]
-[ext_resource type="Script" path="res://scripts/bean.gd" id="4_7gix3"]
-[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="5_4asn1"]
-[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="6_dw7u0"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_fyxdr"]
-size = Vector3(44, 1, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kpk0m"]
-size = Vector3(44, 1, 4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qs1vn"]
-size = Vector3(3, 0.5, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_13hs1"]
-size = Vector3(3, 0.5, 4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_fptmo"]
-size = Vector3(3, 0.5, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bakr3"]
-size = Vector3(3, 0.5, 4)
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_7gix3"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_4asn1"]
+[ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="3_dw7u0"]
+[ext_resource type="Script" path="res://scripts/bean.gd" id="4_fyxdr"]
+[ext_resource type="PackedScene" path="res://scenes/burpling.tscn" id="5_kpk0m"]
+[ext_resource type="Script" path="res://scripts/burpling.gd" id="6_qs1vn"]
+[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="7_13hs1"]
+[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="8_fptmo"]
+[ext_resource type="Script" path="res://scripts/hearts_bar.gd" id="9_bakr3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jqmoj"]
-size = Vector3(3, 0.5, 4)
+size = Vector3(44, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ni2ok"]
+size = Vector3(44, 1, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hnsbs"]
 size = Vector3(3, 0.5, 4)
 
-[node name="TestLevel" type="Node3D" unique_id=983543820]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rv6en"]
+size = Vector3(3, 0.5, 4)
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=943350136]
+[sub_resource type="BoxMesh" id="BoxMesh_tugu3"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kqfx7"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_47x4r"]
+size = Vector3(3, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o5a2i"]
+size = Vector3(3, 0.5, 4)
+
+[node name="TestLevel" type="Node3D" unique_id=257938420]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1618119515]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1423061005]
-mesh = SubResource("BoxMesh_fyxdr")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=292491529]
-shape = SubResource("BoxShape3D_kpk0m")
-
-[node name="TootLedge" type="StaticBody3D" parent="." unique_id=700601912]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.05, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=548003816]
-mesh = SubResource("BoxMesh_qs1vn")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=839544123]
-shape = SubResource("BoxShape3D_13hs1")
-
-[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=807073832]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.55, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=98321626]
-mesh = SubResource("BoxMesh_fptmo")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=365784371]
-shape = SubResource("BoxShape3D_bakr3")
-
-[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=161438302]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 4.85, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=527678873]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=2028266632]
 mesh = SubResource("BoxMesh_jqmoj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=191904365]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=369920594]
 shape = SubResource("BoxShape3D_ni2ok")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1980105885 node_paths=PackedStringArray("gas_tank", "visual", "belly") instance=ExtResource("1_qcd3b")]
+[node name="TootLedge" type="StaticBody3D" parent="." unique_id=1313638368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.05, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=1877240033]
+mesh = SubResource("BoxMesh_hnsbs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=367279673]
+shape = SubResource("BoxShape3D_rv6en")
+
+[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=140338747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.55, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=835188517]
+mesh = SubResource("BoxMesh_tugu3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=1310604668]
+shape = SubResource("BoxShape3D_kqfx7")
+
+[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=1704670449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 4.85, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=305543142]
+mesh = SubResource("BoxMesh_47x4r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=263259226]
+shape = SubResource("BoxShape3D_o5a2i")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=2137424919 node_paths=PackedStringArray("gas_tank", "hearts", "visual", "belly") instance=ExtResource("1_7gix3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
-script = ExtResource("2_88ety")
+script = ExtResource("2_4asn1")
 gas_tank = NodePath("GasTank")
+hearts = NodePath("Hearts")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Beans" type="Node3D" parent="." unique_id=631068944]
+[node name="Beans" type="Node3D" parent="." unique_id=1087105035]
 
-[node name="Bean1" type="Area3D" parent="Beans" unique_id=1315924464 instance=ExtResource("3_ahbqi")]
+[node name="Bean1" type="Area3D" parent="Beans" unique_id=1198634562 instance=ExtResource("3_dw7u0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.3, 0)
-script = ExtResource("4_7gix3")
+script = ExtResource("4_fyxdr")
 
-[node name="Bean2" type="Area3D" parent="Beans" unique_id=1496145421 instance=ExtResource("3_ahbqi")]
+[node name="Bean2" type="Area3D" parent="Beans" unique_id=1256360722 instance=ExtResource("3_dw7u0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.3, 0)
-script = ExtResource("4_7gix3")
+script = ExtResource("4_fyxdr")
 
-[node name="Bean3" type="Area3D" parent="Beans" unique_id=1117633753 instance=ExtResource("3_ahbqi")]
+[node name="Bean3" type="Area3D" parent="Beans" unique_id=467274362 instance=ExtResource("3_dw7u0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.1, 0)
-script = ExtResource("4_7gix3")
+script = ExtResource("4_fyxdr")
 
-[node name="Bean4" type="Area3D" parent="Beans" unique_id=969675024 instance=ExtResource("3_ahbqi")]
+[node name="Bean4" type="Area3D" parent="Beans" unique_id=398553739 instance=ExtResource("3_dw7u0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3.6, 0)
-script = ExtResource("4_7gix3")
+script = ExtResource("4_fyxdr")
 
-[node name="Bean5" type="Area3D" parent="Beans" unique_id=1059468297 instance=ExtResource("3_ahbqi")]
+[node name="Bean5" type="Area3D" parent="Beans" unique_id=1211368522 instance=ExtResource("3_dw7u0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5.9, 0)
-script = ExtResource("4_7gix3")
+script = ExtResource("4_fyxdr")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=297414611 node_paths=PackedStringArray("target")]
+[node name="Enemies" type="Node3D" parent="." unique_id=170172894]
+
+[node name="Burpling1" type="Area3D" parent="Enemies" unique_id=336164171 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.9, 0)
+script = ExtResource("6_qs1vn")
+patrol_distance = 1.5
+visual = NodePath("MeshInstance3D")
+
+[node name="Burpling2" type="Area3D" parent="Enemies" unique_id=2108995916 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.9, 0)
+script = ExtResource("6_qs1vn")
+patrol_distance = 1.2
+visual = NodePath("MeshInstance3D")
+
+[node name="Burpling3" type="Area3D" parent="Enemies" unique_id=468975762 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.9, 0)
+script = ExtResource("6_qs1vn")
+patrol_distance = 1.2
+visual = NodePath("MeshInstance3D")
+
+[node name="Burpling4" type="Area3D" parent="Enemies" unique_id=484017495 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.9, 0)
+script = ExtResource("6_qs1vn")
+patrol_distance = 3.0
+visual = NodePath("MeshInstance3D")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2059889499 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 5, 16)
-script = ExtResource("5_4asn1")
+script = ExtResource("7_13hs1")
 target = NodePath("../Player")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=304867236]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1551358637]
 transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
 shadow_enabled = true
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1682901398]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=229345129]
 
-[node name="GasLabel" type="Label" parent="HUD" unique_id=1039898162]
+[node name="GasLabel" type="Label" parent="HUD" unique_id=10135979]
 offset_left = 20.0
 offset_top = 18.0
 offset_right = 20.0
@@ -117,11 +147,20 @@ offset_bottom = 18.0
 theme_override_font_sizes/font_size = 24
 text = "GAS"
 
-[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=769186492 node_paths=PackedStringArray("player")]
+[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=874271594 node_paths=PackedStringArray("player")]
 offset_left = 90.0
 offset_top = 20.0
 offset_right = 390.0
 offset_bottom = 50.0
 show_percentage = false
-script = ExtResource("6_dw7u0")
+script = ExtResource("8_fptmo")
+player = NodePath("../../Player")
+
+[node name="HeartsBar" type="HBoxContainer" parent="HUD" unique_id=775509110 node_paths=PackedStringArray("player")]
+offset_left = 20.0
+offset_top = 64.0
+offset_right = 20.0
+offset_bottom = 64.0
+theme_override_constants/separation = 8
+script = ExtResource("9_bakr3")
 player = NodePath("../../Player")

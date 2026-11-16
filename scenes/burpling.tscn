@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/burpling.gd" id="1_taf83"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_csuut"]
+albedo_color = Color(0.35, 0.75, 0.25, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_km1x2"]
+material = SubResource("StandardMaterial3D_csuut")
+radius = 0.45
+height = 0.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tg2fn"]
+radius = 0.45
+
+[node name="Burpling" type="Area3D" unique_id=336164171 node_paths=PackedStringArray("visual")]
+script = ExtResource("1_taf83")
+visual = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1356234923]
+mesh = SubResource("SphereMesh_km1x2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2107538946]
+shape = SubResource("SphereShape3D_tg2fn")

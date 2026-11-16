@@ -130,6 +130,26 @@
 - Story is told three ways: speech bubbles, puppet-show scenes (lists of steps), storybook pages.
 - Respawn question is settled by the design: 3 hearts, no lives, toilets are checkpoints.
 
+## Session 8 (2026-11-16): build step 1, enemies, stomping and hearts
+
+### Decisions made
+- scripts/burpling.gd + scenes/burpling.tscn: green blob (Area3D) that waddles back and forth.
+  It does not use physics or gravity, so place it on the ground by hand (middle 0.4 m above floor).
+- Stomp rule: he must be falling (or landed in the last 0.12s) AND be above it or right over it.
+  Anything else costs a heart. Deliberately generous.
+- Stomping: bounce 9 (1.5 m), or 13 (3.3 m) if jump is held on landing, and +5 gas.
+- scripts/hearts.gd (Hearts node under Player): 3 hearts. scripts/hearts_bar.gd: red squares on the HUD.
+- Getting hurt: lose a heart, knocked back, blink for 1.5s and can't be hurt while blinking.
+- No hearts left, or falling off the level: back to the start with full hearts, blinking briefly.
+- Squash animation scales the blob model, not the Area3D (Jolt physics rejects squashed areas).
+- Test level has 4 Burplings on the floor.
+
+### Tested
+- Automated headless run: side touch loses a heart and knocks back, no second hit while blinking,
+  dropping on one squashes it and bounces (1.55 m, +5 gas), holding jump bounces higher (3.27 m),
+  last heart respawns at the start with 3 hearts. Jump, gas, camera and fall tests still pass.
+- Not checked by eye: the blink, the squash, the hearts bar, and whether stomping feels fair.
+
 ### What to do next
-1. Press F5 and play what exists. Tune on the Player in the Inspector.
-2. Build step 1 of GAME_DESIGN.md: enemies (Burpling), stomping and hearts.
+1. Press F5 and play. Check stomping feels fair for a six year old.
+2. Build step 2 of GAME_DESIGN.md: toilet checkpoints, Golden Beans, Bean Can goal, speech bubbles.
