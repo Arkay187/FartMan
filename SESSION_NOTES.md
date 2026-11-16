@@ -70,7 +70,25 @@
 - Ledges now have 4 m gaps (x = 2, 9, 16), the floor is 44 m wide, and the camera is
   pulled back to fit. Rule of thumb for later levels: gaps of at least 3 m, or none.
 
+## Session 4 (2026-11-16): gas tank and beans
+
+### Decisions made
+- scripts/gas_tank.gd (GasTank): a node under Player. 100 gas when full, starts full.
+- Gas costs: Toot 10, Trump 20, Thunder 35. Hops and pfffts are free, so you can never get stuck.
+- Not enough gas for the fart you charged = it comes out as a Pfft and costs nothing.
+- scripts/bean.gd + scenes/bean.tscn: a spinning brown bean (Area3D). Touch it for +25 gas.
+- scripts/gas_bar.gd: a plain ProgressBar in the top-left corner (HUD > GasBar).
+- player.gd is now `class_name Player` so beans and the gas bar can recognise him.
+- Test level has 5 beans: two on the floor and one on each ledge.
+
+### Tested
+- Automated headless run: gas went 100 > 90 (Toot) > 70 (Trump) > 35 (Thunder) > 0 (Thunder),
+  the gas bar matched each time, and walking over a bean gave +25 and removed the bean.
+- Not checked by eye: how the bean and gas bar look on screen.
+- Not directly tested: charging a fart you cannot afford (should come out as a Pfft).
+
 ### What to do next
-1. Press F5 and play. Tune times and powers on the Player in the Inspector.
-3. Add the gas tank (drains per fart) and bean pickups.
-4. Make the camera follow the player.
+1. Press F5 and play. Tune times, powers and gas costs on the Player in the Inspector.
+2. Make the camera follow the player.
+3. Falling off the level: respawn.
+4. Start the Garden level.

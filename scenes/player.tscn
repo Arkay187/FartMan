@@ -1,21 +1,26 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_qhqgy"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_g2els"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dqkch"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qhqgy"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlg0r"]
 
-[node name="Player" type="CharacterBody3D" unique_id=75877774 node_paths=PackedStringArray("squash_target")]
-script = ExtResource("1_3vyb7")
+[node name="Player" type="CharacterBody3D" unique_id=1830658409 node_paths=PackedStringArray("gas_tank", "squash_target")]
+script = ExtResource("1_g2els")
+gas_tank = NodePath("GasTank")
 squash_target = NodePath("Visual")
 
-[node name="Visual" type="Node3D" parent="." unique_id=883049550]
+[node name="Visual" type="Node3D" parent="." unique_id=1843624219]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=743129398]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1768179190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_g2els")
+mesh = SubResource("CapsuleMesh_dqkch")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1651974467]
-shape = SubResource("CapsuleShape3D_qhqgy")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=876142569]
+shape = SubResource("CapsuleShape3D_qlg0r")
+
+[node name="GasTank" type="Node" parent="." unique_id=1355126672]
+script = ExtResource("2_qhqgy")

@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 ## Fart Man himself. Walks left and right, and jumps by farting.
 ## Tap jump for a small hop. Hold jump to charge a fart, let go to launch.
@@ -39,6 +40,14 @@ const TIER_NAMES: Array[String] = ["Hop", "Toot", "Trump", "Thunder", "Pfft"]
 @export var trump_power: float = 12.5
 @export var thunder_power: float = 16.0
 @export var pfft_power: float = 4.0
+
+@export_group("Gas")
+## His gas tank. Leave empty for unlimited gas.
+@export var gas_tank: GasTank
+## Gas each fart uses. Hops and pfffts are free.
+@export var toot_cost: float = 10.0
+@export var trump_cost: float = 20.0
+@export var thunder_cost: float = 35.0
 
 @export_group("Charge squash")
 ## Optional: drag the player's MeshInstance3D here and he squats while charging.
@@ -135,7 +144,23 @@ func _power_for(tier: Tier) -> float:
 	return hop_power
 
 
+func _cost_for(tier: Tier) -> float:
+	match tier:
+		Tier.TOOT:
+			return toot_cost
+		Tier.TRUMP:
+			return trump_cost
+		Tier.THUNDER:
+			return thunder_cost
+	return 0.0
+
+
 func _launch(tier: Tier) -> void:
+	# Not enough gas in the tank? It fizzles out as a pfft.
+	var cost: float = _cost_for(tier)
+	if gas_tank != null and cost > 0.0 and not gas_tank.use(cost):
+		tier = Tier.PFFT
+
 	velocity.y = _power_for(tier)
 	_stop_charging()
 	farted.emit(TIER_NAMES[tier])

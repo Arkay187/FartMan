@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/bean.gd" id="1_fkxq7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdqyq"]
+albedo_color = Color(0.5, 0.27, 0.1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cphwl"]
+material = SubResource("StandardMaterial3D_vdqyq")
+radius = 0.2
+height = 0.7
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rfort"]
+radius = 0.45
+
+[node name="Bean" type="Area3D" unique_id=1055855102]
+script = ExtResource("1_fkxq7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=64101355]
+transform = Transform3D(0.81915206, -0.57357645, 0, 0.57357645, 0.81915206, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_cphwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=777901769]
+shape = SubResource("SphereShape3D_rfort")
