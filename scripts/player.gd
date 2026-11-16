@@ -22,8 +22,6 @@ const TIER_NAMES: Array[String] = ["Hop", "Toot", "Trump", "Thunder", "Pfft"]
 @export var air_acceleration: float = 25.0
 ## How strongly he is pulled down.
 @export var gravity: float = 25.0
-## Walking speed while charging. 0.5 = half speed, 0 = stands still.
-@export_range(0.0, 1.0) var charge_move_multiplier: float = 0.5
 
 @export_group("Charge times (seconds held)")
 ## Let go before this and it is just a hop.
@@ -72,9 +70,8 @@ func _physics_process(delta: float) -> void:
 
 	# Left / right. direction is -1, 0 or 1.
 	var direction: float = Input.get_axis(left_action, right_action)
-	var speed: float = move_speed * (charge_move_multiplier if is_charging else 1.0)
 	var acceleration: float = ground_acceleration if is_on_floor() else air_acceleration
-	velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+	velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
 
 	# 2.5D: never move towards or away from the camera.
 	velocity.z = 0.0

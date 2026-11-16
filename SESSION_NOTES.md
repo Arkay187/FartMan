@@ -62,6 +62,8 @@
 - Rich wants a fast-paced game, so charge times were roughly halved:
   Toot 0.1s, Trump 0.25s, Thunder 0.5s, Pfft 0.85s (was 0.15 / 0.5 / 1.0 / 1.6).
 - Launch powers unchanged.
+- No slowdown while charging (removed). He runs at full speed the whole time;
+  the fun is in timing the release.
 
 ### What to do next
 1. Press F5 and play. Tune times and powers on the Player in the Inspector.
