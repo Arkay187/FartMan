@@ -1,18 +1,23 @@
 class_name Player
 extends CharacterBody3D
 ## Fart Man himself. Walks left and right, and jumps by farting.
-## Tap jump for a small hop. Hold jump to charge a fart, let go to launch.
-## Hold too long and it fizzles out as a weak "pfft".
+##
+## Tap jump: small jump (Toot).
+## Hold jump: his belly grows. Let go for a medium jump (Trump).
+## Let go when the belly is full: big jump (Thunder).
+## Hold too long: a long squeaky fart leaks out, the belly slowly goes down
+## and gas drains away. Let go any time and he jumps with whatever belly is left.
 
 ## Sent when he starts charging.
 signal charge_started
-## Sent while charging, each time the charge reaches a new tier ("Toot", "Trump"...).
-signal tier_changed(tier_name: String)
 ## Sent when he launches. Use this later for sounds and gas clouds.
 signal farted(tier_name: String)
+## Sent when the long squeaky leak starts and stops. Use these later for the sound.
+signal squeak_started
+signal squeak_stopped
 
-enum Tier { HOP, TOOT, TRUMP, THUNDER, PFFT }
-const TIER_NAMES: Array[String] = ["Hop", "Toot", "Trump", "Thunder", "Pfft"]
+enum Tier { TOOT, TRUMP, THUNDER }
+const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 
 @export_group("Walking")
 ## How fast he walks, in metres per second.
@@ -24,36 +29,40 @@ const TIER_NAMES: Array[String] = ["Hop", "Toot", "Trump", "Thunder", "Pfft"]
 ## How strongly he is pulled down.
 @export var gravity: float = 25.0
 
-@export_group("Charge times (seconds held)")
-## Let go before this and it is just a hop.
-@export var toot_time: float = 0.1
-## Hold this long for a Trump.
-@export var trump_time: float = 0.25
-## Hold this long for a Thunder.
-@export var thunder_time: float = 0.5
-## Hold this long and it goes off by itself as a weak pfft.
-@export var pfft_time: float = 0.85
+@export_group("Charge times (seconds)")
+## Let go before this and it counts as a tap: small jump.
+@export var tap_time: float = 0.15
+## How long to hold until the belly is full.
+@export var full_charge_time: float = 0.5
+## How long the belly stays full before it starts to leak.
+@export var full_hold_time: float = 0.35
+## How long a full belly takes to leak away completely.
+@export var squeak_time: float = 1.5
 
-@export_group("Launch power")
-@export var hop_power: float = 6.0
-@export var toot_power: float = 9.0
-@export var trump_power: float = 12.5
+@export_group("Jump power")
+## Small jump (tap).
+@export var toot_power: float = 7.5
+## Medium jump (belly partly full).
+@export var trump_power: float = 11.5
+## Big jump (belly full).
 @export var thunder_power: float = 16.0
-@export var pfft_power: float = 4.0
 
 @export_group("Gas")
 ## His gas tank. Leave empty for unlimited gas.
 @export var gas_tank: GasTank
-## Gas each fart uses. Hops and pfffts are free.
-@export var toot_cost: float = 10.0
+## Gas each jump uses. The small tap jump is free so he can never get stuck.
 @export var trump_cost: float = 20.0
 @export var thunder_cost: float = 35.0
+## Gas wasted each second while the squeaky leak is going.
+@export var squeak_gas_per_second: float = 10.0
 
-@export_group("Charge squash")
-## Optional: drag the player's MeshInstance3D here and he squats while charging.
-@export var squash_target: Node3D
-## How flat he gets at full charge. 0.6 = 60% of normal height.
-@export_range(0.2, 1.0) var squash_amount: float = 0.6
+@export_group("Looks")
+## The part of him that turns to face the way he walks.
+@export var visual: Node3D
+## The belly model. It grows while charging and hides the rest of the time.
+@export var belly: Node3D
+## How big the belly is when completely full.
+@export var belly_full_scale: float = 1.1
 
 @export_group("Controls")
 ## These are built into Godot: arrow keys and Space.
@@ -66,8 +75,14 @@ const TIER_NAMES: Array[String] = ["Hop", "Toot", "Trump", "Thunder", "Pfft"]
 @export var print_farts: bool = true
 
 var is_charging: bool = false
+var is_squeaking: bool = false
 var charge_time: float = 0.0
-var current_tier: Tier = Tier.HOP
+## How full the belly is: 0 = empty, 1 = full.
+var belly_fill: float = 0.0
+
+
+func _ready() -> void:
+	_show_belly()
 
 
 func _physics_process(delta: float) -> void:
@@ -81,6 +96,10 @@ func _physics_process(delta: float) -> void:
 	var direction: float = Input.get_axis(left_action, right_action)
 	var acceleration: float = ground_acceleration if is_on_floor() else air_acceleration
 	velocity.x = move_toward(velocity.x, direction * move_speed, acceleration * delta)
+
+	# Turn to face the way he is walking.
+	if visual != null and direction != 0.0:
+		visual.rotation.y = 0.0 if direction > 0.0 else PI
 
 	# 2.5D: never move towards or away from the camera.
 	velocity.z = 0.0
@@ -99,55 +118,61 @@ func _update_charge(delta: float) -> void:
 	if Input.is_action_just_pressed(jump_action):
 		is_charging = true
 		charge_time = 0.0
-		current_tier = Tier.HOP
+		belly_fill = 0.0
 		charge_started.emit()
 
 	if not is_charging:
 		return
 
+	# Letting go always launches, with whatever is in the belly right now.
+	if not Input.is_action_pressed(jump_action):
+		_launch(_tier_now())
+		return
+
 	charge_time += delta
-	_squash(charge_time / pfft_time)
+	if charge_time < full_charge_time:
+		# Belly growing.
+		belly_fill = charge_time / full_charge_time
+	elif charge_time < full_charge_time + full_hold_time:
+		# Belly full: the moment to let go for a Thunder.
+		belly_fill = 1.0
+	else:
+		# Held too long: it leaks out as a long squeak until the belly is empty.
+		_leak(delta)
+	_show_belly()
 
-	var tier: Tier = _tier_for(charge_time)
-	if tier != current_tier:
-		current_tier = tier
-		tier_changed.emit(TIER_NAMES[tier])
 
-	# Launch when the button is let go, or when it has been held too long.
-	if tier == Tier.PFFT or not Input.is_action_pressed(jump_action):
-		_launch(tier)
+## The long squeaky fart: the belly goes down slowly and gas is wasted.
+func _leak(delta: float) -> void:
+	if belly_fill <= 0.0:
+		_set_squeaking(false)
+		return
+	_set_squeaking(true)
+	belly_fill = maxf(belly_fill - delta / squeak_time, 0.0)
+	if gas_tank != null:
+		gas_tank.drain(squeak_gas_per_second * delta)
 
 
-## Which fart do you get for holding this long?
-func _tier_for(held: float) -> Tier:
-	if held >= pfft_time:
-		return Tier.PFFT
-	if held >= thunder_time:
+## Which jump do you get if you let go right now?
+func _tier_now() -> Tier:
+	if belly_fill >= 1.0:
 		return Tier.THUNDER
-	if held >= trump_time:
+	if charge_time >= tap_time and belly_fill > 0.0:
 		return Tier.TRUMP
-	if held >= toot_time:
-		return Tier.TOOT
-	return Tier.HOP
+	return Tier.TOOT
 
 
 func _power_for(tier: Tier) -> float:
 	match tier:
-		Tier.TOOT:
-			return toot_power
 		Tier.TRUMP:
 			return trump_power
 		Tier.THUNDER:
 			return thunder_power
-		Tier.PFFT:
-			return pfft_power
-	return hop_power
+	return toot_power
 
 
 func _cost_for(tier: Tier) -> float:
 	match tier:
-		Tier.TOOT:
-			return toot_cost
 		Tier.TRUMP:
 			return trump_cost
 		Tier.THUNDER:
@@ -155,11 +180,17 @@ func _cost_for(tier: Tier) -> float:
 	return 0.0
 
 
-func _launch(tier: Tier) -> void:
-	# Not enough gas in the tank? It fizzles out as a pfft.
+func _can_pay_for(tier: Tier) -> bool:
 	var cost: float = _cost_for(tier)
-	if gas_tank != null and cost > 0.0 and not gas_tank.use(cost):
-		tier = Tier.PFFT
+	return gas_tank == null or cost <= 0.0 or gas_tank.use(cost)
+
+
+func _launch(tier: Tier) -> void:
+	# Not enough gas? Drop down to the biggest jump he can afford.
+	if tier == Tier.THUNDER and not _can_pay_for(Tier.THUNDER):
+		tier = Tier.TRUMP
+	if tier == Tier.TRUMP and not _can_pay_for(Tier.TRUMP):
+		tier = Tier.TOOT
 
 	velocity.y = _power_for(tier)
 	_stop_charging()
@@ -171,12 +202,26 @@ func _launch(tier: Tier) -> void:
 func _stop_charging() -> void:
 	is_charging = false
 	charge_time = 0.0
-	_squash(0.0)
+	belly_fill = 0.0
+	_set_squeaking(false)
+	_show_belly()
 
 
-## amount is 0 (standing normally) to 1 (fully squashed).
-func _squash(amount: float) -> void:
-	if squash_target == null:
+func _set_squeaking(on: bool) -> void:
+	if on == is_squeaking:
 		return
-	var height: float = lerpf(1.0, squash_amount, clampf(amount, 0.0, 1.0))
-	squash_target.scale = Vector3(1.0, height, 1.0)
+	is_squeaking = on
+	if on:
+		squeak_started.emit()
+		if print_farts:
+			print("Squeeeeak...")
+	else:
+		squeak_stopped.emit()
+
+
+## Grows or hides the belly model to match belly_fill.
+func _show_belly() -> void:
+	if belly == null:
+		return
+	belly.visible = belly_fill > 0.0
+	belly.scale = Vector3.ONE * maxf(belly_fill * belly_full_scale, 0.01)

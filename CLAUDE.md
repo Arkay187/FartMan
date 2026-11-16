@@ -16,9 +16,13 @@ A silly 2.5D platformer for a 6 year old and his dad. Fun and readable beat clev
 - Update SESSION_NOTES.md at the end of each session: decisions made, files created, what to do next.
 
 ## Core mechanic
-- Hold jump to charge a fart. Release to launch. Tap jump for a small hop.
-- Three charge tiers: Toot, Trump, Thunder. Over-holding makes a weak "pfft".
-- Gas tank drains per fart, refills from bean pickups.
+- Three jumps: Toot (tap, small), Trump (hold, medium), Thunder (belly full, big).
+- Holding jump grows his belly (a proxy model for now). Letting go hides it and launches.
+- Jump size = how full the belly is at the moment of release. The fun is timing the release.
+- Holding too long lets out a long squeaky fart: the belly slowly deflates and gas leaks away.
+  It must never loop or fail while held; releasing always jumps with whatever belly is left.
+- He does not slow down while charging. The game should feel fast.
+- Gas tank drains per fart, refills from bean pickups. Tap jumps are free.
 
 ## Planned scope
 - 3 levels: Garden, Bean Factory, Space.

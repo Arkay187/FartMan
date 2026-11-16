@@ -87,6 +87,26 @@
 - Not checked by eye: how the bean and gas bar look on screen.
 - Not directly tested: charging a fart you cannot afford (should come out as a Pfft).
 
+## Session 5 (2026-11-16): belly charge (replaces squat, Hop and Pfft)
+
+### Decisions made (Rich's redesign)
+- No more squashing capsule. Holding jump grows a belly (pink sphere proxy, Visual/Belly).
+- Three jumps only: Toot = tap (small, free), Trump = hold (medium, 20 gas),
+  Thunder = belly full (big, 35 gas). Hop and Pfft tiers are gone.
+- Times: tap under 0.15s, belly full at 0.5s, stays full 0.35s, then leaks for 1.5s.
+- Holding too long = long squeaky fart: belly deflates, gas leaks at 10 per second.
+  It never loops or fails: letting go always jumps with whatever belly is left
+  (Trump while some belly remains, Toot once it is empty).
+- Claude's interpretation, not spelled out by Rich: releasing mid-squeak gives a Trump,
+  and not enough gas drops you to the next jump down instead of failing.
+- He now turns to face the way he walks, so the belly sticks out in front.
+- Ledges lowered to fit the new jump heights (Toot 1.19 m, Trump 2.74 m, Thunder 5.25 m).
+
+### Tested
+- Automated headless run covered: tap, half charge, full charge, release mid-squeak,
+  holding 4 seconds (one squeak, no jump until release, 15 gas leaked), empty tank, facing.
+- Not checked by eye: how the belly looks and whether the timing feels right.
+
 ### What to do next
 1. Press F5 and play. Tune times, powers and gas costs on the Player in the Inspector.
 2. Make the camera follow the player.

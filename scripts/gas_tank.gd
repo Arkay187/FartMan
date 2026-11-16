@@ -27,6 +27,14 @@ func use(amount: float) -> bool:
 	return true
 
 
+## Lets some gas leak away. Takes whatever is left if there is not enough.
+func drain(amount: float) -> void:
+	if gas <= 0.0:
+		return
+	gas = maxf(gas - amount, 0.0)
+	gas_changed.emit(gas, max_gas)
+
+
 ## Adds gas, but never more than a full tank.
 func refill(amount: float) -> void:
 	gas = minf(gas + amount, max_gas)
