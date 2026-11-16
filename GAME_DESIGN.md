@@ -214,7 +214,7 @@ Each step is playable on its own, so we can stop and play after every one.
 3. Power-ups: Mega Bean Can, then Chilli Pepper.
 4. Flight mode and the Rocket Burrito.
 5. World map with saving, and the storybook viewer with the opening story.
-6. Scene player, then World 1 complete: three stages and Sneezy Weezy with its hello and
+6. (DONE, needs playing) Scene player, then World 1 complete: three stages and Sneezy Weezy with its hello and
    goodbye scenes. **This is the first "real game".**
 7. World 2, then World 3 and the ending.
 8. Sounds, our own storybook drawings and proper art, replacing the grey boxes.

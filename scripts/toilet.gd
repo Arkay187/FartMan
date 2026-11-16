@@ -12,6 +12,9 @@ signal flushed
 @export var respawn_height: float = 1.5
 ## The toilet model. It turns this colour once flushed, so you can tell it is used.
 @export var visual: Node3D
+## For a toilet floating in a flying stage: the lowest and highest height of the flight.
+## He comes back flying. Leave at (0, 0) for a normal toilet.
+@export var flight_range: Vector2 = Vector2.ZERO
 @export var flushed_color: Color = Color(0.45, 0.75, 1.0)
 
 var is_flushed: bool = false
@@ -26,7 +29,7 @@ func _on_body_entered(body: Node3D) -> void:
 	if player == null or is_flushed:
 		return
 	is_flushed = true
-	player.set_checkpoint(global_position + Vector3.UP * respawn_height)
+	player.set_checkpoint(global_position + Vector3.UP * respawn_height, flight_range)
 	_show_flushed()
 	SpeechBubble.say(self, flush_words, 1.5, 2.6)
 	flushed.emit()

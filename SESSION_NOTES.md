@@ -361,3 +361,30 @@
 - Test: tools/tests/test_controls.gd; older tests moved to the new buttons. All pass.
 - Not checked by eye: how the double jump feels, whether the air-charge time is enough. Tune tap_time and the powers.
 - Decided (Rich): it is fine that hop + air Thunder reaches the Bean Can lid. Easy is OK, and the only-Thunder-reaches-the-lid idea will probably be cut later.
+
+## Step 6: puppet scenes and World 1 (Rich: "go wild", fun first)
+- Four stages, built by code with tools/level_kit.gd + tools/stages/stage_1_1..1_4.gd (edit those and rebuild;
+  never hand-edit the .tscn). The kit also checks the main path is possible with a Thunder jump (prints ROUTE PROBLEM).
+  - 1-1 THE VEG PATCH (~2.5 min): hop, Trump, Thunder wall, prickles, mushroom bounce chain, wheelbarrow bog, lift,
+    sprinklers, pie-throwing gnomes, chilli finish. 7 toilets.
+  - 1-2 THE GREENHOUSE (~3.5 min): Hiccups, cacti, sprinkler pipes, lift to a shelf, GIANT CABBAGE CHASE,
+    chilli downhill dash through 13 Burplings, bouncy crow finale.
+  - 1-3 OVER THE ROOFTOPS (flight, ~2.5 min): washing lines, crow flocks, up-draughts under spiky ceilings,
+    geysers, surprised cow, spiky slalom, hoop rollercoaster. Starts already flying; sky toilets keep him flying.
+  - 1-4 SNEEZY WEEZY (boss): pollen along the floor, 3 rounds (faster, double, plus falling petals), droops after 3
+    sneezes, 3 stomps, gate opens to the Bean Can. Hello and goodbye puppet scenes.
+- New things: Hiccup, Gnome + MudPie, Crow (Flapper), Prickle, BouncePad (mushroom), MovingPlatform, PulseHazard
+  (sprinkler), Chatterbox (hint signs), UpDraft, Chaser (giant cabbage), Pollen, FallingPetal, SneezyWeezy.
+  Enemies are Burplings that override _move(), so all share the stomp rules.
+- Scene player: scripts/scene_player.gd runs step lists from scripts/puppet/*.gd (say, wait, shake, walk, face, clip,
+  call). Hold jump 1 s to skip; shown once (saved "seen" flag); locks Fart Man's buttons (player.input_locked).
+- Player: joins group "player"; checkpoints can be in the sky (set_checkpoint(spot, flight_range)).
+- Map now enters 1-1 to 1-4 (stage_1_x.tscn). tools/tests/test_level.tscn is still the old playground the tests use.
+- Tests added: test_new_things, test_stages (counts, sky toilet, mushroom chain crossed by just holding right),
+  test_boss (whole fight with fake stomps). test_world_map now walks on to 2-1 for COMING SOON. All 16 pass.
+- NOT checked by eye / by a bot: whether any stage can really be finished by hand, how long each takes,
+  how the chase, sprinklers, wheelbarrows and lifts feel, the look of everything (all grey-box colours),
+  and the boss fight feel. Only the route gaps and the mushroom chain are checked by numbers.
+- Tuning knobs: gnome throw_every / flight_time, sprinkler on/off times, chaser speed (5.4 vs his 6),
+  bounce_power, hiccup hop_every, boss pollen_speed / tired_time / hits_to_win.
+- Next: Rich plays World 1 and says what is too hard / too long / boring; then World 2 (step 7).

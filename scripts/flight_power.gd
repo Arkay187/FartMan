@@ -22,6 +22,8 @@ signal ended
 @export var trail: FlameTrail
 
 var is_flying: bool = false
+## Added up each frame by up-draught zones (metres per second per second), then used.
+var updraft: float = 0.0
 ## He can't go below or above these heights during this flight.
 var lowest_y: float = 0.0
 var highest_y: float = 100.0
@@ -55,6 +57,9 @@ func fly(player: Player, delta: float) -> void:
 	var wanted: float = rise_speed if holding else -fall_speed
 	player.velocity.x = forward_speed
 	player.velocity.y = move_toward(player.velocity.y, wanted, lift * delta)
+	# Up-draughts shove him upwards for as long as he is inside one.
+	player.velocity.y += updraft * delta
+	updraft = 0.0
 	player.velocity.z = 0.0
 	player.move_and_slide()
 	player.position.z = 0.0

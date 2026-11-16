@@ -11,7 +11,9 @@ func _init() -> void:
 	_build_bean_can()
 	_build_powerups()
 	_build_flight_things()
+	_build_new_enemies()
 	_build_level()
+	_build_stages()
 	_build_world_map()
 	_build_storybook()
 	_build_boot()
@@ -191,6 +193,171 @@ func _build_burpling() -> void:
 	burp.set("visual", mesh)
 	burp.set("animator", animator)
 	_save(burp, "res://scenes/burpling.tscn")
+
+
+## Two googly eyes looking at the camera (the +z side).
+func _eyes(parent: Node, owner_node: Node, y: float, spread: float, size: float, forward: float) -> void:
+	for side in [-1.0, 1.0]:
+		var white := SphereMesh.new()
+		white.radius = size
+		white.height = size * 2.0
+		_mesh(parent, owner_node, "Eye", white, Color.WHITE, Vector3(side * spread, y, forward))
+		var pupil := SphereMesh.new()
+		pupil.radius = size * 0.5
+		pupil.height = size
+		_mesh(parent, owner_node, "Pupil", pupil, Color.BLACK, Vector3(side * spread, y, forward + size * 0.7))
+
+
+## An enemy Area3D with a "Visual" holder, a sphere to touch, an Animator and a script.
+func _enemy_base(node_name: String, script_path: String, hit_radius: float) -> Area3D:
+	var enemy := Area3D.new()
+	enemy.name = node_name
+	enemy.set_script(load(script_path))
+	var visual := Node3D.new()
+	visual.name = "Visual"
+	enemy.add_child(visual)
+	visual.owner = enemy
+	var col := CollisionShape3D.new()
+	col.name = "CollisionShape3D"
+	var sphere := SphereShape3D.new()
+	sphere.radius = hit_radius
+	col.shape = sphere
+	enemy.add_child(col)
+	col.owner = enemy
+	var animator := Node.new()
+	animator.name = "Animator"
+	animator.set_script(load("res://scripts/enemy_animator.gd"))
+	enemy.add_child(animator)
+	animator.owner = enemy
+	animator.set("squash_target", visual)
+	enemy.set("visual", visual)
+	enemy.set("animator", animator)
+	return enemy
+
+
+func _build_new_enemies() -> void:
+	# Hiccup: a sunny orange blob that hops on the spot.
+	var hiccup := _enemy_base("Hiccup", "res://scripts/hiccup.gd", 0.45)
+	var hv: Node3D = hiccup.get_node("Visual")
+	var hb := SphereMesh.new()
+	hb.radius = 0.45
+	hb.height = 0.9
+	_mesh(hv, hiccup, "Body", hb, Color(1.0, 0.6, 0.15), Vector3.ZERO)
+	_eyes(hv, hiccup, 0.12, 0.17, 0.12, 0.34)
+	var mouth := SphereMesh.new()
+	mouth.radius = 0.08
+	mouth.height = 0.16
+	_mesh(hv, hiccup, "Mouth", mouth, Color(0.5, 0.1, 0.1), Vector3(0, -0.12, 0.42))
+	hiccup.set("walk_speed", 0.0)
+	_save(hiccup, "res://scenes/hiccup.tscn")
+
+	# Grumpy Gnome: blue jacket, red pointy hat, big white beard.
+	var gnome := _enemy_base("Gnome", "res://scripts/gnome.gd", 0.5)
+	var gv: Node3D = gnome.get_node("Visual")
+	var jacket := CylinderMesh.new()
+	jacket.top_radius = 0.3
+	jacket.bottom_radius = 0.42
+	jacket.height = 0.7
+	_mesh(gv, gnome, "Jacket", jacket, Color(0.2, 0.35, 0.8), Vector3(0, -0.15, 0))
+	var face := SphereMesh.new()
+	face.radius = 0.28
+	face.height = 0.56
+	_mesh(gv, gnome, "Face", face, Color(0.95, 0.75, 0.6), Vector3(0, 0.38, 0))
+	var hat := CylinderMesh.new()
+	hat.top_radius = 0.0
+	hat.bottom_radius = 0.32
+	hat.height = 0.6
+	_mesh(gv, gnome, "Hat", hat, Color(0.85, 0.1, 0.1), Vector3(0, 0.88, 0))
+	var beard := BoxMesh.new()
+	beard.size = Vector3(0.4, 0.35, 0.15)
+	_mesh(gv, gnome, "Beard", beard, Color(0.95, 0.95, 0.95), Vector3(0, 0.15, 0.22))
+	_eyes(gv, gnome, 0.45, 0.1, 0.06, 0.24)
+	gnome.set("walk_speed", 0.0)
+	gnome.set("stomp_width", 0.7)
+	_save(gnome, "res://scenes/gnome.tscn")
+
+	# Crow: a black bird with orange beak and flappy wing slabs.
+	var crow := _enemy_base("Crow", "res://scripts/flapper.gd", 0.5)
+	var cv: Node3D = crow.get_node("Visual")
+	var crow_body := SphereMesh.new()
+	crow_body.radius = 0.4
+	crow_body.height = 0.8
+	_mesh(cv, crow, "Body", crow_body, Color(0.15, 0.15, 0.2), Vector3.ZERO)
+	for side in [-1.0, 1.0]:
+		var wing := BoxMesh.new()
+		wing.size = Vector3(0.2, 0.08, 1.1)
+		var wing_mesh := _mesh(cv, crow, "Wing", wing, Color(0.1, 0.1, 0.15), Vector3(0, 0.1, side * 0.6))
+		wing_mesh.rotation_degrees = Vector3(side * 20.0, 0, 0)
+	var beak := CylinderMesh.new()
+	beak.top_radius = 0.0
+	beak.bottom_radius = 0.12
+	beak.height = 0.35
+	var beak_mesh := _mesh(cv, crow, "Beak", beak, Color(1.0, 0.65, 0.1), Vector3(0.45, 0.0, 0.0))
+	beak_mesh.rotation_degrees = Vector3(0, 0, -90)
+	_eyes(cv, crow, 0.12, 0.14, 0.09, 0.28)
+	crow.set("walk_speed", 3.0)
+	crow.set("patrol_distance", 3.0)
+	_save(crow, "res://scenes/crow.tscn")
+
+	# Prickle: a small spiky ball sitting on the ground. Always hurts.
+	var prickle := Area3D.new()
+	prickle.name = "Prickle"
+	prickle.set_script(load("res://scripts/hazard.gd"))
+	var ball := SphereMesh.new()
+	ball.radius = 0.3
+	ball.height = 0.6
+	_mesh(prickle, prickle, "Ball", ball, Color(0.55, 0.15, 0.3), Vector3.ZERO)
+	for i in 7:
+		var spike := CylinderMesh.new()
+		spike.top_radius = 0.0
+		spike.bottom_radius = 0.1
+		spike.height = 0.4
+		var angle: float = PI * i / 6.0
+		var spike_mesh := _mesh(prickle, prickle, "Spike%d" % (i + 1), spike, Color(0.85, 0.25, 0.4),
+			Vector3(cos(angle), sin(angle), 0) * 0.35)
+		spike_mesh.rotation = Vector3(0, 0, angle - PI / 2.0)
+	var prickle_col := CollisionShape3D.new()
+	prickle_col.name = "CollisionShape3D"
+	var prickle_shape := SphereShape3D.new()
+	prickle_shape.radius = 0.35
+	prickle_col.shape = prickle_shape
+	prickle.add_child(prickle_col)
+	prickle_col.owner = prickle
+	_save(prickle, "res://scenes/prickle.tscn")
+
+	# Bounce pad: a red mushroom with white spots.
+	var pad := Area3D.new()
+	pad.name = "BouncePad"
+	pad.set_script(load("res://scripts/bounce_pad.gd"))
+	var stalk := CylinderMesh.new()
+	stalk.top_radius = 0.25
+	stalk.bottom_radius = 0.3
+	stalk.height = 0.5
+	_mesh(pad, pad, "Stalk", stalk, Color(0.95, 0.9, 0.8), Vector3(0, 0.25, 0))
+	var cap := Node3D.new()
+	cap.name = "Cap"
+	cap.position = Vector3(0, 0.45, 0)
+	pad.add_child(cap)
+	cap.owner = pad
+	var dome := SphereMesh.new()
+	dome.radius = 0.8
+	dome.height = 0.8
+	_mesh(cap, pad, "Dome", dome, Color(0.9, 0.15, 0.15), Vector3.ZERO)
+	for spot in [Vector3(0.3, 0.3, 0.4), Vector3(-0.35, 0.25, 0.35), Vector3(0.0, 0.38, -0.3)]:
+		var dot := SphereMesh.new()
+		dot.radius = 0.12
+		dot.height = 0.24
+		_mesh(cap, pad, "Spot", dot, Color.WHITE, spot)
+	var pad_col := CollisionShape3D.new()
+	pad_col.name = "CollisionShape3D"
+	var pad_shape := BoxShape3D.new()
+	pad_shape.size = Vector3(1.4, 0.9, 2.0)
+	pad_col.shape = pad_shape
+	pad_col.position = Vector3(0, 0.45, 0)
+	pad.add_child(pad_col)
+	pad_col.owner = pad
+	pad.set("cap", cap)
+	_save(pad, "res://scenes/bounce_pad.tscn")
 
 
 func _mesh(parent: Node, owner_node: Node, mesh_name: String, shape: Mesh, color: Color, pos: Vector3) -> MeshInstance3D:
@@ -800,6 +967,15 @@ func _build_boot() -> void:
 	root.name = "Boot"
 	root.set_script(load("res://scripts/boot.gd"))
 	_save(root, "res://scenes/boot.tscn")
+
+
+## Writes the autoload and main scene into project.godot using the engine itself.
+## Builds the four World 1 stages with the level kit (tools/level_kit.gd, tools/stages/).
+func _build_stages() -> void:
+	for id in ["1_1", "1_2", "1_3", "1_4"]:
+		var kit: RefCounted = load("res://tools/level_kit.gd").new()
+		var stage: RefCounted = load("res://tools/stages/stage_%s.gd" % id).new()
+		stage.build(kit)
 
 
 ## Writes the autoload and main scene into project.godot using the engine itself.

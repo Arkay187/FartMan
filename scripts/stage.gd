@@ -17,6 +17,9 @@ signal stage_cleared
 
 ## Which stop on the world map this is, like "1-1". Empty = do not save anything.
 @export var stage_id: String = ""
+## For a flying stage: the lowest and highest height. He starts the stage already flying.
+## (0, 0) = a normal running stage.
+@export var start_flight: Vector2 = Vector2.ZERO
 ## Where to go after the stage is cleared.
 @export_file("*.tscn") var map_scene: String = "res://scenes/world_map.tscn"
 ## How long the STAGE CLEAR banner stays before going back to the map.
@@ -63,6 +66,10 @@ func _ready() -> void:
 
 	if player != null:
 		player.say(opening_words, 2.5)
+		if start_flight != Vector2.ZERO:
+			# Flying stages start in the air, and every checkpoint keeps him flying.
+			player.set_checkpoint(player.global_position, start_flight)
+			player.start_flying.call_deferred(start_flight.x, start_flight.y)
 
 
 func _on_golden_bean_collected() -> void:

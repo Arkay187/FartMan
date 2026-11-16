@@ -51,6 +51,13 @@ func _run() -> void:
 	print("1-2 not cleared, press right: stays on %s" % MapStops.STOPS[map.index]["id"])
 	print("marker is at the 1-2 spot: %s" % (map.marker.position.distance_to(map.stop_marker_position(1)) < 1.0))
 
+	# World 1 has stages now, so walk on to 2-1, which has no stage yet.
+	save.record_stage("1-2", 0, 1)
+	save.record_stage("1-3", 0, 1)
+	save.record_stage("1-4", 0, 1)
+	for i in 3:
+		await _press(&"ui_right")
+
 	# Entering a stop with no stage shows COMING SOON.
 	print("coming soon before jump: %s" % map.soon_label.visible)
 	Input.action_press(&"ui_accept")
@@ -62,10 +69,12 @@ func _run() -> void:
 	print("coming soon fades: visible=%s" % map.soon_label.visible)
 
 	# Back on the cleared stop: it shows beans and the best score.
-	await _press(&"ui_left")
+	for i in 4:
+		await _press(&"ui_left")
 	print("back on %s: info='%s' golden=%d score=%d" % [MapStops.STOPS[map.index]["id"], map.info_label.text, map.stop_golden(0), map.stop_score(0)])
 
 	# A new map (like returning from a stage) puts him on the stop he came from.
+	save.set_last_stop("1-1")
 	map.queue_free()
 	await _wait(0.2)
 	var again: WorldMap = load("res://scenes/world_map.tscn").instantiate()

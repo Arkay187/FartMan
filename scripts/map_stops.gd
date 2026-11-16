@@ -17,10 +17,10 @@ const BAND_WIDTH: float = 384.0
 
 ## The 12 stops, in the order you play them.
 const STOPS: Array[Dictionary] = [
-	{"id": "1-1", "name": "THE VEG PATCH", "kind": "run", "world": 0, "pos": Vector2(70, 500), "scene": "res://scenes/test_level.tscn"},
-	{"id": "1-2", "name": "THE GREENHOUSE", "kind": "run", "world": 0, "pos": Vector2(170, 380), "scene": ""},
-	{"id": "1-3", "name": "OVER THE ROOFTOPS", "kind": "fly", "world": 0, "pos": Vector2(290, 480), "scene": ""},
-	{"id": "1-4", "name": "SNEEZY WEEZY", "kind": "boss", "world": 0, "pos": Vector2(335, 300), "scene": ""},
+	{"id": "1-1", "name": "THE VEG PATCH", "kind": "run", "world": 0, "pos": Vector2(70, 500), "scene": "res://scenes/stage_1_1.tscn"},
+	{"id": "1-2", "name": "THE GREENHOUSE", "kind": "run", "world": 0, "pos": Vector2(170, 380), "scene": "res://scenes/stage_1_2.tscn"},
+	{"id": "1-3", "name": "OVER THE ROOFTOPS", "kind": "fly", "world": 0, "pos": Vector2(290, 480), "scene": "res://scenes/stage_1_3.tscn"},
+	{"id": "1-4", "name": "SNEEZY WEEZY", "kind": "boss", "world": 0, "pos": Vector2(335, 300), "scene": "res://scenes/stage_1_4.tscn"},
 	{"id": "2-1", "name": "THE CONVEYOR BELTS", "kind": "run", "world": 1, "pos": Vector2(450, 220), "scene": ""},
 	{"id": "2-2", "name": "THE PIPE MAZE", "kind": "run", "world": 1, "pos": Vector2(520, 380), "scene": ""},
 	{"id": "2-3", "name": "UP THE CHIMNEY", "kind": "fly", "world": 1, "pos": Vector2(630, 490), "scene": ""},

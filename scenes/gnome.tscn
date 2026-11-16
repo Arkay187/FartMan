@@ -1,0 +1,117 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/gnome.gd" id="1_2fhd7"]
+[ext_resource type="Script" path="res://scripts/enemy_animator.gd" id="2_88agf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cssq"]
+albedo_color = Color(0.2, 0.35, 0.8, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mmcur"]
+material = SubResource("StandardMaterial3D_7cssq")
+top_radius = 0.3
+bottom_radius = 0.42
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sq4wi"]
+albedo_color = Color(0.95, 0.75, 0.6, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_72rqq"]
+material = SubResource("StandardMaterial3D_sq4wi")
+radius = 0.28
+height = 0.56
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swufq"]
+albedo_color = Color(0.85, 0.1, 0.1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0dg2m"]
+material = SubResource("StandardMaterial3D_swufq")
+top_radius = 0.0
+bottom_radius = 0.32
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1wj6a"]
+albedo_color = Color(0.95, 0.95, 0.95, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_so4jv"]
+material = SubResource("StandardMaterial3D_1wj6a")
+size = Vector3(0.4, 0.35, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djdag"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a4o7p"]
+material = SubResource("StandardMaterial3D_djdag")
+radius = 0.06
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjead"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qaab2"]
+material = SubResource("StandardMaterial3D_pjead")
+radius = 0.03
+height = 0.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ltf2q"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5fy1s"]
+material = SubResource("StandardMaterial3D_ltf2q")
+radius = 0.06
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6a62"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_fu0vo"]
+material = SubResource("StandardMaterial3D_h6a62")
+radius = 0.03
+height = 0.06
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5cten"]
+
+[node name="Gnome" type="Area3D" unique_id=1879083168 node_paths=PackedStringArray("visual", "animator")]
+script = ExtResource("1_2fhd7")
+walk_speed = 0.0
+stomp_width = 0.7
+visual = NodePath("Visual")
+animator = NodePath("Animator")
+
+[node name="Visual" type="Node3D" parent="." unique_id=1455260836]
+
+[node name="Jacket" type="MeshInstance3D" parent="Visual" unique_id=2088242659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+mesh = SubResource("CylinderMesh_mmcur")
+
+[node name="Face" type="MeshInstance3D" parent="Visual" unique_id=227265977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
+mesh = SubResource("SphereMesh_72rqq")
+
+[node name="Hat" type="MeshInstance3D" parent="Visual" unique_id=274535442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
+mesh = SubResource("CylinderMesh_0dg2m")
+
+[node name="Beard" type="MeshInstance3D" parent="Visual" unique_id=1225383576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.22)
+mesh = SubResource("BoxMesh_so4jv")
+
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=263145101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.45, 0.24)
+mesh = SubResource("SphereMesh_a4o7p")
+
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=501838426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.45, 0.282)
+mesh = SubResource("SphereMesh_qaab2")
+
+[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="Visual" unique_id=1394872276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.45, 0.24)
+mesh = SubResource("SphereMesh_5fy1s")
+
+[node name="@MeshInstance3D@5" type="MeshInstance3D" parent="Visual" unique_id=586266888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.45, 0.282)
+mesh = SubResource("SphereMesh_fu0vo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=331810971]
+shape = SubResource("SphereShape3D_5cten")
+
+[node name="Animator" type="Node" parent="." unique_id=912860126 node_paths=PackedStringArray("squash_target")]
+script = ExtResource("2_88agf")
+squash_target = NodePath("../Visual")

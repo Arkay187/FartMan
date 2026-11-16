@@ -2,6 +2,8 @@ class_name Burpling
 extends Area3D
 ## A Burpling: a small blob that waddles back and forth.
 ## Land on top of it to squash it. Touch it any other way and it hurts.
+## Other enemies (Hiccup, Gnome, Crow...) are Burplings that move differently:
+## they replace _move() and keep all the stomping rules.
 
 ## Sent when it gets squashed. Use this later for the "pop" sound.
 signal squashed
@@ -35,11 +37,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_squashed:
 		return
-
-	# Waddle, and turn around at each end.
-	position.x += walk_speed * direction * delta
-	if absf(position.x - start_x) >= patrol_distance:
-		direction = -signf(position.x - start_x)
+	_move(delta)
 
 	# Is Fart Man touching us?
 	for body: Node3D in get_overlapping_bodies():
@@ -55,6 +53,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			player.hurt(global_position.x)
 		return
+
+
+## How this enemy moves each frame. Burplings waddle; other enemies replace this.
+func _move(delta: float) -> void:
+	position.x += walk_speed * direction * delta
+	if absf(position.x - start_x) >= patrol_distance:
+		direction = -signf(position.x - start_x)
 
 
 ## Is he above us (feet higher than our middle), or right over the top of us?

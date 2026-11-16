@@ -121,6 +121,11 @@ var charge_time: float = 0.0
 var belly_fill: float = 0.0
 ## Where he comes back to if things go wrong: the start, or the last toilet flushed.
 var checkpoint_position: Vector3
+## If the checkpoint is up in the sky: the lowest and highest height of that flight.
+## He comes back flying. (0, 0) means a normal checkpoint on the ground.
+var checkpoint_flight: Vector2 = Vector2.ZERO
+## Story scenes switch this on so buttons do nothing while they play.
+var input_locked: bool = false
 ## Counts down after falling: while above zero, touching an enemy squashes it.
 var stomp_window_left: float = 0.0
 ## Counts down after being hurt: while above zero, he blinks and can't be hurt.
@@ -128,6 +133,7 @@ var flashing_left: float = 0.0
 
 
 func _ready() -> void:
+	add_to_group(&"player")
 	checkpoint_position = global_position
 	_show_belly()
 
@@ -151,14 +157,19 @@ func _physics_process(delta: float) -> void:
 
 	_update_stomp_window(delta)
 	_update_flashing(delta)
-	_update_hop()
-	_update_charge(delta)
+	if input_locked:
+		# A story scene is playing: let go of everything and just stand there.
+		if is_charging:
+			_stop_charging()
+	else:
+		_update_hop()
+		_update_charge(delta)
 	# The tank does not refill while he is holding one in.
 	if gas_tank != null:
 		gas_tank.refill_paused = is_charging
 
 	# Left / right. direction is -1, 0 or 1.
-	var direction: float = Input.get_axis(left_action, right_action)
+	var direction: float = 0.0 if input_locked else Input.get_axis(left_action, right_action)
 	var acceleration: float = ground_acceleration if is_on_floor() else air_acceleration
 	var speed: float = move_speed
 	if chilli != null:
@@ -213,8 +224,10 @@ func say(words: String, seconds: float = 2.0) -> void:
 
 
 ## Toilets call this. From now on he comes back here instead of the start.
-func set_checkpoint(spot: Vector3) -> void:
+## For a checkpoint in the sky, pass the flight's lowest and highest height too.
+func set_checkpoint(spot: Vector3, flight_range: Vector2 = Vector2.ZERO) -> void:
 	checkpoint_position = spot
+	checkpoint_flight = flight_range
 
 
 ## How high off the ground his feet are. His middle is 1 metre above his feet.
@@ -385,6 +398,9 @@ func _respawn() -> void:
 	flashing_left = flash_time
 	if hearts != null:
 		hearts.refill()
+	# A checkpoint in the sky: carry on flying from there.
+	if checkpoint_flight != Vector2.ZERO:
+		start_flying(checkpoint_flight.x, checkpoint_flight.y)
 	respawned.emit()
 
 
