@@ -51,7 +51,7 @@ func stop(player: Player) -> void:
 
 ## Fart Man calls this every physics frame instead of his normal walking and jumping.
 func fly(player: Player, delta: float) -> void:
-	var holding: bool = Input.is_action_pressed(player.jump_action)
+	var holding: bool = Input.is_action_pressed(player.jump_action) or Input.is_action_pressed(player.fart_action)
 	var wanted: float = rise_speed if holding else -fall_speed
 	player.velocity.x = forward_speed
 	player.velocity.y = move_toward(player.velocity.y, wanted, lift * delta)

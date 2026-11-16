@@ -42,14 +42,14 @@ func _run(level: Node) -> void:
 
 	# Charging, then the squeak.
 	clips.clear()
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.3)
 	_check("charge while holding", anim.loop_clip == &"charge")
 	var squashed_scale: float = player.visual.scale.y
 	_check("charge squashes the shape in code (y=%.2f)" % squashed_scale, absf(squashed_scale - 1.0) > 0.01)
 	await _wait(1.5)
 	_check("squeak when held too long", anim.loop_clip == &"squeak")
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	await _wait(0.1)
 	_check("jump one-shot on launch", &"jump" in clips)
 

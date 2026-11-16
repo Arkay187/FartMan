@@ -31,7 +31,7 @@ func _run(level: Node) -> void:
 		tank.refill(100.0)
 		farts.clear()
 		squeaks = 0
-		Input.action_press(&"ui_accept")
+		Input.action_press(&"fart")
 		var held: float = 0.0
 		var biggest_belly: float = 0.0
 		while held < hold:
@@ -42,7 +42,7 @@ func _run(level: Node) -> void:
 		var belly_at_release: float = belly.scale.x if belly.visible else 0.0
 		var gas_before_release: float = tank.gas
 		var jumped_while_held: int = farts.size()
-		Input.action_release(&"ui_accept")
+		Input.action_release(&"fart")
 		var peak: float = rest_y
 		for i in 200:
 			await physics_frame
@@ -54,9 +54,9 @@ func _run(level: Node) -> void:
 	# Out of gas: a full charge should still jump (small), never fail.
 	tank.drain(1000.0)
 	farts.clear()
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.6)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	await _wait(2.0)
 	print("empty tank, full charge -> %s, gas=%.0f" % [str(farts), tank.gas])
 

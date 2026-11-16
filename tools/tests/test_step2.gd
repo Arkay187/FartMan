@@ -67,9 +67,9 @@ func _run(level: Node) -> void:
 	player.global_position = Vector3(can.global_position.x - 2.0, 1.5, 0)
 	player.velocity = Vector3.ZERO
 	await _wait(0.5)
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.3)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	Input.action_press(&"ui_right")
 	await _wait(1.5)
 	Input.action_release(&"ui_right")
@@ -80,9 +80,9 @@ func _run(level: Node) -> void:
 	player.velocity = Vector3.ZERO
 	player.get_node("GasTank").refill(100.0)
 	await _wait(0.5)
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.6)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	Input.action_press(&"ui_right")
 	await _wait(0.45)
 	Input.action_release(&"ui_right")

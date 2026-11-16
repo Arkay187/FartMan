@@ -73,7 +73,7 @@ func _run(level: Node) -> void:
 	target = enemies.get_node("Burpling3")
 	player.global_position = target.global_position + Vector3(0, 3, 0)
 	player.velocity = Vector3.ZERO
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"jump")
 	squashed = false
 	for i in 180:
 		await physics_frame
@@ -83,7 +83,7 @@ func _run(level: Node) -> void:
 			peak = land_y
 		if squashed:
 			peak = maxf(peak, player.global_position.y)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"jump")
 	await _wait(1.0)
 	print("dropped holding jump: squashed=%s bounce height=%.2f m, enemies=%d" % [squashed, peak - land_y, enemies.get_child_count()])
 

@@ -46,13 +46,13 @@ func _run(level: Node) -> void:
 
 	# Holding: climbs to the top of the sky and stays there.
 	tank.drain(1000.0)
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"jump")
 	await _wait(2.5)
 	var rel: Vector3 = camera.global_position - player.global_position
 	var looking: Vector3 = -camera.global_transform.basis.z
 	print("2.5s holding: y=%.1f (top of sky is 16.0), gas=%.0f, camera is %.1f behind, %.1f above, %.1f to the side, looking %s" % [
 		player.global_position.y, tank.gas, -rel.x, rel.y, rel.z, looking.snapped(Vector3.ONE * 0.01)])
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"jump")
 
 	# Hoop.
 	var before: int = level.score

@@ -72,9 +72,9 @@ func _run(level: Node) -> void:
 	player.velocity = Vector3.ZERO
 	await _wait(0.4)
 	var rest_y: float = player.global_position.y
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.6)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	var peak: float = rest_y
 	for i in 150:
 		await physics_frame

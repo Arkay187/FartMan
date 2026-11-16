@@ -31,18 +31,18 @@ func _run(level: Node) -> void:
 
 	# No refill while holding a charge in.
 	var before: float = tank.gas
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.7)
 	print("held jump 0.7s: gas change=%.1f (should be 0)" % (tank.gas - before))
 	await _wait(1.0)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	await _wait(2.5)
 
 	# Thunder costs gas, then it creeps back.
 	tank.refill(100.0)
-	Input.action_press(&"ui_accept")
+	Input.action_press(&"fart")
 	await _wait(0.6)
-	Input.action_release(&"ui_accept")
+	Input.action_release(&"fart")
 	await _wait(0.2)
 	var after_thunder: float = tank.gas
 	await _wait(3.0)

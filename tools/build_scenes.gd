@@ -806,4 +806,23 @@ func _build_boot() -> void:
 func _register_project() -> void:
 	ProjectSettings.set_setting("autoload/SaveGame", "*res://scripts/save_game.gd")
 	ProjectSettings.set_setting("application/run/main_scene", "res://scenes/boot.tscn")
+	# Controls. Jump = instant hop (Space / pad A). Fart = charge (F or Z / pad X or B).
+	ProjectSettings.set_setting("input/jump", _action([_key(KEY_SPACE), _pad(JOY_BUTTON_A)]))
+	ProjectSettings.set_setting("input/fart", _action([_key(KEY_F), _key(KEY_Z), _pad(JOY_BUTTON_X), _pad(JOY_BUTTON_B)]))
 	print("project save: ", ProjectSettings.save())
+
+
+func _action(events: Array) -> Dictionary:
+	return {"deadzone": 0.5, "events": events}
+
+
+func _key(code: Key) -> InputEventKey:
+	var e := InputEventKey.new()
+	e.physical_keycode = code
+	return e
+
+
+func _pad(button: JoyButton) -> InputEventJoypadButton:
+	var e := InputEventJoypadButton.new()
+	e.button_index = button
+	return e

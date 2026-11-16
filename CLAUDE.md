@@ -28,11 +28,12 @@ A silly 2.5D platformer for a 6 year old and his dad. Fun and readable beat clev
 - Git is at `C:\Program Files\Git\cmd` and may not be on PATH in a fresh shell.
 
 ## Core mechanic
-- Three jumps: Toot (tap, small), Trump (hold, medium), Thunder (belly full, big).
-- Holding jump grows his belly (a proxy model for now). Letting go hides it and launches.
+- Two buttons. JUMP (Space / pad A): instant free Toot hop, ground only. FART (F or Z / pad X or B): hold to charge, release to launch. Fart also works in the air as a timed double jump.
+- Three jumps: Toot (jump button), Trump (fart, partly full), Thunder (fart, belly full, big). A fart tap too short does nothing (fizzles).
+- Holding fart grows his belly (a proxy model for now). Letting go hides it and launches.
 - Jump size = how full the belly is at the moment of release. The fun is timing the release.
 - Holding too long lets out a long squeaky fart: the belly slowly deflates and gas leaks away.
-  It must never loop or fail while held; releasing always jumps with whatever belly is left.
+  It must never loop or fail while held; releasing jumps with whatever belly is left (empty belly or no gas = a harmless fizzle).
 - He does not slow down while charging. The game should feel fast.
 - Gas tank drains per fart, refills from bean pickups. Tap jumps are free.
 

@@ -14,6 +14,8 @@ extends CharacterBody3D
 signal charge_started
 ## Sent when he launches. Use this later for sounds and gas clouds.
 signal farted(tier_name: String)
+## Sent when a fart was let go too early, or there was no gas: no jump.
+signal fizzled
 ## Sent when the long squeaky leak starts and stops. Use these later for the sound.
 signal squeak_started
 signal squeak_stopped
@@ -104,7 +106,9 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## These are built into Godot: arrow keys and Space.
 @export var left_action: StringName = &"ui_left"
 @export var right_action: StringName = &"ui_right"
-@export var jump_action: StringName = &"ui_accept"
+@export var jump_action: StringName = &"jump"
+## Hold to charge a fart, let go to launch. Also the double jump in the air.
+@export var fart_action: StringName = &"fart"
 
 @export_group("Testing")
 ## Prints the fart name in the Output panel so we can test without sounds.
@@ -147,6 +151,7 @@ func _physics_process(delta: float) -> void:
 
 	_update_stomp_window(delta)
 	_update_flashing(delta)
+	_update_hop()
 	_update_charge(delta)
 	# The tank does not refill while he is holding one in.
 	if gas_tank != null:
@@ -220,7 +225,7 @@ func get_feet_y() -> float:
 ## Called by an enemy he just landed on. Bounces him back up.
 func stomp_bounce() -> void:
 	# Hold jump as you land for a bigger bounce.
-	var high: bool = Input.is_action_pressed(jump_action)
+	var high: bool = Input.is_action_pressed(jump_action) or Input.is_action_pressed(fart_action)
 	velocity.y = stomp_high_bounce_power if high else stomp_bounce_power
 	stomp_window_left = 0.0
 	if gas_tank != null:
@@ -264,15 +269,21 @@ func _update_flashing(delta: float) -> void:
 		visual.visible = flashing_left <= 0.0 or fmod(flashing_left, 0.2) < 0.1
 
 
-## Handles holding, charging and letting go of the jump button.
-func _update_charge(delta: float) -> void:
-	# You can only charge with your feet on the ground.
-	if not is_on_floor():
-		if is_charging:
-			_stop_charging()
-		return
+## The jump button: an instant small hop, free, only from the ground.
+func _update_hop() -> void:
+	if is_on_floor() and Input.is_action_just_pressed(jump_action):
+		velocity.y = toot_power
+		if chilli != null:
+			velocity.y *= chilli.jump_boost()
+		farted.emit(TIER_NAMES[Tier.TOOT])
+		if print_farts:
+			print("Toot!")
 
-	if Input.is_action_just_pressed(jump_action):
+
+## The fart button: hold to grow the belly, let go to launch.
+## Works on the ground and in the air, so it is also a well-timed double jump.
+func _update_charge(delta: float) -> void:
+	if Input.is_action_just_pressed(fart_action):
 		is_charging = true
 		charge_time = 0.0
 		belly_fill = 0.0
@@ -281,8 +292,8 @@ func _update_charge(delta: float) -> void:
 	if not is_charging:
 		return
 
-	# Letting go always launches, with whatever is in the belly right now.
-	if not Input.is_action_pressed(jump_action):
+	# Letting go launches with whatever is in the belly right now.
+	if not Input.is_action_pressed(fart_action):
 		_launch(_tier_now())
 		return
 
@@ -311,15 +322,16 @@ func _leak(delta: float) -> void:
 
 
 ## Which jump do you get if you let go right now?
-func _tier_now() -> Tier:
+## A tap on the fart button (too short) gives no jump at all: use the jump button for hops.
+func _tier_now() -> int:
 	if belly_fill >= 1.0:
 		return Tier.THUNDER
 	if charge_time >= tap_time and belly_fill > 0.0:
 		return Tier.TRUMP
-	return Tier.TOOT
+	return -1
 
 
-func _power_for(tier: Tier) -> float:
+func _power_for(tier: int) -> float:
 	match tier:
 		Tier.TRUMP:
 			return trump_power
@@ -328,7 +340,7 @@ func _power_for(tier: Tier) -> float:
 	return toot_power
 
 
-func _cost_for(tier: Tier) -> float:
+func _cost_for(tier: int) -> float:
 	match tier:
 		Tier.TRUMP:
 			return trump_cost
@@ -337,17 +349,23 @@ func _cost_for(tier: Tier) -> float:
 	return 0.0
 
 
-func _can_pay_for(tier: Tier) -> bool:
+func _can_pay_for(tier: int) -> bool:
 	var cost: float = _cost_for(tier)
 	return gas_tank == null or cost <= 0.0 or gas_tank.use(cost)
 
 
-func _launch(tier: Tier) -> void:
-	# Not enough gas? Drop down to the biggest jump he can afford.
+func _launch(tier: int) -> void:
+	# Not enough gas? Drop down to the biggest fart he can afford. None: it fizzles.
 	if tier == Tier.THUNDER and not _can_pay_for(Tier.THUNDER):
 		tier = Tier.TRUMP
 	if tier == Tier.TRUMP and not _can_pay_for(Tier.TRUMP):
-		tier = Tier.TOOT
+		tier = -1
+	if tier < 0:
+		_stop_charging()
+		fizzled.emit()
+		if print_farts:
+			print("Pfft...")
+		return
 
 	velocity.y = _power_for(tier)
 	if chilli != null:

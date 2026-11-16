@@ -26,13 +26,13 @@ the whole world, and he feels MUCH better. Everybody farts. The end.
 | Button | What it does |
 |---|---|
 | Left / Right | Run |
-| Jump (tap) | Toot: small jump, free |
-| Jump (hold, let go) | Trump: medium jump. The belly grows while you hold |
-| Jump (let go when belly is full) | Thunder: big jump |
-| Jump (hold too long) | Long squeaky leak. Belly deflates, gas is wasted |
-| Jump (in flight stages) | Hold to fart upwards, let go to drop |
+| Jump button (Space / pad A) | Toot: instant small hop, free, from the ground |
+| Fart button (F or Z / pad X or B), hold, let go | Trump: medium jump. The belly grows while you hold. Works in the air too: a timed double jump |
+| Fart (let go when belly is full) | Thunder: big jump |
+| Fart (hold too long) | Long squeaky leak. Belly deflates, gas is wasted |
+| Either button (flight stages) | Hold to fart upwards, let go to drop |
 
-That is the whole control scheme. No other buttons.
+That is the whole control scheme: run, jump, fart. A fart tap that is too short, or with no gas, just fizzles.
 
 ## Core rules
 

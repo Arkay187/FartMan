@@ -351,3 +351,13 @@
 - Test: tools/tests/test_animation.gd (19 checks, all pass; all older tests still pass).
 - Not checked by eye: how the squash and stretch looks. Tune the FALLBACKS table in character_animator.gd.
 - Next: Rich answers the ART_PLAN questions (who makes Fart Man, style); the instant tap-jump choice is still open.
+
+## Two-button controls (Rich's request: controller)
+- JUMP (Space / pad A) = instant free Toot hop, ground only. FART (F or Z / pad X or B) = hold to
+  charge belly, release for Trump or Thunder; works in the air as a timed double jump.
+- Fart tap too short, empty belly after a long squeak, or no gas = harmless fizzle (new `fizzled` signal).
+- New input actions "jump" and "fart" are written to project.godot by tools/build_scenes.gd.
+  Menus still use ui_accept (Space / pad A).
+- Test: tools/tests/test_controls.gd; older tests moved to the new buttons. All pass.
+- Not checked by eye: how the double jump feels, whether the air-charge time is enough. Tune tap_time and the powers.
+- Open: should the Bean Can lid (only Thunder reaches) be reachable by hop + air Thunder? It currently is, since an air fart sets height from its own power.
