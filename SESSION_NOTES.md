@@ -243,6 +243,16 @@
 - Known weak spot: bouncing off a floating Burpling barely lifts him, because flight pulls
   him straight back to sinking speed.
 
+### Flight camera changed (same day, Rich's request, an experiment)
+- During flight the camera now swings round to sit behind his shoulder (13 m behind, 5 m up,
+  9 m to the side) and looks 10 m ahead of him, so it feels like a third-person game.
+  It swings back to side-on when he lands. Replaces the earlier "pull straight back" view.
+- Tunables on the level's Camera3D: Flight Offset (smaller z = more directly behind),
+  Flight Look Ahead, Swing Speed.
+- Landscape now covers both sides of the flight path and carries on past the landing.
+- Gameplay is still on the flat 2D plane: he only moves up and down. Not checked by eye:
+  whether hoops, beans and spiky balls are easy to line up with from this angle.
+
 ### Testing tip for future sessions
 - A broken test script can hang headless Godot forever. Always run tests with a time limit.
 
