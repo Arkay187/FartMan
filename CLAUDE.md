@@ -14,6 +14,7 @@ A silly 2.5D platformer for a 6 year old and his dad. Fun and readable beat clev
 - Never edit .tscn files by hand unless I ask. Create scripts and tell me which nodes to add.
 - Scripts in res://scripts, scenes in res://scenes, art in res://art, sounds in res://audio.
 - Update SESSION_NOTES.md at the end of each session: decisions made, files created, what to do next.
+- Commit finished, tested work and push it to GitHub (origin main) automatically. No need to ask first.
 
 ## Core mechanic
 - Three jumps: Toot (tap, small), Trump (hold, medium), Thunder (belly full, big).

@@ -1,145 +1,181 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_7gix3"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="2_4asn1"]
-[ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="3_dw7u0"]
-[ext_resource type="Script" path="res://scripts/bean.gd" id="4_fyxdr"]
-[ext_resource type="PackedScene" path="res://scenes/burpling.tscn" id="5_kpk0m"]
-[ext_resource type="Script" path="res://scripts/burpling.gd" id="6_qs1vn"]
-[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="7_13hs1"]
-[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="8_fptmo"]
-[ext_resource type="Script" path="res://scripts/hearts_bar.gd" id="9_bakr3"]
+[ext_resource type="Script" path="res://scripts/stage.gd" id="1_jqmoj"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_ni2ok"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="3_hnsbs"]
+[ext_resource type="PackedScene" path="res://scenes/bean.tscn" id="4_rv6en"]
+[ext_resource type="Script" path="res://scripts/bean.gd" id="5_tugu3"]
+[ext_resource type="PackedScene" path="res://scenes/burpling.tscn" id="6_kqfx7"]
+[ext_resource type="Script" path="res://scripts/burpling.gd" id="7_47x4r"]
+[ext_resource type="PackedScene" path="res://scenes/toilet.tscn" id="8_o5a2i"]
+[ext_resource type="Script" path="res://scripts/toilet.gd" id="9_1olsq"]
+[ext_resource type="PackedScene" path="res://scenes/golden_bean.tscn" id="10_wl35h"]
+[ext_resource type="Script" path="res://scripts/golden_bean.gd" id="11_vl73n"]
+[ext_resource type="PackedScene" path="res://scenes/bean_can.tscn" id="12_ebw8u"]
+[ext_resource type="Script" path="res://scripts/bean_can.gd" id="13_o82sj"]
+[ext_resource type="Script" path="res://scripts/follow_camera.gd" id="14_dlpwt"]
+[ext_resource type="Script" path="res://scripts/gas_bar.gd" id="15_cslnn"]
+[ext_resource type="Script" path="res://scripts/hearts_bar.gd" id="16_l0wrk"]
+[ext_resource type="Script" path="res://scripts/golden_bean_bar.gd" id="17_y50l8"]
+[ext_resource type="Script" path="res://scripts/stage_clear_banner.gd" id="18_37urb"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jqmoj"]
-size = Vector3(44, 1, 4)
+[sub_resource type="BoxMesh" id="BoxMesh_7c1bf"]
+size = Vector3(60, 1, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ni2ok"]
-size = Vector3(44, 1, 4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_4stoq"]
+size = Vector3(60, 1, 4)
 
-[sub_resource type="BoxMesh" id="BoxMesh_hnsbs"]
+[sub_resource type="BoxMesh" id="BoxMesh_p6yy4"]
 size = Vector3(3, 0.5, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rv6en"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_6o85p"]
 size = Vector3(3, 0.5, 4)
 
-[sub_resource type="BoxMesh" id="BoxMesh_tugu3"]
+[sub_resource type="BoxMesh" id="BoxMesh_sbwxm"]
 size = Vector3(3, 0.5, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kqfx7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cgwmx"]
 size = Vector3(3, 0.5, 4)
 
-[sub_resource type="BoxMesh" id="BoxMesh_47x4r"]
+[sub_resource type="BoxMesh" id="BoxMesh_l8bcr"]
 size = Vector3(3, 0.5, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_o5a2i"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_p5ain"]
 size = Vector3(3, 0.5, 4)
 
-[node name="TestLevel" type="Node3D" unique_id=257938420]
+[node name="TestLevel" type="Node3D" unique_id=745346919 node_paths=PackedStringArray("player")]
+script = ExtResource("1_jqmoj")
+player = NodePath("Player")
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=1618119515]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1103708164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=2028266632]
-mesh = SubResource("BoxMesh_jqmoj")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=972915626]
+mesh = SubResource("BoxMesh_7c1bf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=369920594]
-shape = SubResource("BoxShape3D_ni2ok")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=2066510004]
+shape = SubResource("BoxShape3D_4stoq")
 
-[node name="TootLedge" type="StaticBody3D" parent="." unique_id=1313638368]
+[node name="TootLedge" type="StaticBody3D" parent="." unique_id=1085278761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.05, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=1877240033]
-mesh = SubResource("BoxMesh_hnsbs")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TootLedge" unique_id=1709601013]
+mesh = SubResource("BoxMesh_p6yy4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=367279673]
-shape = SubResource("BoxShape3D_rv6en")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TootLedge" unique_id=2025552317]
+shape = SubResource("BoxShape3D_6o85p")
 
-[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=140338747]
+[node name="TrumpLedge" type="StaticBody3D" parent="." unique_id=478028610]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.55, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=835188517]
-mesh = SubResource("BoxMesh_tugu3")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrumpLedge" unique_id=618814534]
+mesh = SubResource("BoxMesh_sbwxm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=1310604668]
-shape = SubResource("BoxShape3D_kqfx7")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrumpLedge" unique_id=488837302]
+shape = SubResource("BoxShape3D_cgwmx")
 
-[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=1704670449]
+[node name="ThunderLedge" type="StaticBody3D" parent="." unique_id=1714209834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 4.85, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=305543142]
-mesh = SubResource("BoxMesh_47x4r")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThunderLedge" unique_id=247635892]
+mesh = SubResource("BoxMesh_l8bcr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=263259226]
-shape = SubResource("BoxShape3D_o5a2i")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThunderLedge" unique_id=1504420]
+shape = SubResource("BoxShape3D_p5ain")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=2137424919 node_paths=PackedStringArray("gas_tank", "hearts", "visual", "belly") instance=ExtResource("1_7gix3")]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=474668882 node_paths=PackedStringArray("gas_tank", "hearts", "visual", "belly") instance=ExtResource("2_ni2ok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
-script = ExtResource("2_4asn1")
+script = ExtResource("3_hnsbs")
 gas_tank = NodePath("GasTank")
 hearts = NodePath("Hearts")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Beans" type="Node3D" parent="." unique_id=1087105035]
+[node name="Beans" type="Node3D" parent="." unique_id=1779247728]
 
-[node name="Bean1" type="Area3D" parent="Beans" unique_id=1198634562 instance=ExtResource("3_dw7u0")]
+[node name="Bean1" type="Area3D" parent="Beans" unique_id=1810592996 instance=ExtResource("4_rv6en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.3, 0)
-script = ExtResource("4_fyxdr")
+script = ExtResource("5_tugu3")
 
-[node name="Bean2" type="Area3D" parent="Beans" unique_id=1256360722 instance=ExtResource("3_dw7u0")]
+[node name="Bean2" type="Area3D" parent="Beans" unique_id=2009266090 instance=ExtResource("4_rv6en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.3, 0)
-script = ExtResource("4_fyxdr")
+script = ExtResource("5_tugu3")
 
-[node name="Bean3" type="Area3D" parent="Beans" unique_id=467274362 instance=ExtResource("3_dw7u0")]
+[node name="Bean3" type="Area3D" parent="Beans" unique_id=1065446676 instance=ExtResource("4_rv6en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.1, 0)
-script = ExtResource("4_fyxdr")
+script = ExtResource("5_tugu3")
 
-[node name="Bean4" type="Area3D" parent="Beans" unique_id=398553739 instance=ExtResource("3_dw7u0")]
+[node name="Bean4" type="Area3D" parent="Beans" unique_id=1270510818 instance=ExtResource("4_rv6en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3.6, 0)
-script = ExtResource("4_fyxdr")
+script = ExtResource("5_tugu3")
 
-[node name="Bean5" type="Area3D" parent="Beans" unique_id=1211368522 instance=ExtResource("3_dw7u0")]
+[node name="Bean5" type="Area3D" parent="Beans" unique_id=1362734998 instance=ExtResource("4_rv6en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5.9, 0)
-script = ExtResource("4_fyxdr")
+script = ExtResource("5_tugu3")
 
-[node name="Enemies" type="Node3D" parent="." unique_id=170172894]
+[node name="Enemies" type="Node3D" parent="." unique_id=1094101842]
 
-[node name="Burpling1" type="Area3D" parent="Enemies" unique_id=336164171 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+[node name="Burpling1" type="Area3D" parent="Enemies" unique_id=2010905516 node_paths=PackedStringArray("visual") instance=ExtResource("6_kqfx7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.9, 0)
-script = ExtResource("6_qs1vn")
+script = ExtResource("7_47x4r")
 patrol_distance = 1.5
 visual = NodePath("MeshInstance3D")
 
-[node name="Burpling2" type="Area3D" parent="Enemies" unique_id=2108995916 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+[node name="Burpling2" type="Area3D" parent="Enemies" unique_id=667552669 node_paths=PackedStringArray("visual") instance=ExtResource("6_kqfx7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.9, 0)
-script = ExtResource("6_qs1vn")
+script = ExtResource("7_47x4r")
 patrol_distance = 1.2
 visual = NodePath("MeshInstance3D")
 
-[node name="Burpling3" type="Area3D" parent="Enemies" unique_id=468975762 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
+[node name="Burpling3" type="Area3D" parent="Enemies" unique_id=1474677964 node_paths=PackedStringArray("visual") instance=ExtResource("6_kqfx7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.9, 0)
-script = ExtResource("6_qs1vn")
+script = ExtResource("7_47x4r")
 patrol_distance = 1.2
 visual = NodePath("MeshInstance3D")
 
-[node name="Burpling4" type="Area3D" parent="Enemies" unique_id=484017495 node_paths=PackedStringArray("visual") instance=ExtResource("5_kpk0m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.9, 0)
-script = ExtResource("6_qs1vn")
-patrol_distance = 3.0
+[node name="Burpling4" type="Area3D" parent="Enemies" unique_id=1802618661 node_paths=PackedStringArray("visual") instance=ExtResource("6_kqfx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0.9, 0)
+script = ExtResource("7_47x4r")
+patrol_distance = 2.5
 visual = NodePath("MeshInstance3D")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=2059889499 node_paths=PackedStringArray("target")]
+[node name="Toilet" type="Area3D" parent="." unique_id=1347543075 node_paths=PackedStringArray("visual") instance=ExtResource("8_o5a2i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.5, 0)
+script = ExtResource("9_1olsq")
+visual = NodePath("Visual")
+
+[node name="GoldenBeans" type="Node3D" parent="." unique_id=1112996642]
+
+[node name="GoldenBean1" type="Area3D" parent="GoldenBeans" unique_id=1912503963 instance=ExtResource("10_wl35h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.5, 0)
+script = ExtResource("11_vl73n")
+
+[node name="GoldenBean2" type="Area3D" parent="GoldenBeans" unique_id=1317852446 instance=ExtResource("10_wl35h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 8, 0)
+script = ExtResource("11_vl73n")
+
+[node name="GoldenBean3" type="Area3D" parent="GoldenBeans" unique_id=538743610 instance=ExtResource("10_wl35h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 5.5, 0)
+script = ExtResource("11_vl73n")
+
+[node name="BeanCan" type="StaticBody3D" parent="." unique_id=728213740 node_paths=PackedStringArray("lid", "lid_sensor") instance=ExtResource("12_ebw8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0.5, 0)
+script = ExtResource("13_o82sj")
+lid = NodePath("Lid")
+lid_sensor = NodePath("LidSensor")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=369735668 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 5, 16)
-script = ExtResource("7_13hs1")
+script = ExtResource("14_dlpwt")
 target = NodePath("../Player")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1551358637]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2039557291]
 transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
 shadow_enabled = true
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=229345129]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1424104076]
 
-[node name="GasLabel" type="Label" parent="HUD" unique_id=10135979]
+[node name="GasLabel" type="Label" parent="HUD" unique_id=2118498278]
 offset_left = 20.0
 offset_top = 18.0
 offset_right = 20.0
@@ -147,20 +183,47 @@ offset_bottom = 18.0
 theme_override_font_sizes/font_size = 24
 text = "GAS"
 
-[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=874271594 node_paths=PackedStringArray("player")]
+[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=503793435 node_paths=PackedStringArray("player")]
 offset_left = 90.0
 offset_top = 20.0
 offset_right = 390.0
 offset_bottom = 50.0
 show_percentage = false
-script = ExtResource("8_fptmo")
+script = ExtResource("15_cslnn")
 player = NodePath("../../Player")
 
-[node name="HeartsBar" type="HBoxContainer" parent="HUD" unique_id=775509110 node_paths=PackedStringArray("player")]
+[node name="HeartsBar" type="HBoxContainer" parent="HUD" unique_id=868120269 node_paths=PackedStringArray("player")]
 offset_left = 20.0
 offset_top = 64.0
 offset_right = 20.0
 offset_bottom = 64.0
 theme_override_constants/separation = 8
-script = ExtResource("9_bakr3")
+script = ExtResource("16_l0wrk")
 player = NodePath("../../Player")
+
+[node name="GoldenBeanBar" type="HBoxContainer" parent="HUD" unique_id=380172142 node_paths=PackedStringArray("stage")]
+offset_left = 20.0
+offset_top = 104.0
+offset_right = 20.0
+offset_bottom = 104.0
+theme_override_constants/separation = 8
+script = ExtResource("17_y50l8")
+stage = NodePath("../..")
+full_color = Color(1, 0.8, 0.1, 1)
+
+[node name="StageClearBanner" type="Label" parent="HUD" unique_id=412961545 node_paths=PackedStringArray("stage")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.5
+offset_top = 120.0
+offset_right = 53.5
+offset_bottom = 143.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+text = "STAGE CLEAR!"
+horizontal_alignment = 1
+script = ExtResource("18_37urb")
+stage = NodePath("../..")

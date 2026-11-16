@@ -150,6 +150,33 @@
   last heart respawns at the start with 3 hearts. Jump, gas, camera and fall tests still pass.
 - Not checked by eye: the blink, the squash, the hearts bar, and whether stomping feels fair.
 
+## Session 9 (2026-11-16): build step 2, checkpoints, Golden Beans, Bean Can, speech bubbles
+
+### Decisions made
+- Rich asked for pushes to GitHub to happen automatically from now on (also in CLAUDE.md).
+- scripts/speech_bubble.gd: one line from any script, `SpeechBubble.say(self, "HELLO!")`.
+  Built entirely in code (no scene). One bubble per speaker; it follows them and fades out.
+  Player has a shortcut: `player.say("WORDS")`.
+- Bubbles in use: stage start "LET'S GET THOSE BEANS!", hurt "OUCH!", squash "POP!",
+  toilet "FLUSH!", Golden Bean "GOLDEN BEAN!", can opened "BEANS! TOOT TOOT!".
+  Every one is an @export string on its script, so the words are easy to change.
+- scripts/toilet.gd + scenes/toilet.tscn: run past it, it turns blue and becomes the respawn point.
+- scripts/golden_bean.gd + scenes/golden_bean.tscn: big gold bean, three per stage.
+- scripts/bean_can.gd + scenes/bean_can.tscn: 3.5 m tall can. Only a Thunder gets on top.
+  Landing on the lid pops it and clears the stage.
+- scripts/stage.gd goes on the top node of every stage: counts Golden Beans, knows when cleared.
+- HUD: Golden Bean bar (gold squares) and a "STAGE CLEAR!" banner. Nothing happens after
+  the banner yet; going back to the world map comes with build step 5.
+- scripts/square_bar.gd is shared by the hearts bar and the Golden Bean bar.
+- Test level is longer: toilet at x=20, Golden Beans at x=-12, 16 (high up) and 31, Bean Can at x=37.
+
+### Tested
+- Automated headless run: Golden Bean counts and shows on the bar; falling before a toilet
+  respawns at the start, after flushing respawns at the toilet; a Trump does not open the
+  can, a Thunder does; banner shows "STAGE CLEAR! GOLDEN BEANS 1 / 3"; every bubble appears
+  with the right words. All earlier tests still pass.
+- Not checked by eye: how bubbles, toilet, can and banner look, and where bubbles sit on screen.
+
 ### What to do next
-1. Press F5 and play. Check stomping feels fair for a six year old.
-2. Build step 2 of GAME_DESIGN.md: toilet checkpoints, Golden Beans, Bean Can goal, speech bubbles.
+1. Press F5 and play the whole test level start to finish.
+2. Build step 3 of GAME_DESIGN.md: power-ups (Mega Bean Can, then Chilli Pepper).

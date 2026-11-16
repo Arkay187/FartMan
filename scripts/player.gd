@@ -83,6 +83,8 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## How hard he is knocked sideways and upwards.
 @export var knockback_speed: float = 6.0
 @export var knockback_jump: float = 7.0
+## What he says when hurt. Leave empty for nothing.
+@export var hurt_words: String = "OUCH!"
 
 @export_group("Looks")
 ## The part of him that turns to face the way he walks.
@@ -107,8 +109,8 @@ var is_squeaking: bool = false
 var charge_time: float = 0.0
 ## How full the belly is: 0 = empty, 1 = full.
 var belly_fill: float = 0.0
-## Where he started the level. He comes back here if he falls off.
-var start_position: Vector3
+## Where he comes back to if things go wrong: the start, or the last toilet flushed.
+var checkpoint_position: Vector3
 ## Counts down after falling: while above zero, touching an enemy squashes it.
 var stomp_window_left: float = 0.0
 ## Counts down after being hurt: while above zero, he blinks and can't be hurt.
@@ -116,12 +118,12 @@ var flashing_left: float = 0.0
 
 
 func _ready() -> void:
-	start_position = global_position
+	checkpoint_position = global_position
 	_show_belly()
 
 
 func _physics_process(delta: float) -> void:
-	# Fell off the level? Pop back to the start.
+	# Fell off the level? Pop back to the last checkpoint.
 	if global_position.y < fall_limit_y:
 		_respawn()
 		return
@@ -153,6 +155,16 @@ func _physics_process(delta: float) -> void:
 ## Enemies ask this to decide: did he land on me, or walk into me?
 func can_stomp() -> bool:
 	return stomp_window_left > 0.0
+
+
+## Pops a speech bubble over his head.
+func say(words: String, seconds: float = 2.0) -> void:
+	SpeechBubble.say(self, words, seconds, 1.6)
+
+
+## Toilets call this. From now on he comes back here instead of the start.
+func set_checkpoint(spot: Vector3) -> void:
+	checkpoint_position = spot
 
 
 ## How high off the ground his feet are. His middle is 1 metre above his feet.
@@ -187,6 +199,7 @@ func hurt(from_x: float) -> void:
 	flashing_left = flash_time
 	var away: float = 1.0 if global_position.x >= from_x else -1.0
 	velocity = Vector3(away * knockback_speed, knockback_jump, 0.0)
+	say(hurt_words, 0.8)
 	got_hurt.emit()
 
 
@@ -299,7 +312,7 @@ func _launch(tier: Tier) -> void:
 
 
 func _respawn() -> void:
-	global_position = start_position
+	global_position = checkpoint_position
 	velocity = Vector3.ZERO
 	_stop_charging()
 	# Blink for a moment after coming back, safe from harm.

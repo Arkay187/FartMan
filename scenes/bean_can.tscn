@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/bean_can.gd" id="1_eq6dn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xulca"]
+albedo_color = Color(0.8, 0.2, 0.15, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_w4xq1"]
+material = SubResource("StandardMaterial3D_xulca")
+top_radius = 1.2
+bottom_radius = 1.2
+height = 3.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ob6of"]
+height = 3.5
+radius = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqwd6"]
+albedo_color = Color(0.85, 0.85, 0.9, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7sb82"]
+material = SubResource("StandardMaterial3D_aqwd6")
+top_radius = 1.3
+bottom_radius = 1.3
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q67t2"]
+height = 0.8
+radius = 1.1
+
+[node name="BeanCan" type="StaticBody3D" unique_id=728213740 node_paths=PackedStringArray("lid", "lid_sensor")]
+script = ExtResource("1_eq6dn")
+lid = NodePath("Lid")
+lid_sensor = NodePath("LidSensor")
+
+[node name="Tin" type="MeshInstance3D" parent="." unique_id=693970127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+mesh = SubResource("CylinderMesh_w4xq1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=466456686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+shape = SubResource("CylinderShape3D_ob6of")
+
+[node name="Lid" type="MeshInstance3D" parent="." unique_id=806127445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("CylinderMesh_7sb82")
+
+[node name="LidSensor" type="Area3D" parent="." unique_id=1792503261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LidSensor" unique_id=1764581652]
+shape = SubResource("CylinderShape3D_q67t2")
