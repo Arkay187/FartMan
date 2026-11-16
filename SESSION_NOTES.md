@@ -360,4 +360,4 @@
   Menus still use ui_accept (Space / pad A).
 - Test: tools/tests/test_controls.gd; older tests moved to the new buttons. All pass.
 - Not checked by eye: how the double jump feels, whether the air-charge time is enough. Tune tap_time and the powers.
-- Open: should the Bean Can lid (only Thunder reaches) be reachable by hop + air Thunder? It currently is, since an air fart sets height from its own power.
+- Decided (Rich): it is fine that hop + air Thunder reaches the Bean Can lid. Easy is OK, and the only-Thunder-reaches-the-lid idea will probably be cut later.
