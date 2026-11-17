@@ -983,8 +983,17 @@ func _register_project() -> void:
 	ProjectSettings.set_setting("autoload/SaveGame", "*res://scripts/save_game.gd")
 	ProjectSettings.set_setting("application/run/main_scene", "res://scenes/boot.tscn")
 	# Controls. Jump = instant hop (Space / pad A). Fart = charge (F or Z / pad X or B).
-	ProjectSettings.set_setting("input/jump", _action([_key(KEY_SPACE), _pad(JOY_BUTTON_A)]))
-	ProjectSettings.set_setting("input/fart", _action([_key(KEY_F), _key(KEY_Z), _pad(JOY_BUTTON_X), _pad(JOY_BUTTON_B)]))
+	# Controller: A or Y jump; X, B, right bumper or right trigger fart (thumbs or fingers).
+	ProjectSettings.set_setting("input/jump", _action([_key(KEY_SPACE), _pad(JOY_BUTTON_A), _pad(JOY_BUTTON_Y)]))
+	ProjectSettings.set_setting("input/fart", _action([_key(KEY_F), _key(KEY_Z), _pad(JOY_BUTTON_X), _pad(JOY_BUTTON_B),
+		_pad(JOY_BUTTON_RIGHT_SHOULDER), _trigger(JOY_AXIS_TRIGGER_RIGHT)]))
+	# Walking uses the built-in ui_left / ui_right (arrows, D-pad and left stick), so those
+	# are written out here too, so the controller keeps working whatever the engine defaults are.
+	ProjectSettings.set_setting("input/ui_left", _action([_key(KEY_LEFT), _key(KEY_A), _pad(JOY_BUTTON_DPAD_LEFT), _stick(JOY_AXIS_LEFT_X, -1.0)]))
+	ProjectSettings.set_setting("input/ui_right", _action([_key(KEY_RIGHT), _key(KEY_D), _pad(JOY_BUTTON_DPAD_RIGHT), _stick(JOY_AXIS_LEFT_X, 1.0)]))
+	# Menus and story pages: A, Start, Space or Enter all say "go".
+	ProjectSettings.set_setting("input/ui_accept", _action([_key(KEY_ENTER), _key(KEY_KP_ENTER), _key(KEY_SPACE),
+		_pad(JOY_BUTTON_A), _pad(JOY_BUTTON_START)]))
 	print("project save: ", ProjectSettings.save())
 
 
@@ -996,6 +1005,19 @@ func _key(code: Key) -> InputEventKey:
 	var e := InputEventKey.new()
 	e.physical_keycode = code
 	return e
+
+
+## A thumbstick pushed one way (-1 left/up, 1 right/down).
+func _stick(axis: JoyAxis, value: float) -> InputEventJoypadMotion:
+	var e := InputEventJoypadMotion.new()
+	e.axis = axis
+	e.axis_value = value
+	return e
+
+
+## A trigger pulled all the way in.
+func _trigger(axis: JoyAxis) -> InputEventJoypadMotion:
+	return _stick(axis, 1.0)
 
 
 func _pad(button: JoyButton) -> InputEventJoypadButton:

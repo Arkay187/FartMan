@@ -388,3 +388,9 @@
 - Tuning knobs: gnome throw_every / flight_time, sprinkler on/off times, chaser speed (5.4 vs his 6),
   bounce_power, hiccup hop_every, boss pollen_speed / tired_time / hits_to_win.
 - Next: Rich plays World 1 and says what is too hard / too long / boring; then World 2 (step 7).
+
+## Controller support
+- Pad bindings are written by `tools/build_scenes.gd` (`_register_project`): A or Y = jump; X, B, right bumper or right trigger = fart; D-pad or left stick walks (ui_left/ui_right); A or Start = menu "go".
+- New test `test_gamepad` sends real controller events (buttons, D-pad, stick, trigger, stick drift) and checks walking and hopping. All tests pass.
+- Not checked: a real controller in hand. Reload project.godot in the editor. Wired and Xbox/PlayStation pads should work; button layout/feel is Rich's call.
+- Next: button prompts on screen, a pause menu (Start currently only means "go" in menus), rumble on big farts.

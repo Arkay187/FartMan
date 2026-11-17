@@ -18,7 +18,7 @@ material = SubResource("StandardMaterial3D_oprun")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qfm1y"]
 
-[node name="Player" type="CharacterBody3D" unique_id=19754197 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
+[node name="Player" type="CharacterBody3D" unique_id=1517683576 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
 script = ExtResource("1_fjrip")
 gas_tank = NodePath("GasTank")
 hearts = NodePath("Hearts")
@@ -27,37 +27,37 @@ flight = NodePath("FlightPower")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Visual" type="Node3D" parent="." unique_id=678131091]
+[node name="Visual" type="Node3D" parent="." unique_id=521914147]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=2106219517]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1364356350]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_f1ej7")
 
-[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=2065748285]
+[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=1418015627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.9, 0)
 visible = false
 mesh = SubResource("SphereMesh_a8ls1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=537295127]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=238675100]
 shape = SubResource("CapsuleShape3D_qfm1y")
 
-[node name="GasTank" type="Node" parent="." unique_id=1379998973]
+[node name="GasTank" type="Node" parent="." unique_id=2014991722]
 script = ExtResource("2_smehm")
 
-[node name="Hearts" type="Node" parent="." unique_id=1036182851]
+[node name="Hearts" type="Node" parent="." unique_id=813056101]
 script = ExtResource("3_ur7pv")
 
-[node name="FlameTrail" type="Node3D" parent="." unique_id=959563458]
+[node name="FlameTrail" type="Node3D" parent="." unique_id=899427716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 script = ExtResource("4_y4r1p")
 
-[node name="ChilliPower" type="Node" parent="." unique_id=848062379 node_paths=PackedStringArray("body", "trail")]
+[node name="ChilliPower" type="Node" parent="." unique_id=1475774310 node_paths=PackedStringArray("body", "trail")]
 script = ExtResource("5_d2wvv")
 body = NodePath("../Visual/MeshInstance3D")
 trail = NodePath("../FlameTrail")
 
-[node name="RainbowTrail" type="Node3D" parent="." unique_id=1368133639]
+[node name="RainbowTrail" type="Node3D" parent="." unique_id=1213888302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, 0)
 script = ExtResource("4_y4r1p")
 puff_every = 0.03
@@ -65,10 +65,10 @@ puff_life = 1.2
 puff_size = 1.3
 rainbow = true
 
-[node name="FlightPower" type="Node" parent="." unique_id=1087916229 node_paths=PackedStringArray("trail")]
+[node name="FlightPower" type="Node" parent="." unique_id=593637742 node_paths=PackedStringArray("trail")]
 script = ExtResource("6_3v2ag")
 trail = NodePath("../RainbowTrail")
 
-[node name="Animator" type="Node" parent="." unique_id=991054422 node_paths=PackedStringArray("squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=762566373 node_paths=PackedStringArray("squash_target")]
 script = ExtResource("7_jej6c")
 squash_target = NodePath("../Visual")
