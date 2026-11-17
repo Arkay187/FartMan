@@ -394,3 +394,9 @@
 - New test `test_gamepad` sends real controller events (buttons, D-pad, stick, trigger, stick drift) and checks walking and hopping. All tests pass.
 - Not checked: a real controller in hand. Reload project.godot in the editor. Wired and Xbox/PlayStation pads should work; button layout/feel is Rich's call.
 - Next: button prompts on screen, a pause menu (Start currently only means "go" in menus), rumble on big farts.
+
+## Shorter early levels, start menu, everything unlocked
+- Target is now 90 s to 2.5 min per early stage. Cut by removing sections, not by changing speeds: 1-1 about 295 m (was 345), 1-2 about 360 m (was 500), 1-3 flight about 1290 m (was 1730). Estimated times are guesses (1-1 ~1:45, 1-2 ~2:15, 1-3 ~1:45), NOT timed by hand. Boss untouched.
+- Start menu (`scenes/start_menu.tscn`, `scripts/start_menu.gd`) is now the first scene: CONTINUE (only shown if there is progress) and NEW GAME (asks twice before erasing). New game wipes the save and plays the opening story.
+- Map: `unlock_all` export on WorldMap is on, so every stop can be entered. Untick it in the editor to lock stops again (test_world_map checks the locked behaviour with it off).
+- Test added: `test_start_menu`. All tests pass. Not checked by eye: how the menu looks, real stage times.

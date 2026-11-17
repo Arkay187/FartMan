@@ -16,6 +16,7 @@ func _init() -> void:
 	_build_stages()
 	_build_world_map()
 	_build_storybook()
+	_build_start_menu()
 	_build_boot()
 	_register_project()
 	quit()
@@ -960,6 +961,52 @@ func _build_storybook() -> void:
 	root.set("caption", caption)
 	root.set("next_scene", "res://scenes/world_map.tscn")
 	_save(root, "res://scenes/storybook.tscn")
+
+
+func _build_start_menu() -> void:
+	var root := Control.new()
+	root.name = "StartMenu"
+	root.set_script(load("res://scripts/start_menu.gd"))
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+	var back := ColorRect.new()
+	back.name = "Background"
+	back.color = Color(0.55, 0.8, 0.95)
+	back.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(back)
+	back.owner = root
+
+	# A green hill along the bottom, just a grey-box touch.
+	var hill := ColorRect.new()
+	hill.name = "Hill"
+	hill.color = Color(0.4, 0.7, 0.3)
+	hill.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	hill.offset_top = -220
+	root.add_child(hill)
+	hill.owner = root
+
+	var title := _big_label(root, "Title", "FART MAN", 160)
+	title.add_theme_color_override("font_color", Color(0.45, 0.28, 0.1))
+	title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	title.offset_top = 70
+	title.offset_bottom = 270
+	var go := _big_label(root, "ContinueLabel", "CONTINUE", 80)
+	go.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	go.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	go.offset_top = 20
+	var fresh := _big_label(root, "NewGameLabel", "NEW GAME", 80)
+	fresh.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	fresh.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	fresh.offset_top = 130
+	var hint := _big_label(root, "HintLabel", "", 36)
+	hint.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	hint.offset_top = -80
+	hint.offset_bottom = -20
+
+	root.set("continue_label", go)
+	root.set("new_game_label", fresh)
+	root.set("hint_label", hint)
+	_save(root, "res://scenes/start_menu.tscn")
 
 
 func _build_boot() -> void:

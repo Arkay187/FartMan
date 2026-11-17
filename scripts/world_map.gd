@@ -15,6 +15,9 @@ extends Control
 ## The drawing of the map (it asks this script what is cleared).
 @export var canvas: Control
 
+## While we are trying every level: let him walk to any stop, cleared or not.
+## Turn this off in the editor to lock stops again.
+@export var unlock_all: bool = true
 ## How long the slide from one stop to the next takes.
 @export var slide_time: float = 0.25
 ## Ignore buttons for this long after the map appears (so the jump that left a stage is not reused).
@@ -39,10 +42,10 @@ var _save: SaveData
 func _ready() -> void:
 	_save = SaveLookup.find(self)
 	# Start on the stop we came back from, or the first one not cleared yet.
-	var start: int = reachable_index()
+	var start: int = first_open_index()
 	if _save != null and _save.last_stop != "":
 		var last: int = MapStops.index_of(_save.last_stop)
-		if last >= 0 and last <= start:
+		if last >= 0 and last <= reachable_index():
 			start = last
 	index = start
 	marker.position = stop_marker_position(index)
@@ -65,8 +68,16 @@ func _process(delta: float) -> void:
 		enter_stop()
 
 
-## The furthest stop he is allowed to reach: the first one not cleared (or the last one).
+## The furthest stop he is allowed to reach. With unlock_all every stop is open;
+## otherwise it is the first one not cleared (or the last one).
 func reachable_index() -> int:
+	if unlock_all:
+		return MapStops.STOPS.size() - 1
+	return first_open_index()
+
+
+## The first stop not cleared yet (or the last one).
+func first_open_index() -> int:
 	for i in MapStops.STOPS.size():
 		if not is_stop_cleared(i):
 			return i

@@ -66,6 +66,11 @@ func record_stage(stage_id: String, golden: int, score: int) -> void:
 	save_game()
 
 
+## True once he has played anything, so the start menu can offer CONTINUE.
+func has_progress() -> bool:
+	return not stages.is_empty() or last_stop != ""
+
+
 func has_seen(flag: String) -> bool:
 	return seen.has(flag)
 

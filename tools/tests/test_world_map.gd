@@ -32,6 +32,8 @@ func _run() -> void:
 	save.reset()
 
 	var map: WorldMap = load("res://scenes/world_map.tscn").instantiate()
+	print("map opens with every stop unlocked by default: %s" % map.unlock_all)
+	map.unlock_all = false  # these checks are about the locked behaviour
 	root.add_child(map)
 	await _wait(0.5)
 	print("stops on map: %d (3 worlds of 4)" % MapStops.STOPS.size())
@@ -78,9 +80,22 @@ func _run() -> void:
 	map.queue_free()
 	await _wait(0.2)
 	var again: WorldMap = load("res://scenes/world_map.tscn").instantiate()
+	again.unlock_all = false
 	root.add_child(again)
 	await _wait(0.5)
 	print("map reopened: on %s (last stop was %s)" % [MapStops.STOPS[again.index]["id"], save.last_stop])
+
+	# Unlocked map: with nothing cleared he can still walk to any stop.
+	again.queue_free()
+	await _wait(0.2)
+	save.reset()
+	var open: WorldMap = load("res://scenes/world_map.tscn").instantiate()
+	root.add_child(open)
+	await _wait(0.5)
+	for i in 3:
+		await _press(&"ui_right")
+	print("unlocked map, nothing cleared, 3 presses right: on %s (want 1-4)" % MapStops.STOPS[open.index]["id"])
+	open.queue_free()
 
 	save.reset()
 	DirAccess.remove_absolute(TEST_FILE)
