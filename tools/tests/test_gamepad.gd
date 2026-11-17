@@ -56,13 +56,46 @@ func _run() -> void:
 	await _try_button("pad A (menus)", JOY_BUTTON_A, &"ui_accept")
 	await _try_button("Start (menus)", JOY_BUTTON_START, &"ui_accept")
 
-	# Right trigger pulled in and let go.
-	_axis(JOY_AXIS_TRIGGER_RIGHT, 1.0)
+	# Left trigger pulled in and let go.
+	_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)
 	await _wait()
 	var trigger_held: bool = Input.is_action_pressed(&"fart")
-	_axis(JOY_AXIS_TRIGGER_RIGHT, 0.0)
+	_axis(JOY_AXIS_TRIGGER_LEFT, 0.0)
 	await _wait()
-	_check("right trigger -> fart", trigger_held and not Input.is_action_pressed(&"fart"))
+	_check("left trigger -> fart", trigger_held and not Input.is_action_pressed(&"fart"))
+	# The right trigger no longer farts.
+	_axis(JOY_AXIS_TRIGGER_RIGHT, 1.0)
+	await _wait()
+	var right_trigger_quiet: bool = not Input.is_action_pressed(&"fart")
+	_axis(JOY_AXIS_TRIGGER_RIGHT, 0.0)
+	_check("right trigger does nothing", right_trigger_quiet)
+
+	# Pulling the left trigger slowly charges the belly; letting go launches him.
+	var world0 := Node3D.new()
+	root.add_child(world0)
+	var floor0 := StaticBody3D.new()
+	floor0.position = Vector3(0, -0.5, 0)
+	var col0 := CollisionShape3D.new()
+	var shape0 := BoxShape3D.new()
+	shape0.size = Vector3(200, 1, 4)
+	col0.shape = shape0
+	floor0.add_child(col0)
+	world0.add_child(floor0)
+	var p0: Player = (load("res://scenes/player.tscn") as PackedScene).instantiate()
+	p0.position = Vector3(0, 1.2, 0)
+	world0.add_child(p0)
+	for i in 30:
+		await physics_frame
+	_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)
+	for i in 40:
+		await physics_frame
+	_axis(JOY_AXIS_TRIGGER_LEFT, 0.0)
+	var top0: float = 0.0
+	for i in 60:
+		await physics_frame
+		top0 = maxf(top0, p0.position.y)
+	_check("hold left trigger then release launches him (peak y=%.1f)" % top0, top0 > 3.0)
+	world0.queue_free()
 
 	# Left thumbstick: a firm push walks, a light wobble (stick drift) does not.
 	_axis(JOY_AXIS_LEFT_X, 0.9)

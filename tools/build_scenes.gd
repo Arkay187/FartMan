@@ -983,10 +983,10 @@ func _register_project() -> void:
 	ProjectSettings.set_setting("autoload/SaveGame", "*res://scripts/save_game.gd")
 	ProjectSettings.set_setting("application/run/main_scene", "res://scenes/boot.tscn")
 	# Controls. Jump = instant hop (Space / pad A). Fart = charge (F or Z / pad X or B).
-	# Controller: A or Y jump; X, B, right bumper or right trigger fart (thumbs or fingers).
+	# Controller: A or Y jump; X, B, right bumper or LEFT trigger fart (pull to charge, let go to launch).
 	ProjectSettings.set_setting("input/jump", _action([_key(KEY_SPACE), _pad(JOY_BUTTON_A), _pad(JOY_BUTTON_Y)]))
 	ProjectSettings.set_setting("input/fart", _action([_key(KEY_F), _key(KEY_Z), _pad(JOY_BUTTON_X), _pad(JOY_BUTTON_B),
-		_pad(JOY_BUTTON_RIGHT_SHOULDER), _trigger(JOY_AXIS_TRIGGER_RIGHT)]))
+		_pad(JOY_BUTTON_RIGHT_SHOULDER), _trigger(JOY_AXIS_TRIGGER_LEFT)]))
 	# Walking uses the built-in ui_left / ui_right (arrows, D-pad and left stick), so those
 	# are written out here too, so the controller keeps working whatever the engine defaults are.
 	ProjectSettings.set_setting("input/ui_left", _action([_key(KEY_LEFT), _key(KEY_A), _pad(JOY_BUTTON_DPAD_LEFT), _stick(JOY_AXIS_LEFT_X, -1.0)]))
