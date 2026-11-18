@@ -2,6 +2,10 @@
 
 How the grey boxes turn into real characters, without breaking the game or the budget.
 
+**Progress (18 Nov 2026):** Phase 1 (animation hooks) is built. Phase 3 has started: Rich
+chose route C. Fart Man was made with Tripo from a concept turnaround and is in the game as a
+still model (no skeleton yet). Rigging and the clips come next. See SESSION_NOTES.md.
+
 ## The short version
 
 1. **Build the animation hooks first, with grey boxes.** The code that plays "run", "jump",

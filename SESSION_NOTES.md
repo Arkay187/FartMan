@@ -415,3 +415,16 @@
 - 1-3: the ground now starts at x=1150, under the end of the flight, so he can't drop into a hole when the flight ends.
 - Fart sounds: the long recordings were cut into separate farts (`audio/voice/farts/`). Medium jump picks from 4 short farts (pitched a bit higher), big jump from 4 long ones (a bit lower). The big jump plays just the fart, no "wahoo" (`thunder_shout` is empty).
 - Not heard or played by eye: whether the boss now feels right, how the cut-up farts sound.
+
+## Fart Man's real model (18 Nov 2026)
+- Rich made Fart Man in Tripo (free plan) from the concept turnaround. It is in `art/characters/fart_man/fart_man.glb`; Godot pulled its 3 textures out into the same folder (normal behaviour; leave their odd names, the .glb points at them).
+- It is a still costume: no skeleton or animations yet, so the existing code squash and stretch does the acting. 30,300 triangles (the art plan said about 3,000; fine on PC for one character, can be cut down later).
+- Player scene: `Visual/ModelTurn/Model`. `scripts/model_turn.gd` turns the model to face the way he runs, angled `turn_degrees` (30) toward the camera so you see his face both ways. Model scale 2.05 makes him 2 m, the same as his capsule. The grey capsule is still there, hidden (tick it visible to compare with the collision shape).
+- Belly ball is now suit green and sits at his waist (`Visual/Belly`, y 0.95), like the pose sheet.
+- Chilli glow is now a see-through red coat over everything in `Visual` (`glow_strength` 0.5), so he keeps his face. Before, it repainted the capsule solid red.
+- New `tools/snapshot_player.gd` takes pictures of him in Stage 1-1 (right, left, front, belly, chilli, game view). It needs a window, so run it without --headless. Lets Claude check the look by eye.
+- New test `test_model` (size, feet on the ground, facing both ways, belly height). All 20 tests pass.
+- Checked by eye in snapshots: he faces the right way both ways, belly and chilli look right, colours read well up close. Facing right he is a little darker (the stage light comes from the left).
+- Not checked: how he looks moving in real play, with the flight tilt, or in the puppet scenes.
+- Worth deciding: at the normal camera distance (16 m) he is small, about 1/12 of the screen height, the same as the old capsule. To make him easier to see, bring the camera nearer (Camera3D `offset` z) or scale the Model up.
+- Next: rig him (Mixamo is free: upload an OBJ export from Tripo, place the markers, download FBX with clips). Name the clips idle, run, jump, fall, land, charge, squeak, hurt, stomp, flight, victory, talk. charge/squeak/launch poses need making by hand. Then the builder wires the AnimationPlayer into the Animator and pins the belly to the spine bone.

@@ -14,9 +14,11 @@ signal ended
 @export var speed_multiplier: float = 1.8
 ## How much harder he jumps.
 @export var jump_multiplier: float = 1.25
-## His body model, so it can glow while hot.
-@export var body: MeshInstance3D
+## His body (the Visual node). Everything in it glows red while hot.
+@export var body: Node3D
 @export var hot_color: Color = Color(1.0, 0.25, 0.1)
+## How strong the red glow is. 0 = none, 1 = solid red (hides his face).
+@export_range(0.0, 1.0) var glow_strength: float = 0.5
 ## The flame trail behind him.
 @export var trail: FlameTrail
 
@@ -29,10 +31,11 @@ func start() -> void:
 	time_left = duration
 	if was_hot:
 		return
-	if body != null:
-		var paint := StandardMaterial3D.new()
-		paint.albedo_color = hot_color
-		body.material_override = paint
+	var glow := StandardMaterial3D.new()
+	glow.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	glow.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glow.albedo_color = Color(hot_color, glow_strength)
+	_coat(glow)
 	if trail != null:
 		trail.emitting = true
 	started.emit()
@@ -61,8 +64,19 @@ func _physics_process(delta: float) -> void:
 
 func _cool_down() -> void:
 	time_left = 0.0
-	if body != null:
-		body.material_override = null
+	_coat(null)
 	if trail != null:
 		trail.emitting = false
 	ended.emit()
+
+
+## Lays a see-through coat over every mesh in his body (null takes it off),
+## so he glows but keeps his face and colours.
+func _coat(glow: Material) -> void:
+	if body == null:
+		return
+	var meshes: Array[Node] = body.find_children("*", "GeometryInstance3D", true, false)
+	if body is GeometryInstance3D:
+		meshes.append(body)
+	for mesh: Node in meshes:
+		(mesh as GeometryInstance3D).material_overlay = glow

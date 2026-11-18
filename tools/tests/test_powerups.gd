@@ -26,7 +26,8 @@ func _run(level: Node) -> void:
 	var tank: Node = player.get_node("GasTank")
 	var hearts: Node = player.get_node("Hearts")
 	var chilli: Node = player.get_node("ChilliPower")
-	var body: MeshInstance3D = player.get_node("Visual/MeshInstance3D")
+	# The glow goes on the real model's mesh, as a see-through coat.
+	var body: GeometryInstance3D = player.get_node("Visual/ModelTurn/Model").find_children("*", "MeshInstance3D", true, false)[0]
 	var enemies: Node = level.get_node("Enemies")
 	await _wait(0.5)
 
@@ -54,7 +55,7 @@ func _run(level: Node) -> void:
 	player.velocity = Vector3.ZERO
 	await _wait(0.3)
 	print("chilli: hot=%s glowing=%s puffs=%d score +%d enemies=%d hearts=%d" % [
-		player.is_hot(), body.material_override != null, _puffs(), level.score - score_before, enemies.get_child_count(), hearts.hearts])
+		player.is_hot(), body.material_overlay != null, _puffs(), level.score - score_before, enemies.get_child_count(), hearts.hearts])
 
 	# Run right through the row of Burplings.
 	x0 = player.global_position.x
@@ -82,5 +83,5 @@ func _run(level: Node) -> void:
 	print("hot thunder: height %.2f m (normal is 5.25), still hot=%s time_left=%.1f" % [peak - rest_y, player.is_hot(), chilli.time_left])
 
 	await _wait(chilli.time_left + 0.8)
-	print("after it wears off: hot=%s glowing=%s puffs=%d" % [player.is_hot(), body.material_override != null, _puffs()])
+	print("after it wears off: hot=%s glowing=%s puffs=%d" % [player.is_hot(), body.material_overlay != null, _puffs()])
 	quit()

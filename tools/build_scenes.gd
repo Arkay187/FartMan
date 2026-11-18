@@ -41,22 +41,40 @@ func _build_player() -> void:
 	player.add_child(visual)
 	visual.owner = player
 
+	# The old grey capsule, hidden now he has a real model. Tick it visible in the
+	# editor to see the size of the shape that actually bumps into things.
 	var mesh := MeshInstance3D.new()
 	mesh.name = "MeshInstance3D"
 	mesh.mesh = CapsuleMesh.new()
 	mesh.position = Vector3(0, 1, 0)
+	mesh.visible = false
 	visual.add_child(mesh)
 	mesh.owner = player
 
-	# Belly proxy: a pink ball on his front that grows while charging.
+	# The real Fart Man model (made with Tripo from our concept art). It is only a
+	# costume: the capsule collision below still does all the bumping.
+	var turn := Node3D.new()
+	turn.name = "ModelTurn"
+	turn.set_script(load("res://scripts/model_turn.gd"))
+	visual.add_child(turn)
+	turn.owner = player
+	turn.call("face", true)
+	var model: Node3D = (load("res://art/characters/fart_man/fart_man.glb") as PackedScene).instantiate()
+	model.name = "Model"
+	# The file is about 1 m tall; this makes him 2 m, the same height as his capsule.
+	model.scale = Vector3.ONE * 2.05
+	turn.add_child(model)
+	model.owner = player
+
+	# Belly: a ball in his suit colour on his front that grows while charging.
 	var belly := MeshInstance3D.new()
 	belly.name = "Belly"
 	var ball := SphereMesh.new()
-	var pink := StandardMaterial3D.new()
-	pink.albedo_color = Color(0.95, 0.55, 0.5)
-	ball.material = pink
+	var suit_green := StandardMaterial3D.new()
+	suit_green.albedo_color = Color(0.36, 0.55, 0.2)
+	ball.material = suit_green
 	belly.mesh = ball
-	belly.position = Vector3(0.35, 0.9, 0)
+	belly.position = Vector3(0.3, 0.95, 0)
 	belly.visible = false
 	visual.add_child(belly)
 	belly.owner = player
@@ -92,7 +110,7 @@ func _build_player() -> void:
 	chilli.set_script(load("res://scripts/chilli_power.gd"))
 	player.add_child(chilli)
 	chilli.owner = player
-	chilli.set("body", mesh)
+	chilli.set("body", visual)
 	chilli.set("trail", trail)
 	player.set("chilli", chilli)
 
