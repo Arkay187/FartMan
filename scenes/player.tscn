@@ -1,25 +1,36 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_fjrip"]
-[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_smehm"]
-[ext_resource type="Script" path="res://scripts/hearts.gd" id="3_ur7pv"]
-[ext_resource type="Script" path="res://scripts/flame_trail.gd" id="4_y4r1p"]
-[ext_resource type="Script" path="res://scripts/chilli_power.gd" id="5_d2wvv"]
-[ext_resource type="Script" path="res://scripts/flight_power.gd" id="6_3v2ag"]
-[ext_resource type="Script" path="res://scripts/player_animator.gd" id="7_jej6c"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_fulsm"]
+[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_4r5pv"]
+[ext_resource type="Script" path="res://scripts/hearts.gd" id="3_60mlk"]
+[ext_resource type="Script" path="res://scripts/flame_trail.gd" id="4_i4ail"]
+[ext_resource type="Script" path="res://scripts/chilli_power.gd" id="5_a38lo"]
+[ext_resource type="Script" path="res://scripts/flight_power.gd" id="6_4ni07"]
+[ext_resource type="Script" path="res://scripts/player_animator.gd" id="7_l71n6"]
+[ext_resource type="Script" path="res://scripts/player_sounds.gd" id="8_ke2ow"]
+[ext_resource type="AudioStream" path="res://audio/voice/jump_1.wav" id="9_ujl30"]
+[ext_resource type="AudioStream" path="res://audio/voice/jump_2.wav" id="10_31cv2"]
+[ext_resource type="AudioStream" path="res://audio/voice/fart_1.wav" id="11_pf23h"]
+[ext_resource type="AudioStream" path="res://audio/voice/long_fart_2.wav" id="12_dt7fs"]
+[ext_resource type="AudioStream" path="res://audio/voice/wahoo.wav" id="13_wqfne"]
+[ext_resource type="AudioStream" path="res://audio/voice/long_fart.wav" id="14_wnwbv"]
+[ext_resource type="AudioStream" path="res://audio/voice/flying_fart.wav" id="15_gl8cc"]
+[ext_resource type="AudioStream" path="res://audio/voice/small_hit.wav" id="16_487ah"]
+[ext_resource type="AudioStream" path="res://audio/voice/yow.wav" id="17_md1ol"]
+[ext_resource type="AudioStream" path="res://audio/voice/oh_noo.wav" id="18_bj30b"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_f1ej7"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jc3p3"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oprun"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hax0n"]
 albedo_color = Color(0.95, 0.55, 0.5, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_a8ls1"]
-material = SubResource("StandardMaterial3D_oprun")
+[sub_resource type="SphereMesh" id="SphereMesh_t4otl"]
+material = SubResource("StandardMaterial3D_hax0n")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qfm1y"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j2b1d"]
 
-[node name="Player" type="CharacterBody3D" unique_id=141481371 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
-script = ExtResource("1_fjrip")
+[node name="Player" type="CharacterBody3D" unique_id=722175543 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
+script = ExtResource("1_fulsm")
 gas_tank = NodePath("GasTank")
 hearts = NodePath("Hearts")
 chilli = NodePath("ChilliPower")
@@ -27,48 +38,61 @@ flight = NodePath("FlightPower")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Visual" type="Node3D" parent="." unique_id=837326498]
+[node name="Visual" type="Node3D" parent="." unique_id=2130798331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1525383120]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=34255586]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_f1ej7")
+mesh = SubResource("CapsuleMesh_jc3p3")
 
-[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=1025739346]
+[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=1521858691]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.9, 0)
 visible = false
-mesh = SubResource("SphereMesh_a8ls1")
+mesh = SubResource("SphereMesh_t4otl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1976405660]
-shape = SubResource("CapsuleShape3D_qfm1y")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1893301076]
+shape = SubResource("CapsuleShape3D_j2b1d")
 
-[node name="GasTank" type="Node" parent="." unique_id=1295864265]
-script = ExtResource("2_smehm")
+[node name="GasTank" type="Node" parent="." unique_id=418958871]
+script = ExtResource("2_4r5pv")
 
-[node name="Hearts" type="Node" parent="." unique_id=45987364]
-script = ExtResource("3_ur7pv")
+[node name="Hearts" type="Node" parent="." unique_id=1186498281]
+script = ExtResource("3_60mlk")
 
-[node name="FlameTrail" type="Node3D" parent="." unique_id=1577619070]
+[node name="FlameTrail" type="Node3D" parent="." unique_id=1575042506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-script = ExtResource("4_y4r1p")
+script = ExtResource("4_i4ail")
 
-[node name="ChilliPower" type="Node" parent="." unique_id=1981635766 node_paths=PackedStringArray("body", "trail")]
-script = ExtResource("5_d2wvv")
+[node name="ChilliPower" type="Node" parent="." unique_id=233842505 node_paths=PackedStringArray("body", "trail")]
+script = ExtResource("5_a38lo")
 body = NodePath("../Visual/MeshInstance3D")
 trail = NodePath("../FlameTrail")
 
-[node name="RainbowTrail" type="Node3D" parent="." unique_id=1094505419]
+[node name="RainbowTrail" type="Node3D" parent="." unique_id=1722259798]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, 0)
-script = ExtResource("4_y4r1p")
+script = ExtResource("4_i4ail")
 puff_every = 0.03
 puff_life = 1.2
 puff_size = 1.3
 rainbow = true
 
-[node name="FlightPower" type="Node" parent="." unique_id=548062877 node_paths=PackedStringArray("trail")]
-script = ExtResource("6_3v2ag")
+[node name="FlightPower" type="Node" parent="." unique_id=1689745034 node_paths=PackedStringArray("trail")]
+script = ExtResource("6_4ni07")
 trail = NodePath("../RainbowTrail")
 
-[node name="Animator" type="Node" parent="." unique_id=368069250 node_paths=PackedStringArray("squash_target")]
-script = ExtResource("7_jej6c")
+[node name="Animator" type="Node" parent="." unique_id=476811437 node_paths=PackedStringArray("squash_target")]
+script = ExtResource("7_l71n6")
 squash_target = NodePath("../Visual")
+
+[node name="Sounds" type="Node" parent="." unique_id=2019708101]
+script = ExtResource("8_ke2ow")
+hop_sounds = Array[AudioStream]([ExtResource("9_ujl30"), ExtResource("10_31cv2")])
+trump_sound = ExtResource("11_pf23h")
+thunder_sound = ExtResource("12_dt7fs")
+thunder_shout = ExtResource("13_wqfne")
+squeak_sound = ExtResource("14_wnwbv")
+flying_sound = ExtResource("15_gl8cc")
+hurt_sound = ExtResource("16_487ah")
+spike_sound = ExtResource("17_md1ol")
+death_sound = ExtResource("18_bj30b")
+clear_sound = ExtResource("13_wqfne")

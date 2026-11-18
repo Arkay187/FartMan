@@ -369,6 +369,7 @@ func washing_line(x0: float, x1: float, y: float) -> Area3D:
 	var line := Area3D.new()
 	line.name = "WashingLine"
 	line.set_script(load("res://scripts/hazard.gd"))
+	line.set("spiky", false)
 	line.position = Vector3((x0 + x1) * 0.5, y, 0)
 	_add("Hazards", line)
 	var rope := BoxMesh.new()

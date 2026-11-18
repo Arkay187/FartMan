@@ -400,3 +400,12 @@
 - Start menu (`scenes/start_menu.tscn`, `scripts/start_menu.gd`) is now the first scene: CONTINUE (only shown if there is progress) and NEW GAME (asks twice before erasing). New game wipes the save and plays the opening story.
 - Map: `unlock_all` export on WorldMap is on, so every stop can be entered. Untick it in the editor to lock stops again (test_world_map checks the locked behaviour with it off).
 - Test added: `test_start_menu`. All tests pass. Not checked by eye: how the menu looks, real stage times.
+
+## Home-made sound effects
+- Recordings converted from .m4a to WAV (Windows' own converter), trimmed of silence, made mono and evened out: `audio/voice/*.wav`.
+- `scripts/player_sounds.gd` (the Sounds node inside the Player) plays them. Every sound can be swapped in the editor:
+  - hop = jump_1 / jump_2 (random), Trump = fart_1, Thunder = long_fart_2 + "wahoo" shout, held too long = long_fart, flying = flying_fart (loops)
+  - hurt = small_hit, spikes (prickles, cacti, spiky balls) = yow, last heart lost or fell off = oh_noo, Bean Can reached = wahoo
+- New `died` signal on Player; `hurt(from_x, by_spikes)`; Hazard has a `spiky` tick box (washing lines are not spiky).
+- `game_over.wav` is in the folder but not used yet: there is no game-over moment (he just goes back to the checkpoint). Ideas: the map after quitting, or a lives system.
+- Test `test_sounds` checks which sound starts for each moment. Headless runs don't really play audio (it leaked memory at quit). NOT heard by ear: volumes, how they mix, whether the Thunder fart is too long.

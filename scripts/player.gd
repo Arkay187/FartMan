@@ -22,6 +22,8 @@ signal squeak_stopped
 ## Sent when he squashes an enemy, and when something hurts him.
 signal stomped
 signal got_hurt
+## Sent when he loses his last heart or falls off the level (just before he pops back).
+signal died
 ## Sent when he falls off the level and pops back to the start.
 signal respawned
 
@@ -130,6 +132,8 @@ var input_locked: bool = false
 var stomp_window_left: float = 0.0
 ## Counts down after being hurt: while above zero, he blinks and can't be hurt.
 var flashing_left: float = 0.0
+## Whether the last thing that hurt him was spiky.
+var hurt_by_spikes: bool = false
 
 
 func _ready() -> void:
@@ -247,11 +251,13 @@ func stomp_bounce() -> void:
 
 
 ## Called by anything that hurts him. from_x is where the nasty thing is.
-func hurt(from_x: float) -> void:
+## by_spikes is true for prickles and spiky balls (they get a different "ouch" sound).
+func hurt(from_x: float, by_spikes: bool = false) -> void:
 	# Can't be hurt while still flashing, or while hot from a chilli.
 	if flashing_left > 0.0 or is_hot():
 		return
 	_stop_charging()
+	hurt_by_spikes = by_spikes
 
 	# Last heart gone? Back to the start with full hearts.
 	if hearts != null and not hearts.lose_one():
@@ -390,6 +396,7 @@ func _launch(tier: int) -> void:
 
 
 func _respawn() -> void:
+	died.emit()
 	stop_flying()
 	global_position = checkpoint_position
 	velocity = Vector3.ZERO

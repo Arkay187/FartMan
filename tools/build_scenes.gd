@@ -123,6 +123,24 @@ func _build_player() -> void:
 	animator.owner = player
 	animator.set("squash_target", visual)
 
+	# Sounds, recorded at home. Change them on the Sounds node in the editor.
+	var sounds := Node.new()
+	sounds.name = "Sounds"
+	sounds.set_script(load("res://scripts/player_sounds.gd"))
+	player.add_child(sounds)
+	sounds.owner = player
+	var hops: Array[AudioStream] = [load("res://audio/voice/jump_1.wav"), load("res://audio/voice/jump_2.wav")]
+	sounds.set("hop_sounds", hops)
+	sounds.set("trump_sound", load("res://audio/voice/fart_1.wav"))
+	sounds.set("thunder_sound", load("res://audio/voice/long_fart_2.wav"))
+	sounds.set("thunder_shout", load("res://audio/voice/wahoo.wav"))
+	sounds.set("squeak_sound", load("res://audio/voice/long_fart.wav"))
+	sounds.set("flying_sound", load("res://audio/voice/flying_fart.wav"))
+	sounds.set("hurt_sound", load("res://audio/voice/small_hit.wav"))
+	sounds.set("spike_sound", load("res://audio/voice/yow.wav"))
+	sounds.set("death_sound", load("res://audio/voice/oh_noo.wav"))
+	sounds.set("clear_sound", load("res://audio/voice/wahoo.wav"))
+
 	player.set("visual", visual)
 	player.set("belly", belly)
 	player.set("gas_tank", tank)
