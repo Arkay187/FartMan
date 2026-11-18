@@ -69,6 +69,12 @@ func _run() -> void:
 			await _wait(0.3)
 			_check("sky toilet: checkpoint remembered, respawned flying (x=%.0f, flying %s)" % [p.position.x, str(p.is_flying())],
 				checkpoint_set and p.is_flying() and p.position.x < 160.0)
+			# The end of the flight: he must land on solid ground, not drop into a hole.
+			p.flashing_left = 1000.0
+			p.position = Vector3(1190, 8.0, 0)
+			await _wait(4.0)
+			_check("after the flight he lands safely (x=%.1f, y=%.1f, flying %s, on floor %s)" % [p.position.x, p.position.y, str(p.is_flying()), str(p.is_on_floor())],
+				not p.is_flying() and p.position.y > -1.0 and p.position.x > 1195.0)
 		stage.queue_free()
 		await _wait(0.2)
 

@@ -18,23 +18,27 @@ enum State { WAITING, INTRO, IDLE, WINDUP, TIRED, HIT, DEFEATED }
 
 @export_group("The fight")
 @export var hits_to_win: int = 3
-@export var sneezes_per_round: int = 3
+@export var sneezes_per_round: int = 2
 ## Pauses, in seconds.
-@export var idle_time: float = 1.0
-@export var windup_time: float = 0.9
-@export var between_sneezes: float = 0.4
-## How long she stays drooped, open to being stomped.
-@export var tired_time: float = 5.0
+@export var idle_time: float = 1.5
+@export var windup_time: float = 1.1
+@export var between_sneezes: float = 0.8
+## How long she stays drooped, extra easy to stomp.
+@export var tired_time: float = 6.0
+## After a stomp she can't be stomped again for this long (each hit needs its own jump).
+@export var hit_pause: float = 1.8
+## Tick to make her stalk hurt to touch (harder).
+@export var stalk_hurts: bool = false
 
 @export_group("Pollen (round 1, 2, 3)")
 ## Pollen speed in each round, in metres per second.
-@export var pollen_speed: Array[float] = [4.5, 6.0, 7.5]
+@export var pollen_speed: Array[float] = [3.5, 4.2, 5.0]
 ## Clouds per sneeze in each round.
-@export var pollen_per_sneeze: Array[int] = [1, 2, 2]
+@export var pollen_per_sneeze: Array[int] = [1, 1, 2]
 ## Seconds between clouds of the same sneeze.
-@export var pollen_gap: float = 0.8
+@export var pollen_gap: float = 1.2
 ## Falling petals per sneeze in each round (they drop near him).
-@export var petals_per_sneeze: Array[int] = [0, 0, 1]
+@export var petals_per_sneeze: Array[int] = [0, 0, 0]
 ## Where clouds start, compared to her base, and where they disappear.
 @export var pollen_offset: Vector3 = Vector3(-1.5, 0.4, 0)
 @export var arena_left_x: float = -9.0
@@ -75,14 +79,16 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if state == State.WAITING or state == State.DEFEATED:
 		return
-	# Her stalk hurts to touch.
-	for body: Node3D in get_overlapping_bodies():
-		if body is Player:
-			(body as Player).hurt(global_position.x)
+	# Only her pollen and petals hurt. Her stalk and head are safe to touch.
+	if stalk_hurts:
+		for body: Node3D in get_overlapping_bodies():
+			if body is Player:
+				(body as Player).hurt(global_position.x)
 	_check_head()
 
 
-## The head: stompable when she is tired, a harmless bouncy ball otherwise.
+## The head: land on it from above and she takes a hit, whenever the fight is on.
+## (She droops when tired to make it extra easy.) Touching it any other way is harmless.
 func _check_head() -> void:
 	if head == null:
 		return
@@ -90,15 +96,11 @@ func _check_head() -> void:
 		var player := body as Player
 		if player == null:
 			continue
-		var above: bool = player.get_feet_y() > head.global_position.y - 0.1 or absf(player.global_position.x - head.global_position.x) < 0.8
+		var above: bool = player.get_feet_y() > head.global_position.y - 0.6
 		if player.can_stomp() and above:
 			player.stomp_bounce()
-			if state == State.TIRED:
+			if state in [State.IDLE, State.WINDUP, State.TIRED]:
 				_take_hit()
-			else:
-				SpeechBubble.say(head, "TICKLES!", 0.6, 1.6)
-		elif state != State.TIRED:
-			player.hurt(head.global_position.x)
 		return
 
 
@@ -178,9 +180,18 @@ func _take_hit() -> void:
 	if hits >= hits_to_win:
 		_defeat()
 		return
+	# Stop whatever she was doing, shake it off for a moment, then start the next round.
+	_run_id += 1
+	var id: int = _run_id
+	_clear_shots()
 	state = State.HIT
+	face.scale = Vector3.ONE
 	SpeechBubble.say(head, "ACHOO! OW!", 1.0, 1.6)
 	_raise_head()
+	# Long enough that bouncing straight back onto her head doesn't count twice.
+	await _wait(hit_pause)
+	if id == _run_id:
+		_fight(id)
 
 
 func _raise_head() -> void:

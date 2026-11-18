@@ -15,7 +15,7 @@ func build(k) -> Array[String]:
 	k.ground(-12, 6)
 	k.golden(-11, 1.5)
 	k.toilet(-2, 0)
-	k.hint(0, 0, "BOSS AHEAD! STOMP HER HEAD WHEN SHE DROOPS!", 4.0)
+	k.hint(0, 0, "BOSS AHEAD! JUMP ON HER HEAD!", 4.0)
 	k.beans_line(-6, 4, 1.3)
 
 	# --- The arena. ------------------------------------------------------------------
@@ -56,7 +56,8 @@ func build(k) -> Array[String]:
 	var head := Area3D.new()
 	head.name = "Head"
 	boss.add_child(head)
-	k._collider_shape(head, SphereShape3D.new(), Vector3.ZERO, Vector3(1.1, 1.1, 1.1))
+	# A big, forgiving stomp zone (radius 1.3 m), a bit bigger than the face you see.
+	k._collider_shape(head, SphereShape3D.new(), Vector3.ZERO, Vector3(2.6, 2.6, 2.6))
 	var face := Node3D.new()
 	face.name = "Face"
 	head.add_child(face)

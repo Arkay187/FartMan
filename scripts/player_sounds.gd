@@ -7,9 +7,14 @@ extends Node
 @export_group("Jumps")
 ## Picked at random for each little hop.
 @export var hop_sounds: Array[AudioStream] = []
-@export var trump_sound: AudioStream
-@export var thunder_sound: AudioStream
-## A shout on top of the Thunder fart.
+## Medium fart jump: one picked at random each time.
+@export var trump_sounds: Array[AudioStream] = []
+## Big fart jump: one picked at random each time.
+@export var thunder_sounds: Array[AudioStream] = []
+## Medium farts play a bit higher, big ones a bit lower and rumblier. 1 = as recorded.
+@export var trump_pitch: float = 1.1
+@export var thunder_pitch: float = 0.9
+## Optional shout on top of the big fart. Empty = just the fart.
 @export var thunder_shout: AudioStream
 ## The long squeaky leak when the fart is held too long.
 @export var squeak_sound: AudioStream
@@ -95,7 +100,7 @@ func _make_player(player_name: String, db: float) -> AudioStreamPlayer:
 	return p
 
 
-func _play(on: AudioStreamPlayer, stream: AudioStream, wobble: bool = true) -> void:
+func _play(on: AudioStreamPlayer, stream: AudioStream, wobble: bool = true, pitch: float = 1.0) -> void:
 	if stream == null:
 		return
 	played.append(stream.resource_path.get_file())
@@ -104,7 +109,7 @@ func _play(on: AudioStreamPlayer, stream: AudioStream, wobble: bool = true) -> v
 	if _silent:
 		return
 	on.stream = stream
-	on.pitch_scale = 1.0 + (randf_range(-pitch_wobble, pitch_wobble) if wobble else 0.0)
+	on.pitch_scale = pitch + (randf_range(-pitch_wobble, pitch_wobble) if wobble else 0.0)
 	on.play()
 
 
@@ -114,9 +119,11 @@ func _on_farted(tier_name: String) -> void:
 			if not hop_sounds.is_empty():
 				_play(_fart, hop_sounds.pick_random())
 		"Trump":
-			_play(_fart, trump_sound)
+			if not trump_sounds.is_empty():
+				_play(_fart, trump_sounds.pick_random(), true, trump_pitch)
 		"Thunder":
-			_play(_fart, thunder_sound)
+			if not thunder_sounds.is_empty():
+				_play(_fart, thunder_sounds.pick_random(), true, thunder_pitch)
 			_play(_voice, thunder_shout)
 
 

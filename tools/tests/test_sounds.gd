@@ -69,12 +69,24 @@ func _run() -> void:
 
 	await _hold(&"fart", 0.3)
 	var trump: Array[String] = _heard()
-	_check("medium fart plays fart_1 %s" % str(trump), trump == ["fart_1.wav"])
+	var short_farts: Array[String] = ["fart_1.wav", "flying_bit_2.wav", "flying_bit_4.wav", "long_bit_1.wav"]
+	var big_farts: Array[String] = ["long_fart_2.wav", "flying_bit_1.wav", "flying_bit_3.wav", "flying_bit_5.wav"]
+	_check("medium fart plays one short fart %s" % str(trump), trump.size() == 1 and trump[0] in short_farts)
 	await _wait(1.5)
 
 	await _hold(&"fart", 0.7)
 	var thunder: Array[String] = _heard()
-	_check("big fart plays long_fart_2 and wahoo %s" % str(thunder), "long_fart_2.wav" in thunder and "wahoo.wav" in thunder)
+	_check("big fart plays just one big fart, no shout %s" % str(thunder), thunder.size() == 1 and thunder[0] in big_farts)
+	await _wait(2.0)
+
+	# Lots of medium farts: more than one different sound turns up.
+	var kinds: Dictionary = {}
+	for i in 12:
+		await _hold(&"fart", 0.3)
+		for s: String in _heard():
+			kinds[s] = true
+		await _wait(1.3)
+	_check("medium farts vary (%d different sounds)" % kinds.size(), kinds.size() >= 2)
 	await _wait(2.0)
 
 	# Hold far too long: the squeak starts.

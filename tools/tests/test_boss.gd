@@ -84,15 +84,28 @@ func _run() -> void:
 		await _wait(0.5)
 		_check("pollen rolls left along the floor (%.1f -> %.1f, y=%.2f)" % [x0, cloud.position.x, cloud.position.y], cloud.position.x < x0 - 1.5 and cloud.position.y < 1.0)
 
-	# She droops after three sneezes.
+	# Stomp 1: her head is still up and she is sneezing. A jump on the head counts anyway.
+	var state_then: SneezyWeezy.State = boss.state
+	player.velocity = Vector3(0, -6, 0)
+	player.global_position = boss.head.global_position + Vector3(0.6, 2.5, 0)
+	await _wait(0.5)
+	_check("a stomp counts even when she isn't drooping (state was %s, hits %d)" % [str(state_then), boss.hits],
+		boss.hits == 1 and state_then != SneezyWeezy.State.TIRED)
+	# Bouncing straight back onto her head must not count as a second hit.
+	await _wait(1.0)
+	_check("bouncing back onto her head doesn't count twice (hits %d)" % boss.hits, boss.hits == 1)
+	player.global_position = Vector3(8.0, 1.2, 0)
+
+	# She droops after her sneezes.
 	_check("she gets tired after the sneezes", await _until(SneezyWeezy.State.TIRED, 25.0))
 
-	# Three stomps.
-	for n in 3:
+	# Two more stomps while she droops.
+	for n in range(1, 3):
 		if boss.state != SneezyWeezy.State.TIRED:
 			_check("tired again for stomp %d" % (n + 1), await _until(SneezyWeezy.State.TIRED, 30.0))
 		await _stomp_head()
 		_check("stomp %d lands (hits %d)" % [n + 1, boss.hits], boss.hits == n + 1)
+		player.global_position = Vector3(8.0, 1.2, 0)
 		if n < 2:
 			_check("after stomp %d she goes on" % (n + 1), boss.state != SneezyWeezy.State.DEFEATED)
 	_check("three stomps defeat her", boss.state == SneezyWeezy.State.DEFEATED)

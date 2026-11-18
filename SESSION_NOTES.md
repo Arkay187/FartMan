@@ -409,3 +409,9 @@
 - New `died` signal on Player; `hurt(from_x, by_spikes)`; Hazard has a `spiky` tick box (washing lines are not spiky).
 - `game_over.wav` plays (after "oh noo") when he loses all hearts or falls during a boss fight and the fight starts over. Bosses join the "bosses" group and send `fight_lost`. The design still has no lives, so normal stages never say Game Over.
 - Test `test_sounds` checks which sound starts for each moment. Headless runs don't really play audio (it leaked memory at quit). NOT heard by ear: volumes, how they mix, whether the Thunder fart is too long.
+
+## Easier boss, safe landing, more farts
+- Sneezy Weezy is much easier: her head's stomp zone is now 1.3 m round (it was 0.55 m, smaller than the face you see, which is why stomps missed). A stomp counts any time in the fight, not only when she droops. Her head and stalk no longer hurt (`stalk_hurts` to turn that back on). 2 sneezes a round, slower pollen (3.5/4.2/5.0), no falling petals, longer pauses. After a hit she can't be hit again for `hit_pause` (1.8 s), so a bounce back onto her head doesn't count twice.
+- 1-3: the ground now starts at x=1150, under the end of the flight, so he can't drop into a hole when the flight ends.
+- Fart sounds: the long recordings were cut into separate farts (`audio/voice/farts/`). Medium jump picks from 4 short farts (pitched a bit higher), big jump from 4 long ones (a bit lower). The big jump plays just the fart, no "wahoo" (`thunder_shout` is empty).
+- Not heard or played by eye: whether the boss now feels right, how the cut-up farts sound.

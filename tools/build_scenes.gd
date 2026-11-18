@@ -131,9 +131,14 @@ func _build_player() -> void:
 	sounds.owner = player
 	var hops: Array[AudioStream] = [load("res://audio/voice/jump_1.wav"), load("res://audio/voice/jump_2.wav")]
 	sounds.set("hop_sounds", hops)
-	sounds.set("trump_sound", load("res://audio/voice/fart_1.wav"))
-	sounds.set("thunder_sound", load("res://audio/voice/long_fart_2.wav"))
-	sounds.set("thunder_shout", load("res://audio/voice/wahoo.wav"))
+	# Short farts for the medium jump, long ones for the big jump. The "bits" were cut
+	# out of the longer recordings so there are plenty to pick from.
+	var trumps: Array[AudioStream] = [load("res://audio/voice/fart_1.wav"), load("res://audio/voice/farts/flying_bit_2.wav"),
+		load("res://audio/voice/farts/flying_bit_4.wav"), load("res://audio/voice/farts/long_bit_1.wav")]
+	var thunders: Array[AudioStream] = [load("res://audio/voice/long_fart_2.wav"), load("res://audio/voice/farts/flying_bit_1.wav"),
+		load("res://audio/voice/farts/flying_bit_3.wav"), load("res://audio/voice/farts/flying_bit_5.wav")]
+	sounds.set("trump_sounds", trumps)
+	sounds.set("thunder_sounds", thunders)
 	sounds.set("squeak_sound", load("res://audio/voice/long_fart.wav"))
 	sounds.set("flying_sound", load("res://audio/voice/flying_fart.wav"))
 	sounds.set("hurt_sound", load("res://audio/voice/small_hit.wav"))

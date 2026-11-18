@@ -96,8 +96,9 @@ func build(k) -> Array[String]:
 	k.golden(1130, 15.2)
 
 	# --- Landing: flight ends at the green curtain. --------------------------------------
+	# The ground starts well before the curtain, so he can never drop into a hole when the flight ends.
 	k.place("res://scenes/landing_zone.tscn", "LandingZone", Vector3(1200, 0, 0), "Goal")
-	k.ground(1206, 1290, 0)
+	k.ground(1150, 1290, 0)
 	k.toilet(1220, 0)
 	k.mega_can(1232, 1.3)
 	k.bean_can(1260, 0)

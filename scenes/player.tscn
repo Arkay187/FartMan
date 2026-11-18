@@ -1,37 +1,43 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_4r5pv"]
-[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_60mlk"]
-[ext_resource type="Script" path="res://scripts/hearts.gd" id="3_i4ail"]
-[ext_resource type="Script" path="res://scripts/flame_trail.gd" id="4_a38lo"]
-[ext_resource type="Script" path="res://scripts/chilli_power.gd" id="5_4ni07"]
-[ext_resource type="Script" path="res://scripts/flight_power.gd" id="6_l71n6"]
-[ext_resource type="Script" path="res://scripts/player_animator.gd" id="7_ke2ow"]
-[ext_resource type="Script" path="res://scripts/player_sounds.gd" id="8_ujl30"]
-[ext_resource type="AudioStream" path="res://audio/voice/jump_1.wav" id="9_31cv2"]
-[ext_resource type="AudioStream" path="res://audio/voice/jump_2.wav" id="10_pf23h"]
-[ext_resource type="AudioStream" path="res://audio/voice/fart_1.wav" id="11_dt7fs"]
-[ext_resource type="AudioStream" path="res://audio/voice/long_fart_2.wav" id="12_wqfne"]
-[ext_resource type="AudioStream" path="res://audio/voice/wahoo.wav" id="13_wnwbv"]
-[ext_resource type="AudioStream" path="res://audio/voice/long_fart.wav" id="14_gl8cc"]
-[ext_resource type="AudioStream" path="res://audio/voice/flying_fart.wav" id="15_487ah"]
-[ext_resource type="AudioStream" path="res://audio/voice/small_hit.wav" id="16_md1ol"]
-[ext_resource type="AudioStream" path="res://audio/voice/yow.wav" id="17_bj30b"]
-[ext_resource type="AudioStream" path="res://audio/voice/oh_noo.wav" id="18_jc3p3"]
-[ext_resource type="AudioStream" path="res://audio/voice/game_over.wav" id="19_hax0n"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_ke2ow"]
+[ext_resource type="Script" path="res://scripts/gas_tank.gd" id="2_ujl30"]
+[ext_resource type="Script" path="res://scripts/hearts.gd" id="3_31cv2"]
+[ext_resource type="Script" path="res://scripts/flame_trail.gd" id="4_pf23h"]
+[ext_resource type="Script" path="res://scripts/chilli_power.gd" id="5_dt7fs"]
+[ext_resource type="Script" path="res://scripts/flight_power.gd" id="6_wqfne"]
+[ext_resource type="Script" path="res://scripts/player_animator.gd" id="7_wnwbv"]
+[ext_resource type="Script" path="res://scripts/player_sounds.gd" id="8_gl8cc"]
+[ext_resource type="AudioStream" path="res://audio/voice/jump_1.wav" id="9_487ah"]
+[ext_resource type="AudioStream" path="res://audio/voice/jump_2.wav" id="10_md1ol"]
+[ext_resource type="AudioStream" path="res://audio/voice/fart_1.wav" id="11_bj30b"]
+[ext_resource type="AudioStream" path="res://audio/voice/farts/flying_bit_2.wav" id="12_jc3p3"]
+[ext_resource type="AudioStream" path="res://audio/voice/farts/flying_bit_4.wav" id="13_hax0n"]
+[ext_resource type="AudioStream" path="res://audio/voice/farts/long_bit_1.wav" id="14_t4otl"]
+[ext_resource type="AudioStream" path="res://audio/voice/long_fart_2.wav" id="15_j2b1d"]
+[ext_resource type="AudioStream" path="res://audio/voice/farts/flying_bit_1.wav" id="16_cs1tg"]
+[ext_resource type="AudioStream" path="res://audio/voice/farts/flying_bit_3.wav" id="17_2dvfe"]
+[ext_resource type="AudioStream" path="res://audio/voice/farts/flying_bit_5.wav" id="18_giy8y"]
+[ext_resource type="AudioStream" path="res://audio/voice/long_fart.wav" id="19_fdfoy"]
+[ext_resource type="AudioStream" path="res://audio/voice/flying_fart.wav" id="20_hhpqf"]
+[ext_resource type="AudioStream" path="res://audio/voice/small_hit.wav" id="21_g5jhy"]
+[ext_resource type="AudioStream" path="res://audio/voice/yow.wav" id="22_holxr"]
+[ext_resource type="AudioStream" path="res://audio/voice/oh_noo.wav" id="23_mx1m4"]
+[ext_resource type="AudioStream" path="res://audio/voice/game_over.wav" id="24_4gjji"]
+[ext_resource type="AudioStream" path="res://audio/voice/wahoo.wav" id="25_u2ulf"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_t4otl"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6e8lb"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2b1d"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gdjj"]
 albedo_color = Color(0.95, 0.55, 0.5, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_cs1tg"]
-material = SubResource("StandardMaterial3D_j2b1d")
+[sub_resource type="SphereMesh" id="SphereMesh_sc3ue"]
+material = SubResource("StandardMaterial3D_2gdjj")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2dvfe"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lxlsd"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1153782772 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
-script = ExtResource("1_4r5pv")
+[node name="Player" type="CharacterBody3D" unique_id=232024150 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
+script = ExtResource("1_ke2ow")
 gas_tank = NodePath("GasTank")
 hearts = NodePath("Hearts")
 chilli = NodePath("ChilliPower")
@@ -39,62 +45,61 @@ flight = NodePath("FlightPower")
 visual = NodePath("Visual")
 belly = NodePath("Visual/Belly")
 
-[node name="Visual" type="Node3D" parent="." unique_id=100051949]
+[node name="Visual" type="Node3D" parent="." unique_id=1267265814]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1047765819]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1790018404]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_t4otl")
+mesh = SubResource("CapsuleMesh_6e8lb")
 
-[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=2139304384]
+[node name="Belly" type="MeshInstance3D" parent="Visual" unique_id=2093721392]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.9, 0)
 visible = false
-mesh = SubResource("SphereMesh_cs1tg")
+mesh = SubResource("SphereMesh_sc3ue")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1063086516]
-shape = SubResource("CapsuleShape3D_2dvfe")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=916571721]
+shape = SubResource("CapsuleShape3D_lxlsd")
 
-[node name="GasTank" type="Node" parent="." unique_id=936821532]
-script = ExtResource("2_60mlk")
+[node name="GasTank" type="Node" parent="." unique_id=1678301218]
+script = ExtResource("2_ujl30")
 
-[node name="Hearts" type="Node" parent="." unique_id=1300200128]
-script = ExtResource("3_i4ail")
+[node name="Hearts" type="Node" parent="." unique_id=1924833476]
+script = ExtResource("3_31cv2")
 
-[node name="FlameTrail" type="Node3D" parent="." unique_id=888968315]
+[node name="FlameTrail" type="Node3D" parent="." unique_id=460103910]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-script = ExtResource("4_a38lo")
+script = ExtResource("4_pf23h")
 
-[node name="ChilliPower" type="Node" parent="." unique_id=233240180 node_paths=PackedStringArray("body", "trail")]
-script = ExtResource("5_4ni07")
+[node name="ChilliPower" type="Node" parent="." unique_id=1813320956 node_paths=PackedStringArray("body", "trail")]
+script = ExtResource("5_dt7fs")
 body = NodePath("../Visual/MeshInstance3D")
 trail = NodePath("../FlameTrail")
 
-[node name="RainbowTrail" type="Node3D" parent="." unique_id=816103860]
+[node name="RainbowTrail" type="Node3D" parent="." unique_id=2083438731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, 0)
-script = ExtResource("4_a38lo")
+script = ExtResource("4_pf23h")
 puff_every = 0.03
 puff_life = 1.2
 puff_size = 1.3
 rainbow = true
 
-[node name="FlightPower" type="Node" parent="." unique_id=1672895611 node_paths=PackedStringArray("trail")]
-script = ExtResource("6_l71n6")
+[node name="FlightPower" type="Node" parent="." unique_id=680015379 node_paths=PackedStringArray("trail")]
+script = ExtResource("6_wqfne")
 trail = NodePath("../RainbowTrail")
 
-[node name="Animator" type="Node" parent="." unique_id=1103196994 node_paths=PackedStringArray("squash_target")]
-script = ExtResource("7_ke2ow")
+[node name="Animator" type="Node" parent="." unique_id=229831376 node_paths=PackedStringArray("squash_target")]
+script = ExtResource("7_wnwbv")
 squash_target = NodePath("../Visual")
 
-[node name="Sounds" type="Node" parent="." unique_id=1914291037]
-script = ExtResource("8_ujl30")
-hop_sounds = Array[AudioStream]([ExtResource("9_31cv2"), ExtResource("10_pf23h")])
-trump_sound = ExtResource("11_dt7fs")
-thunder_sound = ExtResource("12_wqfne")
-thunder_shout = ExtResource("13_wnwbv")
-squeak_sound = ExtResource("14_gl8cc")
-flying_sound = ExtResource("15_487ah")
-hurt_sound = ExtResource("16_md1ol")
-spike_sound = ExtResource("17_bj30b")
-death_sound = ExtResource("18_jc3p3")
-game_over_sound = ExtResource("19_hax0n")
-clear_sound = ExtResource("13_wnwbv")
+[node name="Sounds" type="Node" parent="." unique_id=1020666116]
+script = ExtResource("8_gl8cc")
+hop_sounds = Array[AudioStream]([ExtResource("9_487ah"), ExtResource("10_md1ol")])
+trump_sounds = Array[AudioStream]([ExtResource("11_bj30b"), ExtResource("12_jc3p3"), ExtResource("13_hax0n"), ExtResource("14_t4otl")])
+thunder_sounds = Array[AudioStream]([ExtResource("15_j2b1d"), ExtResource("16_cs1tg"), ExtResource("17_2dvfe"), ExtResource("18_giy8y")])
+squeak_sound = ExtResource("19_fdfoy")
+flying_sound = ExtResource("20_hhpqf")
+hurt_sound = ExtResource("21_g5jhy")
+spike_sound = ExtResource("22_holxr")
+death_sound = ExtResource("23_mx1m4")
+game_over_sound = ExtResource("24_4gjji")
+clear_sound = ExtResource("25_u2ulf")
