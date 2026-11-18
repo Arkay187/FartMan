@@ -11,6 +11,8 @@ extends Area3D
 signal hit(hits_left: int)
 ## Sent when she is beaten and the gate has opened.
 signal defeated
+## Sent when Fart Man loses all his hearts (or falls) during the fight, and it starts over.
+signal fight_lost
 
 enum State { WAITING, INTRO, IDLE, WINDUP, TIRED, HIT, DEFEATED }
 
@@ -60,6 +62,7 @@ var _player: Player
 
 
 func _ready() -> void:
+	add_to_group(&"bosses")
 	_player = get_tree().get_first_node_in_group(&"player") as Player
 	if trigger != null:
 		trigger.body_entered.connect(_on_trigger)
@@ -230,6 +233,9 @@ func _burst_petals() -> void:
 func _reset() -> void:
 	if state == State.DEFEATED:
 		return
+	# He lost while the fight was on: that's "Game Over" for this try.
+	if state != State.WAITING:
+		fight_lost.emit()
 	_run_id += 1
 	_clear_shots()
 	state = State.WAITING

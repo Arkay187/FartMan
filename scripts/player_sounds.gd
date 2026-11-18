@@ -23,6 +23,10 @@ extends Node
 @export var spike_sound: AudioStream
 ## Lost the last heart or fell off.
 @export var death_sound: AudioStream
+## Lost a boss fight (it starts over). Plays just after the death sound.
+@export var game_over_sound: AudioStream
+## How long after the death sound the "game over" comes, in seconds.
+@export var game_over_delay: float = 1.4
 
 @export_group("Hooray")
 ## Reached the Bean Can at the end of a stage.
@@ -65,6 +69,8 @@ func _ready() -> void:
 	if _player.flight != null:
 		_player.flight.started.connect(_on_flight_started)
 		_player.flight.ended.connect(_on_flight_ended)
+	# Bosses, for the "game over" when he loses to one. They may not be ready yet, so wait a frame.
+	_connect_bosses.call_deferred()
 	# The stage he is in, for the "hooray" at the end.
 	var node: Node = get_parent()
 	while node != null and not node is Stage:
@@ -116,6 +122,18 @@ func _on_farted(tier_name: String) -> void:
 
 func _on_hurt() -> void:
 	_play(_voice, spike_sound if _player.hurt_by_spikes else hurt_sound)
+
+
+func _connect_bosses() -> void:
+	for boss: Node in get_tree().get_nodes_in_group(&"bosses"):
+		if boss.has_signal(&"fight_lost"):
+			boss.connect(&"fight_lost", _on_boss_fight_lost)
+
+
+func _on_boss_fight_lost() -> void:
+	await get_tree().create_timer(game_over_delay).timeout
+	if is_inside_tree():
+		_play(_voice, game_over_sound, false)
 
 
 func _on_flight_started() -> void:

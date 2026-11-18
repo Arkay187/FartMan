@@ -407,5 +407,5 @@
   - hop = jump_1 / jump_2 (random), Trump = fart_1, Thunder = long_fart_2 + "wahoo" shout, held too long = long_fart, flying = flying_fart (loops)
   - hurt = small_hit, spikes (prickles, cacti, spiky balls) = yow, last heart lost or fell off = oh_noo, Bean Can reached = wahoo
 - New `died` signal on Player; `hurt(from_x, by_spikes)`; Hazard has a `spiky` tick box (washing lines are not spiky).
-- `game_over.wav` is in the folder but not used yet: there is no game-over moment (he just goes back to the checkpoint). Ideas: the map after quitting, or a lives system.
+- `game_over.wav` plays (after "oh noo") when he loses all hearts or falls during a boss fight and the fight starts over. Bosses join the "bosses" group and send `fight_lost`. The design still has no lives, so normal stages never say Game Over.
 - Test `test_sounds` checks which sound starts for each moment. Headless runs don't really play audio (it leaked memory at quit). NOT heard by ear: volumes, how they mix, whether the Thunder fart is too long.

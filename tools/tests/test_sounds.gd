@@ -130,6 +130,37 @@ func _run() -> void:
 		flying == ["flying_fart.wav"] and was_playing and not sounds.flying_on)
 
 	world.free()
+	world = null
 	await _wait(0.2)
+
+	# Losing to the boss: "oh noo", then "game over", and the fight starts again.
+	var save: Node = root.get_node_or_null("SaveGame")
+	if save != null:
+		save.use_file("user://test_sounds_save.json")
+		save.reset()
+		save.mark_seen("sneezy_hello")  # skip the hello scene
+	var stage: Stage = load("res://scenes/stage_1_4.tscn").instantiate()
+	root.add_child(stage)
+	player = stage.player
+	sounds = player.get_node("Sounds") as PlayerSounds
+	var boss: SneezyWeezy = stage.find_child("SneezyWeezy", true, false)
+	await _wait(0.5)
+	player.position = Vector3(9.0, 1.2, 0)
+	await _wait(1.0)
+	var fighting: bool = boss.state != SneezyWeezy.State.WAITING
+	_heard()
+	for i in 3:
+		player.flashing_left = 0.0
+		player.hurt(player.global_position.x + 1.0)
+	await _wait(2.0)
+	var lost: Array[String] = _heard()
+	_check("losing the boss fight (fight was on: %s) plays oh_noo then game_over %s" % [fighting, str(lost)],
+		fighting and lost.find("oh_noo.wav") >= 0 and lost.find("game_over.wav") > lost.find("oh_noo.wav"))
+	stage.queue_free()
+	await _wait(0.2)
+	if save != null:
+		save.reset()
+		DirAccess.remove_absolute(ProjectSettings.globalize_path("user://test_sounds_save.json"))
+
 	print("sound failures: %d" % failures)
 	quit()

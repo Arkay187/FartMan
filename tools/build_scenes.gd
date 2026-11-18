@@ -139,6 +139,7 @@ func _build_player() -> void:
 	sounds.set("hurt_sound", load("res://audio/voice/small_hit.wav"))
 	sounds.set("spike_sound", load("res://audio/voice/yow.wav"))
 	sounds.set("death_sound", load("res://audio/voice/oh_noo.wav"))
+	sounds.set("game_over_sound", load("res://audio/voice/game_over.wav"))
 	sounds.set("clear_sound", load("res://audio/voice/wahoo.wav"))
 
 	player.set("visual", visual)
