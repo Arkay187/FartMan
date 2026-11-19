@@ -19,7 +19,7 @@ func _wait(seconds: float) -> void:
 func _run(level: Node) -> void:
 	var player: CharacterBody3D = level.get_node("Player")
 	var tank: Node = player.get_node("GasTank")
-	var belly: Node3D = player.get_node("Visual/Belly")
+	var belly: Node3D = player.belly
 	player.farted.connect(func(n: String) -> void: farts.append(n))
 	player.squeak_started.connect(func() -> void: squeaks += 1)
 	await _wait(1.0)

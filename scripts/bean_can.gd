@@ -34,6 +34,7 @@ func _on_lid_touched(body: Node3D) -> void:
 	is_open = true
 	Stage.award(self, points)
 	player.say(open_words, 3.0)
+	player.celebrate()
 	_pop_lid()
 	opened.emit()
 

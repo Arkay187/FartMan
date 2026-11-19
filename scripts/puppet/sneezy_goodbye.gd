@@ -6,5 +6,6 @@ const STEPS: Array = [
 	["shake", 0.2, 0.5],
 	["say", "player", "BLESS YOU!", 1.5, 1.6],
 	["say", "boss", "...I WAS ONLY SNEEZING.", 1.8, 1.6],
+	["clip", "player", "victory"],
 	["call", "boss", "open_gate"],
 ]

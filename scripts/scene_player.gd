@@ -69,6 +69,10 @@ func _do_step(step: Array, actors: Dictionary) -> void:
 			var seconds: float = step[3] if step.size() > 3 else 1.6
 			var height: float = step[4] if step.size() > 4 else 2.0
 			SpeechBubble.say(who, step[2], seconds, height)
+			# Fart Man moves his mouth (plays the talking clip) while he speaks.
+			var talker: Node = who.get_node_or_null("Animator") if who != null else null
+			if talker != null and talker.has_method("talk_for"):
+				talker.call("talk_for", seconds)
 			await _sleep(seconds)
 		"wait":
 			await _sleep(step[1])

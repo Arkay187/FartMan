@@ -66,7 +66,7 @@ func _run() -> void:
 			for i in 3:
 				p.flashing_left = 0.0
 				p.hurt(p.global_position.x + 1.0)
-			await _wait(0.3)
+			await _wait(p.death_time + 0.3)  # he lies there for death_time first
 			_check("sky toilet: checkpoint remembered, respawned flying (x=%.0f, flying %s)" % [p.position.x, str(p.is_flying())],
 				checkpoint_set and p.is_flying() and p.position.x < 160.0)
 			# The end of the flight: he must land on solid ground, not drop into a hole.

@@ -22,10 +22,12 @@ signal squeak_stopped
 ## Sent when he squashes an enemy, and when something hurts him.
 signal stomped
 signal got_hurt
-## Sent when he loses his last heart or falls off the level (just before he pops back).
+## Sent once per death: the moment he loses his last heart or falls off the level.
 signal died
 ## Sent when he falls off the level and pops back to the start.
 signal respawned
+## Sent when the level's end-of-stage goal is reached and he cheers.
+signal celebrated
 
 enum Tier { TOOT, TRUMP, THUNDER }
 const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
@@ -89,6 +91,9 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export var knockback_jump: float = 7.0
 ## What he says when hurt. Leave empty for nothing.
 @export var hurt_words: String = "OUCH!"
+## Seconds he lies on the floor after losing his last heart, before he pops back.
+## 0 = straight back like before.
+@export var death_time: float = 1.5
 
 @export_group("Power-ups")
 ## His Chilli Pepper power. Leave empty and chillies do nothing.
@@ -134,6 +139,10 @@ var stomp_window_left: float = 0.0
 var flashing_left: float = 0.0
 ## Whether the last thing that hurt him was spiky.
 var hurt_by_spikes: bool = false
+## True while he lies on the floor after losing his last heart.
+var is_dying: bool = false
+## Counts down while he lies there.
+var dying_left: float = 0.0
 
 
 func _ready() -> void:
@@ -145,7 +154,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Fell off the level? Pop back to the last checkpoint.
 	if global_position.y < fall_limit_y:
+		if not is_dying:
+			died.emit()
 		_respawn()
+		return
+
+	# Lying on the floor after the last heart: no controls, just gravity, then back.
+	if is_dying:
+		_lie_there(delta)
 		return
 
 	# Flying? The flight power does all the moving instead.
@@ -190,6 +206,24 @@ func _physics_process(delta: float) -> void:
 	velocity.z = 0.0
 	move_and_slide()
 	position.z = 0.0
+
+
+## He lies still (gravity still works) until death_time is up, then pops back.
+func _lie_there(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	velocity.x = 0.0
+	velocity.z = 0.0
+	move_and_slide()
+	position.z = 0.0
+	dying_left -= delta
+	if dying_left <= 0.0:
+		_respawn()
+
+
+## Called by the bean can when the stage is won: he does his victory dance.
+func celebrate() -> void:
+	celebrated.emit()
 
 
 ## True while he is falling, and for a split second after landing.
@@ -253,15 +287,15 @@ func stomp_bounce() -> void:
 ## Called by anything that hurts him. from_x is where the nasty thing is.
 ## by_spikes is true for prickles and spiky balls (they get a different "ouch" sound).
 func hurt(from_x: float, by_spikes: bool = false) -> void:
-	# Can't be hurt while still flashing, or while hot from a chilli.
-	if flashing_left > 0.0 or is_hot():
+	# Can't be hurt while still flashing, while hot from a chilli, or while lying down.
+	if is_dying or flashing_left > 0.0 or is_hot():
 		return
 	_stop_charging()
 	hurt_by_spikes = by_spikes
 
-	# Last heart gone? Back to the start with full hearts.
+	# Last heart gone? He lies down for death_time, then goes back with full hearts.
 	if hearts != null and not hearts.lose_one():
-		_respawn()
+		_lose_last_heart()
 		return
 
 	# Knocked back, away from whatever hurt him.
@@ -395,8 +429,25 @@ func _launch(tier: int) -> void:
 		print(TIER_NAMES[tier], "!")
 
 
-func _respawn() -> void:
+## The last heart is gone. died is sent here, once.
+func _lose_last_heart() -> void:
 	died.emit()
+	if death_time <= 0.0:
+		_respawn()
+		return
+	is_dying = true
+	dying_left = death_time
+	flashing_left = 0.0
+	if visual != null:
+		visual.visible = true
+	_stop_charging()
+	stop_flying()
+	velocity.x = 0.0
+
+
+## Back to the checkpoint with full hearts. (Whoever started the death sent died already.)
+func _respawn() -> void:
+	is_dying = false
 	stop_flying()
 	global_position = checkpoint_position
 	velocity = Vector3.ZERO

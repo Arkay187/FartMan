@@ -164,7 +164,7 @@ func _run() -> void:
 	for i in 3:
 		player.flashing_left = 0.0
 		player.hurt(player.global_position.x + 1.0)
-	await _wait(2.0)
+	await _wait(player.death_time + 2.0)  # he lies there for death_time first
 	var lost: Array[String] = _heard()
 	_check("losing the boss fight (fight was on: %s) plays oh_noo then game_over %s" % [fighting, str(lost)],
 		fighting and lost.find("oh_noo.wav") >= 0 and lost.find("game_over.wav") > lost.find("oh_noo.wav"))

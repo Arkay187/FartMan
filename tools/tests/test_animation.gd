@@ -46,7 +46,11 @@ func _run(level: Node) -> void:
 	await _wait(0.3)
 	_check("charge while holding", anim.loop_clip == &"charge")
 	var squashed_scale: float = player.visual.scale.y
-	_check("charge squashes the shape in code (y=%.2f)" % squashed_scale, absf(squashed_scale - 1.0) > 0.01)
+	if anim.has_clip(&"charge"):
+		# Real model: the crouch clip does the acting, so the code must leave his shape alone.
+		_check("charge plays the real crouch, no code squash (y=%.2f)" % squashed_scale, absf(squashed_scale - 1.0) < 0.01)
+	else:
+		_check("charge squashes the shape in code (y=%.2f)" % squashed_scale, absf(squashed_scale - 1.0) > 0.01)
 	await _wait(1.5)
 	_check("squeak when held too long", anim.loop_clip == &"squeak")
 	Input.action_release(&"fart")

@@ -14,6 +14,9 @@ extends Node
 const PLAYER_CLIPS: Array[StringName] = [
 	&"idle", &"run", &"jump", &"fall", &"land", &"charge", &"squeak",
 	&"hurt", &"stomp", &"flight", &"victory", &"talk"]
+## Extra clips only Fart Man has (the grey box does without them).
+const PLAYER_EXTRA_CLIPS: Array[StringName] = [
+	&"walk", &"sprint", &"hop", &"hop_run", &"big_jump", &"big_land", &"roll", &"death", &"death_2"]
 const ENEMY_CLIPS: Array[StringName] = [&"walk", &"squash"]
 const BOSS_CLIPS: Array[StringName] = [&"idle", &"attack", &"hurt", &"dizzy", &"defeat"]
 
@@ -98,6 +101,12 @@ func play_once(clip: StringName) -> void:
 	shot_clip = clip
 	shot_age = 0.0
 	_start(clip)
+
+
+## Ends the one-shot at once (if any) and goes back to the loop.
+func stop_shot() -> void:
+	if shot_clip != &"":
+		_end_shot()
 
 
 func _start(clip: StringName) -> void:

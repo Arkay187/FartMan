@@ -51,7 +51,7 @@ func _build_player() -> void:
 	visual.add_child(mesh)
 	mesh.owner = player
 
-	# The real Fart Man model (made with Tripo from our concept art). It is only a
+	# The real Fart Man model: a Mixamo rig with the Tripo textures. It is only a
 	# costume: the capsule collision below still does all the bumping.
 	var turn := Node3D.new()
 	turn.name = "ModelTurn"
@@ -59,14 +59,56 @@ func _build_player() -> void:
 	visual.add_child(turn)
 	turn.owner = player
 	turn.call("face", true)
-	var model: Node3D = (load("res://art/characters/fart_man/fart_man.glb") as PackedScene).instantiate()
+	var model: Node3D = (load("res://art/characters/fart_man/fart_man_rigged.fbx") as PackedScene).instantiate()
 	model.name = "Model"
-	# The file is about 1 m tall; this makes him 2 m, the same height as his capsule.
-	model.scale = Vector3.ONE * 2.05
+	var skeleton: Skeleton3D = model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	var body_mesh: MeshInstance3D = model.find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
+	# The file is tiny (Mixamo centimetres). Scale it so he is 2 m tall, like his capsule.
+	var model_scale: float = 2.0 / body_mesh.get_aabb().size.y
+	model.scale = Vector3.ONE * model_scale
 	turn.add_child(model)
 	model.owner = player
+	# We add things inside the model (belly spot, textures), so its insides must be saved.
+	player.set_editable_instance(model, true)
+
+	# The rigged file has no textures, so we give him his suit here.
+	var folder: String = "res://art/characters/fart_man/"
+	var suit := StandardMaterial3D.new()
+	suit.albedo_texture = load(folder + "sci-fi_soldier_3d_model_color.jpg")
+	suit.normal_enabled = true
+	suit.normal_texture = load(folder + "sci-fi_soldier_3d_model_normal.jpg")
+	suit.roughness_texture = load(folder + "sci-fi_soldier_3d_model_roughness.jpg")
+	suit.roughness_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_RED
+	suit.metallic = 1.0
+	suit.metallic_texture = load(folder + "sci-fi_soldier_3d_model_metallic.jpg")
+	suit.metallic_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_RED
+	body_mesh.material_override = suit
+
+	# His animation clips, cut from the Mixamo files (see tools/fart_man_clips.gd).
+	var clip_builder: RefCounted = load("res://tools/fart_man_clips.gd").new()
+	clip_builder.call("build")
+	var clips := AnimationPlayer.new()
+	clips.name = "Clips"
+	model.add_child(clips)
+	clips.owner = player
+	clips.root_node = NodePath("..")
+	clips.add_animation_library(&"", ResourceLoader.load("res://art/characters/fart_man/fart_man_clips.res", "", ResourceLoader.CACHE_MODE_REPLACE) as AnimationLibrary)
+	clips.playback_default_blend_time = 0.15
 
 	# Belly: a ball in his suit colour on his front that grows while charging.
+	# It is pinned to his spine so it follows him when he crouches.
+	var attach := BoneAttachment3D.new()
+	attach.name = "BellyBone"
+	skeleton.add_child(attach)
+	attach.owner = player
+	attach.bone_name = "mixamorig_Spine"
+	var spot := Node3D.new()
+	spot.name = "BellySpot"
+	attach.add_child(spot)
+	spot.owner = player
+	# This cancels the model's big scale, so the belly stays life size: 0.95 m up, 0.3 m in front.
+	var spine_rest: Transform3D = skeleton.get_bone_global_rest(skeleton.find_bone("mixamorig_Spine"))
+	spot.transform = spine_rest.affine_inverse() * Transform3D(Basis().scaled(Vector3.ONE / model_scale), Vector3(0.0, 0.95, 0.3) / model_scale)
 	var belly := MeshInstance3D.new()
 	belly.name = "Belly"
 	var ball := SphereMesh.new()
@@ -74,9 +116,8 @@ func _build_player() -> void:
 	suit_green.albedo_color = Color(0.36, 0.55, 0.2)
 	ball.material = suit_green
 	belly.mesh = ball
-	belly.position = Vector3(0.3, 0.95, 0)
 	belly.visible = false
-	visual.add_child(belly)
+	spot.add_child(belly)
 	belly.owner = player
 
 	var col := CollisionShape3D.new()
@@ -131,6 +172,8 @@ func _build_player() -> void:
 	player.add_child(flight)
 	flight.owner = player
 	flight.set("trail", rainbow)
+	# The Flight clip is already lying flat, so the whole body does not need to lean as well.
+	flight.set("tilt_degrees", 0.0)
 	player.set("flight", flight)
 
 	# Animator: plays run, jump, charge, hurt... Grey box now, real model later.
@@ -140,6 +183,7 @@ func _build_player() -> void:
 	player.add_child(animator)
 	animator.owner = player
 	animator.set("squash_target", visual)
+	animator.set("animation_player", clips)
 
 	# Sounds, recorded at home. Change them on the Sounds node in the editor.
 	var sounds := Node.new()
