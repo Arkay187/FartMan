@@ -111,6 +111,7 @@ func _on_trigger(body: Node3D) -> void:
 
 func _start_fight() -> void:
 	state = State.INTRO
+	_camera_shows_me(true)
 	var id: int = _run_id
 	if scene_player != null:
 		await scene_player.play(load("res://scripts/puppet/sneezy_hello.gd").STEPS,
@@ -217,6 +218,7 @@ func open_gate() -> void:
 	if is_instance_valid(gate):
 		gate.queue_free()
 	_raise_head()
+	_camera_shows_me(false)
 	defeated.emit()
 
 
@@ -249,10 +251,22 @@ func _reset() -> void:
 		fight_lost.emit()
 	_run_id += 1
 	_clear_shots()
+	_camera_shows_me(false)
 	state = State.WAITING
 	if head != null:
 		face.scale = Vector3.ONE
 		head.position = head_up
+
+
+## While the fight is on, the camera zooms out to keep her and him both in the shot.
+func _camera_shows_me(yes: bool) -> void:
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if camera == null or not camera.has_method("show_too"):
+		return
+	if yes:
+		camera.call("show_too", self)
+	else:
+		camera.call("stop_showing", self)
 
 
 func _clear_shots() -> void:

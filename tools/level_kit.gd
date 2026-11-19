@@ -44,7 +44,7 @@ func begin(stage_id: String, opening: String, start: Vector3, sky: Color) -> voi
 	camera = Camera3D.new()
 	camera.name = "Camera3D"
 	camera.set_script(load("res://scripts/follow_camera.gd"))
-	camera.position = start + Vector3(0, 3, 16)
+	camera.position = start + Vector3(0, 2.4, 16)
 	root.add_child(camera)
 	camera.owner = root
 	camera.set("target", player)

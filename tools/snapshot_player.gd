@@ -1,12 +1,14 @@
 extends SceneTree
 # Takes pictures of Fart Man in a stage so Claude can check his model by eye.
 # Needs a real window, so run it WITHOUT --headless:
-#     godot --path . --resolution 1280x720 --script res://tools/snapshot_player.gd -- <folder> [scene]
+#     godot --path . --resolution 1280x720 --script res://tools/snapshot_player.gd -- <folder> [scene] [x]
 # Saves right, left, front, belly, chilli and game_view pictures (.png) in that folder.
 # The scene defaults to Stage 1-1, which has the real stage lighting.
+# If x is given, he is moved there before game_view (for example x=9 walks into the boss room).
 
 var _out: String = "user://snapshots"
 var _scene: String = "res://scenes/stage_1_1.tscn"
+var _move_to_x: float = NAN
 
 
 func _initialize() -> void:
@@ -15,7 +17,13 @@ func _initialize() -> void:
 		_out = args[0]
 	if args.size() > 1:
 		_scene = args[1]
+	if args.size() > 2:
+		_move_to_x = float(args[2])
 	DirAccess.make_dir_recursive_absolute(_out)
+	var save: Node = root.get_node_or_null("SaveGame")
+	if save != null:
+		save.use_file("user://snapshot_save.json")  # never touch the real save
+		save.reset()
 	var level: Node = load(_scene).instantiate()
 	root.add_child(level)
 	_run(level)
@@ -65,5 +73,9 @@ func _run(level: Node) -> void:
 	await _frames(5)
 	if game_camera != null:
 		game_camera.make_current()
+	if not is_nan(_move_to_x):
+		player.set_physics_process(true)
+		player.global_position = Vector3(_move_to_x, player.global_position.y + 0.5, 0.0)
+		await _frames(150)  # let the camera catch up
 	await _shot("game_view.png")
 	quit()

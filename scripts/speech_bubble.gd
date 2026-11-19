@@ -10,6 +10,8 @@ const FONT_SIZE: int = 28
 const FADE_TIME: float = 0.25
 const BUBBLE_COLOR: Color = Color.WHITE
 const INK_COLOR: Color = Color.BLACK
+## Gap kept between a bubble and the edge of the screen, in pixels.
+const EDGE_GAP: float = 12.0
 
 var speaker: Node3D
 var height_above: float = 2.0
@@ -75,6 +77,9 @@ func _process(_delta: float) -> void:
 	panel.visible = not camera.is_position_behind(point)
 	var on_screen: Vector2 = camera.unproject_position(point)
 	panel.position = on_screen - Vector2(panel.size.x * 0.5, panel.size.y)
+	# Never let the words run off the edge of the screen.
+	var screen: Vector2 = get_viewport().get_visible_rect().size
+	panel.position = panel.position.clamp(Vector2(EDGE_GAP, EDGE_GAP), screen - panel.size - Vector2(EDGE_GAP, EDGE_GAP))
 
 
 func _fade_out_after(seconds: float) -> void:

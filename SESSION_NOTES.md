@@ -428,3 +428,16 @@
 - Not checked: how he looks moving in real play, with the flight tilt, or in the puppet scenes.
 - Worth deciding: at the normal camera distance (16 m) he is small, about 1/12 of the screen height, the same as the old capsule. To make him easier to see, bring the camera nearer (Camera3D `offset` z) or scale the Model up.
 - Next: rig him (Mixamo is free: upload an OBJ export from Tripo, place the markers, download FBX with clips). Name the clips idle, run, jump, fall, land, charge, squeak, hurt, stomp, flight, victory, talk. charge/squeak/launch poses need making by hand. Then the builder wires the AnimationPlayer into the Animator and pins the belly to the spine bone.
+
+## Mario Wonder sized camera (19 Nov 2026)
+- Rich asked for Fart Man to be as tall on screen as Mario in a Mario Wonder screenshot (Elephant Mario, about 1/5 of the screen, feet about 84% of the way down).
+- `scripts/follow_camera.gd`: the walking view now zooms in with a narrower view angle (`walk_fov` 34 degrees, was the default 75) from the same 16 m away, and sits a little lower (`offset` y 2.4, was 3). He is now 1/5 of the screen tall, feet 85% down (was 1/12). The narrow angle also makes the look flatter, more like Mario. Flying still uses the wide angle (`flight_fov` 75).
+- `keep_in_view` (1.5 m): on big jumps and long drops the camera slides up or down so his head and feet never leave the screen.
+- Boss fight: Sneezy Weezy asks the camera to keep her in shot (`show_too` / `stop_showing`) from the hello scene until she is beaten or the fight restarts. The camera aims between them and zooms out to fit, and sits higher when zoomed out so the ground stays low on the screen.
+- Speech bubbles now stay inside the screen edges (Sneezy's "WHO DARES COME IN HERE?" was cut off).
+- Gnome `throw_range` 14 -> 8.5 m, so pies never come from a gnome off the edge of the narrower screen.
+- `tools/snapshot_player.gd`: optional x position (e.g. `... res://scenes/stage_1_4.tscn 9` walks into the boss room), and it now uses a throwaway save so it can never touch the real one.
+- New test `test_screen_size` (his size and height on screen, full-belly jump and 8 m drop stay on screen, boss in shot, camera lets go after). All 21 tests pass.
+- Checked by eye in snapshots (1280x720): Stage 1-1 at the start, and the boss hello with both in shot and the bubble on screen.
+- Not checked: how it feels in real play (seeing ahead is now about 9 m each side, was about 22), whether the rest of each stage's jumps still read well with less on screen, the flight stage swing between wide and narrow views, the Sneezy fight itself.
+- If he should be a bit smaller (normal Super Mario in Wonder is about 1/8 of the screen), raise `walk_fov` on the Camera3D (about 50).
