@@ -1,18 +1,19 @@
 extends Camera3D
 ## Camera that follows Fart Man around the level.
-## Normally it looks at him from the side, zoomed in so he is about as big on screen as
-## Mario in Mario Wonder. While he is flying it swings round to sit behind his shoulder,
-## so flying feels like a third-person game.
+## Normally it looks at him from the side, far enough out to see what's coming (he is
+## about 1/9 of the screen tall). While he is flying it swings round to sit behind his
+## shoulder, so flying feels like a third-person game.
 
 ## Who to follow.
 @export var target: Node3D
 
 @export_group("Walking view (side on)")
 ## Where the camera sits compared to him: x = ahead/behind, y = above, z = how far back.
-@export var offset: Vector3 = Vector3(0.0, 2.4, 16.0)
+@export var offset: Vector3 = Vector3(0.0, 3.5, 16.0)
 ## How zoomed in it is: the view angle, top to bottom, in degrees. Smaller = he looks bigger.
-## 34 makes him about 1/5 of the screen tall, like Mario in Mario Wonder.
-@export_range(10.0, 90.0) var walk_fov: float = 34.0
+## 60 makes him about 1/9 of the screen tall and shows about 16 m ahead of him.
+## (34 = Mario Wonder size, 1/5 of the screen, but you can't see obstacles coming.)
+@export_range(10.0, 90.0) var walk_fov: float = 60.0
 ## Keeps all of him on screen during big jumps and drops: this many metres above and
 ## below his middle always stay in view (he is 2 m tall).
 @export var keep_in_view: float = 1.5

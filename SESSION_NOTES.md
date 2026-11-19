@@ -457,3 +457,10 @@
 - Not checked by eye: walk, roll, stomp, talk in a puppet scene, flight in the flight stage, both deaths all the way through, how the blends feel in real play. The take-off clips push a foot up to 0.2 m into the floor for the instant he leaves the ground.
 - The old still model `fart_man.glb` and its 3 textures are no longer used (kept for now; safe to delete).
 - Next: a proper belly (a shape key or a belly bone instead of the green ball), fart clouds from his bottom, enemies and Sneezy Weezy models.
+
+## Camera pulled back out (19 Nov 2026)
+- At Mario Wonder size (walk_fov 34, he was 1/5 of the screen) you couldn't see obstacles coming. The walking camera is now 60 degrees: he is about 1/9 of the screen tall and you see about 16 m ahead on a 16:9 screen (the original was 75 degrees, 1/12). The camera sits a little higher (offset y 3.5) so his feet are about 3/4 of the way down, leaving room above for big jumps. Both are tweakable on the Camera3D (`walk_fov`, `offset`).
+- The gnome's throw range is back to 14 m, which still fits the wider view.
+- Boss fight zoom-out, keep-him-in-view and flying view are unchanged.
+- The texture .import files changed because the editor noticed they're used in 3D and turned on compression and mipmaps (normal; committed).
+- test_screen_size checks the new size, feet position and the view ahead. All 22 tests pass. Not checked by eye.

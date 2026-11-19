@@ -5,9 +5,9 @@ extends Burpling
 
 ## Seconds between throws.
 @export var throw_every: float = 2.6
-## It only throws when he is this close, in metres (about half the screen width, so
+## It only throws when he is this close, in metres (less than half the screen width, so
 ## a pie never comes from a gnome he can't see).
-@export var throw_range: float = 8.5
+@export var throw_range: float = 14.0
 ## How long the pie takes to fly. Longer = easier to dodge.
 @export var flight_time: float = 1.1
 ## It grumbles this long before throwing.

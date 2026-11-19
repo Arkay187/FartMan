@@ -1,6 +1,6 @@
 extends SceneTree
-# Checks how big Fart Man looks on screen: about 1/5 of the screen tall, like Mario in
-# Mario Wonder. Also that all of him stays on screen in a Thunder jump and a long drop,
+# Checks how big Fart Man looks on screen: about 1/9 of the screen tall, so there's room
+# to see obstacles coming. Also that all of him stays on screen in a Thunder jump and a long drop,
 # and that the camera zooms out in the boss fight so Sneezy Weezy is in the shot too.
 # Tests can't see the screen: this works it out from where the camera points.
 
@@ -60,8 +60,12 @@ func _run() -> void:
 	await _wait(1.5)
 	print("screen %s, camera angle %.0f deg" % [camera.get_viewport().get_visible_rect().size, camera.fov])
 	var hf: Vector2 = _head_and_feet(camera, player)
-	_check("he is about 1/5 of the screen tall (%.2f)" % (hf.y - hf.x), hf.y - hf.x > 0.18 and hf.y - hf.x < 0.23)
-	_check("his feet are low on the screen, like Mario's (%.2f of the way down)" % hf.y, hf.y > 0.78 and hf.y < 0.9)
+	_check("he is about 1/9 of the screen tall (%.2f)" % (hf.y - hf.x), hf.y - hf.x > 0.09 and hf.y - hf.x < 0.13)
+	_check("his feet are a bit below the middle, room above for jumps (%.2f of the way down)" % hf.y, hf.y > 0.68 and hf.y < 0.8)
+	# The headless test window is square, so work out the view ahead on a 16:9 screen.
+	var half_tall: float = tan(deg_to_rad(camera.fov) * 0.5) * (camera.global_position.z - player.global_position.z)
+	var sees_ahead: float = half_tall * 16.0 / 9.0 + camera.global_position.x - player.global_position.x
+	_check("on a 16:9 screen he can see well ahead of him (%.1f m)" % sees_ahead, sees_ahead > 14.0)
 
 	# --- A Thunder jump, watched all the way up and down. ------------------------------
 	var ground_y: float = player.global_position.y
