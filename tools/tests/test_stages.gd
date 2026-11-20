@@ -1,5 +1,5 @@
 extends SceneTree
-# Loads each World 1 stage and checks it is put together right: three Golden Beans,
+# Loads each stage (World 1 and the two World 2 running stages) and checks it is put together right: three Golden Beans,
 # one Bean Can, plenty of toilets, and a sensible length. The flying stage must start
 # in the air and a sky toilet must bring him back flying.
 
@@ -26,7 +26,7 @@ func _run() -> void:
 	if save != null:
 		save.use_file("user://test_stages_save.json")
 		save.reset()
-	for id in ["1-1", "1-2", "1-3", "1-4"]:
+	for id in ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2"]:
 		var stage: Stage = load("res://scenes/stage_%s.tscn" % id.replace("-", "_")).instantiate()
 		root.add_child(stage)
 		await _wait(0.5)

@@ -53,11 +53,10 @@ func _run() -> void:
 	print("1-2 not cleared, press right: stays on %s" % MapStops.STOPS[map.index]["id"])
 	print("marker is at the 1-2 spot: %s" % (map.marker.position.distance_to(map.stop_marker_position(1)) < 1.0))
 
-	# World 1 has stages now, so walk on to 2-1, which has no stage yet.
-	save.record_stage("1-2", 0, 1)
-	save.record_stage("1-3", 0, 1)
-	save.record_stage("1-4", 0, 1)
-	for i in 3:
+	# Worlds 1 and 2 have stages now, so walk on to 3-1, which has no stage yet.
+	for stop_id in ["1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4"]:
+		save.record_stage(stop_id, 0, 1)
+	for i in 7:
 		await _press(&"ui_right")
 
 	# Entering a stop with no stage shows COMING SOON.
@@ -71,7 +70,7 @@ func _run() -> void:
 	print("coming soon fades: visible=%s" % map.soon_label.visible)
 
 	# Back on the cleared stop: it shows beans and the best score.
-	for i in 4:
+	for i in 8:
 		await _press(&"ui_left")
 	print("back on %s: info='%s' golden=%d score=%d" % [MapStops.STOPS[map.index]["id"], map.info_label.text, map.stop_golden(0), map.stop_score(0)])
 
