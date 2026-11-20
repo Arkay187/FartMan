@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/spring.gd" id="1_61klm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vrsj"]
+albedo_color = Color(0.35, 0.35, 0.4, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f6w1c"]
+material = SubResource("StandardMaterial3D_6vrsj")
+top_radius = 0.8
+bottom_radius = 0.8
+height = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iudvb"]
+albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l13eo"]
+material = SubResource("StandardMaterial3D_iudvb")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrxyh"]
+albedo_color = Color(0.95, 0.85, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l7nqg"]
+material = SubResource("StandardMaterial3D_yrxyh")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yqx6w"]
+albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_01pfy"]
+material = SubResource("StandardMaterial3D_yqx6w")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_teosb"]
+albedo_color = Color(0.95, 0.85, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_58nyd"]
+material = SubResource("StandardMaterial3D_teosb")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pcqmq"]
+albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ycc1q"]
+material = SubResource("StandardMaterial3D_pcqmq")
+top_radius = 0.75
+bottom_radius = 0.75
+height = 0.15
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_430fb"]
+size = Vector3(1.4, 1, 2)
+
+[node name="Spring" type="Area3D" unique_id=429936245 node_paths=PackedStringArray("coil")]
+script = ExtResource("1_61klm")
+coil = NodePath("Coil")
+
+[node name="Plate" type="MeshInstance3D" parent="." unique_id=208454006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+mesh = SubResource("CylinderMesh_f6w1c")
+
+[node name="Coil" type="Node3D" parent="." unique_id=76624197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+
+[node name="Ring" type="MeshInstance3D" parent="Coil" unique_id=2055300417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("CylinderMesh_l13eo")
+
+[node name="@MeshInstance3D@11" type="MeshInstance3D" parent="Coil" unique_id=1503775361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37, 0)
+mesh = SubResource("CylinderMesh_l7nqg")
+
+[node name="@MeshInstance3D@12" type="MeshInstance3D" parent="Coil" unique_id=230712594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, 0)
+mesh = SubResource("CylinderMesh_01pfy")
+
+[node name="@MeshInstance3D@13" type="MeshInstance3D" parent="Coil" unique_id=280103086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81, 0)
+mesh = SubResource("CylinderMesh_58nyd")
+
+[node name="Top" type="MeshInstance3D" parent="Coil" unique_id=649363909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_ycc1q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=977617008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_430fb")

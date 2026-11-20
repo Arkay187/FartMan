@@ -20,6 +20,16 @@ extends Camera3D
 ## When it also shows someone else (a boss), the room left round the edges, in metres.
 @export var show_too_margin: float = 3.0
 
+@export_group("Climbing and falling (tall levels)")
+## How much the view leans the way he is going up or down: metres of lean for every
+## metre per second of speed. 0 = off, like the normal worlds. Tall levels use about 0.35,
+## so there is more room to see what is above when climbing, and below when falling.
+@export var vertical_look_ahead: float = 0.0
+## The most the view ever leans up or down, in metres.
+@export var vertical_look_max: float = 5.0
+## How smoothly the lean changes. Smaller = lazier.
+@export var vertical_look_smooth: float = 3.0
+
 @export_group("Flying view (behind his shoulder)")
 ## Where the camera sits while he is flying. Minus x = behind him, z = off to the side.
 ## Make z smaller to sit more directly behind, bigger to see him more from the side.
@@ -39,6 +49,8 @@ extends Camera3D
 var flying_amount: float = 0.0
 ## Things to keep in the shot as well as him, like a boss. It zooms out to fit them.
 var also_show: Array[Node3D] = []
+## The lean up (plus) or down (minus) at the moment, in metres.
+var vertical_lean: float = 0.0
 
 
 func _ready() -> void:
@@ -87,6 +99,11 @@ func _physics_process(delta: float) -> void:
 	var walk_offset := Vector3(offset.x, offset.y * zoom, offset.z)
 	var current_offset: Vector3 = walk_offset.lerp(flight_offset, flying_amount)
 	var goal: Vector3 = aim.lerp(target.global_position, flying_amount) + current_offset
+	if vertical_look_ahead > 0.0 and flying_amount < 0.5:
+		var speed_y: float = (target as CharacterBody3D).velocity.y if target is CharacterBody3D else 0.0
+		var lean_goal: float = clampf(speed_y * vertical_look_ahead, -vertical_look_max, vertical_look_max)
+		vertical_lean = lerpf(vertical_lean, lean_goal, 1.0 - exp(-vertical_look_smooth * delta))
+		goal.y += vertical_lean
 	global_position = global_position.lerp(goal, smooth)
 	if flying_amount < 0.05:
 		_keep_him_in_view()

@@ -74,6 +74,11 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## Without this he could fart his way up forever. -1 = no limit.
 @export var air_farts_free_gas: int = 1
 
+@export_group("Wall jump (test levels)")
+## Wall slide and wall jump. Off in the normal worlds. Test levels switch it on.
+## The work is done by a small WallJump node (scripts/wall_jump.gd) that is added when this is on.
+@export var wall_jump_enabled: bool = false
+
 @export_group("Stomping")
 ## Bounce after squashing an enemy.
 @export var stomp_bounce_power: float = 9.0
@@ -136,6 +141,11 @@ var checkpoint_position: Vector3
 var checkpoint_flight: Vector2 = Vector2.ZERO
 ## Story scenes switch this on so buttons do nothing while they play.
 var input_locked: bool = false
+## A barrel cannon holds him: no moving, no falling, can't be hurt.
+var frozen: bool = false
+## Seconds left while something has just shot him sideways (wall kick, cannon).
+## While above zero he keeps that sideways speed instead of steering.
+var push_left: float = 0.0
 ## Farts let go in the air since he last stood on the ground.
 var air_farts_used: int = 0
 ## Counts down after falling: while above zero, touching an enemy squashes it.
@@ -154,6 +164,11 @@ func _ready() -> void:
 	add_to_group(&"player")
 	checkpoint_position = global_position
 	_show_belly()
+	# Wall jump is its own little node. Make one if it is switched on and none was added.
+	if wall_jump_enabled and get_node_or_null("WallJump") == null:
+		var helper := WallJump.new()
+		helper.name = "WallJump"
+		add_child(helper)
 
 
 func _physics_process(delta: float) -> void:
@@ -162,6 +177,11 @@ func _physics_process(delta: float) -> void:
 		if not is_dying:
 			died.emit()
 		_respawn()
+		return
+
+	# Held inside a barrel cannon: it moves him, not us.
+	if frozen:
+		velocity = Vector3.ZERO
 		return
 
 	# Lying on the floor after the last heart: no controls, just gravity, then back.
@@ -203,7 +223,12 @@ func _physics_process(delta: float) -> void:
 		# Hot farts: faster, and quicker to get going.
 		speed *= chilli.speed_boost()
 		acceleration *= chilli.speed_boost()
-	velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+	if push_left > 0.0 and (not is_on_floor() or velocity.y > 1.0):
+		push_left = maxf(push_left - delta, 0.0)  # just shot sideways: keep that speed
+		direction = 0.0
+	else:
+		push_left = 0.0  # back on the ground: steering is back
+		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
 
 	# Turn to face the way he is walking.
 	if visual != null and direction != 0.0:
@@ -295,7 +320,7 @@ func stomp_bounce() -> void:
 ## by_spikes is true for prickles and spiky balls (they get a different "ouch" sound).
 func hurt(from_x: float, by_spikes: bool = false) -> void:
 	# Can't be hurt while still flashing, while hot from a chilli, or while lying down.
-	if is_dying or flashing_left > 0.0 or is_hot():
+	if is_dying or frozen or flashing_left > 0.0 or is_hot():
 		return
 	_stop_charging()
 	hurt_by_spikes = by_spikes
@@ -469,6 +494,8 @@ func _lose_last_heart() -> void:
 ## Back to the checkpoint with full hearts. (Whoever started the death sent died already.)
 func _respawn() -> void:
 	is_dying = false
+	frozen = false
+	push_left = 0.0
 	stop_flying()
 	global_position = checkpoint_position
 	velocity = Vector3.ZERO

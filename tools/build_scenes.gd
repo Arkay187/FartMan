@@ -1080,11 +1080,15 @@ func _build_start_menu() -> void:
 	var go := _big_label(root, "ContinueLabel", "CONTINUE", 80)
 	go.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	go.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	go.offset_top = 20
+	go.offset_top = -10
 	var fresh := _big_label(root, "NewGameLabel", "NEW GAME", 80)
 	fresh.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	fresh.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	fresh.offset_top = 130
+	fresh.offset_top = 80
+	var tests := _big_label(root, "TestLevelsLabel", "TEST LEVELS", 56)
+	tests.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	tests.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	tests.offset_top = 170
 	var hint := _big_label(root, "HintLabel", "", 36)
 	hint.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	hint.offset_top = -80
@@ -1092,6 +1096,7 @@ func _build_start_menu() -> void:
 
 	root.set("continue_label", go)
 	root.set("new_game_label", fresh)
+	root.set("test_levels_label", tests)
 	root.set("hint_label", hint)
 	_save(root, "res://scenes/start_menu.tscn")
 
