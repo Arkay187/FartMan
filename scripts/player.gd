@@ -70,6 +70,9 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export var thunder_cost: float = 35.0
 ## Gas wasted each second while the squeaky leak is going.
 @export var squeak_gas_per_second: float = 10.0
+## Test modes NO GAS / ALWAYS FULL (F1): how many farts he gets in the air before landing again.
+## Without this he could fart his way up forever. -1 = no limit.
+@export var air_farts_free_gas: int = 1
 
 @export_group("Stomping")
 ## Bounce after squashing an enemy.
@@ -133,6 +136,8 @@ var checkpoint_position: Vector3
 var checkpoint_flight: Vector2 = Vector2.ZERO
 ## Story scenes switch this on so buttons do nothing while they play.
 var input_locked: bool = false
+## Farts let go in the air since he last stood on the ground.
+var air_farts_used: int = 0
 ## Counts down after falling: while above zero, touching an enemy squashes it.
 var stomp_window_left: float = 0.0
 ## Counts down after being hurt: while above zero, he blinks and can't be hurt.
@@ -177,6 +182,8 @@ func _physics_process(delta: float) -> void:
 
 	_update_stomp_window(delta)
 	_update_flashing(delta)
+	if is_on_floor():
+		air_farts_used = 0
 	if input_locked:
 		# A story scene is playing: let go of everything and just stand there.
 		if is_charging:
@@ -393,6 +400,14 @@ func _power_for(tier: int) -> float:
 	return toot_power
 
 
+## True if the free-gas test mode is on and he has used all his farts for this jump.
+func _air_farts_used_up() -> bool:
+	if air_farts_free_gas < 0 or not is_inside_tree():
+		return false
+	var options := get_node_or_null("/root/DebugOptions") as DebugOptionsData
+	return options != null and options.farts_are_free() and air_farts_used >= air_farts_free_gas
+
+
 func _cost_for(tier: int) -> float:
 	match tier:
 		Tier.TRUMP:
@@ -408,6 +423,12 @@ func _can_pay_for(tier: int) -> bool:
 
 
 func _launch(tier: int) -> void:
+	# Free-gas test modes: only so many farts in the air per jump.
+	if tier >= 0 and not is_on_floor():
+		if _air_farts_used_up():
+			tier = -1
+		else:
+			air_farts_used += 1
 	# Not enough gas? Drop down to the biggest fart he can afford. None: it fizzles.
 	if tier == Tier.THUNDER and not _can_pay_for(Tier.THUNDER):
 		tier = Tier.TRUMP

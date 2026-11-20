@@ -12,6 +12,7 @@ func _init() -> void:
 	_build_powerups()
 	_build_flight_things()
 	_build_new_enemies()
+	_run_extra_builders()
 	_build_level()
 	_build_stages()
 	_build_world_map()
@@ -1103,17 +1104,51 @@ func _build_boot() -> void:
 
 
 ## Writes the autoload and main scene into project.godot using the engine itself.
-## Builds the four World 1 stages with the level kit (tools/level_kit.gd, tools/stages/).
+## Extra scene builders: every script in tools/builders/ has a build() that makes its scenes
+## (new enemies, gadgets, bosses). Keeps this file from growing for each new world.
+func _run_extra_builders() -> void:
+	for file in _scripts_in("res://tools/builders"):
+		var builder: RefCounted = load("res://tools/builders/" + file).new()
+		builder.build()
+
+
+## Builds every stage in tools/stages/ (stage_*.gd) with the level kit.
+## A stage script can use a bigger kit by saying: const KIT := "res://tools/kit_factory.gd"
+## (a kit that extends tools/level_kit.gd).
 func _build_stages() -> void:
-	for id in ["1_1", "1_2", "1_3", "1_4"]:
-		var kit: RefCounted = load("res://tools/level_kit.gd").new()
-		var stage: RefCounted = load("res://tools/stages/stage_%s.gd" % id).new()
+	for file in _scripts_in("res://tools/stages"):
+		var script: GDScript = load("res://tools/stages/" + file)
+		var kit_path: String = script.get_script_constant_map().get("KIT", "res://tools/level_kit.gd")
+		var kit: RefCounted = load(kit_path).new()
+		var stage: RefCounted = script.new()
 		stage.build(kit)
+
+
+## The .gd files in a folder, sorted, or none if the folder is missing.
+func _scripts_in(folder: String) -> Array[String]:
+	var found: Array[String] = []
+	if not DirAccess.dir_exists_absolute(folder):
+		return found
+	for file in DirAccess.get_files_at(folder):
+		if file.ends_with(".gd"):
+			found.append(file)
+	found.sort()
+	return found
 
 
 ## Writes the autoload and main scene into project.godot using the engine itself.
 func _register_project() -> void:
 	ProjectSettings.set_setting("autoload/SaveGame", "*res://scripts/save_game.gd")
+	ProjectSettings.set_setting("autoload/DebugOptions", "*res://scripts/debug_options.gd")
+	# Window: the menus and HUD are laid out for 1152 x 648 and scaled up to fit, but the
+	# game opens big (maximized, 1920 x 1080 if it can't) and the 3D draws at full screen sharpness.
+	ProjectSettings.set_setting("display/window/size/viewport_width", 1152)
+	ProjectSettings.set_setting("display/window/size/viewport_height", 648)
+	ProjectSettings.set_setting("display/window/size/window_width_override", 1920)
+	ProjectSettings.set_setting("display/window/size/window_height_override", 1080)
+	ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_MAXIMIZED)
+	ProjectSettings.set_setting("display/window/stretch/mode", "canvas_items")
+	ProjectSettings.set_setting("display/window/stretch/aspect", "expand")
 	ProjectSettings.set_setting("application/run/main_scene", "res://scenes/boot.tscn")
 	# Controls. Jump = instant hop (Space / pad A). Fart = charge (F or Z / pad X or B).
 	# Controller: A or Y jump; X, B, right bumper or LEFT trigger fart (pull to charge, let go to launch).
