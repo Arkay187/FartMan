@@ -464,3 +464,56 @@
 - Boss fight zoom-out, keep-him-in-view and flying view are unchanged.
 - The texture .import files changed because the editor noticed they're used in 3D and turned on compression and mipmaps (normal; committed).
 - test_screen_size checks the new size, feet position and the view ahead. All 22 tests pass. Not checked by eye.
+
+## World 2, gas test switches, vertical test levels, big window (20 Nov 2026)
+Built by three Sonnet helpers in parallel worktrees (branches world2-run, world2-boss, vertical-tests), merged into main.
+
+### Gas test switches and window (Rich: "test removing the gas concept")
+- `scripts/debug_options.gd` (autoload `DebugOptions`): F1 or pad Back/Select cycles NORMAL / NO GAS (bar hidden) /
+  ALWAYS FULL / FILL ON LAND (tank fills whenever his feet touch ground). Remembered in `user://debug_options.json`
+  (not in headless tests). Corner label shows the mode when it isn't NORMAL. F11 = full screen.
+- Claude's call: in NO GAS and ALWAYS FULL he gets ONE fart in the air per jump (`air_farts_free_gas` on Player),
+  otherwise he can fart up forever. FILL ON LAND has no limit; the tank limits it (~2 air Thunders).
+- Window opens maximized (1920x1080 fallback); HUD/menus still laid out at 1152x648 and scaled up, 3D at full resolution.
+  If it's still small when run from the editor, the editor's Game tab is embedding it: switch embedding off there.
+- Builder: every `tools/builders/*.gd` and `tools/stages/stage_*.gd` is now picked up automatically; a stage picks its
+  kit with `const KIT := "res://tools/kit_x.gd"`. `run_tests.ps1` now uses per-run temp files (parallel runs clashed).
+
+### World 2 (all on the map now)
+- 2-1 THE CONVEYOR BELTS: loading dock (belts both ways, Cork Bots), stamp hall (stamping presses, ride one up for a
+  Golden Bean), biscuit bakery (crumbling biscuits over a pit), 38 m backwards belt finale.
+- 2-2 THE PIPE MAZE: steam alley (vents blast him over walls), Fizz Bat sky, switch yard (button swaps red/blue blocks),
+  wind tunnel (tail- then headwind fans), pipe tower with a secret warp pipe to a bean room up in the sky.
+- 2-3 UP THE CHIMNEY (flight): climbs UP an 84 m chimney shaft (hold jump to rise, arrows steer) past spark gates and
+  smoke rings, bursts out, then roofs: smoke-ring chains, rooftop fans, spark-cable gauntlet, steam clouds hiding beans,
+  chimney slalom, rooftop rodeo, a 1.5x speed-up tunnel, landing on a roof.
+- 2-4 COLONEL CORK: snorts (red "!"), charges; Thunder over him; he bonks the wall, stars for 6 s, head sinks so a Trump
+  reaches. 3 stomps (1.6 m head zone, stomps count any time, 1.8 s hit pause). Lobs 2 then 3 corks with red landing
+  marks. Pops like a champagne cork in the goodbye scene. Tunables on colonel_cork.gd (charge_speed, corks_per_volley...).
+- New scripts: conveyor, stamp_press, crumble_platform, switch_button, switch_block, warp_pipe, fan, steam_vent,
+  cork_bot, fizz_bat, spark_cable, smoke_ring, roof_fan, steam_cloud, chimney_stack/shaft/lane/speed, colonel_cork,
+  cork_shot, puppet/cork_hello, puppet/cork_goodbye. Kits: tools/kit_factory.gd, tools/kit_chimney.gd.
+- flight_power.gd gained `shaft` (vertical climbing), `steer_speed`, `speed_scale`; default flight unchanged.
+
+### Vertical test levels (Start menu > TEST LEVELS)
+- T-1 THE BEANSTALK (57 m climb, made for FILL ON LAND): leaf ledges, spring, wall-jump shaft, barrel cannons to the top.
+- T-2 THE BEAN SOUP TOWER (53 m, any mode): hot bean soup rises (pauses 10 s after each toilet; catching him costs a
+  heart and pops him to the last toilet), lift, sprinkler, wall-jump shortcut.
+- New: one_way_platform (jump up through, Down drops through), barrel_cannon (jump/fart fires; some swing),
+  rising_soup, spring (press jump on landing for a MEGA bounce), wall_jump (Player `wall_jump_enabled`, OFF everywhere
+  except these levels), camera `vertical_look_ahead` (off by default). Test levels save nothing and return to the list.
+
+### Tested
+- All 30 headless tests pass (new: test_gas_modes, test_world2_things, test_world2_stages, test_chimney, test_boss2,
+  test_vertical). No route problems. Jolt sometimes prints "job system exceeded the maximum number of jobs" (engine
+  warning, seen once in test_boss2); harmless so far.
+- Seen by eye in screenshots only: 2-1 stamp hall, 2-4 arena, T-1 start, 2-2 start.
+- NOT checked: anyone playing any of these start to finish; how presses, biscuits, switches, fans, vents, warp pipe,
+  Colonel Cork, corks, barrels, soup, wall jump and the chimney climb LOOK and FEEL; lengths/difficulty are guesses;
+  the swinging barrel timing and the steering lock after a barrel shot (until landing) may feel bad.
+
+### What to do next
+1. Play 2-1 to 2-4 and the two test levels; try each F1 gas mode, especially FILL ON LAND on T-1.
+2. Decide on gas: keep, remove, or fill-on-land. Then decide whether wall jump / barrels / one-way platforms join the
+   real game (World 3 Cloud Tops could be the vertical world).
+3. Tune from play: fan strength, vent heights, soup speed, Colonel Cork charge speeds.

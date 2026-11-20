@@ -66,49 +66,49 @@ height = 0.09
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggh7m"]
 
-[node name="Crow" type="Area3D" unique_id=865336965 node_paths=PackedStringArray("visual", "animator")]
+[node name="Crow" type="Area3D" unique_id=1470720505 node_paths=PackedStringArray("visual", "animator")]
 script = ExtResource("1_n3e2n")
 walk_speed = 3.0
 patrol_distance = 3.0
 visual = NodePath("Visual")
 animator = NodePath("Animator")
 
-[node name="Visual" type="Node3D" parent="." unique_id=1706316702]
+[node name="Visual" type="Node3D" parent="." unique_id=1924828302]
 
-[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=601236082]
+[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=1952191961]
 mesh = SubResource("SphereMesh_yvota")
 
-[node name="Wing" type="MeshInstance3D" parent="Visual" unique_id=2098770122]
+[node name="Wing" type="MeshInstance3D" parent="Visual" unique_id=263978692]
 transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.1, -0.6)
 mesh = SubResource("BoxMesh_jhwtl")
 
-[node name="@MeshInstance3D@6" type="MeshInstance3D" parent="Visual" unique_id=1202816831]
+[node name="@MeshInstance3D@6" type="MeshInstance3D" parent="Visual" unique_id=922602004]
 transform = Transform3D(1, 0, 0, 0, 0.9396926, -0.34202012, 0, 0.34202012, 0.9396926, 0, 0.1, 0.6)
 mesh = SubResource("BoxMesh_18o0a")
 
-[node name="Beak" type="MeshInstance3D" parent="Visual" unique_id=283803509]
+[node name="Beak" type="MeshInstance3D" parent="Visual" unique_id=334413505]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.45, 0, 0)
 mesh = SubResource("CylinderMesh_xl3c1")
 
-[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=763483584]
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1035651157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.12, 0.28)
 mesh = SubResource("SphereMesh_g7n2h")
 
-[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=532516725]
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=1156940270]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.12, 0.343)
 mesh = SubResource("SphereMesh_inutj")
 
-[node name="@MeshInstance3D@7" type="MeshInstance3D" parent="Visual" unique_id=813726524]
+[node name="@MeshInstance3D@7" type="MeshInstance3D" parent="Visual" unique_id=1330950721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.12, 0.28)
 mesh = SubResource("SphereMesh_a7pcj")
 
-[node name="@MeshInstance3D@8" type="MeshInstance3D" parent="Visual" unique_id=594852063]
+[node name="@MeshInstance3D@8" type="MeshInstance3D" parent="Visual" unique_id=886902860]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.12, 0.343)
 mesh = SubResource("SphereMesh_w186o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=33678405]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=287434155]
 shape = SubResource("SphereShape3D_ggh7m")
 
-[node name="Animator" type="Node" parent="." unique_id=1110135411 node_paths=PackedStringArray("squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=1375621406 node_paths=PackedStringArray("squash_target")]
 script = ExtResource("2_7p4co")
 squash_target = NodePath("../Visual")

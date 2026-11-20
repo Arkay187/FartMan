@@ -6,8 +6,10 @@ param([string[]]$Tests, [switch]$Build)
 #     pwsh tools/run_tests.ps1 -Build          (rebuild every scene first, then all tests)
 $godot = "D:\Prototypes\Godot\Godot_v4.7.2-stable_win64.exe"
 $project = Split-Path $PSScriptRoot -Parent
-$out = Join-Path $env:TEMP "fartman_test_out.txt"
-$err = Join-Path $env:TEMP "fartman_test_err.txt"
+# Output files are named per run, so two runs at once (e.g. two worktrees) never mix up results.
+$runId = [guid]::NewGuid().ToString("N").Substring(0, 8)
+$out = Join-Path $env:TEMP "fartman_test_out_$runId.txt"
+$err = Join-Path $env:TEMP "fartman_test_err_$runId.txt"
 
 function Run-Godot([string[]]$GodotArgs, [int]$Seconds) {
     $p = Start-Process -FilePath $godot -ArgumentList (@('--headless', '--path', "`"$project`"") + $GodotArgs) `
