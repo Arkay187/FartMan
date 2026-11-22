@@ -14,6 +14,7 @@ var player_inside: bool = false
 
 
 func _ready() -> void:
+	add_to_group(&"chimney_shafts")
 	body_entered.connect(_on_enter)
 	body_exited.connect(_on_exit)
 
@@ -35,3 +36,14 @@ func _on_exit(body: Node3D) -> void:
 	if body is Player:
 		player_inside = false
 		left_shaft.emit()
+
+
+## True if this spot is inside the zone (used when a flight starts, before the zone has noticed him).
+func contains(point: Vector3) -> bool:
+	for child in get_children():
+		var shape := child as CollisionShape3D
+		if shape != null and shape.shape is BoxShape3D:
+			var local: Vector3 = to_local(point)
+			var half: Vector3 = (shape.shape as BoxShape3D).size * 0.5
+			return absf(local.x) <= half.x and absf(local.y) <= half.y
+	return false

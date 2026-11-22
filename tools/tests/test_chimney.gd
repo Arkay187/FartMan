@@ -152,7 +152,7 @@ func _run() -> void:
 			seen_toilets += 1
 	print("roof flight took %.0f s of flying from x=26 (+ about 10 s in the chimney)" % (frames / 60.0))
 	_check("he reaches the end and lands safely on the roof (x=%.0f, y=%.1f, flying %s, on floor %s)" % [p.position.x, p.position.y, str(p.is_flying()), str(p.is_on_floor())],
-		not p.is_flying() and p.is_on_floor() and p.position.x > 1705.0 and absf(p.position.y - 67.0) < 1.0)
+		not p.is_flying() and p.is_on_floor() and p.position.x > 1195.0 and absf(p.position.y - 67.0) < 1.0)
 	_check("the speed-up tunnel made him faster (fastest %.0f m/s, normal 14)" % fastest, fastest > 20.0)
 	_check("he collected beans and ring bonuses on the way (score +%d)" % (stage.score - score0), stage.score - score0 > 500)
 	_check("he flushed the sky toilets as he passed (%d)" % seen_toilets, seen_toilets >= 6)

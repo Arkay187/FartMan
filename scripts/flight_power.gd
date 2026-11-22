@@ -35,6 +35,25 @@ var speed_scale: float = 1.0
 ## How fast he steers sideways inside a chimney shaft, in metres per second.
 @export var steer_speed: float = 7.0
 
+@export_group("Climbing a chimney")
+## How long, in seconds, he takes to swing from standing upright (climbing) to flat (flying
+## forward), and back. Happens when he bursts out of the top of a chimney.
+@export var climb_turn_time: float = 1.0
+## Angle of his body while climbing. 90 = head straight up, like a rocket taking off.
+@export var climb_upright_degrees: float = 90.0
+## How far he leans sideways while steering left or right in the chimney, in degrees.
+@export var climb_lean_degrees: float = 12.0
+## How fast he spins round to face the way he steers, in seconds for a half turn.
+@export var climb_face_time: float = 0.3
+
+## 1 = upright and climbing inside a chimney, 0 = flat and flying forward. Eases in between
+## while he turns. The camera and his pose both read this.
+var climb_amount: float = 0.0
+## Which way he faces while climbing: true = right, false = left.
+var _faces_right: bool = true
+## True until the first flying frame, so a start or a respawn inside a chimney is upright at once.
+var _fresh: bool = true
+
 
 func start(lowest: float, highest: float) -> void:
 	lowest_y = lowest
@@ -47,10 +66,17 @@ func start(lowest: float, highest: float) -> void:
 	started.emit()
 
 
+## True while he is climbing inside a chimney (upright, steering) or still turning flat.
+func is_climbing() -> bool:
+	return is_flying and climb_amount > 0.0
+
+
 func stop(player: Player) -> void:
 	if not is_flying:
 		return
 	is_flying = false
+	climb_amount = 0.0
+	_fresh = true
 	if trail != null:
 		trail.emitting = false
 	if player.visual != null:
@@ -62,6 +88,13 @@ func stop(player: Player) -> void:
 func fly(player: Player, delta: float) -> void:
 	var holding: bool = Input.is_action_pressed(player.jump_action) or Input.is_action_pressed(player.fart_action)
 	var wanted: float = rise_speed if holding else -fall_speed
+	if _fresh:
+		_fresh = false
+		# Starting (or coming back from a toilet) inside a chimney: upright straight away.
+		for zone: Node in player.get_tree().get_nodes_in_group(&"chimney_shafts"):
+			if (zone as ChimneyShaft).contains(player.global_position):
+				shaft = true
+				climb_amount = 1.0
 	var in_shaft: bool = shaft
 	if in_shaft:
 		player.velocity.x = Input.get_axis(player.left_action, player.right_action) * steer_speed
@@ -85,9 +118,22 @@ func fly(player: Player, delta: float) -> void:
 		player.position.y = highest_y
 		player.velocity.y = minf(player.velocity.y, 0.0)
 
-	# Lean forward like a superhero, nose up when climbing and down when sinking.
+	# Upright in a chimney, turning flat once he bursts out of the top.
+	climb_amount = move_toward(climb_amount, 1.0 if in_shaft else 0.0, delta / maxf(climb_turn_time, 0.01))
 	if player.visual != null:
-		player.visual.rotation.y = 0.0
-		# Inside a chimney he flies nearly upright, like a rocket.
-		var lean: float = tilt_degrees * (0.2 if in_shaft else 1.0)
-		player.visual.rotation.z = deg_to_rad(-lean) + player.velocity.y * 0.03
+		var steer: float = clampf(player.velocity.x / maxf(steer_speed, 0.01), -1.0, 1.0) if in_shaft else 0.0
+		if in_shaft and absf(steer) > 0.1:
+			_faces_right = steer > 0.0
+		# Face the way he steers while climbing; flat flying always faces right.
+		var yaw_wanted: float = 0.0 if (_faces_right or not in_shaft) else PI
+		var yaw: float = player.visual.rotation.y
+		if climb_amount <= 0.0 and not in_shaft:
+			player.visual.rotation.y = 0.0  # normal flying: always facing right
+		else:
+			player.visual.rotation.y = move_toward(yaw, yaw_wanted, PI * delta / maxf(climb_face_time, 0.01))
+		# Flat flying: lean forward like a superhero, nose up when climbing and down when sinking.
+		var flat_z: float = deg_to_rad(-tilt_degrees) + player.velocity.y * 0.03
+		# Upright: head up, leaning a little the way he steers (mirrored when he faces left).
+		var side: float = 1.0 if cos(player.visual.rotation.y) >= 0.0 else -1.0
+		var up_z: float = deg_to_rad(climb_upright_degrees - steer * climb_lean_degrees * side)
+		player.visual.rotation.z = lerpf(flat_z, up_z, smoothstep(0.0, 1.0, climb_amount))
