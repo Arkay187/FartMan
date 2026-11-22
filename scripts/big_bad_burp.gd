@@ -33,16 +33,20 @@ enum Mood { CALM, TELL, DIZZY, HIT }
 @export var rest_time: Array[float] = [3.0, 2.4, 1.9]
 ## How fast the bubbles float up, for round 1, 2 and 3.
 @export var rise_speed: Array[float] = [1.0, 1.4, 1.8]
-## How long a new bubble swells before it can be stomped (the warning).
+## How long a new bubble swells before it can be touched (the warning).
 @export var tell_time: float = 1.0
+## Before it swells, the bubble's exact spot blinks this long (so you know where it will be).
+@export var flash_time: float = 1.0
 ## How long each bubble lasts before it pops by itself.
 @export var bubble_lifetime: float = 7.5
 ## The room: its left and right edge and floor height.
 @export var arena_left_x: float = 0.0
 @export var arena_right_x: float = 60.0
 @export var floor_y: float = 0.0
-## Where he hovers in the air (x, y), one per hit.
-@export var perches: Array[Vector2] = [Vector2(30, 18), Vector2(26, 19), Vector2(33, 17)]
+## Where he hovers in the air (x, y), one per hit. Low enough that the camera can show him and Fart Man.
+@export var perches: Array[Vector2] = [Vector2(30, 12), Vector2(26, 13), Vector2(33, 11.5)]
+## How long he takes to fly up from his low hello spot to his first perch.
+@export var fly_up_time: float = 1.4
 ## Helpers on the floor: Burplings from round 2, plus Whifflers in round 3.
 @export var burplings_round2: int = 2
 @export var whifflers_round3: int = 2
@@ -91,6 +95,9 @@ enum Mood { CALM, TELL, DIZZY, HIT }
 
 @export_group("Sounds")
 @export var burp_sound: AudioStream
+@export var bubble_pop_sound: AudioStream
+## A soft ping when the bubble spots start to blink.
+@export var flash_sound: AudioStream
 @export var hit_sound: AudioStream
 @export var defeat_sound: AudioStream
 
@@ -174,6 +181,13 @@ func _start_fight() -> void:
 			{"boss": head, "player": _player}, "burp_hello")
 	if id != _run_id:
 		return
+	# After the hello he flies up (the bubbles are up where he is).
+	var spot: Vector2 = perches[_perch]
+	var rise: Tween = create_tween()
+	rise.tween_property(self, "position", Vector3(arena_left_x + spot.x, floor_y + spot.y, 0.0), fly_up_time) 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await rise.finished
+	if id != _run_id:
+		return
 	phase = Phase.PART1
 	_fight(id)
 
@@ -184,19 +198,20 @@ func round_now() -> int:
 
 
 ## The patterns of bubbles he can burp: [x from the left edge, height above the floor, stinky 0/1].
-## Each is a staircase or a puzzle. The first bubble is always low, so a hop reaches it.
+## Each is a staircase or a puzzle. The first bubble is always right down by the floor, and each next
+## one is a short double jump (or one bounce) above the last.
 func patterns() -> Array:
 	return [
 		# 0: stairs going right, up to his head.
-		[[12, 2.0, 0], [18, 7.5, 0], [24, 13.0, 0]],
+		[[12, 1.8, 0], [18, 6.5, 0], [24, 11.3, 0]],
 		# 1: stairs from the middle, both sides.
-		[[26, 2.5, 0], [20, 8.0, 0], [32, 8.0, 0], [26, 13.5, 0]],
+		[[26, 2.0, 0], [20, 6.5, 0], [32, 6.5, 0], [26, 11.0, 0]],
 		# 2: a zig-zag, with two stinky bubbles in the gaps.
-		[[10, 2.0, 0], [17, 7.5, 0], [23, 13.0, 0], [20, 4.0, 1], [14, 12.0, 1]],
+		[[10, 1.8, 0], [17, 6.5, 0], [23, 11.3, 0], [20, 3.5, 1], [14, 10.5, 1]],
 		# 3: a ladder with stinky bubbles on both sides.
-		[[27, 2.0, 0], [27, 8.0, 0], [27, 14.0, 0], [22, 8.0, 1], [32, 8.0, 1], [22, 14.0, 1]],
+		[[27, 1.8, 0], [27, 6.5, 0], [27, 11.2, 0], [22, 6.5, 1], [32, 6.5, 1], [22, 11.2, 1]],
 		# 4: wide and fast, a stinky bubble guarding the best path.
-		[[8, 2.0, 0], [14, 8.0, 0], [21, 4.0, 0], [28, 10.0, 0], [35, 14.0, 0], [18, 12.0, 1], [31, 5.0, 1]],
+		[[8, 1.8, 0], [14, 6.5, 0], [21, 2.5, 0], [28, 7.0, 0], [35, 11.5, 0], [18, 10.5, 1], [31, 4.5, 1]],
 	]
 
 
@@ -223,11 +238,11 @@ func _fight(id: int) -> void:
 		await _wait(bubble_lifetime * 0.55)
 
 
-## One volley: he opens wide, says BUUURP!, and the bubbles swell up.
+## One volley: he opens wide, says BUUURP!, the bubble spots blink, then the bubbles swell up.
 func _burp_volley(id: int) -> void:
 	var r: int = round_now()
 	mood = Mood.TELL
-	SpeechBubble.say(head, "BUUURP!", tell_time + 0.6, 2.2)
+	SpeechBubble.say(head, "BUUURP!", tell_time + flash_time + 0.6, 2.2)
 	Sfx.play(self, burp_sound)
 	_open_mouth(true)
 	var choices: Array[int] = patterns_for_round(r)
@@ -235,7 +250,8 @@ func _burp_volley(id: int) -> void:
 	_volleys += 1
 	for entry: Array in patterns()[which]:
 		spawn_bubble(Vector3(arena_left_x + float(entry[0]), floor_y + float(entry[1]), 0.0), bool(entry[2]), r)
-	await _wait(tell_time)
+	Sfx.play(self, flash_sound, -6.0)
+	await _wait(tell_time + flash_time)
 	if id != _run_id:
 		return
 	_open_mouth(false)
@@ -252,6 +268,9 @@ func spawn_bubble(spot: Vector3, stinky: bool, r: int = 0) -> BurpBubble:
 	bubble.respawn = false
 	bubble.stinky = stinky
 	bubble.grow_time = tell_time
+	bubble.flash_time = flash_time
+	bubble.boost_from_anywhere = not stinky
+	bubble.pop_sound = bubble_pop_sound
 	bubble.is_boss_shot = true
 	bubble.sway = 0.25
 	bubble.position = spot
@@ -717,7 +736,7 @@ func _reset() -> void:
 			# Part 1 starts again, but the stomps he already took stay.
 			phase = Phase.WAITING
 			_camera_shows_me(false)
-			position = Vector3(arena_left_x + perches[_perch].x, floor_y + perches[_perch].y, 0.0)
+			position = _home
 			if is_instance_valid(door):
 				door.position.y = _door_closed_y - door_drop
 		Phase.PART2:

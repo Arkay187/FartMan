@@ -32,7 +32,7 @@ const SOUNDS: Dictionary = {
 	# World 3
 	"whiffler": {"squash_sound": "squash", "puff_sound": "whiffler_puff"},
 	"jellyfish": {"squash_sound": "squash"},
-	"big_bad_burp": {"burp_sound": "big_burp", "hit_sound": "boss_hit", "defeat_sound": "boss_defeat"},
+	"big_bad_burp": {"burp_sound": "big_burp", "bubble_pop_sound": "bubble_pop", "flash_sound": "ring_ding", "hit_sound": "boss_hit", "defeat_sound": "boss_defeat"},
 	"burp_bubble": {"pop_sound": "bubble_pop"},
 	"gas_cloud": {"boing_sound": "boing"},
 	"gas_geyser": {"puff_sound": "geyser_blast"},

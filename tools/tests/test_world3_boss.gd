@@ -61,6 +61,19 @@ func _beans() -> int:
 	return found
 
 
+## True if this spot is inside the camera's picture, as a 16:9 screen (the test window is square).
+func _in_frame(camera: Camera3D, spot: Vector3) -> bool:
+	var local: Vector3 = camera.global_transform.affine_inverse() * spot
+	var depth: float = -local.z
+	var half_h: float = tan(deg_to_rad(camera.fov) * 0.5) * depth
+	return depth > camera.near and absf(local.y) <= half_h and absf(local.x) <= half_h * 16.0 / 9.0
+
+
+## Fart Man, his head and the middle of his body must all be in the shot.
+func _everyone_in_frame(camera: Camera3D) -> bool:
+	return _in_frame(camera, boss.head.global_position) and _in_frame(camera, boss.global_position) and _in_frame(camera, player.global_position)
+
+
 ## Drops Fart Man onto the boss's head, falling.
 func _stomp_head() -> void:
 	player.flashing_left = 1000.0
@@ -94,9 +107,11 @@ func _run() -> void:
 	_check("the door starts open (y=%.1f)" % boss.door.position.y, boss.door.position.y < 0.0)
 	_check("the burrito is hidden until part 1 is won", not boss.burrito.visible and not boss.burrito.monitoring)
 
-	# --- Every bubble pattern is a staircase that a bounce can climb. ---
+	# --- Every bubble pattern is a staircase that a bounce can climb, starting down at the floor. ---
 	var all_ok: bool = true
 	var count: int = 0
+	var low_first: bool = true
+	var tall_enough: bool = true
 	for pattern: Array in boss.patterns():
 		count += 1
 		var normals: Array[Vector2] = []
@@ -104,16 +119,25 @@ func _run() -> void:
 			if int(b[2]) == 0:
 				normals.append(Vector2(float(b[0]), float(b[1])))
 		var top_y: float = 0.0
+		var lowest: float = 99.0
 		for n: Vector2 in normals:
 			top_y = maxf(top_y, n.y)
-			# Every bubble is reachable from the floor (low) or from another bubble below it.
-			var reachable: bool = n.y <= 4.5
+			lowest = minf(lowest, n.y)
+			# Each bubble is within a simple double jump (5 m) of the floor, or of a bubble below it.
+			var reachable: bool = n.y <= 2.5
 			for m: Vector2 in normals:
-				if m.y < n.y and n.y - m.y <= 6.5 and absf(n.x - m.x) <= 9.0:
+				if m.y < n.y and n.y - m.y <= 5.0 and absf(n.x - m.x) <= 9.0:
 					reachable = true
 			all_ok = all_ok and reachable
-		all_ok = all_ok and top_y >= 12.5
-	_check("%d bubble patterns, each a staircase from a low first bubble up to his head" % count, all_ok and count >= 5)
+		low_first = low_first and lowest <= 2.0
+		tall_enough = tall_enough and top_y >= 10.5
+	_check("%d bubble patterns, each a staircase (steps of 5 m or less) up to his head" % count, all_ok and tall_enough and count >= 5)
+	_check("the first bubble of every staircase is down by the floor (2 m or lower)", low_first)
+	var top_perch: float = 0.0
+	for perch: Vector2 in boss.perches:
+		top_perch = maxf(top_perch, perch.y)
+	_check("his perches are low enough to see (highest %.1f m)" % top_perch, top_perch <= 14.0)
+	_check("he starts the fight low and close to eye line (%.1f m up)" % boss.position.y, boss.position.y <= 6.0)
 
 	# --- Walk in: the hello scene, buttons lock, the door slams shut; hold jump to skip. ---
 	player.position = Vector3(11.5, 1.2, 0)
@@ -123,22 +147,62 @@ func _run() -> void:
 	_check("door shuts behind him (y=%.1f)" % boss.door.position.y, boss.door.position.y > 5.0)
 	var camera: Camera3D = get_root().get_camera_3d()
 	_check("camera keeps Big Bad Burp in the shot", camera != null and camera.get("also_show").has(boss))
+	await _wait(1.0)
+	_check("during the hello his head, his body and Fart Man are all in the shot (head y %.1f, fov %.0f)" % [boss.head.global_position.y, camera.fov],
+		_everyone_in_frame(camera))
 	Input.action_press(&"jump")
 	await _wait(1.3)
 	Input.action_release(&"jump")
-	await _wait(0.4)
+	_check("after the hello he flies up (still hello phase %s, y %.1f)" % [str(boss.phase), boss.position.y],
+		boss.phase == BigBadBurp.Phase.INTRO or boss.position.y > 6.0)
+	var in_part1: bool = await _until(func() -> bool: return boss.phase == BigBadBurp.Phase.PART1, 4.0)
 	_check("held jump skips the hello (phase %s, locked %s)" % [str(boss.phase), str(player.input_locked)],
-		boss.phase == BigBadBurp.Phase.PART1 and not player.input_locked)
+		in_part1 and not player.input_locked)
+	_check("he flew up to his first perch (y %.1f, perch %.1f)" % [boss.position.y, boss.floor_y + boss.perches[0].y],
+		absf(boss.position.y - (boss.floor_y + boss.perches[0].y)) < 0.5)
+	await _wait(1.5)
+	_check("at his first perch he and Fart Man are both in the shot (head y %.1f)" % boss.head.global_position.y, _everyone_in_frame(camera))
 	_check("hello is remembered as seen", save == null or save.has_seen("burp_hello"))
 
-	# --- Part 1: BUUURP first, bubbles swell, then they can be stomped. ---
-	var started: bool = await _until(func() -> bool: return boss.mood == BigBadBurp.Mood.TELL, 5.0)
+	# --- Part 1: BUUURP first, the spots blink, then the bubbles swell, then they can be touched. ---
+	await _until(func() -> bool: return boss.mood != BigBadBurp.Mood.TELL, 5.0)
+	# Clear the old volley away so we only look at a fresh one.
+	boss._clear_shots()
+	await physics_frame
+	var started: bool = await _until(func() -> bool: return boss.mood == BigBadBurp.Mood.TELL, 8.0)
 	_check("he opens wide and burps (the tell)", started)
-	await _wait(0.2)
+	await _wait(0.3)
 	var bubbles: Array[Node] = _shots()
-	_check("bubbles appear (%d) and are still swelling, so they cannot be stomped yet" % bubbles.size(),
-		bubbles.size() >= 3 and bool((bubbles[0] as BurpBubble)._body.scale.x < 0.99))
+	_check("bubble spots appear (%d)" % bubbles.size(), bubbles.size() >= 3)
 	var first: BurpBubble = bubbles[0] as BurpBubble
+	var spots: Dictionary = {}
+	var flash_ok: bool = true
+	var colours_differ: bool = false
+	var good_colour: Color
+	var bad_colour: Color
+	for b: Node in bubbles:
+		var bb: BurpBubble = b as BurpBubble
+		spots[bb] = bb.global_position
+		flash_ok = flash_ok and bb.is_flashing() and not bb._body.visible and bb._shape.disabled
+		var ring: MeshInstance3D = bb._ghost.get_child(1) as MeshInstance3D
+		var colour: Color = (ring.mesh.material as StandardMaterial3D).albedo_color
+		if bb.stinky:
+			bad_colour = colour
+		else:
+			good_colour = colour
+	colours_differ = good_colour != bad_colour
+	_check("first only a blinking ghost: no bubble yet and nothing to touch", flash_ok)
+	_check("good and stinky ghosts are different colours (%s vs %s)" % [str(good_colour), str(bad_colour)], colours_differ or bad_colour == Color())
+	_check("the ghost is exactly where the bubble will be, at its size", first.flash_position().is_equal_approx(first.global_position)
+		and first._ghost.get_child(0) is MeshInstance3D and absf(((first._ghost.get_child(0) as MeshInstance3D).mesh as SphereMesh).radius - first.radius) < 0.01)
+	await _wait(boss.flash_time + 0.1)
+	_check("then the flash is over and the bubble is swelling, still too small to touch (scale %.2f)" % first._body.scale.x,
+		not first.is_flashing() and first._body.visible and first._body.scale.x < 0.99 and first._shape.disabled == false)
+	var same_spot: bool = true
+	for bb: BurpBubble in spots:
+		if is_instance_valid(bb):
+			same_spot = same_spot and absf(bb.global_position.x - spots[bb].x) < 0.6 and bb.global_position.y - spots[bb].y < 1.6 and bb.global_position.y >= spots[bb].y
+	_check("it swells up in the same spot the ghost showed", same_spot)
 	_check("they are giant (radius %.1f)" % first.radius, first.radius >= 1.2)
 	await _wait(boss.tell_time + 0.3)
 	_check("then the tell is over and they are ready", boss.mood == BigBadBurp.Mood.CALM and first._body.scale.x > 0.95)
@@ -156,6 +220,29 @@ func _run() -> void:
 		await physics_frame
 		vy = maxf(vy, player.velocity.y)
 	_check("landing on a giant bubble bounces him very high (%.1f m/s)" % vy, vy >= 21.0)
+	# --- Touching a good bubble ANYWHERE launches him up and out of the top. ---
+	player.flashing_left = 1000.0
+	# [name, bubble height, where he is compared to its middle]. The last is the low first bubble,
+	# swelling up round him as he stands on the floor.
+	var cases: Array = [["from below", 7.0, Vector3(0, -2.2, 0)], ["from the side", 7.0, Vector3(-1.9, 0, 0)],
+		["from the floor edge", 1.8, Vector3(-1.9, -0.6, 0)]]
+	for c: Array in cases:
+		var spot := Vector3(52, float(c[1]), 0)
+		var test_bubble: BurpBubble = boss.spawn_bubble(spot, false)
+		await _until(func() -> bool: return not test_bubble.is_flashing() and test_bubble._body.scale.x > 0.97, 4.0)
+		player.global_position = test_bubble.global_position + (c[2] as Vector3)
+		player.velocity = Vector3.ZERO
+		var top_at_start: float = test_bubble.global_position.y + test_bubble.radius
+		var best_vy: float = -100.0
+		var best_y: float = -100.0
+		for i in 150:
+			await physics_frame
+			best_vy = maxf(best_vy, player.velocity.y)
+			best_y = maxf(best_y, player.get_feet_y())
+		_check("a bubble touched %s launches him (%.1f m/s) up above its top (feet %.1f over %.1f), and it pops" % [c[0], best_vy, best_y, top_at_start + 1.5],
+			best_vy >= 20.0 and best_y > top_at_start + 1.5 and not is_instance_valid(test_bubble))
+		player.velocity = Vector3.ZERO
+		await _until(func() -> bool: return player.is_on_floor(), 4.0)
 	# A stinky bubble hurts.
 	var stinker: BurpBubble = null
 	for round_try in 6:
@@ -168,7 +255,7 @@ func _run() -> void:
 	if stinker == null:
 		# Make one ourselves if the first patterns had none.
 		stinker = boss.spawn_bubble(Vector3(40, 3, 0), true)
-		await _wait(boss.tell_time + 0.2)
+	await _until(func() -> bool: return is_instance_valid(stinker) and not stinker.is_flashing() and stinker._body.scale.x > 0.99, 4.0)
 	player.flashing_left = 0.0
 	player.global_position = stinker.global_position
 	player.velocity = Vector3.ZERO
@@ -202,6 +289,9 @@ func _run() -> void:
 		if n < 5:
 			_check("after a hit he is hurt for a moment and the bubbles go", boss.mood == BigBadBurp.Mood.HIT and _shots().is_empty())
 			await _wait(boss.hit_pause + 1.2)
+			await _until(func() -> bool: return player.is_on_floor(), 4.0)
+			await _wait(1.5)
+			_check("perch %d (%.0f, %.1f): he and Fart Man are both in the shot" % [boss._perch + 1, boss.position.x, boss.position.y], _everyone_in_frame(camera))
 	_check("bubbles get faster each round (%s)" % str(rises), rises.size() >= 5 and rises[rises.size() - 1] > rises[0])
 	_check("Burplings and then Whifflers help him (%s, %s)" % [str(saw_burplings), str(saw_whifflers)], saw_burplings and saw_whifflers)
 	node_added.disconnect(bean_counter)

@@ -1,6 +1,6 @@
 extends RefCounted
 ## Stage 3-4: THE FINAL BOSS, BIG BAD BURP. A toilet outside the door. Two parts.
-## PART 1: he floats high up and burps giant bubbles (BUUURP! and they swell up first). Bounce up the
+## PART 1: he says hello down low (so he is in the shot), flies up, and burps giant bubbles (BUUURP! and they swell up first). Bounce up the
 ## bubbles like stairs and stomp his head. Green stinky bubbles hurt. He gets faster each round and
 ## sends helpers (Burplings, then Whifflers). Six stomps. Then he flies off in a huff and a Rocket
 ## Burrito falls from the sky.
@@ -34,14 +34,14 @@ func build(k) -> Array[String]:
 	# --- The arena: 6 m to 62 m. The door on the left shuts behind you. -----------------------
 	k.ground(6, 62, 0.0)
 	k.hint(12, 0, "LAND ON BUBBLES! STOMP HIS HEAD!", 3.5)
-	k.mega_can(14, 1.4)
+	k.heart(14, 1.4)
 	# Golden Bean 2: a high ledge at the side. Bounce up a bubble (or a hover) to get it.
 	k.rock(58, 9.0, 4.0, false)
 	k.golden(58, 10.4)
 	k.beans_arc(12, 56, 1.3, 2.5, 14)
 
 	# --- Big Bad Burp himself. -----------------------------------------------------------------
-	var boss: Area3D = k.big_bad_burp(ARENA_LEFT + 30.0, 18.0)
+	var boss: Area3D = k.big_bad_burp(ARENA_LEFT + 30.0, 4.5)
 	var trigger: Area3D = k.zone("ArenaTrigger", 11.5, 4.0, Vector3(1.5, 10.0, 4.0))
 	var door: StaticBody3D = k.block(6, 7.2, 0, 30, Color(0.3, 0.2, 0.4))
 	door.name = "Door"
