@@ -517,3 +517,45 @@ Built by three Sonnet helpers in parallel worktrees (branches world2-run, world2
 2. Decide on gas: keep, remove, or fill-on-land. Then decide whether wall jump / barrels / one-way platforms join the
    real game (World 3 Cloud Tops could be the vertical world).
 3. Tune from play: fan strength, vent heights, soup speed, Colonel Cork charge speeds.
+
+## Pause menu, SIMPLE controls, upright chimney launch, shorter flights (22 Nov 2026)
+Built by two Sonnet helpers in parallel worktrees, merged into main, scenes rebuilt.
+
+### Pause menu (scripts/pause_menu.gd, added by Stage in code, so every stage and test level has it)
+- Esc, P or pad Start. RESUME / CONTROLS: CLASSIC or SIMPLE (left/right or jump flips it, a line under it says how
+  it works) / GAS: <mode> (same as F1) / BACK TO MENU (the start menu with NEW GAME and TEST LEVELS).
+- The control scheme is remembered in user://debug_options.json (DebugOptions.simple_controls). CLASSIC is the default.
+- New input actions `pause` and `hover` are in project.godot, and DebugOptions also adds them at runtime if missing
+  (in case the open editor ever rewrites project.godot).
+
+### SIMPLE controls (Rich: his son finds charging and gas frustrating)
+- Jump (or fart) = a normal jump, 11.5 power; let go early for a small hop (jump_cut 0.5). Coyote time and jump
+  buffer 0.1 s. Press again in the air = an automatic Thunder fart double jump, free, once per jump (landing or a
+  stomp gives it back). No charging, no belly, no fizzles. Tunables on scripts/simple_controls.gd.
+- Fart hover: hold left bumper (or Left Shift / X). Jump first, then it floats him level (Astro Bot style), using
+  25 gas a second (about 4 s on a full tank). Out of gas = it stops. NO GAS / ALWAYS FULL modes: free but 3 s per jump.
+  Tunables on scripts/fart_hover.gd. The squeaky loop plays while hovering.
+- The green fart cloud under him while hovering (scripts/hover_cloud.gd, 2.5 m wide, 3 m deep) squashes any enemy
+  in it (new Burpling.squash()). Bosses, prickles and spiky balls are not affected.
+- CLASSIC is exactly as before. Hint signs in the stages still describe CLASSIC ("HOLD FART...").
+
+### Upright chimney launch (Stage 2-3)
+- In the chimney the camera is fully side on and he flies straight up like a rocket, leaning and facing the way he
+  steers. When he bursts out of the top he turns flat over 1 s while the camera swings behind his shoulder.
+  Respawning at the half-way toilet puts him upright again. Tunables: FlightPower `climb_*`, camera `climbing_look_ahead`.
+
+### Flying stages 30% shorter (sections cut or trimmed, not squeezed)
+- 1-3: landing 1200 -> 840 m (about 1 minute). Fewer crow flocks, updrafts, geysers, slalom walls and hoops.
+- 2-3: landing 1710 -> 1200 m (about 1.5 minutes with the climb). Spark-cable gauntlet section removed, fewer rings,
+  chimney stacks and rodeo groups, speed-up tunnel 240 -> 140 m. Both still have 3 Golden Beans.
+  Players who already had Golden Beans in the removed bits keep their saved count.
+
+### Tested
+- All 32 headless tests pass (new: test_pause_menu, test_simple_controls, test_chimney_launch), 0 errors/warnings.
+- NOT checked by eye: the pause menu's look, the green cloud, how hover / double jump / jump cut feel, the hover
+  sound, a real pad's Start and left bumper, the upright climb and turn-over, the camera swing, the new stage pacing.
+
+### What to do next
+1. Play SIMPLE with your son: is the double jump big enough, is 4 s of hover right, does the cloud read clearly?
+2. If SIMPLE becomes the main way to play: make it the default and change the hint signs to match.
+3. Possible: springs giving the double jump back in SIMPLE; hover in CLASSIC too.
