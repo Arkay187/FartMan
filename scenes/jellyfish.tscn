@@ -86,59 +86,59 @@ height = 0.13
 [sub_resource type="SphereShape3D" id="SphereShape3D_ktaa2"]
 radius = 0.9
 
-[node name="Jellyfish" type="Area3D" unique_id=438066556 node_paths=PackedStringArray("pulse_target", "visual", "animator")]
+[node name="Jellyfish" type="Area3D" unique_id=2059940171 node_paths=PackedStringArray("pulse_target", "visual", "animator")]
 script = ExtResource("1_po3rc")
 pulse_target = NodePath("Visual/Dome")
 visual = NodePath("Visual")
 animator = NodePath("Animator")
 squash_sound = ExtResource("2_71a4x")
 
-[node name="Visual" type="Node3D" parent="." unique_id=785684169]
+[node name="Visual" type="Node3D" parent="." unique_id=375216671]
 
-[node name="Dome" type="Node3D" parent="Visual" unique_id=130262385]
+[node name="Dome" type="Node3D" parent="Visual" unique_id=1195730671]
 
-[node name="Cap" type="MeshInstance3D" parent="Visual/Dome" unique_id=531333299]
+[node name="Cap" type="MeshInstance3D" parent="Visual/Dome" unique_id=1495021432]
 mesh = SubResource("SphereMesh_hmlfb")
 
-[node name="Tentacle" type="MeshInstance3D" parent="Visual" unique_id=1415488180]
+[node name="Tentacle" type="MeshInstance3D" parent="Visual" unique_id=64098827]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.9, 0)
 mesh = SubResource("BoxMesh_fph5q")
 
-[node name="@MeshInstance3D@32" type="MeshInstance3D" parent="Visual" unique_id=71240465]
+[node name="@MeshInstance3D@32" type="MeshInstance3D" parent="Visual" unique_id=1172367628]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.9, 0)
 mesh = SubResource("BoxMesh_js54r")
 
-[node name="@MeshInstance3D@33" type="MeshInstance3D" parent="Visual" unique_id=942923101]
+[node name="@MeshInstance3D@33" type="MeshInstance3D" parent="Visual" unique_id=1719626372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 mesh = SubResource("BoxMesh_t3m17")
 
-[node name="@MeshInstance3D@34" type="MeshInstance3D" parent="Visual" unique_id=1378969981]
+[node name="@MeshInstance3D@34" type="MeshInstance3D" parent="Visual" unique_id=1412522944]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.9, 0)
 mesh = SubResource("BoxMesh_ejpd8")
 
-[node name="@MeshInstance3D@35" type="MeshInstance3D" parent="Visual" unique_id=1927532292]
+[node name="@MeshInstance3D@35" type="MeshInstance3D" parent="Visual" unique_id=512643102]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.9, 0)
 mesh = SubResource("BoxMesh_dn2ai")
 
-[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=500452212]
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=346295628]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.1, 0.75)
 mesh = SubResource("SphereMesh_s7u21")
 
-[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=814890805]
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=1918105404]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.1, 0.841)
 mesh = SubResource("SphereMesh_glqoo")
 
-[node name="@MeshInstance3D@36" type="MeshInstance3D" parent="Visual" unique_id=1621378144]
+[node name="@MeshInstance3D@36" type="MeshInstance3D" parent="Visual" unique_id=128979921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.1, 0.75)
 mesh = SubResource("SphereMesh_wb7k4")
 
-[node name="@MeshInstance3D@37" type="MeshInstance3D" parent="Visual" unique_id=1362037044]
+[node name="@MeshInstance3D@37" type="MeshInstance3D" parent="Visual" unique_id=1294581860]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.1, 0.841)
 mesh = SubResource("SphereMesh_n5d5t")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2111715579]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1289158455]
 shape = SubResource("SphereShape3D_ktaa2")
 
-[node name="Animator" type="Node" parent="." unique_id=35660441 node_paths=PackedStringArray("squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=13927693 node_paths=PackedStringArray("squash_target")]
 script = ExtResource("3_0tvrc")
 squash_target = NodePath("../Visual")

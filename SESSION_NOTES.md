@@ -690,3 +690,26 @@ watched, played or listened to by a person yet.
 1. Play 1-1 and 1-2 with SIMPLE and a pad; then each boss. Tune `drop_chance`, boss timings, hover height.
 2. 3-4 and the ending are the biggest unknowns: play them start to finish.
 3. The two bean-room builders (kit_secrets and kit_whiff) could become one.
+
+## Boss fixes, no Mega Can, longer storm boosts, 3D world map, Bean Blimp plan (22 Nov 2026)
+Built by Sonnet helpers in worktrees, merged and tested together. Not seen or played yet.
+- 3-4 door: it only sank 20 m of its 30 m height, leaving a wall. Now `BigBadBurp.door_drop` = 34;
+  test_world3_stages walks in from the start and checks the fight begins.
+- Big Bad Burp starts low (y 4.5) for the hello scene, then flies up (`fly_up_time`) to lower perches
+  (y 11.5-13). The camera's `show_too` now fits height too (`show_too_above` / `show_too_below`).
+- Boss bubbles: staircases start at about 1.9 m with steps of 5 m or less; each spot blinks for `flash_time`
+  (cyan = good, green = stinky) before it swells, with no collision while blinking. Boss bubbles have
+  `boost_from_anywhere`: touching one from below or the side launches him above its top.
+- The Mega Bean Can ("full tank") is gone from the game: script, scene, kit helper, sound, drops. Each one was
+  replaced by a Heart, Chilli, Hot Sauce or beans. Enemy drop weights: Heart 4, Chilli 4, Hot Sauce 3.
+- 3-3's SUPER BOOSTs are twice as long (190-530 and 830-1190); landing moved to 1410.
+- World map is 3D (`tools/world_map_3d.gd`, `scripts/map_ship.gd`, `map_camera.gd`, `map_spin.gd`): a diorama of
+  the three worlds, a landmark per stop, flags, Golden Bean pips, padlocks. Fart Man's bean blimp (him in the
+  gondola) hovers above the current stop, flies along the path, and he hops out to enter. Hook for the future
+  hub: `ship_hub_scene` + `board_ship()` (Y does nothing while it's empty).
+- tools/run_tests.ps1: per-test time limit raised from 120 s to 200 s (the boss test takes about 3 minutes).
+- BEAN_SHIP_PLAN.md: the Bean Jar and Bean Blimp upgrade plan, waiting for approval (four questions at the end).
+
+### Not checked by eye
+- The 3D map's look and the blimp's flight; the boss intro, fly-up and how far the camera zooms out (up to
+  about 87 degrees during the intro); the bubble blink; the longer storm boosts; the new Heart spots.

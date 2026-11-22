@@ -147,7 +147,7 @@ material = SubResource("StandardMaterial3D_1tunb")
 radius = 1.1
 height = 2.2
 
-[node name="Whiffler" type="Area3D" unique_id=840173328 node_paths=PackedStringArray("cloud_zone", "cloud_visual", "visual", "animator")]
+[node name="Whiffler" type="Area3D" unique_id=1771035250 node_paths=PackedStringArray("cloud_zone", "cloud_visual", "visual", "animator")]
 script = ExtResource("1_pphcv")
 cloud_zone = NodePath("Cloud")
 cloud_visual = NodePath("Cloud/Puffs")
@@ -156,87 +156,87 @@ visual = NodePath("Visual")
 animator = NodePath("Animator")
 squash_sound = ExtResource("3_coov7")
 
-[node name="Visual" type="Node3D" parent="." unique_id=968473181]
+[node name="Visual" type="Node3D" parent="." unique_id=2122464273]
 
-[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=1388101320]
+[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=2016587650]
 mesh = SubResource("SphereMesh_r1mr6")
 
-[node name="Foot" type="MeshInstance3D" parent="Visual" unique_id=1854811898]
+[node name="Foot" type="MeshInstance3D" parent="Visual" unique_id=133247041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, -0.42, 0.05)
 mesh = SubResource("BoxMesh_v1hfv")
 
-[node name="Stalk" type="MeshInstance3D" parent="Visual" unique_id=689806176]
+[node name="Stalk" type="MeshInstance3D" parent="Visual" unique_id=959199995]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.55, 0)
 mesh = SubResource("BoxMesh_f168e")
 
-[node name="@MeshInstance3D@23" type="MeshInstance3D" parent="Visual" unique_id=352921987]
+[node name="@MeshInstance3D@23" type="MeshInstance3D" parent="Visual" unique_id=1864731781]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, -0.42, 0.05)
 mesh = SubResource("BoxMesh_noorj")
 
-[node name="@MeshInstance3D@24" type="MeshInstance3D" parent="Visual" unique_id=287026832]
+[node name="@MeshInstance3D@24" type="MeshInstance3D" parent="Visual" unique_id=1479238970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.55, 0)
 mesh = SubResource("BoxMesh_5edqv")
 
-[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1162344754]
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1205488640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.75, 0.05)
 mesh = SubResource("SphereMesh_cxnup")
 
-[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=309825781]
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=259834338]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.75, 0.12)
 mesh = SubResource("SphereMesh_ev8yd")
 
-[node name="@MeshInstance3D@25" type="MeshInstance3D" parent="Visual" unique_id=1306536218]
+[node name="@MeshInstance3D@25" type="MeshInstance3D" parent="Visual" unique_id=975785864]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.75, 0.05)
 mesh = SubResource("SphereMesh_x4osf")
 
-[node name="@MeshInstance3D@26" type="MeshInstance3D" parent="Visual" unique_id=346627167]
+[node name="@MeshInstance3D@26" type="MeshInstance3D" parent="Visual" unique_id=2134607992]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.75, 0.12)
 mesh = SubResource("SphereMesh_ffpqp")
 
-[node name="Mouth" type="MeshInstance3D" parent="Visual" unique_id=156006710]
+[node name="Mouth" type="MeshInstance3D" parent="Visual" unique_id=396273948]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.4)
 mesh = SubResource("SphereMesh_6kax0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=990474993]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1950202877]
 shape = SubResource("SphereShape3D_6hvkt")
 
-[node name="Animator" type="Node" parent="." unique_id=1051634927 node_paths=PackedStringArray("squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=1375290154 node_paths=PackedStringArray("squash_target")]
 script = ExtResource("4_rpit1")
 squash_target = NodePath("../Visual")
 
-[node name="Cloud" type="Area3D" parent="." unique_id=1627364792]
+[node name="Cloud" type="Area3D" parent="." unique_id=825029412]
 monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cloud" unique_id=1116367252]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cloud" unique_id=1786004326]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 shape = SubResource("SphereShape3D_ea6pw")
 
-[node name="Puffs" type="Node3D" parent="Cloud" unique_id=1851488153]
+[node name="Puffs" type="Node3D" parent="Cloud" unique_id=292771558]
 
-[node name="Puff" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=300391150]
+[node name="Puff" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=257269511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.4, 0.3)
 mesh = SubResource("SphereMesh_kkygn")
 
-[node name="@MeshInstance3D@27" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1779991514]
+[node name="@MeshInstance3D@27" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1482899029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.1794229, 0.3)
 mesh = SubResource("SphereMesh_7n4am")
 
-[node name="@MeshInstance3D@28" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=239192494]
+[node name="@MeshInstance3D@28" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=680031685]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1.1794229, 0.3)
 mesh = SubResource("SphereMesh_27bkl")
 
-[node name="@MeshInstance3D@29" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=706474244]
+[node name="@MeshInstance3D@29" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=164683426]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.4, 0.3)
 mesh = SubResource("SphereMesh_pheks")
 
-[node name="@MeshInstance3D@30" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1414452328]
+[node name="@MeshInstance3D@30" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=559235378]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, -0.37942287, 0.3)
 mesh = SubResource("SphereMesh_63kw7")
 
-[node name="@MeshInstance3D@31" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1622843934]
+[node name="@MeshInstance3D@31" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=28854332]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.37942287, 0.3)
 mesh = SubResource("SphereMesh_rqade")
 
-[node name="Middle" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=609383279]
+[node name="Middle" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=258620811]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.4)
 mesh = SubResource("SphereMesh_ljm1h")
