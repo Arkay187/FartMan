@@ -1,3 +1,4 @@
+class_name Bean
 extends Area3D
 ## A bean. Touch it for a chunk of gas, some points, and one bean for the Bean Jar.
 
@@ -12,6 +13,7 @@ extends Area3D
 
 
 func _ready() -> void:
+	add_to_group(&"beans")  # the Bean Magnet looks for these
 	body_entered.connect(_on_body_entered)
 
 

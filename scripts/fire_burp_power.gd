@@ -12,6 +12,10 @@ signal lost
 @export var fireball_scene: PackedScene
 ## Most fireballs that can be alive at once.
 @export var max_fireballs: int = 3
+## How big each new fireball is (1 = normal). The Big Fireballs upgrade raises this.
+@export var fireball_size: float = 1.0
+## Do new fireballs hop over small gaps and roll longer? The Bouncy Fireballs upgrade.
+@export var bouncy_fireballs: bool = false
 ## Seconds to wait between shots.
 @export var cooldown: float = 0.2
 ## Lose the power when he gets hurt? Off: a little kid should not be punished.
@@ -37,6 +41,11 @@ func _ready() -> void:
 
 ## Hot Sauce calls this.
 func collect() -> void:
+	give(false)
+
+
+## Gives him the power. quiet = true says nothing and shows no hint (Spicy Start uses that).
+func give(quiet: bool) -> void:
 	if _player == null:
 		return
 	var first_time: bool = not has_power
@@ -44,6 +53,8 @@ func collect() -> void:
 	_show_flame(true)
 	if first_time:
 		gained.emit()
+	if quiet:
+		return
 	_player.say("FIRE BURP!")
 	HintBanner.show_hint(_player, "PRESS B TO FIRE BURP!", 3.0)
 
@@ -92,6 +103,8 @@ func shoot() -> bool:
 		facing = -1.0
 	var ball := fireball_scene.instantiate() as Fireball
 	ball.direction = facing
+	ball.size = fireball_size
+	ball.bouncy = bouncy_fireballs
 	# Join the level (not the player) so the fireball does not move with him.
 	_player.get_parent().add_child(ball)
 	ball.global_position = _player.global_position + Vector3(mouth_offset.x * facing, mouth_offset.y, 0.0)

@@ -56,6 +56,7 @@ var _idle_left: float = 0.0
 
 
 func _ready() -> void:
+	add_to_group(&"enemies")  # Super Stomp looks for these
 	start_x = position.x
 	_idle_left = randf_range(0.2, idle_every)
 
@@ -143,9 +144,14 @@ func _drop_loot() -> void:
 	if stage != null and stage.is_flying_stage():
 		return
 	var count: int = randi_range(mini(drop_beans_min, drop_beans_max), maxi(drop_beans_min, drop_beans_max))
+	var chance: float = drop_chance
+	if stage != null:
+		# Lucky Beans upgrade: more beans, and pickups drop more often.
+		count += stage.extra_drop_beans
+		chance = clampf(chance * stage.drop_chance_multiplier, 0.0, 1.0)
 	if count > 0:
 		Loot.beans(self, count, 3.0, 7.0)
-	if randf() < drop_chance:
+	if randf() < chance:
 		var scene_path: String = _pick_drop()
 		if scene_path != "":
 			Loot.thing(self, scene_path, Vector3(randf_range(-1.5, 1.5), 8.0, 0.0))

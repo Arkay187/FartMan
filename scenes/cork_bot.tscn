@@ -58,7 +58,7 @@ height = 0.11
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ndvo0"]
 
-[node name="CorkBot" type="Area3D" unique_id=515244817 node_paths=PackedStringArray("roller", "visual", "animator")]
+[node name="CorkBot" type="Area3D" unique_id=1218811898 node_paths=PackedStringArray("roller", "visual", "animator")]
 script = ExtResource("1_cx1vb")
 roller = NodePath("Visual/Roll")
 walk_speed = 3.5
@@ -71,40 +71,40 @@ idle_sound = ExtResource("3_c4dmc")
 idle_every = 1.8
 idle_volume_db = -9.0
 
-[node name="Visual" type="Node3D" parent="." unique_id=930263320]
+[node name="Visual" type="Node3D" parent="." unique_id=2066177017]
 
-[node name="Roll" type="Node3D" parent="Visual" unique_id=2115482949]
+[node name="Roll" type="Node3D" parent="Visual" unique_id=1216280257]
 
-[node name="Cork" type="MeshInstance3D" parent="Visual/Roll" unique_id=1870125886]
+[node name="Cork" type="MeshInstance3D" parent="Visual/Roll" unique_id=1235005937]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CylinderMesh_jv610")
 
-[node name="Band" type="MeshInstance3D" parent="Visual/Roll" unique_id=12422373]
+[node name="Band" type="MeshInstance3D" parent="Visual/Roll" unique_id=1619658658]
 mesh = SubResource("BoxMesh_12gnm")
 
-[node name="@MeshInstance3D@16" type="MeshInstance3D" parent="Visual/Roll" unique_id=688759795]
+[node name="@MeshInstance3D@16" type="MeshInstance3D" parent="Visual/Roll" unique_id=1645006177]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_5nijo")
 
-[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1733387737]
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1515850256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.1, 0.42)
 mesh = SubResource("SphereMesh_jjsmu")
 
-[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=622576406]
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=491122785]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.1, 0.497)
 mesh = SubResource("SphereMesh_jc8xf")
 
-[node name="@MeshInstance3D@17" type="MeshInstance3D" parent="Visual" unique_id=232593935]
+[node name="@MeshInstance3D@17" type="MeshInstance3D" parent="Visual" unique_id=351834702]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.1, 0.42)
 mesh = SubResource("SphereMesh_8q3mc")
 
-[node name="@MeshInstance3D@18" type="MeshInstance3D" parent="Visual" unique_id=1549283321]
+[node name="@MeshInstance3D@18" type="MeshInstance3D" parent="Visual" unique_id=1923662782]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.1, 0.497)
 mesh = SubResource("SphereMesh_ttnn4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=81280228]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=233838837]
 shape = SubResource("SphereShape3D_ndvo0")
 
-[node name="Animator" type="Node" parent="." unique_id=1413531209 node_paths=PackedStringArray("squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=1463400096 node_paths=PackedStringArray("squash_target")]
 script = ExtResource("4_77y1x")
 squash_target = NodePath("../Visual")

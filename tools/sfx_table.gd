@@ -13,6 +13,9 @@ const SOUNDS: Dictionary = {
 	"chilli": {"grab_sound": "chilli_sizzle"},
 	"heart": {"grab_sound": "heart_pickup"},
 	"bean_spill": {"spill_sound": "bean_spill"},
+	# Upgrades (reused sounds: the stomp wave is the press's thump, the sniff is a high ding)
+	"super_stomp": {"stomp_sound": "stamp_thump"},
+	"secret_sniffer": {"sniff_sound": "ring_ding"},
 	"hot_sauce": {"grab_sound": "chilli_sizzle"},
 	"fireball": {"pop_sound": "fireball_pop"},
 	"rocket_burrito": {"grab_sound": "burrito_blast"},

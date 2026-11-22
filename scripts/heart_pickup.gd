@@ -36,7 +36,7 @@ func _on_body_entered(body: Node3D) -> void:
 	if player == null or player.hearts == null:
 		return
 	# Already full? Leave it for later.
-	if not player.hearts.gain_one():
+	if not player.hearts.gain(player.hearts.heal_per_pickup):
 		return
 	Stage.award(self, points)
 	player.say(grab_words, 1.0)

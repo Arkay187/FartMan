@@ -36,6 +36,11 @@ signal stage_cleared
 ## How long to wait before that button counts (so the jump onto the can does not skip it).
 @export var skip_after: float = 0.8
 
+## Lucky Beans upgrade (set at the start of the stage): extra beans every squashed enemy drops...
+@export var extra_drop_beans: int = 0
+## ...and how many times more often they drop a pickup (1 = normal, 2 = twice as often).
+@export var drop_chance_multiplier: float = 1.0
+
 var score: int = 0
 var golden_found: int = 0
 var golden_total: int = 0
@@ -163,6 +168,7 @@ func _ready() -> void:
 	golden_beans_changed.emit(golden_found, golden_total)
 
 	if player != null:
+		UpgradeApplier.apply(player, self)  # upgrades bought aboard the Complex2000 (if UPGRADES is ON)
 		# Losing every heart banks the pot, so banked beans are never lost.
 		player.died.connect(bank_pot)
 		player.say(opening_words, 2.5)

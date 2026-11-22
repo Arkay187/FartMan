@@ -153,6 +153,15 @@ func _build_player() -> void:
 	player.add_child(spill)
 	spill.owner = player
 
+	# The upgrade helpers. All OFF until the shop upgrades switch them on (scripts/upgrade_applier.gd).
+	for helper: Array in [["BeanMagnet", "bean_magnet", "bean_magnet"], ["SuperStomp", "super_stomp", "super_stomp"], ["SecretSniffer", "secret_sniffer", "secret_sniffer"]]:
+		var node := Node.new()
+		node.name = helper[0]
+		node.set_script(load("res://scripts/%s.gd" % helper[1]))
+		SfxTable.apply(node, helper[2])
+		player.add_child(node)
+		node.owner = player
+
 	var trail := Node3D.new()
 	trail.name = "FlameTrail"
 	trail.set_script(load("res://scripts/flame_trail.gd"))

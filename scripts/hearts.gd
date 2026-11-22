@@ -7,6 +7,8 @@ signal hearts_changed(hearts: int, max_hearts: int)
 
 ## How many hearts he has when full.
 @export var max_hearts: int = 3
+## How many hearts one Heart pickup gives back (the Big Hearts upgrade makes this 2).
+@export var heal_per_pickup: int = 1
 
 var hearts: int = 0
 
@@ -27,6 +29,15 @@ func gain_one() -> bool:
 	if hearts >= max_hearts:
 		return false
 	hearts += 1
+	hearts_changed.emit(hearts, max_hearts)
+	return true
+
+
+## Gives back up to "count" hearts, never more than full. Returns false if he was already full.
+func gain(count: int) -> bool:
+	if hearts >= max_hearts:
+		return false
+	hearts = mini(hearts + maxi(count, 1), max_hearts)
 	hearts_changed.emit(hearts, max_hearts)
 	return true
 

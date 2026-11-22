@@ -23,6 +23,14 @@ signal popped
 @export var ball: Node3D
 ## Looks for enemies and bosses it touches (a child Area3D).
 @export var squash_area: Area3D
+## How big it is (1 = normal). Scales the picture, the shapes and the radius.
+@export var size: float = 1.0
+## Bouncy: pops up when it rolls off a ledge (so it hops over small gaps) and rolls longer.
+@export var bouncy: bool = false
+## Bouncy: the upward speed of the hop off a ledge (metres per second). 7 clears about 6 m.
+@export var gap_hop_speed: float = 7.0
+## Bouncy: how many times longer it rolls before fizzling.
+@export var bouncy_lifetime_multiplier: float = 1.6
 ## Plays when it pops.
 @export var pop_sound: AudioStream
 
@@ -31,6 +39,7 @@ var direction: float = 1.0
 var is_popped: bool = false
 var _age: float = 0.0
 var _start_y: float = 0.0
+var _was_on_floor: bool = false
 
 
 func _ready() -> void:
@@ -46,6 +55,10 @@ func _ready() -> void:
 		squash_area.collision_layer = 0
 		squash_area.collision_mask = 1
 		squash_area.monitorable = false
+	if not is_equal_approx(size, 1.0):
+		_grow()
+	if bouncy:
+		lifetime *= bouncy_lifetime_multiplier
 	_start_y = global_position.y
 	velocity = Vector3(direction * roll_speed, 0.0, 0.0)
 
@@ -63,6 +76,10 @@ func _physics_process(delta: float) -> void:
 	velocity.y -= gravity * delta
 	move_and_slide()
 	position.z = 0.0
+	# Bouncy: just rolled off a ledge? Pop up so it can hop over a small gap.
+	if bouncy and _was_on_floor and not is_on_floor() and velocity.y <= 0.0:
+		velocity.y = gap_hop_speed
+	_was_on_floor = is_on_floor()
 	# Spin like it is rolling.
 	if ball != null:
 		ball.rotation.z -= direction * roll_speed / radius * delta
@@ -71,6 +88,22 @@ func _physics_process(delta: float) -> void:
 		pop()
 		return
 	_hit_things()
+
+
+## Makes the ball bigger: picture, radius and the two shapes (copies, so the scene file is untouched).
+func _grow() -> void:
+	radius *= size
+	if ball != null:
+		ball.scale = Vector3.ONE * size
+	var own := get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if own != null and own.shape is SphereShape3D:
+		own.shape = own.shape.duplicate()
+		(own.shape as SphereShape3D).radius *= size
+	if squash_area != null:
+		var area_shape := squash_area.get_node_or_null("CollisionShape3D") as CollisionShape3D
+		if area_shape != null and area_shape.shape is SphereShape3D:
+			area_shape.shape = area_shape.shape.duplicate()
+			(area_shape.shape as SphereShape3D).radius *= size
 
 
 ## Squash enemies; pop on bosses.
