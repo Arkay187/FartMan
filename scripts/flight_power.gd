@@ -32,6 +32,8 @@ var highest_y: float = 100.0
 var shaft: bool = false
 ## Added by speed-up zones: forward speed is multiplied by this, then it goes back to 1.
 var speed_scale: float = 1.0
+## The speed multiplier he actually flew with last frame (the camera reads this to widen the view).
+var speed_applied: float = 1.0
 ## How fast he steers sideways inside a chimney shaft, in metres per second.
 @export var steer_speed: float = 7.0
 
@@ -101,6 +103,7 @@ func fly(player: Player, delta: float) -> void:
 	else:
 		player.velocity.x = forward_speed * speed_scale
 	shaft = false
+	speed_applied = speed_scale
 	speed_scale = 1.0
 	player.velocity.y = move_toward(player.velocity.y, wanted, lift * delta)
 	# Up-draughts shove him upwards for as long as he is inside one.

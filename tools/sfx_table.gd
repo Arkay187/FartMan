@@ -42,6 +42,7 @@ const SOUNDS: Dictionary = {
 	"switch_button": {"click_sound": "switch_click"},
 	"barrel_cannon": {"load_sound": "barrel_load", "fire_sound": "cannon_boom"},
 	"warp_pipe": {"warp_sound": "warp_whoosh"},
+	"super_boost": {"boost_sound": "super_boost"},
 	# Menus
 	"start_menu": {"move_sound": "menu_move", "accept_sound": "menu_accept"},
 	"world_map": {"move_sound": "menu_move", "accept_sound": "menu_accept"},

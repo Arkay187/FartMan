@@ -25,6 +25,7 @@ func _init() -> void:
 	_things()
 	_menus()
 	_fire_burp_pieces()
+	_super_boost()
 	print("made %d sound files" % _made)
 	quit()
 
@@ -197,6 +198,14 @@ func _fire_burp_pieces() -> void:
 		_shape(_tone("sine", 1000.0, 300.0, 0.08), 0.001, 2.5),
 		_shape(_hiss(0.2, 0.7, true, 0.5), 0.005, 2.0),
 		_shape(_tone("saw", 300.0, 600.0, 0.15, 0.3), 0.01, 1.5)]))
+
+
+## The SUPER BOOST: a big rushing whoosh that swells up while a bright note slides high.
+func _super_boost() -> void:
+	_save("super_boost", _mix([
+		_shape(_hiss(0.9, 0.7, true, 0.7), 0.35, 1.3),
+		_shape(_tone("saw", 110.0, 440.0, 0.9, 0.5, 0.5, 9.0, 0.04), 0.3, 1.4),
+		_shape(_tone("sine", 300.0, 1500.0, 0.8, 0.4), 0.2, 1.8)]))
 
 
 # ------------------------------------------------------------------ the building blocks
