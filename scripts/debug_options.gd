@@ -21,6 +21,9 @@ signal controls_changed(simple: bool)
 ## Sent when the music is switched on or off (pause menu). true = music on.
 signal music_changed(on: bool)
 
+## Sent when the UPGRADES setting changes (start menu). true = upgrades work in the stages.
+signal upgrades_changed(on: bool)
+
 enum GasMode { NORMAL, NO_GAS, ALWAYS_FULL, FILL_ON_LAND }
 const MODE_NAMES: Array[String] = ["NORMAL", "NO GAS", "ALWAYS FULL", "FILL ON LAND"]
 
@@ -38,6 +41,9 @@ var gas_mode: int = GasMode.NORMAL
 var simple_controls: bool = true
 ## Music on (true) or off (false). The pause menu's MUSIC choice.
 var music_on: bool = true
+## UPGRADES ON (true) or OFF (false), the start menu's choice, for Dad. OFF = upgrades bought
+## aboard the Complex2000 do nothing in the stages (the shop still works and keeps them).
+var upgrades_on: bool = true
 ## Only the music test sets this, to try saving and loading with a throw-away file.
 var test_saving: bool = false
 var _message: Label
@@ -97,6 +103,13 @@ func set_music(on: bool) -> void:
 	music_on = on
 	_store()
 	music_changed.emit(on)
+
+
+## Turns the upgrades on (true) or off (false) and remembers it.
+func set_upgrades_on(on: bool) -> void:
+	upgrades_on = on
+	_store()
+	upgrades_changed.emit(on)
 
 
 ## Makes sure the `pause`, `hover` and `fire` buttons exist, even if project.godot lost them
@@ -187,6 +200,7 @@ func _load() -> void:
 	if data is Dictionary:
 		gas_mode = clampi(int(data.get("gas_mode", 0)), 0, MODE_NAMES.size() - 1)
 		music_on = bool(data.get("music_on", true))
+		upgrades_on = bool(data.get("upgrades_on", true))
 		if int(data.get("settings_version", 1)) < SETTINGS_VERSION:
 			# An old save: its "CLASSIC" only meant "the old default". Switch to SIMPLE once.
 			simple_controls = true
@@ -200,4 +214,5 @@ func _store() -> void:
 		return
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"settings_version": SETTINGS_VERSION, "gas_mode": gas_mode, "simple_controls": simple_controls, "music_on": music_on}))
+		file.store_string(JSON.stringify({"settings_version": SETTINGS_VERSION, "gas_mode": gas_mode, "simple_controls": simple_controls, "music_on": music_on,
+			"upgrades_on": upgrades_on}))

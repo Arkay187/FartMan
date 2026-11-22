@@ -25,6 +25,8 @@ var seen: Dictionary = {}
 var last_stop: String = ""
 ## Every bean he has banked. It is kept forever and only goes down when he spends beans.
 var bean_jar: int = 0
+## Upgrades bought aboard the Complex2000: upgrade id (see upgrade_table.gd) -> levels owned.
+var upgrades: Dictionary = {}
 var _path_chosen: bool = false
 
 
@@ -106,19 +108,44 @@ func spend_beans(count: int) -> bool:
 	return true
 
 
+## How many levels of an upgrade he owns (0 = not bought). See upgrade_table.gd for the ids.
+func upgrade_level(id: String) -> int:
+	return clampi(int(upgrades.get(id, 0)), 0, UpgradeTable.max_level(id))
+
+
+## True if he can buy the next level of an upgrade right now (not all bought, and enough beans).
+func can_buy_upgrade(id: String) -> bool:
+	var price: int = UpgradeTable.next_price(id, upgrade_level(id))
+	return price >= 0 and price <= bean_jar
+
+
+## Buys the next level of an upgrade with beans from the jar, and saves. Says no (false, nothing
+## changes) if every level is bought already or the jar has too few beans.
+func buy_upgrade(id: String) -> bool:
+	var owned: int = upgrade_level(id)
+	var price: int = UpgradeTable.next_price(id, owned)
+	if price < 0 or not spend_beans(price):
+		return false
+	upgrades[id] = owned + 1
+	save_game()
+	return true
+
+
 ## Forget everything and save the empty state.
 func reset() -> void:
 	stages = {}
 	seen = {}
 	last_stop = ""
 	bean_jar = 0
+	upgrades = {}
 	save_game()
 
 
 func save_game() -> void:
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"stages": stages, "seen": seen, "last_stop": last_stop, "bean_jar": bean_jar}, "\t"))
+		file.store_string(JSON.stringify({"stages": stages, "seen": seen, "last_stop": last_stop, "bean_jar": bean_jar,
+			"upgrades": upgrades}, "\t"))
 	changed.emit()
 
 
@@ -128,6 +155,7 @@ func load_game() -> void:
 	seen = {}
 	last_stop = ""
 	bean_jar = 0
+	upgrades = {}
 	if not FileAccess.file_exists(save_path):
 		return
 	var json := JSON.new()
@@ -138,6 +166,13 @@ func load_game() -> void:
 		seen = dict.get("seen", {})
 		last_stop = str(dict.get("last_stop", ""))
 		bean_jar = maxi(int(dict.get("bean_jar", 0)), 0)
+		# JSON numbers come back as floats: keep whole, known, positive levels only.
+		var bought: Variant = dict.get("upgrades", {})
+		if bought is Dictionary:
+			for id: Variant in bought:
+				var level: int = clampi(int(bought[id]), 0, UpgradeTable.max_level(str(id)))
+				if level > 0:
+					upgrades[str(id)] = level
 	changed.emit()
 
 
