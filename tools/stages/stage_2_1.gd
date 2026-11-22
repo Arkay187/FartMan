@@ -55,9 +55,9 @@ func build(k) -> Array[String]:
 	k.platform(129, 8.0, 3.0, k.CRATE)
 	k.golden(129, 9.4)
 	k.toilet(138, 0)
-	# A Mega Bean Can in a wall that is not really there.
+	# A Hot Sauce in a wall that is not really there.
 	Secrets.fake_wall(k, 140, 146, 0.0, 3.2, k.STEEL_DARK.lightened(0.15))
-	k.mega_can(143, 1.6)
+	k.hot_sauce(143, 1.6)
 	# Stamps over a belt that carries you towards them.
 	k.hint(146, 0, "BELT + STAMPS! KEEP MOVING!", 3.5)
 	k.belt(150, 182, 0, 2.5)
@@ -92,9 +92,9 @@ func build(k) -> Array[String]:
 	k.beans_line(264, 298, 5.9, 2.5)
 	k.enemy("cork_bot", 276, 4.5, {"patrol_distance": 5.0})
 	k.enemy("cork_bot", 290, 4.5, {"patrol_distance": 5.0, "walk_speed": 4.0})
-	# A Mega Bean Can on a high crate, and a bean room on a higher ledge (double jump + hover).
+	# A Heart on a high crate, and a bean room on a higher ledge (double jump + hover).
 	Secrets.secret_ledge(k, 284, 9.3, 3.0, k.CRATE, 4.5)
-	k.mega_can(284, 10.7)
+	k.heart(284, 10.7)
 	Secrets.secret_ledge(k, 270, 11.0, 7.0, k.CRATE, 4.5, true)
 	Secrets.bean_room(k, 272.0, 11.0, 40.0, 80.0, {"hidden": true, "color": k.STEEL, "springs": 2, "pads": 3, "vents": 2,
 		"exit_to": Vector3(267.5, 12.3, 0)})

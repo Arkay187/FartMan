@@ -15,7 +15,6 @@ const SOUNDS: Dictionary = {
 	"bean_spill": {"spill_sound": "bean_spill"},
 	"hot_sauce": {"grab_sound": "chilli_sizzle"},
 	"fireball": {"pop_sound": "fireball_pop"},
-	"mega_bean_can": {"grab_sound": "mega_can_glug"},
 	"rocket_burrito": {"grab_sound": "burrito_blast"},
 	"bean_can": {"open_sound": "can_open"},
 	"landing_zone": {"landing_sound": "landing_tada"},

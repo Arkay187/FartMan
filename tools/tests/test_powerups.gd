@@ -1,5 +1,5 @@
 extends SceneTree
-# Checks the Mega Bean Can and the Chilli Pepper.
+# Checks the Chilli Pepper.
 
 
 func _initialize() -> void:
@@ -23,7 +23,6 @@ func _puffs() -> int:
 
 func _run(level: Node) -> void:
 	var player: CharacterBody3D = level.get_node("Player")
-	var tank: Node = player.get_node("GasTank")
 	var hearts: Node = player.get_node("Hearts")
 	var chilli: Node = player.get_node("ChilliPower")
 	# The glow goes on the real model's mesh, as a see-through coat.
@@ -41,16 +40,8 @@ func _run(level: Node) -> void:
 	var normal_dist: float = player.global_position.x - x0
 	await _wait(0.5)
 
-	# Mega Bean Can.
-	tank.drain(1000.0)
-	var score_before: int = level.score
-	player.global_position = level.get_node("PowerUps/MegaBeanCan").global_position
-	player.velocity = Vector3.ZERO
-	await _wait(0.3)
-	print("mega bean can: gas=%.0f score +%d, can gone=%s" % [tank.gas, level.score - score_before, not level.has_node("PowerUps/MegaBeanCan")])
-
 	# Chilli.
-	score_before = level.score
+	var score_before: int = level.score
 	player.global_position = level.get_node("PowerUps/Chilli").global_position
 	player.velocity = Vector3.ZERO
 	await _wait(0.3)

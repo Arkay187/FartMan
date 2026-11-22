@@ -58,12 +58,6 @@ func _pickups() -> void:
 		clinks.append(_shape(_tone("square", pitch, pitch * 0.8, 0.045, 0.4, 0.25), 0.001, 2.0))
 		clinks.append(_silence(0.025))
 	_save("bean_spill", _join(clinks))
-	# Mega Bean Can: glug, glug, glug.
-	var glugs: Array[PackedFloat32Array] = []
-	for pitch: float in [260.0, 330.0, 230.0]:
-		glugs.append(_shape(_tone("sine", pitch, pitch * 1.7, 0.1), 0.005, 1.5))
-		glugs.append(_silence(0.04))
-	_save("mega_can_glug", _mix([_join(glugs), _shape(_hiss(0.55, 0.12, false, 0.3), 0.05, 1.0)]))
 	# Rocket burrito: blast off.
 	_save("burrito_blast", _mix([
 		_shape(_hiss(0.8, 0.2, false, 0.8), 0.25, 1.0),

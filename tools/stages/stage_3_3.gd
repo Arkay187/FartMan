@@ -3,7 +3,7 @@ extends RefCounted
 ## Hold jump to rise, let go to sink. A swirling gas storm with rainbow clouds and the planet's rings
 ## behind. Floating alien jellyfish bob about (bump them from above, or steer round), and lightning
 ## bolts flicker (a thin flicker is the warning) before they strike.
-## Two fast BOOST sections: the screen speeds up to twice as fast, with wide lines of beans and big
+## Two long, fast BOOST sections: the screen speeds up a lot, with wide lines of beans and big
 ## rings and nothing nasty, so you can just enjoy zooming.
 ## Sky toilets keep him flying after a mishap.
 
@@ -12,9 +12,12 @@ const KIT := "res://tools/kit_whiff.gd"
 ## The sky he can fly in (lowest and highest height).
 const LANE: Vector2 = Vector2(3.0, 22.0)
 ## The two SUPER BOOST sections, from x to x. Flying is 3.5 times as fast inside them.
-const BOOST_1: Vector2 = Vector2(190.0, 360.0)
-const BOOST_2: Vector2 = Vector2(660.0, 840.0)
-const LANDING_X: float = 1060.0
+const BOOST_1: Vector2 = Vector2(190.0, 530.0)
+const BOOST_2: Vector2 = Vector2(830.0, 1190.0)
+## How far the lightning part (and the rings part) moved along when the boosts were made twice as long.
+const LIGHTNING_SHIFT: float = 170.0
+const RINGS_SHIFT: float = 350.0
+const LANDING_X: float = 1410.0
 
 
 func build(k) -> Array[String]:
@@ -23,7 +26,7 @@ func build(k) -> Array[String]:
 	k.gas_sea(-20, LANDING_X + 100.0, -4.0)
 	k.storm_clouds(-20, LANDING_X + 60.0, -2.0, 34.0)
 	k.planet_rings(300, 20)
-	k.planet_rings(850, 25, -160.0)
+	k.planet_rings(1200, 25, -160.0)
 	_warm_up(k)
 	_boost(k, BOOST_1, 0)
 	_lightning(k)
@@ -68,9 +71,11 @@ func _boost(k, span: Vector2, n: int) -> void:
 
 ## Lightning: gaps move up and down, with jellyfish in between. Bolts flicker before they strike.
 func _lightning(k) -> void:
-	k.say_zone(372, 12, 10, 20, "LIGHTNING! WATCH THE FLICKER!", 3.0)
+	k.say_zone(372.0 + LIGHTNING_SHIFT, 12, 10, 20, "LIGHTNING! WATCH THE FLICKER!", 3.0)
 	# Each bolt covers part of the sky; the gap moves. (x, bottom, top of the bolt)
 	var bolts: Array = [[400.0, 3.0, 14.0], [440.0, 11.0, 22.0], [480.0, 3.0, 12.0], [520.0, 12.0, 22.0], [560.0, 3.0, 13.0], [600.0, 11.0, 22.0]]
+	for bolt: Array in bolts:
+		bolt[0] += LIGHTNING_SHIFT
 	for i in bolts.size():
 		var b: Array = bolts[i]
 		k.lightning(b[0], b[1], b[2], float(i) * 0.31)
@@ -79,26 +84,26 @@ func _lightning(k) -> void:
 		k.bean(b[0] - 5.0, gap_y)
 		k.bean(b[0], gap_y)
 		k.bean(b[0] + 5.0, gap_y)
-	k.jelly(420, 14.0, {"bob_height": 2.5})
-	k.jelly(500, 9.0, {"bob_height": 2.5})
-	k.jelly(580, 16.0, {"bob_height": 2.5})
-	k.sky_toilet(380, LANE)
-	k.sky_toilet(460, LANE)
-	k.sky_toilet(540, LANE)
-	k.sky_toilet(625, LANE)
+	k.jelly(420.0 + LIGHTNING_SHIFT, 14.0, {"bob_height": 2.5})
+	k.jelly(500.0 + LIGHTNING_SHIFT, 9.0, {"bob_height": 2.5})
+	k.jelly(580.0 + LIGHTNING_SHIFT, 16.0, {"bob_height": 2.5})
+	k.sky_toilet(380.0 + LIGHTNING_SHIFT, LANE)
+	k.sky_toilet(460.0 + LIGHTNING_SHIFT, LANE)
+	k.sky_toilet(540.0 + LIGHTNING_SHIFT, LANE)
+	k.sky_toilet(625.0 + LIGHTNING_SHIFT, LANE)
 	# Golden Bean 1: hiding in a rainbow fog between the bolts.
-	k.fog(540, 17.0, 12.0, 7.0)
-	k.golden(540, 17.0)
+	k.fog(540.0 + LIGHTNING_SHIFT, 17.0, 12.0, 7.0)
+	k.golden(540.0 + LIGHTNING_SHIFT, 17.0)
 	# Golden Bean 2: hiding down low in a fog, just before the second boost.
-	k.fog(640, 6.5, 12.0, 6.0)
-	k.golden(640, 6.5)
+	k.fog(640.0 + LIGHTNING_SHIFT, 6.5, 12.0, 6.0)
+	k.golden(640.0 + LIGHTNING_SHIFT, 6.5)
 
 
 ## The planet's rings: jellyfish in pairs, quick lightning and rings to fly through.
 func _rings_gauntlet(k) -> void:
-	k.say_zone(852, 12, 10, 20, "THE PLANET'S RINGS! ALMOST THERE!", 3.0)
+	k.say_zone(852.0 + RINGS_SHIFT, 12, 10, 20, "THE PLANET'S RINGS! ALMOST THERE!", 3.0)
 	for i in 5:
-		var gx: float = 870.0 + float(i) * 34.0
+		var gx: float = 870.0 + RINGS_SHIFT + float(i) * 34.0
 		var wave: float = sin(float(i) * 1.1)
 		k.jelly(gx, 8.0 + 2.0 * wave, {"bob_height": 2.0, "bob_speed": 1.8})
 		k.jelly(gx + 6.0, 17.0 - 2.0 * wave, {"bob_height": 2.0, "bob_speed": 1.8})
@@ -107,15 +112,15 @@ func _rings_gauntlet(k) -> void:
 		k.bean(gx + 14.0, 12.5 + 4.0 * wave)
 		k.bean(gx + 20.0, 12.5 + 4.0 * wave)
 		k.bean(gx + 23.0, 12.5 + 4.0 * wave)
-	k.lightning(940, 3.0, 12.0, 0.2)
-	k.lightning(1000, 12.0, 22.0, 0.6)
-	k.bean(940, 17.0)
-	k.bean(1000, 7.0)
-	k.sky_toilet(865, LANE)
-	k.sky_toilet(955, LANE)
+	k.lightning(940.0 + RINGS_SHIFT, 3.0, 12.0, 0.2)
+	k.lightning(1000.0 + RINGS_SHIFT, 12.0, 22.0, 0.6)
+	k.bean(940.0 + RINGS_SHIFT, 17.0)
+	k.bean(1000.0 + RINGS_SHIFT, 7.0)
+	k.sky_toilet(865.0 + RINGS_SHIFT, LANE)
+	k.sky_toilet(955.0 + RINGS_SHIFT, LANE)
 	# Golden Bean 3: high up, in a fog among the rings.
-	k.fog(915, 20.0, 12.0, 4.0)
-	k.golden(915, 20.0)
+	k.fog(915.0 + RINGS_SHIFT, 20.0, 12.0, 4.0)
+	k.golden(915.0 + RINGS_SHIFT, 20.0)
 
 
 func _landing(k) -> void:
@@ -123,5 +128,5 @@ func _landing(k) -> void:
 	k.place("res://scenes/landing_zone.tscn", "LandingZone", Vector3(LANDING_X, 0, 0), "Goal")
 	k.ground(LANDING_X - 50.0, LANDING_X + 130.0, 0)
 	k.toilet(LANDING_X + 25.0, 0)
-	k.mega_can(LANDING_X + 38.0, 1.3)
+	k.heart(LANDING_X + 38.0, 1.3)
 	k.bean_can(LANDING_X + 70.0, 0)

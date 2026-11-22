@@ -91,9 +91,9 @@ func _run() -> void:
 			backward += 1
 	print("2-1: belts %d (%d forward, %d backward), presses %d, biscuits %d, cork bots %d" % [
 		belts.size(), forward, backward, _count(s1, "StampPress"), _count(s1, "CrumblePlatform"), _count(s1, "CorkBot")])
-	_check("2-1 has belts both ways, 4 presses, 7+ biscuits, 4+ cork bots, 2 mega cans",
+	_check("2-1 has belts both ways, 4 presses, 7+ biscuits, 4+ cork bots",
 		forward >= 2 and backward >= 2 and _count(s1, "StampPress") >= 4 and _count(s1, "CrumblePlatform") >= 7
-		and _count(s1, "CorkBot") >= 4 and _count_script(s1, "res://scripts/mega_bean_can.gd") >= 2)
+		and _count(s1, "CorkBot") >= 4)
 	# Standing on the long backwards belt carries him back.
 	var p1: Player = s1.player
 	p1.flashing_left = 1000.0

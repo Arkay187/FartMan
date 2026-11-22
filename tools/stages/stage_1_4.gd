@@ -27,7 +27,7 @@ func build(k) -> Array[String]:
 	k.golden(16, 3.4)
 	k.golden(26, 4.6)
 	k.beans_arc(10, 22, 1.2, 2.5, 7)
-	k.mega_can(12, 1.4)
+	k.beans_line(11, 15, 1.4, 2.0)
 	k.heart(20, 1.4)
 
 	# --- Sneezy Weezy herself. -------------------------------------------------------
@@ -109,6 +109,6 @@ func build(k) -> Array[String]:
 
 	# --- Beyond the gate: the Bean Can. ------------------------------------------------
 	k.ground(40.5, 70)
-	k.mega_can(46, 1.4)
+	k.heart(46, 1.4)
 	k.bean_can(58, 0)
 	return k.finish("res://scenes/stage_1_4.tscn")

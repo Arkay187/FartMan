@@ -109,7 +109,7 @@ func _run() -> void:
 	for node: Node3D in _thrown(world):
 		node.free()
 
-	# Over many squashes every pickup in the list turns up (Heart, Chilli, Hot Sauce, Mega Bean Can).
+	# Over many squashes every pickup in the list turns up (Heart, Chilli, Hot Sauce).
 	var seen: Dictionary = {}
 	for i in 60:
 		var many: Burpling = _burpling(world, 0.0)
@@ -119,7 +119,7 @@ func _run() -> void:
 			if not _is_bean(node):
 				seen[node.scene_file_path] = true
 			node.free()
-	_check("the weighted table drops all four pickups (%s)" % str(seen.keys()), seen.size() == 4 and seen.has("res://scenes/heart.tscn"))
+	_check("the weighted table drops all three pickups (%s)" % str(seen.keys()), seen.size() == 3 and seen.has("res://scenes/heart.tscn"))
 
 	# Hover cloud and fireballs squash through the same call, so they drop too.
 	var b3: Burpling = _burpling(world, 0.0)

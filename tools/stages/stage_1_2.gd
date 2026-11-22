@@ -2,7 +2,7 @@ extends RefCounted
 ## Stage 1-2: THE GREENHOUSE (about 2 minutes 30 seconds). The second tutorial.
 ## New ideas, one at a time: Hiccups, Prickles (cacti), a mud-pie Gnome, a big Spring, the Chilli dash
 ## (a giant cabbage chases you), then Hot Sauce and the FIRE BURP PARTY (lots of Burplings to bowl over)
-## and a bouncy finale. Chillies and Mega Bean Cans hide behind secrets; two secret bean rooms.
+## and a bouncy finale. Chillies and Hearts hide behind secrets; two secret bean rooms.
 
 const Secrets := preload("res://tools/kit_secrets.gd")
 const POT: Color = Color(0.85, 0.45, 0.25)
@@ -142,8 +142,8 @@ func build(k) -> Array[String]:
 	k.beans_arc(434, 444, -7.0, 6.5, 8)
 	k.enemy("hiccup", 458, -8, {"phase": 0.0})
 	k.toilet(464, -8)
-	# A Mega Bean Can behind a wall (a few steps before the Bean Can).
+	# A Chilli behind a wall (a few steps before the Bean Can).
 	Secrets.fake_wall(k, 466, 474, -8.0, -4.8, TILE.darkened(0.2))
-	k.mega_can(470, -6.6)
+	k.chilli(470, -6.6)
 	k.bean_can(478, -8)
 	return k.finish("res://scenes/stage_1_2.tscn")

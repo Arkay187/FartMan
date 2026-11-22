@@ -287,8 +287,10 @@ func _run() -> void:
 	_check("3-3 is a flying stage with 2 or more fast boosts", s3.start_flight != Vector2.ZERO and zones.size() >= 2)
 	var fast_enough: bool = true
 	var clear_of_hazards: bool = true
+	var long_enough: bool = true
 	for z: Node in zones:
 		var zone: SuperBoost = z as SuperBoost
+		long_enough = long_enough and zone.length >= 300.0
 		fast_enough = fast_enough and zone.speed_multiplier >= 3.0
 		for hazard: Node in s3.find_children("*", "Area3D", true, false):
 			if hazard is Jellyfish or hazard is LightningBolt:
@@ -296,6 +298,7 @@ func _run() -> void:
 					clear_of_hazards = false
 	_check("the boosts are SUPER BOOSTs (3x or more)", fast_enough)
 	_check("the boosts have nothing nasty in them", clear_of_hazards)
+	_check("each boost is twice as long as before (300 m or more)", long_enough)
 	_check("3-3 has jellyfish, lightning and big rings", _count(s3, "Jellyfish") >= 8 and _count(s3, "LightningBolt") >= 8 and _count(s3, "SmokeRing") >= 15)
 	var p3: Player = s3.player
 	p3.flashing_left = 1000.0

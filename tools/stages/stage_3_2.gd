@@ -71,7 +71,7 @@ func _stamps(k) -> void:
 	k.enemy("whiffler", 143, 0, {"phase": 0.6})
 	k.beans_line(98, 158, 1.3, 3.0)
 	k.toilet(150, 0)
-	k.mega_can(153, 1.6)
+	k.chilli(153, 1.6)
 	k.cloud(164, 176, 0)
 	k.bubble(170, 1.0, {"rise_height": 7.0, "radius": 1.2})
 	k.beans_arc(163, 177, 4.0, 3.0, 6)
@@ -174,7 +174,7 @@ func _party(k) -> void:
 		x += 3.0
 	k.beans_line(414, 466, 1.4, 2.5)
 	k.toilet(468, 0)
-	k.mega_can(472, 1.6)
+	k.heart(472, 1.6)
 	# The hot sauce party: fire burp them all.
 	k.hint(480, 0, "HOT SAUCE! SHOOT FIREBALLS WITH C OR B!", 4.0)
 	k.hot_sauce(486, 1.4)
@@ -226,5 +226,5 @@ func _tower(k) -> void:
 	k.ground(652, 690, 25.5)
 	k.hint(654, 25.5, "ALMOST THERE!", 2.5)
 	k.beans_line(656, 684, 26.9, 2.5)
-	k.mega_can(660, 26.8)
+	k.heart(660, 26.8)
 	k.bean_can(676, 25.5)
