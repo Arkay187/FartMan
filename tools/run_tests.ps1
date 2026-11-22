@@ -33,7 +33,7 @@ if (-not $Tests) {
 }
 foreach ($t in $Tests) {
     "--- $t"
-    Run-Godot @('--fixed-fps', '60', '--script', "res://tools/tests/$t.gd") 120
+    Run-Godot @('--fixed-fps', '60', '--script', "res://tools/tests/$t.gd") 200
     Get-Content $out | Select-Object -Skip 2 |
         Where-Object { $_ -cnotmatch '^(Toot|Trump|Thunder|Squeeeeak)' } |
         ForEach-Object { $_ -replace '\| squeaks.*?->', '->' }

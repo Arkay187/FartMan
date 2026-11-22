@@ -19,6 +19,10 @@ extends Camera3D
 @export var keep_in_view: float = 1.5
 ## When it also shows someone else (a boss), the room left round the edges, in metres.
 @export var show_too_margin: float = 3.0
+## How tall the other thing is (a boss): this many metres above and below its middle must fit too.
+## When it is up high the view moves up and zooms out so he and it are both in the shot.
+@export var show_too_above: float = 4.5
+@export var show_too_below: float = 3.0
 
 @export_group("Climbing and falling (tall levels)")
 ## How much the view leans the way he is going up or down: metres of lean for every
@@ -104,14 +108,31 @@ func _physics_process(delta: float) -> void:
 	var walk_angle: float = walk_fov
 	var left: float = aim.x
 	var right: float = aim.x
+	# The height range that must fit: his feet to his head, plus whatever else we are showing.
+	var low_y: float = aim.y - 1.0
+	var high_y: float = aim.y + 1.0
+	var showing_more: bool = false
 	for thing: Node3D in also_show:
 		if is_instance_valid(thing) and thing.is_inside_tree():
+			showing_more = true
 			left = minf(left, thing.global_position.x)
 			right = maxf(right, thing.global_position.x)
+			low_y = minf(low_y, thing.global_position.y - show_too_below)
+			high_y = maxf(high_y, thing.global_position.y + show_too_above)
 	if right > left:
 		aim.x = (left + right) * 0.5
 		var half_height: float = ((right - left) * 0.5 + show_too_margin) / _aspect()
 		walk_angle = maxf(walk_fov, rad_to_deg(2.0 * atan(half_height / offset.z)))
+	# Too tall to fit side on? Zoom out further, and centre the view on the whole height.
+	var fit_height: bool = false
+	var fit_centre: float = 0.0
+	if showing_more:
+		var tall_half: float = (high_y - low_y) * 0.5 + show_too_margin
+		var tall_angle: float = rad_to_deg(2.0 * atan(tall_half / offset.z))
+		if tall_angle > walk_fov:
+			walk_angle = maxf(walk_angle, tall_angle)
+			fit_height = true
+			fit_centre = (high_y + low_y) * 0.5
 	fov = lerpf(fov, lerpf(walk_angle, flight_fov, flying_amount) + boost_fov * boost_amount, smooth)
 
 	# Move to a spot between the two views. When zoomed out it sits higher too, so the
@@ -120,6 +141,8 @@ func _physics_process(delta: float) -> void:
 	var walk_offset := Vector3(offset.x, offset.y * zoom, offset.z)
 	var current_offset: Vector3 = walk_offset.lerp(flight_offset, flying_amount)
 	var goal: Vector3 = aim.lerp(target.global_position, flying_amount) + current_offset
+	if fit_height:
+		goal.y = lerpf(goal.y, fit_centre, 1.0 - flying_amount)
 	var look: float = maxf(vertical_look_ahead, climbing_look_ahead) if climbing else vertical_look_ahead
 	var lean_goal: float = 0.0
 	if look > 0.0 and flying_amount < 0.5:

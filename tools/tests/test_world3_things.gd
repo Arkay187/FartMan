@@ -113,6 +113,42 @@ func _run() -> void:
 	await _wait(0.3)
 	_check("a stinky bubble hurts and cannot be stomped (hearts %d, alive %s)" % [_hearts(), str(stinker.is_alive)], _hearts() < 3 and stinker.is_alive)
 
+	# --- Flashing bubbles: the spot blinks first (not solid), then the bubble swells in the same place. ---
+	for stink in [false, true]:
+		_fresh(Vector3(-20, 1.2, 0))
+		kit.ground(-40, 40, 0, kit.CLOUD_TEAL, false)
+		var flasher: BurpBubble = kit.bubble(0, 6.0, {"rise_speed": 0.0, "rise_height": 0.0, "flash_time": 1.0, "grow_time": 0.5, "stinky": stink, "boost_from_anywhere": true}) as BurpBubble
+		_go()
+		await _wait(0.4)
+		var name_of: String = "stinky" if stink else "good"
+		_check("a %s bubble starts as a blinking ghost: nothing to touch yet" % name_of, flasher.is_flashing() and not flasher._body.visible)
+		player.global_position = Vector3(0, 6.0, 0)
+		player.velocity = Vector3.ZERO
+		var hearts_before: int = _hearts()
+		await _wait(0.3)
+		_check("touching the ghost does nothing (%s)" % name_of, _hearts() == hearts_before and flasher.is_alive and player.velocity.y <= 0.0)
+		_check("the ghost is exactly where the bubble will swell (%s)" % str(flasher.flash_position()), flasher.flash_position().is_equal_approx(flasher.global_position))
+		player.global_position = Vector3(-20, 1.2, 0)
+		player.velocity = Vector3.ZERO
+		await _wait(0.6)
+		_check("then it swells into a real bubble (%s)" % name_of, not flasher.is_flashing() and flasher._body.visible)
+	# A good bubble with boost_from_anywhere launches from below, even on the very bottom edge.
+	_fresh(Vector3(-20, 1.2, 0))
+	kit.ground(-40, 40, 0, kit.CLOUD_TEAL, false)
+	var anywhere: BurpBubble = kit.bubble(0, 8.0, {"rise_speed": 0.0, "rise_height": 0.0, "boost_from_anywhere": true}) as BurpBubble
+	_go()
+	await _wait(0.3)
+	player.global_position = Vector3(0, 8.0 - anywhere.radius - 0.9, 0)
+	player.velocity = Vector3.ZERO
+	var launch_vy: float = -100.0
+	var launch_y: float = -100.0
+	for i in 40:
+		await physics_frame
+		launch_vy = maxf(launch_vy, player.velocity.y)
+		launch_y = maxf(launch_y, player.get_feet_y())
+	_check("touching just the bottom edge launches him up (%.1f m/s) to above the bubble top (feet %.1f)" % [launch_vy, launch_y],
+		launch_vy >= anywhere.bounce_power - 1.5 and launch_y > 8.0 + anywhere.radius)
+
 	# --- Gas geyser: fills the tank, blasts him up, safe, and it is a launcher for the route check. ---
 	_fresh()
 	kit.ground(-30, 30, 0, kit.CLOUD_TEAL, false)
