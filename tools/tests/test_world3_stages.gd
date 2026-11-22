@@ -316,6 +316,22 @@ func _run() -> void:
 	var boss: BigBadBurp = s4.find_child("BigBadBurp", true, false) as BigBadBurp
 	_check("3-4 has Big Bad Burp with a trigger, door, gate and a burrito",
 		boss != null and boss.trigger != null and boss.door != null and boss.gate != null and boss.burrito != null and boss.head != null)
+	# Walk in from the start, just holding right: nothing may block the way to the arena.
+	var p4: Player = s4.player
+	p4.flashing_left = 1000.0
+	Input.action_press(&"ui_right")
+	var walked_in: bool = false
+	for i in 600:
+		await physics_frame
+		if p4.global_position.x > 9.0:  # well past the door (x 6 to 7.2)
+			walked_in = true
+		if boss.phase != BigBadBurp.Phase.WAITING:
+			break
+	Input.action_release(&"ui_right")
+	_check("3-4: walking right from the start gets past the door into the arena (x %.1f)" % p4.global_position.x, walked_in)
+	await _wait(0.6)
+	_check("3-4: the fight starts and the door shuts behind him", boss.phase != BigBadBurp.Phase.WAITING
+		and absf(boss.door.position.y - boss._door_closed_y) < 0.1)
 	s4.free()
 	await _wait(0.2)
 

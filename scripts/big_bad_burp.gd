@@ -83,6 +83,8 @@ enum Mood { CALM, TELL, DIZZY, HIT }
 ## The door behind you (shuts when the fight starts) and the wall on the right (opens after part 1).
 @export var door: Node3D
 @export var gate: Node3D
+## How far down the door sinks when open. Must be more than the door is tall, or it still blocks the way.
+@export var door_drop: float = 34.0
 ## The Rocket Burrito that arrives after part 1 (hidden until then).
 @export var burrito: Area3D
 @export var scene_player: ScenePlayer
@@ -128,7 +130,7 @@ func _ready() -> void:
 			_player.flight.started.connect(_on_flight_started)
 	if is_instance_valid(door):
 		_door_closed_y = door.position.y
-		door.position.y = _door_closed_y - 20.0
+		door.position.y = _door_closed_y - door_drop
 	if burrito != null:
 		_burrito_home = burrito.position
 		burrito.visible = false
@@ -717,7 +719,7 @@ func _reset() -> void:
 			_camera_shows_me(false)
 			position = Vector3(arena_left_x + perches[_perch].x, floor_y + perches[_perch].y, 0.0)
 			if is_instance_valid(door):
-				door.position.y = _door_closed_y - 20.0
+				door.position.y = _door_closed_y - door_drop
 		Phase.PART2:
 			if _player != null and _player.is_flying():
 				# Back at a toilet in the sky: the chase starts again, the hits he took stay.
@@ -760,7 +762,7 @@ func _move_door(shut: bool) -> void:
 	if not is_instance_valid(door):
 		return
 	var tween: Tween = create_tween()
-	tween.tween_property(door, "position:y", _door_closed_y if shut else _door_closed_y - 20.0, 0.4)
+	tween.tween_property(door, "position:y", _door_closed_y if shut else _door_closed_y - door_drop, 0.4)
 
 
 func _camera_shows_me(yes: bool) -> void:
