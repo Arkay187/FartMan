@@ -26,6 +26,14 @@ extends Control
 @export var selected_color: Color = Color(1.0, 0.85, 0.1)
 @export var plain_color: Color = Color(1.0, 1.0, 1.0)
 
+## The World 3 stages, added to the list in code (title, scene, a line about it).
+const WORLD3: Array[Array] = [
+	["3-1  THE CLOUD TOPS", "res://scenes/stage_3_1.tscn", "Planet Whiff: squishy clouds, Burp Bubbles, gas geysers and Whifflers."],
+	["3-2  THE FIZZY FORTRESS", "res://scenes/stage_3_2.tscn", "Everything from the whole game, mixed up. The hardest running stage."],
+	["3-3  THE STINK STORM", "res://scenes/stage_3_3.tscn", "A short flight through lightning, jellyfish and two big speed boosts."],
+	["3-4  BIG BAD BURP", "res://scenes/stage_3_4.tscn", "The final boss, in two parts, and then the ending story."],
+]
+
 var choice: int = 0
 var _age: float = 0.0
 
@@ -37,7 +45,27 @@ func _tick(sound: AudioStream) -> void:
 func _ready() -> void:
 	if music_song != "":
 		MusicPlayer.play_song(self, music_song)
+	_add_world3_rows()
 	_refresh()
+
+
+## Puts the four World 3 stages in the list, just before BACK, and squeezes the rows to fit.
+func _add_world3_rows() -> void:
+	if rows.is_empty() or scenes.has(WORLD3[0][1]):
+		return
+	var back_at: int = rows.size() - 1
+	for i in WORLD3.size():
+		var row: Label = rows[0].duplicate() as Label
+		row.name = "World3Row%d" % i
+		rows[0].get_parent().add_child(row)
+		rows.insert(back_at + i, row)
+		titles.insert(back_at + i, WORLD3[i][0])
+		scenes.insert(back_at + i, WORLD3[i][1])
+		descriptions.insert(back_at + i, WORLD3[i][2])
+	for i in rows.size():
+		rows[i].add_theme_font_size_override("font_size", 44)
+		rows[i].offset_top = -150.0 + float(i) * 56.0
+		rows[i].offset_bottom = rows[i].offset_top + 56.0
 
 
 func _process(delta: float) -> void:

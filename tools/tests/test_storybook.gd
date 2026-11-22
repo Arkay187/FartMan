@@ -63,4 +63,21 @@ func _run() -> void:
 	await _wait(0.8)
 	Input.action_release(&"ui_accept")
 	print("held 1.3s: finished=%s signals=%d" % [skipper.is_finished, finished_count])
+	skipper.queue_free()
+	await _wait(0.2)
+
+	# The ending story: five pages, finishing on the biggest fart in history.
+	finished_count = 0
+	var ending: Storybook = load("res://scenes/storybook.tscn").instantiate()
+	ending.story_name = "ending"
+	ending.next_scene = ""
+	root.add_child(ending)
+	ending.finished.connect(func() -> void: finished_count += 1)
+	await _wait(0.5)
+	print("ending: %d pages, first '%s'" % [ending.pages.size(), ending.caption.text])
+	for i in ending.pages.size() - 1:
+		await _tap()
+	print("ending last page: '%s' finished=%s" % [ending.caption.text, ending.is_finished])
+	await _tap()
+	print("ending finished after the last page: %s signals=%d" % [ending.is_finished, finished_count])
 	quit()

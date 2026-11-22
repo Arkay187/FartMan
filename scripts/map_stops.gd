@@ -25,10 +25,10 @@ const STOPS: Array[Dictionary] = [
 	{"id": "2-2", "name": "THE PIPE MAZE", "kind": "run", "world": 1, "pos": Vector2(520, 380), "scene": "res://scenes/stage_2_2.tscn"},
 	{"id": "2-3", "name": "UP THE CHIMNEY", "kind": "fly", "world": 1, "pos": Vector2(630, 490), "scene": "res://scenes/stage_2_3.tscn"},
 	{"id": "2-4", "name": "COLONEL CORK", "kind": "boss", "world": 1, "pos": Vector2(715, 320), "scene": "res://scenes/stage_2_4.tscn"},
-	{"id": "3-1", "name": "THE CLOUD TOPS", "kind": "run", "world": 2, "pos": Vector2(830, 230), "scene": ""},
-	{"id": "3-2", "name": "THE FIZZY FORTRESS", "kind": "run", "world": 2, "pos": Vector2(900, 390), "scene": ""},
-	{"id": "3-3", "name": "THE STINK STORM", "kind": "fly", "world": 2, "pos": Vector2(1010, 490), "scene": ""},
-	{"id": "3-4", "name": "BIG BAD BURP", "kind": "boss", "world": 2, "pos": Vector2(1065, 310), "scene": ""},
+	{"id": "3-1", "name": "THE CLOUD TOPS", "kind": "run", "world": 2, "pos": Vector2(830, 230), "scene": "res://scenes/stage_3_1.tscn"},
+	{"id": "3-2", "name": "THE FIZZY FORTRESS", "kind": "run", "world": 2, "pos": Vector2(900, 390), "scene": "res://scenes/stage_3_2.tscn"},
+	{"id": "3-3", "name": "THE STINK STORM", "kind": "fly", "world": 2, "pos": Vector2(1010, 490), "scene": "res://scenes/stage_3_3.tscn"},
+	{"id": "3-4", "name": "BIG BAD BURP", "kind": "boss", "world": 2, "pos": Vector2(1065, 310), "scene": "res://scenes/stage_3_4.tscn"},
 ]
 
 
