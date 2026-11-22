@@ -7,6 +7,8 @@ extends Node3D
 signal score_changed(score: int)
 ## Sent when a Golden Bean is found. The Golden Bean bar listens to this.
 signal golden_beans_changed(found: int, total: int)
+## Sent when the beans counted for this stage change. The bean counter on screen listens to this.
+signal beans_changed(beans: int)
 ## Sent when the Bean Can is opened. A few seconds later we go back to the world map.
 signal stage_cleared
 
@@ -38,6 +40,10 @@ var score: int = 0
 var golden_found: int = 0
 var golden_total: int = 0
 var is_cleared: bool = false
+## Beans grabbed since the last bank. Getting hurt spills from this pot.
+var beans_pot: int = 0
+## Every bean grabbed in this stage that has not been lost to a spill.
+var beans_this_stage: int = 0
 var _clear_time: float = 0.0
 var _leaving: bool = false
 
@@ -50,6 +56,38 @@ static func award(from: Node, points: int) -> void:
 	var stage := from.get_tree().get_first_node_in_group(&"stage") as Stage
 	if stage != null:
 		stage.add_points(points)
+
+
+## Counts one eaten bean for the stage being played (and so for the Bean Jar). Beans call this.
+static func bean_eaten(from: Node) -> void:
+	var stage: Stage = Stage.find(from)
+	if stage != null:
+		stage.add_beans(1)
+
+
+## Banks the pot of the stage being played into the jar. Toilets call this.
+static func bank(from: Node) -> void:
+	var stage: Stage = Stage.find(from)
+	if stage != null:
+		stage.bank_pot()
+
+
+## The stage that "from" is in, or null.
+static func find(from: Node) -> Stage:
+	if from == null or not from.is_inside_tree():
+		return null
+	return from.get_tree().get_first_node_in_group(&"stage") as Stage
+
+
+## 2345 -> "2,345" (for the bean counters on screen).
+static func with_commas(number: int) -> String:
+	var digits: String = str(absi(number))
+	var out: String = ""
+	for i in digits.length():
+		if i > 0 and (digits.length() - i) % 3 == 0:
+			out += ","
+		out += digits[i]
+	return ("-" if number < 0 else "") + out
 
 
 ## The song for this stage: the music_song setting, or one chosen from the stage number.
@@ -77,6 +115,34 @@ static func song_for(id: String) -> String:
 	return "garden"
 
 
+## Beans eaten (or grabbed back after a spill) go in the pot and the stage total.
+func add_beans(count: int) -> void:
+	beans_pot += count
+	beans_this_stage += count
+	beans_changed.emit(beans_this_stage)
+
+
+## Getting hurt: takes up to "count" beans out of the pot and the stage total.
+## Returns how many really came out (an empty pot spills nothing).
+func spill_beans(count: int) -> int:
+	var taken: int = clampi(count, 0, beans_pot)
+	beans_pot -= taken
+	beans_this_stage -= taken
+	if taken > 0:
+		beans_changed.emit(beans_this_stage)
+	return taken
+
+
+## Puts the pot into the jar and saves, so those beans can never be lost.
+func bank_pot() -> void:
+	if beans_pot <= 0:
+		return
+	var save: SaveData = SaveLookup.find(self)
+	if save != null:
+		save.bank_beans(beans_pot)
+	beans_pot = 0
+
+
 func add_points(points: int) -> void:
 	score += points
 	score_changed.emit(score)
@@ -97,6 +163,8 @@ func _ready() -> void:
 	golden_beans_changed.emit(golden_found, golden_total)
 
 	if player != null:
+		# Losing every heart banks the pot, so banked beans are never lost.
+		player.died.connect(bank_pot)
 		player.say(opening_words, 2.5)
 		if start_flight != Vector2.ZERO:
 			# Flying stages start in the air, and every checkpoint keeps him flying.
@@ -113,6 +181,7 @@ func _on_bean_can_opened() -> void:
 	if is_cleared:
 		return
 	is_cleared = true
+	bank_pot()
 	# Remember the result, then count down to going back to the map.
 	var save: SaveData = SaveLookup.find(self)
 	if save != null:

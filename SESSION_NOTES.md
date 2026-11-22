@@ -713,3 +713,22 @@ Built by Sonnet helpers in worktrees, merged and tested together. Not seen or pl
 ### Not checked by eye
 - The 3D map's look and the blimp's flight; the boss intro, fly-up and how far the camera zooms out (up to
   about 87 degrees during the intro); the bubble blink; the longer storm boosts; the new Heart spots.
+
+## The Complex2000 plan approved; step 1, the Bean Jar (22 Nov 2026)
+- BEAN_SHIP_PLAN.md rewritten with the choices: the ship is the **Complex2000** (a spaceship, named by our
+  6 year old), banked beans are kept forever, one UPGRADES ON/OFF setting in the main menu (step 2), Grandma
+  runs the shop. Super Beans is replaced by the Gym (Speedy Sneakers, Springy Pants). New: the Pantry
+  (Mystery Crates in every stage that give new pickups once bought), Secret Sniffer, ship paint.
+- Step 1 built (Sonnet helper):
+  - SaveData `bean_jar`, `bank_beans()`, `spend_beans()` (the only thing that lowers the jar).
+  - `Stage.bean_eaten()`: every bean feeds `beans_pot` and `beans_this_stage`. The pot is banked at toilets,
+    stage clear, pause BACK TO MENU and when he loses all hearts.
+  - Spills take `min(6, pot)` from the pot and no gas; an empty pot spills nothing.
+  - HUD "BEANS n" counter under the Golden Bean bar (`bean_counter.gd`, `bean_icon.gd`).
+  - Stage clear: "+N BEANS!" counts up into a jar picture (`bean_jar_picture.gd`), cha-ching, then the jar total.
+  - Map overlay shows "BEAN JAR n" (`bean_jar_label.gd`). The map ship is now the Complex2000: white hull,
+    red nose, glass dome with Fart Man in goggles, fins, the name on both sides, portholes, landing legs,
+    flickering thrusters (`thruster_flame.gd`).
+  - Test: test_bean_jar.
+- Not checked by eye or ear: the ship's look, the HUD counter and jar layout, the pour timing, the cha-ching.
+- Next: step 2, the ship hub with Grandma's shop (Kitchen, Gym, Hot Sauce Lab, Garage) and the UPGRADES setting.

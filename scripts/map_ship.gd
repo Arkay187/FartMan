@@ -1,18 +1,21 @@
 class_name MapShip
 extends Node3D
-## Fart Man's ship on the world map: the Bean Blimp. The ship's own position is the
-## hover spot (smooth, no wobble). Everything you see sits on the "Rig" under it, which
-## bobs and sways. Flying leans the ship into the move and turns it to face the way it goes.
+## Fart Man's ship on the world map: the Complex2000, a chunky cartoon spaceship. The ship's
+## own position is the hover spot (smooth, no wobble). Everything you see sits on the "Rig"
+## under it, which bobs and sways. Flying leans the ship into the move, turns it to face the
+## way it goes, and makes its thruster flames bigger.
 
 ## Sent when the ship has settled above a stop after fly_to().
 signal landed
 ## Sent when Fart Man has jumped out and fallen out of sight.
 signal dropped
 
-## Everything you see (the bean, gondola, propeller), so it can bob without moving the ship.
+## Everything you see (hull, dome, fins, flames), so it can bob without moving the ship.
 @export var rig: Node3D
-## Fart Man in his gondola.
+## Fart Man in his glass dome.
 @export var pilot: Node3D
+## Holds the thruster flames (each a ThrusterFlame). They get bigger while flying.
+@export var flames: Node3D
 @export_group("Hovering")
 ## How far it bobs up and down, in metres, and how fast.
 @export var bob_height: float = 0.3
@@ -31,8 +34,10 @@ signal dropped
 @export_group("Dropping in")
 ## How far the ship dips when Fart Man jumps out, in metres.
 @export var dip_depth: float = 1.0
-## How high he hops out of the gondola, and how far he then falls, in metres.
+## How high he hops out of the dome, how far he moves sideways to clear the hull, and how far
+## he then falls, in metres.
 @export var hop_height: float = 1.4
+@export var hop_sideways: float = 3.4
 @export var fall_distance: float = 8.0
 ## How long the hop and the fall take, in seconds.
 @export var hop_time: float = 0.3
@@ -81,7 +86,7 @@ func fly_to(spot: Vector3, time: float) -> void:
 	_tween.tween_callback(_land)
 
 
-## Fart Man jumps out of the gondola and drops down to the stop. The ship dips as he leaves.
+## Fart Man jumps out of the dome and drops down to the stop. The ship dips as he leaves.
 func drop_pilot() -> void:
 	if is_dropping or pilot == null:
 		return
@@ -90,6 +95,7 @@ func drop_pilot() -> void:
 	dip_tween.tween_property(self, "dip", dip_depth, hop_time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	var hop: Tween = create_tween()
 	hop.tween_property(pilot, "position:y", _pilot_rest.y + hop_height, hop_time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	hop.parallel().tween_property(pilot, "position:x", _pilot_rest.x + hop_sideways, hop_time)
 	hop.tween_property(pilot, "position:y", _pilot_rest.y - fall_distance, fall_time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	hop.tween_callback(_finish_drop)
 
@@ -115,7 +121,7 @@ func _process(delta: float) -> void:
 		var speed: Vector3 = (position - _last_position) / delta
 		_velocity = _velocity.lerp(speed, 1.0 - exp(-8.0 * delta))
 	_last_position = position
-	# Face the way it is flying (the bean is seen from the side).
+	# Face the way it is flying (the ship is seen from the side).
 	if absf(_velocity.x) > 0.5:
 		_target_yaw = 0.0 if _velocity.x > 0.0 else PI
 	_yaw = lerp_angle(_yaw, _target_yaw, 1.0 - exp(-turn_speed * delta))
@@ -123,6 +129,10 @@ func _process(delta: float) -> void:
 	var roll: float = clampf(_velocity.z * 0.08, -1.0, 1.0) * deg_to_rad(bank_degrees) * cos(_yaw)
 	var pitch: float = clampf(_velocity.y * 0.08, -1.0, 1.0) * deg_to_rad(pitch_degrees)
 	basis = Basis(Vector3.UP, _yaw) * Basis(Vector3.RIGHT, roll) * Basis(Vector3.BACK, pitch)
+	# Big flames while flying, small ones while hovering.
+	if flames != null:
+		for flame: Node in flames.get_children():
+			flame.set("boosting", is_flying)
 	# Gentle bobbing and swaying on the rig.
 	if rig != null:
 		rig.position = Vector3(0.0, sin(_time * bob_speed) * bob_height - dip, 0.0)

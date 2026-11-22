@@ -23,6 +23,8 @@ var stages: Dictionary = {}
 var seen: Dictionary = {}
 ## The last map stop that was entered or cleared, so the map can put Fart Man there.
 var last_stop: String = ""
+## Every bean he has banked. It is kept forever and only goes down when he spends beans.
+var bean_jar: int = 0
 var _path_chosen: bool = false
 
 
@@ -85,18 +87,38 @@ func set_last_stop(stage_id: String) -> void:
 	save_game()
 
 
+## Puts beans into the jar and saves. A zero or negative number does nothing,
+## so nothing but spend_beans() can ever make the jar smaller.
+func bank_beans(count: int) -> void:
+	if count <= 0:
+		return
+	bean_jar += count
+	save_game()
+
+
+## Takes beans out of the jar for a purchase. Says no (false, nothing changes) if the jar
+## has too few. This is the only way the jar ever goes down.
+func spend_beans(count: int) -> bool:
+	if count < 0 or count > bean_jar:
+		return false
+	bean_jar -= count
+	save_game()
+	return true
+
+
 ## Forget everything and save the empty state.
 func reset() -> void:
 	stages = {}
 	seen = {}
 	last_stop = ""
+	bean_jar = 0
 	save_game()
 
 
 func save_game() -> void:
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"stages": stages, "seen": seen, "last_stop": last_stop}, "\t"))
+		file.store_string(JSON.stringify({"stages": stages, "seen": seen, "last_stop": last_stop, "bean_jar": bean_jar}, "\t"))
 	changed.emit()
 
 
@@ -105,6 +127,7 @@ func load_game() -> void:
 	stages = {}
 	seen = {}
 	last_stop = ""
+	bean_jar = 0
 	if not FileAccess.file_exists(save_path):
 		return
 	var json := JSON.new()
@@ -114,6 +137,7 @@ func load_game() -> void:
 		stages = dict.get("stages", {})
 		seen = dict.get("seen", {})
 		last_stop = str(dict.get("last_stop", ""))
+		bean_jar = maxi(int(dict.get("bean_jar", 0)), 0)
 	changed.emit()
 
 

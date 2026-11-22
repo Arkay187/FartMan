@@ -17,6 +17,7 @@ const SOUNDS: Dictionary = {
 	"fireball": {"pop_sound": "fireball_pop"},
 	"rocket_burrito": {"grab_sound": "burrito_blast"},
 	"bean_can": {"open_sound": "can_open"},
+	"stage_clear_banner": {"ching_sound": "cha_ching"},
 	"landing_zone": {"landing_sound": "landing_tada"},
 	"toilet": {"flush_sound": "flush"},
 	# Enemies (every enemy is a Burpling, so they all have squash_sound)

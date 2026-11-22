@@ -1,19 +1,17 @@
 class_name BeanSpill
 extends Node
 ## Fart Man spills beans when he gets hurt (like Sonic's rings). Add this node under the player.
-## The beans pop out, and he has to grab them back before they blink and vanish.
-## The gas those beans are worth is taken out of his tank, so grabbing them gives it back.
+## The beans pop out of the pot of beans he has grabbed but not banked yet, and he has to
+## grab them back before they blink and vanish. Grabbing one puts it back in the pot.
+## Beans already in the Bean Jar are safe. An empty pot spills nothing.
 
-## How many beans pop out each time he is hurt.
+## The most beans that pop out each time he is hurt.
 @export var spill_count: int = 6
 ## How many seconds the beans stay before they blink and vanish.
 @export var spill_lifetime: float = 5.0
 ## How far sideways the beans fly, and how high they pop up (metres per second).
 @export var spill_spread: float = 5.0
 @export var spill_up: float = 8.0
-## How much gas each spilled bean is worth (taken away now, given back when grabbed).
-## A normal bean is 25; spilled ones are worth less so one hit never empties a full tank.
-@export var gas_per_bean: float = 10.0
 ## The "scatter" sound.
 @export var spill_sound: AudioStream
 
@@ -26,19 +24,14 @@ func _ready() -> void:
 		_player.got_hurt.connect(_spill)
 
 
-## Throws the beans and takes away the gas they are worth.
+## Throws up to spill_count beans, taken out of the pot.
 func _spill() -> void:
+	var stage := Stage.find(_player)
 	# No floor to land on while flying.
-	var stage := get_tree().get_first_node_in_group(&"stage") as Stage
-	if stage != null and stage.is_flying_stage():
+	if stage == null or stage.is_flying_stage():
 		return
-	var beans: Array[Node3D] = Loot.beans(_player, spill_count, spill_spread, spill_up, spill_lifetime)
+	var count: int = stage.spill_beans(spill_count)
+	if count <= 0:
+		return
+	Loot.beans(_player, count, spill_spread, spill_up, spill_lifetime)
 	Sfx.play(_player, spill_sound)
-	if _player.gas_tank == null:
-		return
-	var worth: float = 0.0
-	for bean: Node3D in beans:
-		bean.set("gas_amount", gas_per_bean)
-		worth += gas_per_bean
-	# drain() never takes him below empty.
-	_player.gas_tank.drain(worth)

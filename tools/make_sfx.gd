@@ -58,6 +58,12 @@ func _pickups() -> void:
 		clinks.append(_shape(_tone("square", pitch, pitch * 0.8, 0.045, 0.4, 0.25), 0.001, 2.0))
 		clinks.append(_silence(0.025))
 	_save("bean_spill", _join(clinks))
+	# Cha-ching for the Bean Jar: a bright bell with a sparkly shimmer, then a high ding.
+	_save("cha_ching", _join([
+		_mix([_shape(_tone("square", 1568.0, 1568.0, 0.1, 0.4, 0.25), 0.001, 2.0), _shape(_tone("sine", 3136.0, 3136.0, 0.1, 0.3), 0.001, 2.0)]),
+		_mix([_shape(_tone("square", 2093.0, 2093.0, 0.5, 0.4, 0.25, 7.0, 0.02), 0.001, 1.8),
+			_shape(_tone("sine", 4186.0, 4186.0, 0.5, 0.25), 0.001, 2.5),
+			_shape(_hiss(0.35, 0.9, true, 0.12), 0.05, 2.0)])]))
 	# Rocket burrito: blast off.
 	_save("burrito_blast", _mix([
 		_shape(_hiss(0.8, 0.2, false, 0.8), 0.25, 1.0),

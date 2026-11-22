@@ -54,7 +54,7 @@ height = 0.16
 [sub_resource type="SphereShape3D" id="SphereShape3D_0vv53"]
 radius = 0.45
 
-[node name="Hiccup" type="Area3D" unique_id=833212512 node_paths=PackedStringArray("visual", "animator")]
+[node name="Hiccup" type="Area3D" unique_id=767179459 node_paths=PackedStringArray("visual", "animator")]
 script = ExtResource("1_11hcq")
 hop_sound = ExtResource("2_glb7s")
 walk_speed = 0.0
@@ -62,34 +62,34 @@ visual = NodePath("Visual")
 animator = NodePath("Animator")
 squash_sound = ExtResource("3_s358y")
 
-[node name="Visual" type="Node3D" parent="." unique_id=128972525]
+[node name="Visual" type="Node3D" parent="." unique_id=247124699]
 
-[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=971975688]
+[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=353176304]
 mesh = SubResource("SphereMesh_f8aar")
 
-[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1299887343]
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1054024368]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.12, 0.34)
 mesh = SubResource("SphereMesh_ggh5b")
 
-[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=1976626567]
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=491350682]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17, 0.12, 0.424)
 mesh = SubResource("SphereMesh_qll3p")
 
-[node name="@MeshInstance3D@3" type="MeshInstance3D" parent="Visual" unique_id=1493454107]
+[node name="@MeshInstance3D@3" type="MeshInstance3D" parent="Visual" unique_id=1961752069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.12, 0.34)
 mesh = SubResource("SphereMesh_d3sqo")
 
-[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="Visual" unique_id=145213515]
+[node name="@MeshInstance3D@4" type="MeshInstance3D" parent="Visual" unique_id=1599021890]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17, 0.12, 0.424)
 mesh = SubResource("SphereMesh_gvkoe")
 
-[node name="Mouth" type="MeshInstance3D" parent="Visual" unique_id=2012077571]
+[node name="Mouth" type="MeshInstance3D" parent="Visual" unique_id=1124595396]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 0.42)
 mesh = SubResource("SphereMesh_mfrxm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1171800745]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1855487573]
 shape = SubResource("SphereShape3D_0vv53")
 
-[node name="Animator" type="Node" parent="." unique_id=304613641 node_paths=PackedStringArray("squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=1370925879 node_paths=PackedStringArray("squash_target")]
 script = ExtResource("4_m5hxo")
 squash_target = NodePath("../Visual")

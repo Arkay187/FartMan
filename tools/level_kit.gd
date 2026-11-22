@@ -749,6 +749,15 @@ func _build_hud() -> void:
 	gold_bar.set("full_color", Color(1.0, 0.8, 0.1))
 	gold_bar.set("stage", root)
 
+	# How many beans he has grabbed in this stage (under the Golden Beans, away from the hint and score).
+	var bean_counter := HBoxContainer.new()
+	bean_counter.name = "BeanCounter"
+	bean_counter.set_script(load("res://scripts/bean_counter.gd"))
+	bean_counter.position = Vector2(20, 138)
+	hud.add_child(bean_counter)
+	bean_counter.owner = root
+	bean_counter.set("stage", root)
+
 	var score := Label.new()
 	score.name = "ScoreLabel"
 	score.set_script(load("res://scripts/score_label.gd"))
@@ -779,3 +788,4 @@ func _build_hud() -> void:
 	hud.add_child(banner)
 	banner.owner = root
 	banner.set("stage", root)
+	sfx_for(banner, "stage_clear_banner")

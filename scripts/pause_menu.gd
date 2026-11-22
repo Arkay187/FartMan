@@ -144,6 +144,8 @@ func _tick(sound: AudioStream) -> void:
 
 func _back_to_menu() -> void:
 	var tree := get_tree()
+	if _stage != null:
+		_stage.bank_pot()  # keep the beans he is carrying
 	close()
 	tree.change_scene_to_file(menu_scene)
 

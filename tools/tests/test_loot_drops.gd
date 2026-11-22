@@ -1,12 +1,13 @@
 extends SceneTree
 # Checks the loot: a squashed enemy throws beans (and sometimes a random pickup), none of it in
 # flying stages, the Heart pickup gives back one heart (never above full), and Fart Man spills
-# beans when he is hurt (they vanish after their time, the gas they are worth is taken away, and
-# grabbing one gives its gas back).
+# beans when he is hurt (taken out of the beans he carries, they vanish after their time, and a
+# spill never takes any gas).
 
 var failures: int = 0
 var world: Node3D
 var p: Player
+var stage: Stage
 var options: DebugOptionsData
 
 
@@ -167,30 +168,38 @@ func _run() -> void:
 	sample.free()
 
 	# ---------------------------------------------------------------- spilling beans when hurt
+	# A stage keeps the pot of beans he carries (spills come out of it).
+	stage = Stage.new()
+	stage.player = p
+	root.add_child(stage)
+	await _wait(0.2)
 	var spill: BeanSpill = p.get_node("BeanSpill") as BeanSpill
 	_check("the player has a BeanSpill, 6 beans by default", spill != null and spill.spill_count == 6)
 	hearts.hearts = hearts.max_hearts
 	_reset_player()
 	spill.spill_count = 2
+	stage.add_beans(10)
 	p.hurt(p.global_position.x + 1.0)
 	await _wait(0.1)
 	var spilled: Array[Node3D] = _beans(world)
 	_check("getting hurt spills beans (%d)" % spilled.size(), spilled.size() == 2)
-	_check("their gas is taken away, 10 each (100 -> %.0f)" % p.gas_tank.gas, absf(p.gas_tank.gas - 80.0) < 1.0)
+	_check("they come out of the pot (10 -> %d)" % stage.beans_pot, stage.beans_pot == 8)
+	_check("no gas is taken (100 -> %.0f)" % p.gas_tank.gas, p.gas_tank.gas >= 100.0)
 	for node: Node3D in spilled:
 		node.free()
 
-	# Six beans: they vanish after about 5 seconds, and gas never goes below 0.
+	# Six beans: they vanish after about 5 seconds, and gas is left alone.
 	spill.spill_count = 6
 	_reset_player()
 	p.gas_tank.gas = 40.0
+	stage.add_beans(10)  # 18 in the pot
 	p.hurt(p.global_position.x + 1.0)
 	await _wait(0.1)
 	spilled = _beans(world)
 	_check("six beans spilled (%d)" % spilled.size(), spilled.size() == 6)
 	_check("they are set to vanish (%.1f s)" % (spilled[0].get_node("LootBounce") as LootBounce).lifetime,
 		(spilled[0].get_node("LootBounce") as LootBounce).lifetime > 3.0)
-	_check("gas never goes below 0 (%.1f)" % p.gas_tank.gas, p.gas_tank.gas == 0.0)
+	_check("no gas is taken (40 -> %.1f; it only refills by itself)" % p.gas_tank.gas, p.gas_tank.gas >= 40.0)
 	# He is knocked away; keep him far from the beans so they are not eaten.
 	p.global_position = Vector3(150, 1.0, 0)
 	await _wait(2.0)
@@ -198,21 +207,22 @@ func _run() -> void:
 	await _wait(3.8)
 	_check("all gone after their time", spilled.all(func(b: Variant) -> bool: return not is_instance_valid(b)))
 
-	# Grabbing one gives its gas back.
+	# Grabbing one gives gas like any other bean, and puts it back in the pot.
 	_reset_player()
 	spill.spill_count = 3
-	p.gas_tank.gas = 80.0
+	p.gas_tank.gas = 50.0
 	p.hurt(p.global_position.x + 1.0)
 	await _wait(0.1)
 	spilled = _beans(world)
-	var after_spill: float = p.gas_tank.gas
-	_check("3 beans cost 30 gas (80 -> %.0f)" % after_spill, absf(after_spill - 50.0) < 1.0)
+	var pot_after_spill: int = stage.beans_pot
+	_check("3 beans spilled, no gas taken (%.0f)" % p.gas_tank.gas, spilled.size() == 3 and p.gas_tank.gas >= 50.0)
 	await _wait(1.0)
 	p.global_position = spilled[0].global_position
 	p.velocity = Vector3.ZERO
 	await _wait(0.3)
-	_check("grabbing a spilled bean gives its 10 gas back (%.0f -> %.0f)" % [after_spill, p.gas_tank.gas],
-		p.gas_tank.gas > after_spill + 8.0 and not is_instance_valid(spilled[0]))
+	_check("grabbing a spilled bean is a normal bean: gas goes up (50 -> %.0f)" % p.gas_tank.gas,
+		p.gas_tank.gas > 50.0 and not is_instance_valid(spilled[0]))
+	_check("and it goes back in the pot (%d -> %d)" % [pot_after_spill, stage.beans_pot], stage.beans_pot >= pot_after_spill + 1)
 
 	if save != null:
 		save.reset()

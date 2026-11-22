@@ -1,5 +1,5 @@
 extends Area3D
-## A bean. Touch it for a chunk of gas straight away, and some points.
+## A bean. Touch it for a chunk of gas, some points, and one bean for the Bean Jar.
 
 ## How much gas one bean gives.
 @export var gas_amount: float = 25.0
@@ -26,5 +26,6 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	player.gas_tank.refill(gas_amount)
 	Stage.award(self, points)
+	Stage.bean_eaten(self)  # counts for the Bean Jar
 	Sfx.play(self, pickup_sound)
 	queue_free()

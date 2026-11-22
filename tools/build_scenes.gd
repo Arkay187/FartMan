@@ -1012,6 +1012,15 @@ func _build_level() -> void:
 	gold_bar.set("full_color", Color(1.0, 0.8, 0.1))
 	gold_bar.set("stage", root)
 
+	# How many beans he has grabbed in this stage (under the Golden Beans, away from the hint and score).
+	var bean_counter := HBoxContainer.new()
+	bean_counter.name = "BeanCounter"
+	bean_counter.set_script(load("res://scripts/bean_counter.gd"))
+	bean_counter.position = Vector2(20, 138)
+	hud.add_child(bean_counter)
+	bean_counter.owner = root
+	bean_counter.set("stage", root)
+
 	var score := Label.new()
 	score.name = "ScoreLabel"
 	score.set_script(load("res://scripts/score_label.gd"))
@@ -1042,6 +1051,7 @@ func _build_level() -> void:
 	hud.add_child(banner)
 	banner.owner = root
 	banner.set("stage", root)
+	SfxTable.apply(banner, "stage_clear_banner")
 
 	_save(root, "res://scenes/test_level.tscn")
 
@@ -1067,7 +1077,7 @@ func _build_world_map() -> void:
 	root.set_script(load("res://scripts/world_map.gd"))
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
-	# The 3D diorama, the stops, the Bean Blimp and the camera (see tools/world_map_3d.gd).
+	# The 3D diorama, the stops, the Complex2000 and the camera (see tools/world_map_3d.gd).
 	var diorama: Dictionary = load("res://tools/world_map_3d.gd").new().call("build", root)
 
 	# Stop name big at the top, the world's name under it, beans and score at the bottom,
@@ -1086,6 +1096,15 @@ func _build_world_map() -> void:
 	info.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	info.custom_minimum_size.y = 70
 	info.position.y = -80
+	# The Bean Jar total, above the stop's info line.
+	var jar := BeanJarLabel.new()
+	jar.name = "BeanJarLabel"
+	jar.font_size = 38
+	jar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	jar.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	jar.position.y = -150
+	root.add_child(jar)
+	jar.owner = root
 	var soon := _big_label(root, "SoonLabel", "COMING SOON!", 96)
 	soon.add_theme_color_override("font_color", Color(1.0, 0.85, 0.1))
 	soon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)

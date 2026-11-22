@@ -32,6 +32,7 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	is_flushed = true
 	player.set_checkpoint(global_position + Vector3.UP * respawn_height, flight_range)
+	Stage.bank(self)  # the beans he is carrying go safely into the Bean Jar
 	_show_flushed()
 	SpeechBubble.say(self, flush_words, 1.5, 2.6)
 	Sfx.play(self, flush_sound)

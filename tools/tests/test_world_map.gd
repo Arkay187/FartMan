@@ -75,7 +75,7 @@ func _run() -> void:
 
 	# The 3D set: a camera, the ship, all 12 stops with their parts.
 	_check("map has a Camera3D that is the current one", map.camera is Camera3D and map.camera.current)
-	_check("map has the ship with a gondola and Fart Man", map.ship != null and map.ship.get_node_or_null("Rig/Pilot") != null and map.ship.get_node_or_null("Rig/Propeller") != null)
+	_check("map has the Complex2000 with a dome and Fart Man", map.ship != null and map.ship.get_node_or_null("Rig/Pilot") != null and map.ship.get_node_or_null("Rig/Dome") != null)
 	var parts_ok: bool = true
 	for i in MapStops.STOPS.size():
 		var node: Node3D = map.stop_node(i)

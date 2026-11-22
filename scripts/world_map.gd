@@ -1,6 +1,6 @@
 class_name WorldMap
 extends Control
-## The saga map, as a little 3D world. Left/right flies Fart Man's ship (the Bean Blimp)
+## The saga map, as a little 3D world. Left/right flies Fart Man's ship (the Complex2000)
 ## along the path one stop at a time, accept drops him into the stop. He can only fly as far
 ## as the first stop not cleared yet. The stops are listed in map_stops.gd. The scenery is
 ## built into world_map.tscn by tools/world_map_3d.gd. The names and numbers
@@ -18,7 +18,7 @@ extends Control
 @export var soon_label: Label
 ## The world's name, shown for a moment when the ship arrives in a new world.
 @export var world_label: Label
-## "Y: GO ABOARD", for the day the Bean Blimp becomes a hub. Hidden until ship_hub_scene is set.
+## "Y: GO ABOARD", for the day the Complex2000 becomes a hub. Hidden until ship_hub_scene is set.
 @export var hub_hint: Label
 
 ## While we are trying every level: let him fly to any stop, cleared or not.
@@ -40,7 +40,7 @@ extends Control
 @export var music_song: String = "theme"
 @export var move_sound: AudioStream
 @export var accept_sound: AudioStream
-## The room the Bean Blimp hub lives in. Empty = no hub yet: no hint, and Y does nothing.
+## The room the Complex2000 hub lives in. Empty = no hub yet: no hint, and Y does nothing.
 @export_file("*.tscn") var ship_hub_scene: String = ""
 @export_group("Stop looks")
 ## What a locked stop looks like, the Golden Beans he has found, and the ones he has not.
@@ -116,7 +116,7 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Y on the keyboard or the pad: board the Bean Blimp (only once a hub exists).
+	# Y on the keyboard or the pad: board the Complex2000 (only once a hub exists).
 	var key := event as InputEventKey
 	var pad := event as InputEventJoypadButton
 	if (key != null and key.pressed and not key.echo and key.keycode == KEY_Y) \
@@ -214,7 +214,7 @@ func enter_stop() -> void:
 	ship.drop_pilot()
 
 
-## The hook for the Bean Blimp hub (see BEAN_SHIP_PLAN.md). With no hub scene set
+## The hook for the Complex2000 hub (see BEAN_SHIP_PLAN.md). With no hub scene set
 ## it does nothing and returns false.
 func board_ship() -> bool:
 	if ship_hub_scene == "" or _moving or _entering or not ResourceLoader.exists(ship_hub_scene):

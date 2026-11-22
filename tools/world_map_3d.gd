@@ -1,6 +1,6 @@
 extends RefCounted
 # Builds the 3D world map for world_map.tscn: sky, light, the three worlds, the 12 stops,
-# the dotted path and the Bean Blimp. Everything is grey-box low-poly with flat colour.
+# the dotted path and the Complex2000 spaceship. Everything is grey-box low-poly with flat colour.
 # Called from build_scenes.gd (_build_world_map). Nothing here runs in the game.
 #
 # Layout: x runs left to right, z comes towards the camera, y is up.
@@ -370,45 +370,49 @@ func _path(parent: Node3D) -> void:
 			count += 1
 
 
-# ---------- the Bean Blimp ----------
+# ---------- the Complex2000 ----------
 
+# Fart Man's spaceship: a chunky cartoon rocket seen from the side. The nose points +X.
+# Rounded hull, glass dome with Fart Man inside, fins, a name on both sides, flickering
+# thruster flames at the back and little landing legs.
 func _ship(root: Control) -> Node3D:
 	var ship := Node3D.new()
 	ship.name = "Ship"
 	ship.set_script(load("res://scripts/map_ship.gd"))
 	root.add_child(ship)
 	var rig := _holder(ship, "Rig", Vector3.ZERO)
-	var bean := Color(0.78, 0.45, 0.25)
-	# A bean shaped body: a long middle with a round lump at each end.
-	_ball(rig, "Body", 1.0, Vector3(0, 0.5, 0), bean, Vector3(2.9, 1.35, 1.35))
-	_ball(rig, "Nose", 1.0, Vector3(1.9, 0.3, 0), bean.lightened(0.05), Vector3(1.2, 1.1, 1.15))
-	_ball(rig, "Rear", 1.0, Vector3(-1.9, 0.6, 0), bean.darkened(0.05), Vector3(1.2, 1.0, 1.1))
-	_ball(rig, "Belly", 1.0, Vector3(0.2, 0.2, 0.0), bean.lightened(0.2), Vector3(2.0, 1.1, 1.2))
-	_ring(rig, "StripeA", 1.28, 1.42, Vector3(0.6, 0.5, 0), Color(1.0, 0.82, 0.1), Vector3(0, 0, 90))
-	_ring(rig, "StripeB", 1.28, 1.42, Vector3(-0.7, 0.5, 0), Color(1.0, 0.82, 0.1), Vector3(0, 0, 90))
-	# Tail fins and the propeller at the back.
-	var red := Color(0.85, 0.25, 0.2)
-	_box(rig, "TailFin", Vector3(1.0, 1.4, 0.12), Vector3(-3.1, 1.2, 0), red, Vector3(0, 0, 18))
-	_box(rig, "TailWing", Vector3(1.0, 0.1, 1.8), Vector3(-3.1, 0.6, 0), red)
-	_ball(rig, "Hub", 0.25, Vector3(-3.6, 0.5, 0), Color(0.3, 0.3, 0.35))
-	var prop := _holder(rig, "Propeller", Vector3(-3.7, 0.5, 0))
-	prop.set_script(load("res://scripts/map_spin.gd"))
-	prop.set("degrees_per_second", Vector3(900.0, 0.0, 0.0))
-	_box(prop, "BladeA", Vector3(0.06, 2.0, 0.3), Vector3.ZERO, Color(0.9, 0.9, 0.95))
-	_box(prop, "BladeB", Vector3(0.06, 0.3, 2.0), Vector3.ZERO, Color(0.9, 0.9, 0.95))
-	# The gondola slung underneath on four ropes.
-	var wood := Color(0.55, 0.36, 0.2)
-	_box(rig, "GondolaFloor", Vector3(1.9, 0.2, 1.3), Vector3(0, -2.4, 0), wood)
-	_box(rig, "GondolaFront", Vector3(1.9, 0.7, 0.12), Vector3(0, -2.05, 0.6), wood.lightened(0.1))
-	_box(rig, "GondolaBack", Vector3(1.9, 0.7, 0.12), Vector3(0, -2.05, -0.6), wood)
-	_box(rig, "GondolaLeft", Vector3(0.12, 0.7, 1.3), Vector3(-0.9, -2.05, 0), wood)
-	_box(rig, "GondolaRight", Vector3(0.12, 0.7, 1.3), Vector3(0.9, -2.05, 0), wood)
-	for corner in 4:
-		var rope_x: float = -0.8 if corner % 2 == 0 else 0.8
-		var rope_z: float = -0.5 if corner < 2 else 0.5
-		_cyl(rig, "Rope%d" % corner, 0.04, 1.1, Vector3(rope_x, -1.2, rope_z), Color(0.9, 0.85, 0.7))
-	# Fart Man: a little capsule in his green suit with a round head and white goggles.
-	var pilot := _holder(rig, "Pilot", Vector3(0, -1.85, 0))
+	var hull_color := Color(0.88, 0.9, 0.96)
+	var red := Color(0.9, 0.25, 0.2)
+	var navy := Color(0.12, 0.18, 0.4)
+	# The hull: a fat sideways capsule, with a red nose bump and a red band round the middle.
+	var hull := CapsuleMesh.new()
+	hull.radius = 1.15
+	hull.height = 5.6
+	hull.radial_segments = 14
+	hull.rings = 5
+	_add(rig, "Hull", hull, Vector3.ZERO, hull_color, Vector3(0, 0, 90))
+	_ball(rig, "NoseCap", 0.85, Vector3(2.1, 0.0, 0.0), red, Vector3(1.0, 0.9, 0.9))
+	_cyl(rig, "Band", 1.2, 0.5, Vector3(-1.5, 0.0, 0.0), red, Vector3(0, 0, 90))
+	# The name, on both sides so it can be read whichever way the ship is facing.
+	for side: float in [1.0, -1.0]:
+		var name_label := Label3D.new()
+		name_label.name = "NameLabelFront" if side > 0.0 else "NameLabelBack"
+		name_label.text = "COMPLEX2000"
+		name_label.font_size = 64
+		name_label.pixel_size = 0.0075
+		name_label.modulate = navy
+		name_label.outline_size = 0
+		name_label.double_sided = false
+		name_label.position = Vector3(0.45, -0.05, 1.17 * side)
+		name_label.rotation_degrees = Vector3(0, 0 if side > 0.0 else 180, 0)
+		rig.add_child(name_label)
+	# Round portholes next to the name.
+	for side: float in [1.0, -1.0]:
+		_ball(rig, "Porthole%d" % int(side), 0.28, Vector3(-2.2, 0.1, 0.95 * side), Color(0.6, 0.85, 1.0), Vector3(1.0, 1.0, 0.4))
+	# The glass dome on top, with Fart Man (goggles on) sitting inside.
+	_ball(rig, "Dome", 1.1, Vector3(0.8, 1.15, 0.0), Color(0.65, 0.92, 1.0, 0.4))
+	var pilot := _holder(rig, "Pilot", Vector3(0.8, 1.35, 0.0))
+	pilot.scale = Vector3.ONE * 0.7
 	var capsule := CapsuleMesh.new()
 	capsule.radius = 0.3
 	capsule.height = 1.1
@@ -418,6 +422,38 @@ func _ship(root: Control) -> Node3D:
 	_ball(pilot, "GoggleR", 0.13, Vector3(0.14, 0.84, 0.28), Color(1, 1, 1))
 	_ball(pilot, "PupilL", 0.06, Vector3(-0.14, 0.84, 0.39), Color(0.1, 0.1, 0.1))
 	_ball(pilot, "PupilR", 0.06, Vector3(0.14, 0.84, 0.39), Color(0.1, 0.1, 0.1))
+	# Fins: a tall one on top at the back and one out each side.
+	_box(rig, "FinTop", Vector3(1.3, 1.5, 0.14), Vector3(-2.3, 1.45, 0), red, Vector3(0, 0, 20))
+	for side: float in [1.0, -1.0]:
+		_box(rig, "FinSide%d" % int(side), Vector3(1.5, 0.14, 1.5), Vector3(-2.1, -0.3, 1.2 * side), red, Vector3(0, 25.0 * side, 0))
+	# The engine at the back: a nozzle and flames that flicker and grow when flying.
+	_cyl(rig, "Nozzle", 0.7, 0.7, Vector3(-3.15, 0.0, 0.0), navy, Vector3(0, 0, 90), 0.5)
+	var flames := _holder(rig, "Flames", Vector3(-3.5, 0.0, 0.0))
+	_flame(flames, "Flame", Vector3.ZERO, 0.55, 1.8)
+	_flame(flames, "FlameLow", Vector3(0.1, -0.55, 0.0), 0.2, 0.8)
+	_flame(flames, "FlameHigh", Vector3(0.1, 0.55, 0.0), 0.2, 0.8)
+	# Little landing legs with round feet.
+	for lx: float in [-1.6, 1.4]:
+		for lz: float in [-0.7, 0.7]:
+			var tag: String = "%d_%d" % [int(lx * 10.0), int(lz * 10.0)]
+			_cyl(rig, "Leg_" + tag, 0.1, 1.2, Vector3(lx, -1.35, lz * 1.1), navy, Vector3(lz * 18.0, 0, -lx * 6.0))
+			_cyl(rig, "Foot_" + tag, 0.3, 0.1, Vector3(lx - lx * 0.1, -1.95, lz * 1.35), red)
 	ship.set("rig", rig)
 	ship.set("pilot", pilot)
+	ship.set("flames", flames)
 	return ship
+
+
+# One flame: a wide orange cone with a smaller yellow one inside, pointing back (-X) from "pos".
+# The cones start at the nozzle end, so scaling the holder stretches them away from it.
+func _flame(parent: Node3D, node_name: String, pos: Vector3, radius: float, length: float) -> void:
+	var holder := _holder(parent, node_name, pos)
+	holder.set_script(load("res://scripts/thruster_flame.gd"))
+	var outer := _cyl(holder, "Outer", radius, length, Vector3(-length * 0.5, 0, 0), Color(1.0, 0.45, 0.1), Vector3(0, 0, 90), 0.0)
+	var inner := _cyl(holder, "Inner", radius * 0.55, length * 0.65, Vector3(-length * 0.325, 0, 0), Color(1.0, 0.92, 0.3), Vector3(0, 0, 90), 0.0)
+	# Flames glow: no shading, so they look lit from inside.
+	for part: MeshInstance3D in [outer, inner]:
+		var glow := StandardMaterial3D.new()
+		glow.albedo_color = (part.mesh.material as StandardMaterial3D).albedo_color
+		glow.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		part.mesh.material = glow
