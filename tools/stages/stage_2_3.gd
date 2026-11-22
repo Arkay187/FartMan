@@ -168,5 +168,5 @@ func _landing(k) -> void:
 	hall.size = Vector3(140.0, ROOF_Y - 6.0, 14.0)
 	k._mesh(k._group("Decor"), "FinalHall", hall, Color(0.7, 0.3, 0.22), Vector3(LANDING_X + 30.0, (ROOF_Y - 6.0) * 0.5, -4))
 	k.toilet(LANDING_X + 20.0, ROOF_Y)
-	k.mega_can(LANDING_X + 35.0, ROOF_Y + 1.3)
+	k.beans_arc(LANDING_X + 31.0, LANDING_X + 41.0, ROOF_Y + 1.3, 2.5, 6)
 	k.bean_can(LANDING_X + 65.0, ROOF_Y)

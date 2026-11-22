@@ -55,9 +55,9 @@ func build(k) -> Array[String]:
 	k.hint(136, 0, "BOING! LAND ON THE MUSHROOM!", 3.0)
 	k.pad(143, 0)
 	k.beans_arc(141, 149, 2.0, 3.5, 6)
-	# Pickup off the path: a Mega Bean Can on a ledge the mushroom reaches.
+	# Pickup off the path: a Heart on a ledge the mushroom reaches.
 	Secrets.secret_ledge(k, 150, 4.6, 3.0, k.WOOD, 0.0)
-	k.mega_can(150, 6.0)
+	k.heart(150, 6.0)
 	# The easy secret: the wall on the ledge is fake, and a pipe hides inside.
 	k.hint(156, 0, "WOBBLY WALL? WALK INTO IT!", 4.0)
 	k.platform(168, 1.6, 14.0)

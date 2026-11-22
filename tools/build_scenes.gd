@@ -602,20 +602,6 @@ func _pickup(scene_name: String, script_path: String) -> Area3D:
 
 
 func _build_powerups() -> void:
-	# Mega Bean Can: a small green tin with a silver lid.
-	var mega := _pickup("MegaBeanCan", "res://scripts/mega_bean_can.gd")
-	var tin := CylinderMesh.new()
-	tin.top_radius = 0.35
-	tin.bottom_radius = 0.35
-	tin.height = 0.8
-	_mesh(mega, mega, "Tin", tin, Color(0.2, 0.7, 0.3), Vector3.ZERO)
-	var top := CylinderMesh.new()
-	top.top_radius = 0.38
-	top.bottom_radius = 0.38
-	top.height = 0.1
-	_mesh(mega, mega, "Lid", top, Color(0.85, 0.85, 0.9), Vector3(0, 0.45, 0))
-	_save(mega, "res://scenes/mega_bean_can.tscn")
-
 	# Chilli Pepper: a long red pepper with a green stalk.
 	var chilli := _pickup("Chilli", "res://scripts/chilli.gd")
 	var pepper := CapsuleMesh.new()
@@ -958,13 +944,13 @@ func _build_level() -> void:
 	_place(root, root, "res://scenes/toilet.tscn", "Toilet2", Vector3(232, 0.5, 0))
 	_place(root, root, "res://scenes/bean_can.tscn", "BeanCan", Vector3(250, 0.5, 0))
 
-	# Power-ups: a Chilli just after the toilet, a Mega Bean Can just before the big can.
+	# Power-ups: a Chilli just after the toilet, a Heart just before the big can.
 	var powerups := Node3D.new()
 	powerups.name = "PowerUps"
 	root.add_child(powerups)
 	powerups.owner = root
 	_place(root, powerups, "res://scenes/chilli.tscn", "Chilli", Vector3(22.5, 1.4, 0))
-	_place(root, powerups, "res://scenes/mega_bean_can.tscn", "MegaBeanCan", Vector3(241, 1.3, 0))
+	_place(root, powerups, "res://scenes/heart.tscn", "Heart", Vector3(241, 1.3, 0))
 	# The Rocket Burrito sits at the end of the first bit of ground.
 	_place(root, powerups, "res://scenes/rocket_burrito.tscn", "RocketBurrito", Vector3(38, 1.6, 0))
 

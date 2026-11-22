@@ -84,7 +84,7 @@ func _geysers(k) -> void:
 	k.beans_arc(138, 146, 12.0, 4.0, 6)
 	k.rock(158, 28.5, 8.0, true)
 	k.toilet(160, 28.5)
-	k.mega_can(156, 29.8)
+	k.heart(156, 29.8)
 	k.beans_arc(149, 157, 21.0, 4.0, 6)
 	k.hint(158, 28.5, "WHEEE! NOW DROP DOWN THE CLOUDS!", 3.5)
 	# Down the clouds like a giant staircase.
@@ -125,7 +125,7 @@ func _whifflers(k) -> void:
 	k.fog(310, 13.5, 9.0, 6.0)
 	k.golden(310, 13.4)
 	k.beans_arc(306, 314, 14.0, 3.0, 5)
-	k.mega_can(326, 1.4)
+	k.hot_sauce(326, 1.4)
 
 
 # ------------------------------------------------------------------ E. the sky climb
@@ -167,5 +167,5 @@ func _climb(k) -> void:
 	k.enemy("whiffler", 428, 20, {"phase": 0.3})
 	k.beans_line(414, 436, 21.4, 2.5)
 	k.hint(430, 20, "ALMOST THERE!", 2.5)
-	k.mega_can(433, 21.3)
+	k.heart(433, 21.3)
 	k.bean_can(442, 20)

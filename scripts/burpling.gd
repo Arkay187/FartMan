@@ -45,10 +45,9 @@ signal squashed
 	"res://scenes/heart.tscn",
 	"res://scenes/chilli.tscn",
 	"res://scenes/hot_sauce.tscn",
-	"res://scenes/mega_bean_can.tscn",
 ]
 ## How likely each pickup is, in the same order as the list above (bigger = more often).
-@export var drop_weights: Array[float] = [3.0, 3.0, 2.0, 2.0]
+@export var drop_weights: Array[float] = [4.0, 4.0, 3.0]
 
 var is_squashed: bool = false
 var direction: float = 1.0

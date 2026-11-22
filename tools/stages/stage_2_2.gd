@@ -29,9 +29,9 @@ func build(k) -> Array[String]:
 	k.enemy("fizz_bat", 36, 7.4, {"patrol_distance": 3.0})
 	k.enemy("fizz_bat", 52, 7.8, {"patrol_distance": 3.0, "wave_height": 1.5})
 	k.beans_line(30, 60, 6.3, 2.5)
-	# A Mega Bean Can in a fake wall on the plateau.
+	# A Heart in a fake wall on the plateau.
 	Secrets.fake_wall(k, 54, 59, 5.0, 8.0, k.STEEL_DARK.lightened(0.15))
-	k.mega_can(56.5, 6.6)
+	k.heart(56.5, 6.6)
 	# Golden Bean 1: a vent blasts you up to a high ledge (optional).
 	k.hint(37, 5.0, "STEAM UP FOR A SHINY BEAN!", 3.5, "STEAM, THEN DOUBLE JUMP FOR A SHINY BEAN!")
 	k.vent(40, 5.0, {"phase": 0.3})

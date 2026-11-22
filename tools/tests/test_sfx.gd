@@ -4,7 +4,7 @@ extends SceneTree
 # It can't hear anything: it checks which sound file was started (Sfx.played).
 
 const FILES: Array[String] = [
-	"bean_pickup", "golden_bean", "chilli_sizzle", "mega_can_glug", "burrito_blast", "landing_tada",
+	"bean_pickup", "golden_bean", "chilli_sizzle", "burrito_blast", "landing_tada",
 	"squash", "burpling_squish", "hiccup_hop", "gnome_throw", "mud_splat", "crow_caw", "cork_roll",
 	"cork_pop", "bat_flap", "sneeze_windup", "sneeze_achoo", "cork_snort", "cork_bonk", "cork_shot",
 	"boss_hit", "boss_defeat", "boing", "mega_boing", "flush", "can_open", "hoop_ding", "ring_ding",

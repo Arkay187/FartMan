@@ -28,7 +28,7 @@ func build(k) -> Array[String]:
 	k.golden(20, 4.8)
 	k.golden(32, 4.8)
 	k.beans_arc(12, 28, 1.2, 2.5, 8)
-	k.mega_can(15, 1.4)
+	k.beans_line(13, 17, 1.4, 2.0)
 	k.heart(26, 1.4)
 
 	# --- Colonel Cork himself, on the right. ----------------------------------------------------
@@ -49,6 +49,6 @@ func build(k) -> Array[String]:
 
 	# --- Beyond the gate: the Bean Can. ------------------------------------------------------------
 	k.ground(46.5, 76, 0.0, Color(0.5, 0.53, 0.58))
-	k.mega_can(52, 1.4)
+	k.heart(52, 1.4)
 	k.bean_can(64, 0)
 	return k.finish("res://scenes/stage_2_4.tscn")

@@ -70,7 +70,7 @@ func build(k) -> Array[String]:
 	k.place("res://scenes/landing_zone.tscn", "LandingZone", Vector3(LANDING_X, 0, 0), "Goal")
 	k.ground(LANDING_X - 45.0, LANDING_X + 90.0, 0)
 	k.toilet(LANDING_X + 20.0, 0)
-	k.mega_can(LANDING_X + 32.0, 1.3)
+	k.beans_arc(LANDING_X + 28.0, LANDING_X + 38.0, 1.3, 2.5, 6)
 	k.bean_can(LANDING_X + 60.0, 0)
 	return k.finish("res://scenes/stage_1_3.tscn")
 
