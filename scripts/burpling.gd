@@ -69,6 +69,12 @@ func _is_on_top(player: Player) -> bool:
 	return feet_above or right_over
 
 
+## Squashes it from outside (the fart cloud does this). Does nothing if already squashed.
+func squash() -> void:
+	if not is_squashed:
+		_get_squashed()
+
+
 func _get_squashed() -> void:
 	is_squashed = true
 	Stage.award(self, points)

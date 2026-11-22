@@ -55,6 +55,7 @@ func add_points(points: int) -> void:
 func _ready() -> void:
 	add_to_group(&"stage")
 	set_process(false)  # only needed after the stage is cleared
+	add_child(PauseMenu.new())  # Esc / P / Start opens it
 	# Find every Golden Bean and Bean Can in the stage and listen to them.
 	for bean: Node in get_tree().get_nodes_in_group(&"golden_beans"):
 		golden_total += 1

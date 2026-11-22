@@ -26,6 +26,9 @@ signal got_hurt
 signal died
 ## Sent when he falls off the level and pops back to the start.
 signal respawned
+## Sent when the fart hover (SIMPLE controls) starts and stops. Used for the sound.
+signal hover_started
+signal hover_stopped
 ## Sent when the level's end-of-stage goal is reached and he cheers.
 signal celebrated
 
@@ -129,6 +132,10 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 ## Prints the fart name in the Output panel so we can test without sounds.
 @export var print_farts: bool = true
 
+## The SIMPLE scheme's helpers (made in _ready, see simple_controls.gd and fart_hover.gd).
+var simple_helper: SimpleControls
+var hover_helper: FartHover
+var _options: DebugOptionsData
 var is_charging: bool = false
 var is_squeaking: bool = false
 var charge_time: float = 0.0
@@ -169,6 +176,30 @@ func _ready() -> void:
 		var helper := WallJump.new()
 		helper.name = "WallJump"
 		add_child(helper)
+	# The SIMPLE control scheme: a double jump and a hover. Only used when DebugOptions says so.
+	_options = get_node_or_null("/root/DebugOptions") as DebugOptionsData
+	if _options != null:
+		_options.controls_changed.connect(_on_controls_changed)
+	simple_helper = SimpleControls.new()
+	simple_helper.name = "SimpleControls"
+	add_child(simple_helper)
+	hover_helper = FartHover.new()
+	hover_helper.name = "FartHover"
+	add_child(hover_helper)
+
+
+## True when the SIMPLE control scheme is on (pause menu). CLASSIC otherwise.
+func is_simple() -> bool:
+	return _options != null and _options.simple_controls
+
+
+## True while the fart hover is going.
+func is_hovering() -> bool:
+	return hover_helper != null and hover_helper.is_hovering
+
+
+func _on_controls_changed(_simple: bool) -> void:
+	_stop_charging()  # let go of any held-in fart
 
 
 func _physics_process(delta: float) -> void:
@@ -208,6 +239,10 @@ func _physics_process(delta: float) -> void:
 		# A story scene is playing: let go of everything and just stand there.
 		if is_charging:
 			_stop_charging()
+	elif is_simple():
+		# SIMPLE controls: jump, double jump and hover. No belly, no charging.
+		simple_helper.update(delta)
+		hover_helper.update(delta)
 	else:
 		_update_hop()
 		_update_charge(delta)
@@ -310,6 +345,7 @@ func stomp_bounce() -> void:
 	# Hold jump as you land for a bigger bounce.
 	var high: bool = Input.is_action_pressed(jump_action) or Input.is_action_pressed(fart_action)
 	velocity.y = stomp_high_bounce_power if high else stomp_bounce_power
+	simple_helper.refill_air_jumps()
 	stomp_window_left = 0.0
 	if gas_tank != null:
 		gas_tank.refill(stomp_gas_reward)

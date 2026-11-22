@@ -69,6 +69,9 @@ func _ready() -> void:
 	_player.farted.connect(_on_farted)
 	_player.squeak_started.connect(func() -> void: _play(_squeak, squeak_sound))
 	_player.squeak_stopped.connect(_squeak.stop)
+	# The fart hover (SIMPLE controls) uses the same long squeaky fart while it lasts.
+	_player.hover_started.connect(func() -> void: _play(_squeak, squeak_sound))
+	_player.hover_stopped.connect(_squeak.stop)
 	_player.got_hurt.connect(_on_hurt)
 	_player.died.connect(func() -> void: _play(_voice, death_sound))
 	if _player.flight != null:
