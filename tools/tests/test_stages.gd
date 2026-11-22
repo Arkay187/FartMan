@@ -59,22 +59,22 @@ func _run() -> void:
 			await _wait(1.0)
 			_check("flying stage: moves forward by itself (x=%.1f)" % p.position.x, p.position.x > 10.0)
 			# Fly to the first sky toilet, then lose every heart: he should come back flying.
-			p.position = Vector3(138, 9.5, 0)
+			p.position = Vector3(108, 9.5, 0)
 			await _wait(0.5)
-			var checkpoint_set: bool = p.checkpoint_flight != Vector2.ZERO and p.checkpoint_position.x > 130.0
+			var checkpoint_set: bool = p.checkpoint_flight != Vector2.ZERO and p.checkpoint_position.x > 100.0
 			p.flashing_left = 0.0
 			for i in 3:
 				p.flashing_left = 0.0
 				p.hurt(p.global_position.x + 1.0)
 			await _wait(p.death_time + 0.3)  # he lies there for death_time first
 			_check("sky toilet: checkpoint remembered, respawned flying (x=%.0f, flying %s)" % [p.position.x, str(p.is_flying())],
-				checkpoint_set and p.is_flying() and p.position.x < 160.0)
+				checkpoint_set and p.is_flying() and p.position.x < 130.0)
 			# The end of the flight: he must land on solid ground, not drop into a hole.
 			p.flashing_left = 1000.0
-			p.position = Vector3(1190, 8.0, 0)
+			p.position = Vector3(830, 8.0, 0)
 			await _wait(4.0)
 			_check("after the flight he lands safely (x=%.1f, y=%.1f, flying %s, on floor %s)" % [p.position.x, p.position.y, str(p.is_flying()), str(p.is_on_floor())],
-				not p.is_flying() and p.position.y > -1.0 and p.position.x > 1195.0)
+				not p.is_flying() and p.position.y > -1.0 and p.position.x > 835.0)
 		stage.queue_free()
 		await _wait(0.2)
 

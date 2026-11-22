@@ -1,10 +1,10 @@
 extends RefCounted
-## Stage 2-3: UP THE CHIMNEY (a flying stage, about 1 minute 45 seconds).
+## Stage 2-3: UP THE CHIMNEY (a flying stage, about 1 minute 30 seconds).
 ## Part 1: climb the inside of the giant chimney. Hold jump to rise, let go to sink, arrow keys
 ## steer left and right. Electric cables switch sides, smoke rings give bonus beans, a toilet
 ## waits half way, a steam updraft shoots you to the top and you BURST OUT.
-## Part 2: fly across the factory roofs: smoke rings, rooftop fans, a gauntlet of electric
-## cables, thick clouds of bean steam hiding surprises, a slalom of puffing chimneys, and a
+## Part 2: fly across the factory roofs: smoke rings, rooftop fans, a little rodeo of cables,
+## thick clouds of bean steam hiding surprises, a slalom of puffing chimneys, and a
 ## speed-up tunnel where everything goes faster. Sky toilets keep him flying after a mishap.
 
 const KIT := "res://tools/kit_chimney.gd"
@@ -18,9 +18,9 @@ const ROOF_Y: float = 66.0
 const LANE: Vector2 = Vector2(73.0, 92.0)
 ## While inside the chimney he can fly from the floor up to well above the walls.
 const SHAFT_LANE: Vector2 = Vector2(1.5, 100.0)
-## The speed-up tunnel runs from x = 1410 to x = 1650. The flight ends at the landing curtain.
-const TUNNEL: Vector2 = Vector2(1410.0, 1650.0)
-const LANDING_X: float = 1710.0
+## The speed-up tunnel runs from x = 1000 to x = 1140. The flight ends at the landing curtain.
+const TUNNEL: Vector2 = Vector2(1000.0, 1140.0)
+const LANDING_X: float = 1200.0
 
 
 func build(k) -> Array[String]:
@@ -84,15 +84,15 @@ func _roofs(k) -> void:
 
 	# --- Smoke rings over the rooftops: fly through them in a row for a bigger bonus. ---------
 	k.sky_toilet(100, LANE)
-	for x in range(40, 201, 3):
+	for x in range(40, 161, 3):
 		k.bean(x, mid + 6.0 * sin((x - 60.0) / 22.0 * 0.9))
-	for i in 7:
+	for i in 5:
 		k.ring(60.0 + i * 22.0, mid + 6.0 * sin(i * 0.9))
 	k.say_zone(50, mid, 8, 20, "FLY THROUGH THE RINGS!", 3.0)
-	k.sky_toilet(212, LANE)
+	k.sky_toilet(170, LANE)
 
 	# --- Rooftop fans: ride the wind up. The fans with pipes above are a trap! -----------------
-	var fan_xs: Array[float] = [250.0, 290.0, 330.0, 370.0, 410.0]
+	var fan_xs: Array[float] = [206.0, 246.0, 286.0, 326.0, 366.0]
 	for i in fan_xs.size():
 		k.fan(fan_xs[i], ROOF_Y + 0.8, [0.0, 0.3, 0.6, 0.15, 0.45][i], 26.0)
 		if i == 1 or i == 3:
@@ -100,37 +100,26 @@ func _roofs(k) -> void:
 		else:
 			k.bean(fan_xs[i], 88.0)
 			k.bean(fan_xs[i], 85.0)
-	k.golden(330, 90.5)
-	for x in range(240, 421, 4):
+	k.golden(286, 90.5)
+	for x in range(196, 377, 4):
 		k.bean(x, 78.0)
-	k.say_zone(240, mid, 8, 20, "FANS BLOW YOU UP!", 3.0)
-	k.sky_toilet(430, LANE)
-
-	# --- Spark cables: three rows. At least one row is always safe. ----------------------------
-	for g in 4:
-		var gx: float = 470.0 + g * 40.0
-		for row in 3:
-			k.cable(gx, 77.0 + row * 6.0, 16.0, false, g * 0.15 + row / 3.0, 1.4, 1.4)
-		k.bean(gx - 6.0, 83.0)
-		k.bean(gx, 83.0)
-		k.bean(gx + 6.0, 83.0)
-	k.say_zone(450, mid, 8, 20, "ZAP! FIND THE GAP!", 3.0)
-	k.sky_toilet(630, LANE)
+	k.say_zone(196, mid, 8, 20, "FANS BLOW YOU UP!", 3.0)
+	k.sky_toilet(390, LANE)
 
 	# --- Bean steam clouds: you can't see in! A ring and a Golden Bean are hiding. -------------
-	var clouds: Array = [[680.0, 82.0], [730.0, 78.0], [790.0, 85.0]]
+	var clouds: Array = [[440.0, 82.0], [490.0, 78.0], [550.0, 85.0]]
 	for c in clouds:
 		k.steam(c[0], c[1], 16.0, 14.0)
 		for dx in [-5.0, -2.5, 0.0, 2.5, 5.0]:
 			k.bean(c[0] + dx, c[1])
-	k.ring(730.0, 79.0)
-	k.golden(790, 87.0)
-	k.say_zone(660, mid, 8, 20, "WHAT'S IN THE STEAM?", 3.0)
-	k.sky_toilet(830, LANE)
+	k.ring(490.0, 79.0)
+	k.golden(550, 87.0)
+	k.say_zone(420, mid, 8, 20, "WHAT'S IN THE STEAM?", 3.0)
+	k.sky_toilet(590, LANE)
 
 	# --- The chimney slalom: over the puffing chimneys, under the pipes. -------------------------
-	for i in 7:
-		var sx: float = 870.0 + i * 28.0
+	for i in 5:
+		var sx: float = 630.0 + i * 28.0
 		var top_y: float = 79.0 + 5.0 * sin(i * 1.3)
 		k.stack(sx, ROOF_Y, top_y - ROOF_Y, i * 0.2)
 		var pipe_bottom: float = top_y + 11.0
@@ -139,12 +128,12 @@ func _roofs(k) -> void:
 		k.bean(sx - 5.0, top_y + 5.5)
 		k.bean(sx, top_y + 5.5)
 		k.bean(sx + 5.0, top_y + 5.5)
-	k.say_zone(850, mid, 8, 20, "OVER THE CHIMNEYS!", 3.0)
-	k.sky_toilet(1070, LANE)
+	k.say_zone(610, mid, 8, 20, "OVER THE CHIMNEYS!", 3.0)
+	k.sky_toilet(780, LANE)
 
 	# --- The rooftop rodeo: a fan that shoves you up into a cable, a puffing chimney, a ring. ----
-	for g in 5:
-		var gx: float = 1110.0 + g * 60.0
+	for g in 3:
+		var gx: float = 820.0 + g * 60.0
 		k.fan(gx, ROOF_Y + 0.8, g * 0.2, 26.0)
 		k.cable(gx + 22.0, 88.5, 14.0, false, g * 0.3, 1.4, 1.4)
 		k.stack(gx + 42.0, ROOF_Y, 12.0 + (g % 2) * 5.0, g * 0.3)
@@ -154,20 +143,20 @@ func _roofs(k) -> void:
 		k.bean(gx + 14.0, 83.0)
 		k.bean(gx + 32.0, 85.0)
 		k.bean(gx + 42.0, 88.0)
-	k.say_zone(1095, mid, 8, 20, "EVERYTHING AT ONCE!", 3.0)
-	k.sky_toilet(1395, LANE)
+	k.say_zone(805, mid, 8, 20, "EVERYTHING AT ONCE!", 3.0)
+	k.sky_toilet(985, LANE)
 
 	# --- The speed-up tunnel: the screen speeds up! Rings and a few cables. -----------------------
 	k.speed_zone(TUNNEL.x, TUNNEL.y, LANE.x, LANE.y, 1.5)
-	for i in 11:
+	for i in 6:
 		var rx: float = TUNNEL.x + 20.0 + i * 20.0
 		var ry: float = mid + 5.0 * sin(i * 0.8)
-		if absf(rx - (TUNNEL.x + 110.0)) > 12.0 and absf(rx - (TUNNEL.x + 175.0)) > 12.0:
+		if absf(rx - (TUNNEL.x + 65.0)) > 12.0 and absf(rx - (TUNNEL.x + 115.0)) > 12.0:
 			k.ring(rx, ry)
 		for j in 3:
 			k.bean(rx + 4.0 + j * 4.0, mid + 5.0 * sin((i + (j + 1) * 0.2) * 0.8))
-	k.cable(TUNNEL.x + 110.0, 89.0, 16.0, false, 0.0, 1.5, 1.5)
-	k.cable(TUNNEL.x + 175.0, 77.0, 16.0, false, 0.5, 1.5, 1.5)
+	k.cable(TUNNEL.x + 65.0, 89.0, 16.0, false, 0.0, 1.5, 1.5)
+	k.cable(TUNNEL.x + 115.0, 77.0, 16.0, false, 0.5, 1.5, 1.5)
 	k.sky_toilet(TUNNEL.y + 15.0, LANE)
 
 # ------------------------------------------------------------------ the end

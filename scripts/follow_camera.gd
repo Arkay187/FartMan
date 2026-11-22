@@ -29,6 +29,9 @@ extends Camera3D
 @export var vertical_look_max: float = 5.0
 ## How smoothly the lean changes. Smaller = lazier.
 @export var vertical_look_smooth: float = 3.0
+## The same lean, but only while he climbs up inside a chimney (side on view). It looks up
+## ahead so he can see what is coming above. 0 = no lean.
+@export var climbing_look_ahead: float = 0.5
 
 @export_group("Flying view (behind his shoulder)")
 ## Where the camera sits while he is flying. Minus x = behind him, z = off to the side.
@@ -74,7 +77,14 @@ func _physics_process(delta: float) -> void:
 	if target == null:
 		return
 	var player := target as Player
-	var wanted: float = 1.0 if player != null and player.is_flying() else 0.0
+	# Flying view, except while climbing a chimney: then it stays side on, and swings round
+	# as he turns flat and bursts out of the top.
+	var wanted: float = 0.0
+	var climbing: bool = false
+	if player != null and player.is_flying():
+		var climb: float = player.flight.climb_amount
+		wanted = 1.0 - climb
+		climbing = climb > 0.5
 	flying_amount = lerpf(flying_amount, wanted, 1.0 - exp(-swing_speed * delta))
 	var smooth: float = 1.0 - exp(-follow_speed * delta)
 
@@ -99,9 +109,12 @@ func _physics_process(delta: float) -> void:
 	var walk_offset := Vector3(offset.x, offset.y * zoom, offset.z)
 	var current_offset: Vector3 = walk_offset.lerp(flight_offset, flying_amount)
 	var goal: Vector3 = aim.lerp(target.global_position, flying_amount) + current_offset
-	if vertical_look_ahead > 0.0 and flying_amount < 0.5:
+	var look: float = maxf(vertical_look_ahead, climbing_look_ahead) if climbing else vertical_look_ahead
+	var lean_goal: float = 0.0
+	if look > 0.0 and flying_amount < 0.5:
 		var speed_y: float = (target as CharacterBody3D).velocity.y if target is CharacterBody3D else 0.0
-		var lean_goal: float = clampf(speed_y * vertical_look_ahead, -vertical_look_max, vertical_look_max)
+		lean_goal = clampf(speed_y * look, -vertical_look_max, vertical_look_max)
+	if lean_goal != 0.0 or absf(vertical_lean) > 0.001:
 		vertical_lean = lerpf(vertical_lean, lean_goal, 1.0 - exp(-vertical_look_smooth * delta))
 		goal.y += vertical_lean
 	global_position = global_position.lerp(goal, smooth)
