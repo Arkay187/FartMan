@@ -15,6 +15,9 @@ extends CanvasLayer
 ## Sent when the gas mode changes. The gas bar listens to this.
 signal gas_mode_changed(mode: int)
 
+## Sent when the control scheme changes (pause menu). true = SIMPLE, false = CLASSIC.
+signal controls_changed(simple: bool)
+
 enum GasMode { NORMAL, NO_GAS, ALWAYS_FULL, FILL_ON_LAND }
 const MODE_NAMES: Array[String] = ["NORMAL", "NO GAS", "ALWAYS FULL", "FILL ON LAND"]
 
@@ -24,12 +27,15 @@ const MODE_NAMES: Array[String] = ["NORMAL", "NO GAS", "ALWAYS FULL", "FILL ON L
 @export var message_time: float = 2.0
 
 var gas_mode: int = GasMode.NORMAL
+## CLASSIC (false): hold fart to charge. SIMPLE (true): double jump, and hover on gas.
+var simple_controls: bool = false
 var _message: Label
 var _corner: Label
 var _message_left: float = 0.0
 
 
 func _ready() -> void:
+	ensure_input_actions()
 	layer = 100
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_message = _make_label(48, Control.PRESET_CENTER)
@@ -66,6 +72,40 @@ func set_gas_mode(mode: int) -> void:
 	_refresh()
 	_store()
 	gas_mode_changed.emit(mode)
+
+
+## Switches between CLASSIC (false) and SIMPLE (true) controls and remembers it.
+func set_simple_controls(on: bool) -> void:
+	simple_controls = on
+	_store()
+	controls_changed.emit(on)
+
+
+## Makes sure the `pause` and `hover` buttons exist, even if project.godot lost them
+## (the editor can rewrite that file). Safe to call any time.
+static func ensure_input_actions() -> void:
+	_ensure_action(&"pause", [_key(KEY_ESCAPE), _key(KEY_P), _pad(JOY_BUTTON_START)])
+	_ensure_action(&"hover", [_key(KEY_SHIFT), _key(KEY_X), _pad(JOY_BUTTON_LEFT_SHOULDER)])
+
+
+static func _ensure_action(action: StringName, events: Array[InputEvent]) -> void:
+	if InputMap.has_action(action):
+		return
+	InputMap.add_action(action)
+	for event: InputEvent in events:
+		InputMap.action_add_event(action, event)
+
+
+static func _key(code: Key) -> InputEventKey:
+	var event := InputEventKey.new()
+	event.physical_keycode = code
+	return event
+
+
+static func _pad(button: JoyButton) -> InputEventJoypadButton:
+	var event := InputEventJoypadButton.new()
+	event.button_index = button
+	return event
 
 
 ## True in any mode that changes the normal gas rules.
@@ -114,6 +154,7 @@ func _load() -> void:
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(save_path))
 	if data is Dictionary:
 		gas_mode = clampi(int(data.get("gas_mode", 0)), 0, MODE_NAMES.size() - 1)
+		simple_controls = bool(data.get("simple_controls", false))
 
 
 func _store() -> void:
@@ -121,4 +162,4 @@ func _store() -> void:
 		return
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"gas_mode": gas_mode}))
+		file.store_string(JSON.stringify({"gas_mode": gas_mode, "simple_controls": simple_controls}))
