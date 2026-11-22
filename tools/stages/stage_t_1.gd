@@ -15,6 +15,13 @@ func build(k) -> Array[String]:
 	# --- A. The ground, and the first leaves. ------------------------------------------
 	k.base(-14, 14, 0.0)
 	k.hint(-3, 0, "PRESS F1: FILL ON LAND!", 6.0)
+	# Try the FIRE BURP here: Hot Sauce, then press C (pad B). A crowd waits on the ground.
+	k.hint(-8, 0, "HOT SAUCE! PRESS C OR B TO FIRE BURP!", 4.0)
+	k.hot_sauce(-1.5, 1.4)
+	for i in 8:
+		k.enemy("burpling", 7.5 + i * 0.8, 0, {"walk_speed": 0.0, "patrol_distance": 0.1})
+	for i in 4:
+		k.enemy("burpling", -13.0 + i * 1.6, 0, {"walk_speed": 0.0, "patrol_distance": 0.1})
 	k.hint(3, 0, "HOP UP THE LEAVES! FART AGAIN IN THE AIR!", 4.0)
 	k.oneway(4, 3.6, 4.5)
 	k.oneway(-3, 7.2, 4.5)

@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	_held_for += delta
 	held.global_position = global_position
 	held.velocity = Vector3.ZERO
-	var pressed: bool = Input.is_action_just_pressed(held.jump_action) or Input.is_action_just_pressed(held.fart_action)
+	var pressed: bool = Input.is_action_just_pressed(held.jump_action) or held.fart_just_pressed()
 	var late: bool = auto_fire_after > 0.0 and _held_for >= auto_fire_after
 	if _held_for >= hold_time and (pressed or late):
 		fire()

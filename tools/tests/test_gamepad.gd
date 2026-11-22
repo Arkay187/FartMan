@@ -49,7 +49,7 @@ func _run() -> void:
 	await _try_button("pad A", JOY_BUTTON_A, &"jump")
 	await _try_button("pad Y", JOY_BUTTON_Y, &"jump")
 	await _try_button("pad X", JOY_BUTTON_X, &"fart")
-	await _try_button("pad B", JOY_BUTTON_B, &"fart")
+	await _try_button("pad B", JOY_BUTTON_B, &"fire")
 	await _try_button("right bumper", JOY_BUTTON_RIGHT_SHOULDER, &"fart")
 	await _try_button("D-pad left", JOY_BUTTON_DPAD_LEFT, &"ui_left")
 	await _try_button("D-pad right", JOY_BUTTON_DPAD_RIGHT, &"ui_right")

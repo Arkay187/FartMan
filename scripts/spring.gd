@@ -24,7 +24,8 @@ var _since_press: float = 100.0
 func _physics_process(delta: float) -> void:
 	_cooldown_left = maxf(_cooldown_left - delta, 0.0)
 	_since_press += delta
-	if Input.is_action_just_pressed(&"jump") or Input.is_action_just_pressed(&"fart"):
+	var hero := get_tree().get_first_node_in_group(&"player") as Player
+	if Input.is_action_just_pressed(&"jump") or (hero != null and hero.fart_just_pressed()):
 		_since_press = 0.0
 	if _cooldown_left > 0.0:
 		return
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 		if player == null or player.velocity.y > 1.0 or player.is_flying() or player.frozen:
 			continue
 		var mega: bool = _since_press <= early_press_window \
-			or Input.is_action_pressed(player.jump_action) or Input.is_action_pressed(player.fart_action)
+			or Input.is_action_pressed(player.jump_action) or player.fart_held()
 		player.velocity.y = mega_power if mega else bounce_power
 		player.air_farts_used = 0  # a fresh jump: air farts are back
 		_cooldown_left = cooldown

@@ -31,6 +31,8 @@ signal hover_started
 signal hover_stopped
 ## Sent when the level's end-of-stage goal is reached and he cheers.
 signal celebrated
+## Sent when he shoots a fireball (Fire Burp power). Use this later for the sound.
+signal fire_burped
 
 enum Tier { TOOT, TRUMP, THUNDER }
 const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
@@ -107,6 +109,9 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export var death_time: float = 1.5
 
 @export_group("Power-ups")
+## His Fire Burp power (Hot Sauce). Leave empty and Hot Sauce does nothing.
+@export var fire_burp: FireBurpPower
+
 ## His Chilli Pepper power. Leave empty and chillies do nothing.
 @export var chilli: ChilliPower
 ## His Rocket Burrito flight power. Leave empty and burritos do nothing.
@@ -127,6 +132,8 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export var jump_action: StringName = &"jump"
 ## Hold to charge a fart, let go to launch. Also the double jump in the air.
 @export var fart_action: StringName = &"fart"
+## The fire button (C / pad B). Without the Fire Burp power it works exactly like the fart button.
+@export var fire_action: StringName = &"fire"
 
 @export_group("Testing")
 ## Prints the fart name in the Output panel so we can test without sounds.
@@ -186,6 +193,21 @@ func _ready() -> void:
 	hover_helper = FartHover.new()
 	hover_helper.name = "FartHover"
 	add_child(hover_helper)
+
+
+## True once he has grabbed Hot Sauce: the fire button shoots instead of farting.
+func has_fire_burp() -> bool:
+	return fire_burp != null and fire_burp.has_power
+
+
+## Is a fart button held? The fire button counts too, until he gets the Fire Burp power.
+func fart_held() -> bool:
+	return Input.is_action_pressed(fart_action) or (not has_fire_burp() and Input.is_action_pressed(fire_action))
+
+
+## Was a fart button just pressed? (Same rule as fart_held.)
+func fart_just_pressed() -> bool:
+	return Input.is_action_just_pressed(fart_action) or (not has_fire_burp() and Input.is_action_just_pressed(fire_action))
 
 
 ## True when the SIMPLE control scheme is on (pause menu). CLASSIC otherwise.
@@ -343,7 +365,7 @@ func get_feet_y() -> float:
 ## Called by an enemy he just landed on. Bounces him back up.
 func stomp_bounce() -> void:
 	# Hold jump as you land for a bigger bounce.
-	var high: bool = Input.is_action_pressed(jump_action) or Input.is_action_pressed(fart_action)
+	var high: bool = Input.is_action_pressed(jump_action) or fart_held()
 	velocity.y = stomp_high_bounce_power if high else stomp_bounce_power
 	simple_helper.refill_air_jumps()
 	stomp_window_left = 0.0
@@ -404,7 +426,7 @@ func _update_hop() -> void:
 ## The fart button: hold to grow the belly, let go to launch.
 ## Works on the ground and in the air, so it is also a well-timed double jump.
 func _update_charge(delta: float) -> void:
-	if Input.is_action_just_pressed(fart_action):
+	if fart_just_pressed():
 		is_charging = true
 		charge_time = 0.0
 		belly_fill = 0.0
@@ -414,7 +436,7 @@ func _update_charge(delta: float) -> void:
 		return
 
 	# Letting go launches with whatever is in the belly right now.
-	if not Input.is_action_pressed(fart_action):
+	if not fart_held():
 		_launch(_tier_now())
 		return
 

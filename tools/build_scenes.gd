@@ -3,6 +3,7 @@ extends SceneTree
 
 
 func _init() -> void:
+	_build_fireball()  # before the player, who carries it
 	_build_player()
 	_build_bean()
 	_build_burpling()
@@ -155,6 +156,14 @@ func _build_player() -> void:
 	chilli.set("body", visual)
 	chilli.set("trail", trail)
 	player.set("chilli", chilli)
+
+	var fire_burp := Node.new()
+	fire_burp.name = "FireBurpPower"
+	fire_burp.set_script(load("res://scripts/fire_burp_power.gd"))
+	player.add_child(fire_burp)
+	fire_burp.owner = player
+	fire_burp.set("fireball_scene", load("res://scenes/fireball.tscn"))
+	player.set("fire_burp", fire_burp)
 
 	var rainbow := Node3D.new()
 	rainbow.name = "RainbowTrail"
@@ -513,6 +522,58 @@ func _build_golden_bean() -> void:
 	_save(bean, "res://scenes/golden_bean.tscn")
 
 
+## The Fire Burp fireball: a glowing orange ball that rolls. Pieces: a spinning Ball (with
+## yellow spots so you can see it turn), a sphere collider, and an Area3D that finds enemies.
+func _build_fireball() -> void:
+	var fireball := CharacterBody3D.new()
+	fireball.name = "Fireball"
+	fireball.set_script(load("res://scripts/fireball.gd"))
+	var spin := Node3D.new()
+	spin.name = "Ball"
+	fireball.add_child(spin)
+	spin.owner = fireball
+	var orb := SphereMesh.new()
+	orb.radius = 0.35
+	orb.height = 0.7
+	var glow := _mesh(spin, fireball, "Orb", orb, Color(1.0, 0.45, 0.05), Vector3.ZERO)
+	var glow_paint := orb.material as StandardMaterial3D
+	glow_paint.emission_enabled = true
+	glow_paint.emission = Color(1.0, 0.45, 0.05)
+	glow_paint.emission_energy_multiplier = 1.6
+	glow.name = "Orb"
+	var spot_spots: Array[Vector3] = [Vector3(0.3, 0.15, 0.0), Vector3(-0.2, 0.25, 0.1), Vector3(-0.1, -0.3, 0.1), Vector3(0.1, 0.0, 0.33)]
+	for i in spot_spots.size():
+		var dot := SphereMesh.new()
+		dot.radius = 0.1
+		dot.height = 0.2
+		var d := _mesh(spin, fireball, "Spot%d" % i, dot, Color(1.0, 0.9, 0.2), spot_spots[i])
+		var dot_paint := dot.material as StandardMaterial3D
+		dot_paint.emission_enabled = true
+		dot_paint.emission = Color(1.0, 0.9, 0.2)
+		d.name = "Spot%d" % i
+	var col := CollisionShape3D.new()
+	col.name = "CollisionShape3D"
+	var sphere := SphereShape3D.new()
+	sphere.radius = 0.35
+	col.shape = sphere
+	fireball.add_child(col)
+	col.owner = fireball
+	var area := Area3D.new()
+	area.name = "SquashArea"
+	fireball.add_child(area)
+	area.owner = fireball
+	var area_col := CollisionShape3D.new()
+	area_col.name = "CollisionShape3D"
+	var area_shape := SphereShape3D.new()
+	area_shape.radius = 0.5
+	area_col.shape = area_shape
+	area.add_child(area_col)
+	area_col.owner = fireball
+	fireball.set("ball", spin)
+	fireball.set("squash_area", area)
+	_save(fireball, "res://scenes/fireball.tscn")
+
+
 func _pickup(scene_name: String, script_path: String) -> Area3D:
 	var pickup := Area3D.new()
 	pickup.name = scene_name
@@ -554,6 +615,28 @@ func _build_powerups() -> void:
 	var stalk_mesh := _mesh(chilli, chilli, "Stalk", stalk, Color(0.2, 0.6, 0.2), Vector3(-0.38, 0.45, 0))
 	stalk_mesh.rotation_degrees = Vector3(0, 0, 40)
 	_save(chilli, "res://scenes/chilli.tscn")
+
+	# Hot Sauce: a small red bottle with a yellow cap.
+	var sauce := _pickup("HotSauce", "res://scripts/hot_sauce.gd")
+	var bottle := CylinderMesh.new()
+	bottle.top_radius = 0.16
+	bottle.bottom_radius = 0.22
+	bottle.height = 0.6
+	_mesh(sauce, sauce, "Bottle", bottle, Color(0.85, 0.08, 0.05), Vector3.ZERO)
+	var neck := CylinderMesh.new()
+	neck.top_radius = 0.09
+	neck.bottom_radius = 0.12
+	neck.height = 0.2
+	_mesh(sauce, sauce, "Neck", neck, Color(0.85, 0.08, 0.05), Vector3(0, 0.38, 0))
+	var cap := CylinderMesh.new()
+	cap.top_radius = 0.1
+	cap.bottom_radius = 0.1
+	cap.height = 0.12
+	_mesh(sauce, sauce, "Cap", cap, Color(1.0, 0.85, 0.1), Vector3(0, 0.52, 0))
+	var label := BoxMesh.new()
+	label.size = Vector3(0.3, 0.25, 0.02)
+	_mesh(sauce, sauce, "Label", label, Color(1.0, 0.9, 0.5), Vector3(0, 0.0, 0.2))
+	_save(sauce, "res://scenes/hot_sauce.tscn")
 
 
 func _build_flight_things() -> void:

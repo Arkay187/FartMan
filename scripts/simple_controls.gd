@@ -52,7 +52,7 @@ func update(delta: float) -> void:
 		_coyote_left = maxf(_coyote_left - delta, 0.0)
 
 	# Jump and fart buttons both jump here.
-	if Input.is_action_just_pressed(p.jump_action) or Input.is_action_just_pressed(p.fart_action):
+	if Input.is_action_just_pressed(p.jump_action) or p.fart_just_pressed():
 		_buffer_left = jump_buffer_time
 	else:
 		_buffer_left = maxf(_buffer_left - delta, 0.0)
@@ -96,7 +96,7 @@ func _cut_short() -> void:
 	if vy <= 0.0 or vy > _jump_speed + 0.01:
 		_cuttable = false  # peaked, or something else (a spring, a cannon) launched him
 		return
-	if not (Input.is_action_pressed(_player.jump_action) or Input.is_action_pressed(_player.fart_action)):
+	if not (Input.is_action_pressed(_player.jump_action) or _player.fart_held()):
 		_player.velocity.y = vy * jump_cut
 		_cuttable = false
 

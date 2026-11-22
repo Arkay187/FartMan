@@ -81,11 +81,12 @@ func set_simple_controls(on: bool) -> void:
 	controls_changed.emit(on)
 
 
-## Makes sure the `pause` and `hover` buttons exist, even if project.godot lost them
+## Makes sure the `pause`, `hover` and `fire` buttons exist, even if project.godot lost them
 ## (the editor can rewrite that file). Safe to call any time.
 static func ensure_input_actions() -> void:
 	_ensure_action(&"pause", [_key(KEY_ESCAPE), _key(KEY_P), _pad(JOY_BUTTON_START)])
 	_ensure_action(&"hover", [_key(KEY_SHIFT), _key(KEY_X), _pad(JOY_BUTTON_LEFT_SHOULDER)])
+	_ensure_action(&"fire", [_key(KEY_C), _pad(JOY_BUTTON_B)])
 
 
 static func _ensure_action(action: StringName, events: Array[InputEvent]) -> void:

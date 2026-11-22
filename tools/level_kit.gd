@@ -203,6 +203,10 @@ func chilli(x: float, y: float) -> Node3D:
 	return place("res://scenes/chilli.tscn", "Chilli", Vector3(x, y, 0), "PowerUps")
 
 
+func hot_sauce(x: float, y: float) -> Node3D:
+	return place("res://scenes/hot_sauce.tscn", "HotSauce", Vector3(x, y, 0), "PowerUps")
+
+
 func mega_can(x: float, y: float) -> Node3D:
 	return place("res://scenes/mega_bean_can.tscn", "MegaBeanCan", Vector3(x, y, 0), "PowerUps")
 

@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 		var player := body as Player
 		if player == null or player.velocity.y > 1.0 or player.is_flying():
 			continue
-		var holding: bool = Input.is_action_pressed(player.jump_action) or Input.is_action_pressed(player.fart_action)
+		var holding: bool = Input.is_action_pressed(player.jump_action) or player.fart_held()
 		player.velocity.y = high_bounce_power if holding else bounce_power
 		_cooldown_left = cooldown
 		_squash()

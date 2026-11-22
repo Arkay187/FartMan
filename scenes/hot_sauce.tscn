@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/hot_sauce.gd" id="1_7fes3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tipvb"]
+radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gx8g"]
+albedo_color = Color(0.85, 0.08, 0.05, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5bse2"]
+material = SubResource("StandardMaterial3D_5gx8g")
+top_radius = 0.16
+bottom_radius = 0.22
+height = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqml0"]
+albedo_color = Color(0.85, 0.08, 0.05, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vdfjs"]
+material = SubResource("StandardMaterial3D_wqml0")
+top_radius = 0.09
+bottom_radius = 0.12
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_404e7"]
+albedo_color = Color(1, 0.85, 0.1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3mnc1"]
+material = SubResource("StandardMaterial3D_404e7")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndhkw"]
+albedo_color = Color(1, 0.9, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ev2p"]
+material = SubResource("StandardMaterial3D_ndhkw")
+size = Vector3(0.3, 0.25, 0.02)
+
+[node name="HotSauce" type="Area3D" unique_id=1675717033]
+script = ExtResource("1_7fes3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1836594617]
+shape = SubResource("SphereShape3D_tipvb")
+
+[node name="Bottle" type="MeshInstance3D" parent="." unique_id=388377937]
+mesh = SubResource("CylinderMesh_5bse2")
+
+[node name="Neck" type="MeshInstance3D" parent="." unique_id=376262323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
+mesh = SubResource("CylinderMesh_vdfjs")
+
+[node name="Cap" type="MeshInstance3D" parent="." unique_id=1429447192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52, 0)
+mesh = SubResource("CylinderMesh_3mnc1")
+
+[node name="Label" type="MeshInstance3D" parent="." unique_id=533591350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
+mesh = SubResource("BoxMesh_2ev2p")

@@ -2,6 +2,7 @@ extends RefCounted
 ## Stage 1-2: THE GREENHOUSE (about 2 minutes 15 seconds).
 ## Hiccups, a Gnome and Prickles, sprinkler pipes, a lift to a secret shelf, then the
 ## GIANT CABBAGE CHASE, a Chilli-powered downhill dash through a Burpling crowd,
+## a FIRE BURP PARTY (Hot Sauce, then a long flat run of Burplings to bowl over),
 ## and a bouncy finale with a Crow to stomp.
 
 const POT: Color = Color(0.85, 0.45, 0.25)
@@ -15,7 +16,7 @@ func slope_y(x: float) -> float:
 
 func build(k) -> Array[String]:
 	k.begin("1-2", "WHAT A BIG GREENHOUSE!", Vector3(-4, 1.2, 0), Color(0.72, 0.92, 0.85))
-	k.greenhouse_scenery(-12, 365)
+	k.greenhouse_scenery(-12, 491)
 
 	# --- A. Pots, Hiccups and cacti. ------------------------------------------------------
 	k.ground(-12, 80, 0, TILE)
@@ -92,17 +93,42 @@ func build(k) -> Array[String]:
 	# Golden Bean 3: high above the slope, a hot Thunder reaches it.
 	k.hint(262, -4, "HOT THUNDER REACHES HIGH!", 3.0)
 	k.golden(268, slope_y(268) + 8.0)
-	k.ground(288, 360, -8, TILE)
+	k.ground(288, 486, -8, TILE)
 	k.toilet(294, -8)
 
-	# --- E. Bouncy finale: pads, a Crow and the Bean Can. ---------------------------------
-	k.hint(302, -8, "BOING! STOMP THE CROW FOR MORE BOING!", 3.5)
-	k.pad(308, -8)
-	k.pad(318, -8)
-	k.enemy("crow", 313, -2.0, {"patrol_distance": 3.0, "walk_speed": 2.0, "bob_height": 0.8})
-	k.beans_arc(308, 318, -7.0, 6.5, 8)
-	k.enemy("hiccup", 332, -8, {"phase": 0.0})
-	k.toilet(338, -8)
-	k.mega_can(344, -6.6)
-	k.bean_can(352, -8)
+	# --- E. FIRE BURP PARTY: Hot Sauce, then a long flat run packed with Burplings. -----------
+	# Hot Sauce at x=304. Press C (pad B) to burp a rolling fireball: it bowls through a whole line.
+	# The party is x=324 to x=418: 6 clumps of Burplings and Hiccups, 3 Crows to stomp, beans between.
+	k.hint(298, -8, "HOT SAUCE! FIRE BURP PARTY!", 3.5)
+	k.hot_sauce(304, -6.6)
+	k.beans_line(308, 320, -6.7, 2.0)
+	var floor_y: float = -8.0
+	var clump_x: Array[float] = [326.0, 342.0, 358.0, 374.0, 390.0, 406.0]
+	var clump_size: Array[int] = [5, 4, 5, 4, 5, 5]
+	for c in clump_x.size():
+		for i in clump_size[c]:
+			var ex: float = clump_x[c] + i * 1.5
+			if (i + c) % 4 == 3:
+				k.enemy("hiccup", ex, floor_y, {"phase": (i * 0.23 + c * 0.11)})
+			else:
+				k.enemy("burpling", ex, floor_y, {"walk_speed": 0.6, "patrol_distance": 0.5})
+		# Beans over each clump and in the gap before the next one.
+		k.beans_line(clump_x[c], clump_x[c] + clump_size[c] * 1.5, -5.6, 1.5)
+		k.beans_line(clump_x[c] + 9.0, clump_x[c] + 14.0, -6.7, 1.7)
+	# Crows overhead, low enough to stomp with a hop.
+	k.enemy("crow", 334, -5.2, {"patrol_distance": 3.0, "walk_speed": 2.0, "bob_height": 0.6})
+	k.enemy("crow", 366, -5.2, {"patrol_distance": 3.0, "walk_speed": 2.0, "bob_height": 0.6})
+	k.enemy("crow", 398, -5.2, {"patrol_distance": 3.0, "walk_speed": 2.0, "bob_height": 0.6})
+	k.toilet(424, -8)
+
+	# --- F. Bouncy finale: pads, a Crow and the Bean Can. ---------------------------------
+	k.hint(428, -8, "BOING! STOMP THE CROW FOR MORE BOING!", 3.5)
+	k.pad(434, -8)
+	k.pad(444, -8)
+	k.enemy("crow", 439, -2.0, {"patrol_distance": 3.0, "walk_speed": 2.0, "bob_height": 0.8})
+	k.beans_arc(434, 444, -7.0, 6.5, 8)
+	k.enemy("hiccup", 458, -8, {"phase": 0.0})
+	k.toilet(464, -8)
+	k.mega_can(470, -6.6)
+	k.bean_can(478, -8)
 	return k.finish("res://scenes/stage_1_2.tscn")
