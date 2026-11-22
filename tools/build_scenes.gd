@@ -1067,24 +1067,21 @@ func _build_world_map() -> void:
 	root.set_script(load("res://scripts/world_map.gd"))
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
-	var canvas := Control.new()
-	canvas.name = "Canvas"
-	canvas.set_script(load("res://scripts/map_canvas.gd"))
-	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root.add_child(canvas)
-	canvas.owner = root
+	# The 3D diorama, the stops, the Bean Blimp and the camera (see tools/world_map_3d.gd).
+	var diorama: Dictionary = load("res://tools/world_map_3d.gd").new().call("build", root)
 
-	var marker := Node2D.new()
-	marker.name = "Marker"
-	marker.set_script(load("res://scripts/map_marker.gd"))
-	root.add_child(marker)
-	marker.owner = root
-
-	# Stop name big at the top, beans and score at the bottom, COMING SOON in the middle.
+	# Stop name big at the top, the world's name under it, beans and score at the bottom,
+	# COMING SOON in the middle and the (hidden for now) GO ABOARD hint in the corner.
 	var title := _big_label(root, "NameLabel", "", 64)
 	title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	title.custom_minimum_size.y = 90
 	title.position.y = 20
+	var world_name := _big_label(root, "WorldLabel", "", 44)
+	world_name.add_theme_color_override("font_color", Color(1.0, 0.85, 0.1))
+	world_name.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	world_name.custom_minimum_size.y = 70
+	world_name.position.y = 110
+	world_name.hide()
 	var info := _big_label(root, "InfoLabel", "", 40)
 	info.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	info.custom_minimum_size.y = 70
@@ -1095,12 +1092,21 @@ func _build_world_map() -> void:
 	soon.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	soon.grow_vertical = Control.GROW_DIRECTION_BOTH
 	soon.hide()
+	var hub := _big_label(root, "HubHint", "Y: GO ABOARD", 36)
+	hub.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	hub.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	hub.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	hub.position -= Vector2(30, 30)
+	hub.hide()
 
-	root.set("marker", marker)
+	root.set("ship", diorama["ship"])
+	root.set("camera", diorama["camera"])
+	root.set("stops_root", diorama["stops"])
 	root.set("name_label", title)
+	root.set("world_label", world_name)
 	root.set("info_label", info)
 	root.set("soon_label", soon)
-	root.set("canvas", canvas)
+	root.set("hub_hint", hub)
 	_save(root, "res://scenes/world_map.tscn")
 
 
