@@ -282,19 +282,19 @@ func _run() -> void:
 	# --- 3-3: the Stink Storm. ---
 	var s3: Stage = _load("3-3")
 	await _wait(0.5)
-	var zones: Array[Node] = s3.find_children("*", "ChimneySpeed", true, false)
+	var zones: Array[Node] = s3.find_children("*", "SuperBoost", true, false)
 	print("3-3: boosts %d, jellyfish %d, lightning %d, rings %d" % [zones.size(), _count(s3, "Jellyfish"), _count(s3, "LightningBolt"), _count(s3, "SmokeRing")])
 	_check("3-3 is a flying stage with 2 or more fast boosts", s3.start_flight != Vector2.ZERO and zones.size() >= 2)
 	var fast_enough: bool = true
 	var clear_of_hazards: bool = true
 	for z: Node in zones:
-		var zone: ChimneySpeed = z as ChimneySpeed
-		fast_enough = fast_enough and zone.speed_up >= 1.8
+		var zone: SuperBoost = z as SuperBoost
+		fast_enough = fast_enough and zone.speed_multiplier >= 3.0
 		for hazard: Node in s3.find_children("*", "Area3D", true, false):
 			if hazard is Jellyfish or hazard is LightningBolt:
 				if absf((hazard as Node3D).global_position.x - zone.global_position.x) < zone.length * 0.5:
 					clear_of_hazards = false
-	_check("the boosts are about twice as fast", fast_enough)
+	_check("the boosts are SUPER BOOSTs (3x or more)", fast_enough)
 	_check("the boosts have nothing nasty in them", clear_of_hazards)
 	_check("3-3 has jellyfish, lightning and big rings", _count(s3, "Jellyfish") >= 8 and _count(s3, "LightningBolt") >= 8 and _count(s3, "SmokeRing") >= 15)
 	var p3: Player = s3.player
@@ -306,7 +306,7 @@ func _run() -> void:
 	x_a = p3.position.x
 	await _wait(1.0)
 	var boost_speed: float = p3.position.x - x_a
-	_check("flying is %.0f m/s normally and %.0f m/s inside a boost" % [normal_speed, boost_speed], normal_speed > 12.0 and boost_speed > normal_speed * 1.7)
+	_check("flying is %.0f m/s normally and %.0f m/s inside a boost" % [normal_speed, boost_speed], normal_speed > 12.0 and boost_speed > normal_speed * 2.5)
 	s3.free()
 	await _wait(0.2)
 

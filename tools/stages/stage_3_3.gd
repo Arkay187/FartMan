@@ -11,7 +11,7 @@ const KIT := "res://tools/kit_whiff.gd"
 
 ## The sky he can fly in (lowest and highest height).
 const LANE: Vector2 = Vector2(3.0, 22.0)
-## The two boost sections, from x to x. Flying is twice as fast inside them.
+## The two SUPER BOOST sections, from x to x. Flying is 3.5 times as fast inside them.
 const BOOST_1: Vector2 = Vector2(190.0, 360.0)
 const BOOST_2: Vector2 = Vector2(660.0, 840.0)
 const LANDING_X: float = 1060.0
@@ -49,8 +49,7 @@ func _warm_up(k) -> void:
 
 ## A boost: much faster, nothing nasty. Wide lines of beans in three heights and big rings.
 func _boost(k, span: Vector2, n: int) -> void:
-	k.speed_zone(span.x, span.y, LANE.x, LANE.y, 2.0)
-	k.say_zone(span.x + 4.0, 12, 10, 20, "SPEED BOOST! HOLD ON TIGHT!", 2.5)
+	k.super_boost(span.x, span.y, LANE.x, LANE.y)
 	var x: float = span.x + 10.0
 	var i: int = 0
 	while x < span.y - 6.0:

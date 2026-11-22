@@ -212,6 +212,22 @@ func ring(x: float, y: float, radius: float = 2.2) -> Node3D:
 	return r
 
 
+## A SUPER BOOST from x0 to x1, the same as in the World 1 and 2 flying stages: the scroll goes
+## "mult" times faster (eased in and out), with a glowing gate, speed lines, a whoosh and a big hint.
+func super_boost(x0: float, x1: float, low: float, high: float, mult: float = 3.5) -> Node3D:
+	var z := Area3D.new()
+	z.name = "SuperBoost"
+	z.set_script(load("res://scripts/super_boost.gd"))
+	z.position = Vector3((x0 + x1) * 0.5, (low + high) * 0.5, 0)
+	z.set("length", x1 - x0)
+	z.set("height", high - low)
+	z.set("speed_multiplier", mult)
+	sfx_for(z, "super_boost")
+	_add("Decor", z)
+	say_zone(x0 + 3.0, (low + high) * 0.5, 6.0, high - low, "SUPER BOOST!", 2.5)
+	return z
+
+
 ## A zone that makes the flight faster while he is inside (the screen speeds up).
 func speed_zone(x0: float, x1: float, low: float, high: float, speed_up: float = 1.5) -> Node3D:
 	var z := Area3D.new()

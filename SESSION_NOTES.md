@@ -637,3 +637,56 @@ Built by a Sonnet helper in its own worktree. Nothing here has been listened to 
 1. Play 1-2's party and T-1 with SIMPLE controls; tune roll_speed / max_fireballs / the crowd size.
 2. Listen to the music and effects and set the volumes.
 3. When exporting, add `*.mid` to the non-resource export filter.
+
+## Big round: controls, drops, harder bosses, secrets, shorter flights, World 3 (22 Nov 2026)
+Built by five Sonnet helpers in their own worktrees, merged and tested together. Nothing here has been
+watched, played or listened to by a person yet.
+
+### Controls
+- Pad B only fires (Hot Sauce power). It was still on `fart` in project.godot, so every fireball also jumped in
+  SIMPLE. Removed, and `DebugOptions.ensure_input_actions()` strips B from fart and jump at every start in case
+  the editor writes it back. Without Hot Sauce, B does nothing.
+- SIMPLE is the default. Option files carry `settings_version: 2`; an older file is switched to SIMPLE once,
+  then the pause-menu choice sticks.
+- Hover: a press on the ground rises smoothly to `hover_height` (2.5 m) and holds; a press in the air holds the
+  current height. The gas bar shows while hovering (in NO GAS / ALWAYS FULL it shows the free hover time left).
+
+### Loot
+- `scripts/loot.gd` (Loot) + `loot_bounce.gd`: thrown beans/pickups pop up, land and wait (optional lifetime).
+- Enemies drop 2-3 beans; `drop_chance` 0.15 for a pickup (Heart 3, Chilli 3, Hot Sauce 2, Mega Can 2 weights).
+  No drops in flying stages. New Heart pickup (`heart_pickup.gd`, `k.heart()`).
+- Fart Man spills 6 beans when hurt (`bean_spill.gd`), 5 s to grab them back. Each takes 10 gas (`gas_per_bean`)
+  and gives it back when grabbed, so one hit never empties a full tank.
+
+### Bosses (6 hits in 3 phases, bean burst of 8 per hit, 44-bean shower on defeat)
+- Sneezy Weezy: rolling pollen; then hopping pollen and falling petals; then summons Burplings and triple sneezes.
+- Colonel Cork: charge and bonk; then Cork Bots and bouncing corks; then cork rain and a there-and-back charge.
+- Big Bad Burp (3-4): 10 hits. Part 1, 6 stomps up bubble staircases (green stinky bubbles hurt; helpers join).
+  Part 2, a Rocket Burrito ring chase, 4 hits when he is dizzy.
+
+### Stages
+- 1-1 and 1-2 are tutorials for SIMPLE (no pits early in 1-1; 1-2 keeps the FIRE BURP PARTY). 2-1 and 2-2 are
+  harder (Fizz Bat crossings, belts, stamps, Cork Bots). Hint signs have `simple_words` for SIMPLE.
+- Secrets (`tools/kit_secrets.gd`, `scripts/fake_wall.gd`): every running stage has 3+ secrets and 2 bean rooms
+  (~110-120 beans each, springs/pads/vents or geysers/bubbles to bounce on, a pipe home). Power-ups are behind
+  fake walls or on ledges, apart from the ones the tutorials teach.
+- Flights: 1-3 lands at 790 (about 42 s), 2-3 at 920 (about 58 s, shorter chimney climb). Each has three 3.5x
+  SUPER BOOSTs (`scripts/super_boost.gd`, `k.super_boost()`): eased speed, gate, speed lines, wider camera, whoosh.
+- World 3 Planet Whiff (`tools/kit_whiff.gd`, `tools/builders/world3_things.gd`): 3-1 The Cloud Tops (gas clouds,
+  Burp Bubbles, geysers, Whifflers), 3-2 The Fizzy Fortress (everything remixed, the hardest), 3-3 The Stink Storm
+  (flight, jellyfish, lightning, two SUPER BOOSTs), 3-4 Big Bad Burp, then the ending puppet scene (he has never
+  farted, a bean, the biggest fart in history, cork out of the factory, bean showers) and a 5-page storybook.
+  World 3 is on the map (locked until 2-4) and in TEST LEVELS.
+
+### Tests
+- New: test_loot, test_loot_drops, test_hover, test_secrets, test_super_boost, test_world3_things,
+  test_world3_stages, test_world3_boss. Tests needing CLASSIC now switch to it at their start.
+
+### Not checked by eye, ear or a real player
+- Everything above: looks, feel, difficulty (bosses, 2-1/2-2, World 3), boost speed for a 6 year old, fog and
+  colour readability in World 3, all new sounds, camera framing at boss height, a real gamepad.
+
+### What to do next
+1. Play 1-1 and 1-2 with SIMPLE and a pad; then each boss. Tune `drop_chance`, boss timings, hover height.
+2. 3-4 and the ending are the biggest unknowns: play them start to finish.
+3. The two bean-room builders (kit_secrets and kit_whiff) could become one.

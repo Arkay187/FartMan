@@ -1,0 +1,242 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/whiffler.gd" id="1_pphcv"]
+[ext_resource type="AudioStream" path="res://audio/sfx/whiffler_puff.wav" id="2_u4g33"]
+[ext_resource type="AudioStream" path="res://audio/sfx/squash.wav" id="3_coov7"]
+[ext_resource type="Script" path="res://scripts/enemy_animator.gd" id="4_rpit1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3mw5"]
+albedo_color = Color(0.35, 0.8, 0.75, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_r1mr6"]
+material = SubResource("StandardMaterial3D_e3mw5")
+radius = 0.45
+height = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utt80"]
+albedo_color = Color(0.2, 0.55, 0.55, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v1hfv"]
+material = SubResource("StandardMaterial3D_utt80")
+size = Vector3(0.3, 0.12, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwfu6"]
+albedo_color = Color(0.2, 0.55, 0.55, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f168e"]
+material = SubResource("StandardMaterial3D_fwfu6")
+size = Vector3(0.06, 0.3, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmenh"]
+albedo_color = Color(0.2, 0.55, 0.55, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_noorj"]
+material = SubResource("StandardMaterial3D_dmenh")
+size = Vector3(0.3, 0.12, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq16u"]
+albedo_color = Color(0.2, 0.55, 0.55, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5edqv"]
+material = SubResource("StandardMaterial3D_tq16u")
+size = Vector3(0.06, 0.3, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1758b"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cxnup"]
+material = SubResource("StandardMaterial3D_1758b")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o10s4"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ev8yd"]
+material = SubResource("StandardMaterial3D_o10s4")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qwi1"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_x4osf"]
+material = SubResource("StandardMaterial3D_8qwi1")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_osjta"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ffpqp"]
+material = SubResource("StandardMaterial3D_osjta")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n35cr"]
+albedo_color = Color(0.1, 0.05, 0.1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6kax0"]
+material = SubResource("StandardMaterial3D_n35cr")
+radius = 0.14
+height = 0.28
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6hvkt"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ea6pw"]
+radius = 1.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8ckh"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.2, 0.55)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kkygn"]
+material = SubResource("StandardMaterial3D_c8ckh")
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atffs"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.2, 0.55)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7n4am"]
+material = SubResource("StandardMaterial3D_atffs")
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r307n"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.2, 0.55)
+
+[sub_resource type="SphereMesh" id="SphereMesh_27bkl"]
+material = SubResource("StandardMaterial3D_r307n")
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cibed"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.2, 0.55)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pheks"]
+material = SubResource("StandardMaterial3D_cibed")
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4rt1"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.2, 0.55)
+
+[sub_resource type="SphereMesh" id="SphereMesh_63kw7"]
+material = SubResource("StandardMaterial3D_q4rt1")
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsevo"]
+transparency = 1
+albedo_color = Color(0.55, 0.85, 0.2, 0.55)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rqade"]
+material = SubResource("StandardMaterial3D_xsevo")
+radius = 0.75
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tunb"]
+transparency = 1
+albedo_color = Color(0.45, 0.8, 0.15, 0.5)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ljm1h"]
+material = SubResource("StandardMaterial3D_1tunb")
+radius = 1.1
+height = 2.2
+
+[node name="Whiffler" type="Area3D" unique_id=1070923095 node_paths=PackedStringArray("cloud_zone", "cloud_visual", "visual", "animator")]
+script = ExtResource("1_pphcv")
+cloud_zone = NodePath("Cloud")
+cloud_visual = NodePath("Cloud/Puffs")
+puff_sound = ExtResource("2_u4g33")
+visual = NodePath("Visual")
+animator = NodePath("Animator")
+squash_sound = ExtResource("3_coov7")
+
+[node name="Visual" type="Node3D" parent="." unique_id=1900777628]
+
+[node name="Body" type="MeshInstance3D" parent="Visual" unique_id=45589859]
+mesh = SubResource("SphereMesh_r1mr6")
+
+[node name="Foot" type="MeshInstance3D" parent="Visual" unique_id=819719087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22, -0.42, 0.05)
+mesh = SubResource("BoxMesh_v1hfv")
+
+[node name="Stalk" type="MeshInstance3D" parent="Visual" unique_id=2109853098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.55, 0)
+mesh = SubResource("BoxMesh_f168e")
+
+[node name="@MeshInstance3D@23" type="MeshInstance3D" parent="Visual" unique_id=481008547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, -0.42, 0.05)
+mesh = SubResource("BoxMesh_noorj")
+
+[node name="@MeshInstance3D@24" type="MeshInstance3D" parent="Visual" unique_id=1964897383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.55, 0)
+mesh = SubResource("BoxMesh_5edqv")
+
+[node name="Eye" type="MeshInstance3D" parent="Visual" unique_id=1787483741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.75, 0.05)
+mesh = SubResource("SphereMesh_cxnup")
+
+[node name="Pupil" type="MeshInstance3D" parent="Visual" unique_id=952396920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.75, 0.12)
+mesh = SubResource("SphereMesh_ev8yd")
+
+[node name="@MeshInstance3D@25" type="MeshInstance3D" parent="Visual" unique_id=244009803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.75, 0.05)
+mesh = SubResource("SphereMesh_x4osf")
+
+[node name="@MeshInstance3D@26" type="MeshInstance3D" parent="Visual" unique_id=920739861]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.75, 0.12)
+mesh = SubResource("SphereMesh_ffpqp")
+
+[node name="Mouth" type="MeshInstance3D" parent="Visual" unique_id=861883630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.4)
+mesh = SubResource("SphereMesh_6kax0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1069174369]
+shape = SubResource("SphereShape3D_6hvkt")
+
+[node name="Animator" type="Node" parent="." unique_id=1659686983 node_paths=PackedStringArray("squash_target")]
+script = ExtResource("4_rpit1")
+squash_target = NodePath("../Visual")
+
+[node name="Cloud" type="Area3D" parent="." unique_id=809408114]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cloud" unique_id=326909803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("SphereShape3D_ea6pw")
+
+[node name="Puffs" type="Node3D" parent="Cloud" unique_id=1842096380]
+
+[node name="Puff" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1855373065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.4, 0.3)
+mesh = SubResource("SphereMesh_kkygn")
+
+[node name="@MeshInstance3D@27" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=940228642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.1794229, 0.3)
+mesh = SubResource("SphereMesh_7n4am")
+
+[node name="@MeshInstance3D@28" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1699978749]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1.1794229, 0.3)
+mesh = SubResource("SphereMesh_27bkl")
+
+[node name="@MeshInstance3D@29" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=937719758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.4, 0.3)
+mesh = SubResource("SphereMesh_pheks")
+
+[node name="@MeshInstance3D@30" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=48138563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, -0.37942287, 0.3)
+mesh = SubResource("SphereMesh_63kw7")
+
+[node name="@MeshInstance3D@31" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1036292069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.37942287, 0.3)
+mesh = SubResource("SphereMesh_rqade")
+
+[node name="Middle" type="MeshInstance3D" parent="Cloud/Puffs" unique_id=1169169970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.4)
+mesh = SubResource("SphereMesh_ljm1h")

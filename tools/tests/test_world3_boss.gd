@@ -180,7 +180,13 @@ func _run() -> void:
 	var rises: Array[float] = []
 	var saw_burplings: bool = false
 	var saw_whifflers: bool = false
-	var beans_before: int = _beans()
+	# Count every bean thrown during the fight (hit beans vanish after a few seconds).
+	var thrown: Array[int] = [0]
+	var bean_counter := func(n: Node) -> void:
+		var script: Script = n.get_script()
+		if script != null and script.resource_path == "res://scripts/bean.gd":
+			thrown[0] += 1
+	node_added.connect(bean_counter)
 	for n in 6:
 		_check("round %d: %d stomps so far" % [boss.round_now() + 1, boss.hits1], boss.hits1 == n)
 		# Wait until a volley is on, to see this round's bubble speed and helpers.
@@ -198,7 +204,8 @@ func _run() -> void:
 			await _wait(boss.hit_pause + 1.2)
 	_check("bubbles get faster each round (%s)" % str(rises), rises.size() >= 5 and rises[rises.size() - 1] > rises[0])
 	_check("Burplings and then Whifflers help him (%s, %s)" % [str(saw_burplings), str(saw_whifflers)], saw_burplings and saw_whifflers)
-	_check("hits shower beans (%d more beans)" % (_beans() - beans_before), _beans() - beans_before >= 20)
+	node_added.disconnect(bean_counter)
+	_check("hits shower beans (%d beans thrown)" % thrown[0], thrown[0] >= 20)
 
 	# --- After the sixth stomp: he flies off, the burrito falls, the way opens. ---
 	_check("part 1 is won: the leaving scene starts (phase %s)" % str(boss.phase), boss.phase == BigBadBurp.Phase.LEAVING)
