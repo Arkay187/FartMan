@@ -4,6 +4,8 @@ extends Area3D
 
 ## What he says when he lands. Leave empty for nothing.
 @export var landing_words: String = "PHEW!"
+## The ta-daa when he lands.
+@export var landing_sound: AudioStream
 
 
 func _ready() -> void:
@@ -16,3 +18,4 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	player.stop_flying()
 	player.say(landing_words, 1.2)
+	Sfx.play(self, landing_sound)

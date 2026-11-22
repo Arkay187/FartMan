@@ -27,6 +27,9 @@ signal fired
 @export var cooldown: float = 0.6
 ## The part that turns to point the way. Leave empty and nothing turns.
 @export var barrel: Node3D
+## The clunk as he climbs in, and the boom as he is fired out.
+@export var load_sound: AudioStream
+@export var fire_sound: AudioStream
 
 var held: Player = null
 var current_aim: float = 90.0
@@ -89,6 +92,7 @@ func _look_for_player() -> void:
 		held.global_position = global_position
 		_held_for = 0.0
 		SpeechBubble.say(self, "READY!", 0.8, 2.0)
+		Sfx.play(self, load_sound)
 		loaded.emit()
 		return
 
@@ -104,6 +108,7 @@ func fire() -> void:
 	player.velocity = aim_vector() * launch_speed
 	player.push_left = no_steer_time
 	_cooldown_left = cooldown
+	Sfx.play(self, fire_sound)
 	fired.emit()
 
 

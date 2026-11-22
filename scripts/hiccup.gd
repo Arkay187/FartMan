@@ -10,6 +10,8 @@ extends Burpling
 @export var hop_gravity: float = 25.0
 ## Where in the hop cycle it starts (0 to 1), so a row of Hiccups can hop out of step.
 @export var phase: float = 0.0
+## The HIC! as it hops.
+@export var hop_sound: AudioStream
 
 var _vy: float = 0.0
 var _base_y: float = 0.0
@@ -30,6 +32,7 @@ func _move(delta: float) -> void:
 			_timer = hop_every
 			_vy = hop_speed
 			SpeechBubble.say(self, "HIC!", 0.5, 1.0)
+			Sfx.play(self, hop_sound)
 		return
 	_vy -= hop_gravity * delta
 	position.y = maxf(position.y + _vy * delta, _base_y)

@@ -2,6 +2,9 @@ extends SceneTree
 # One-off builder: makes player.tscn, bean.tscn and test_level.tscn using the engine itself.
 
 
+const SfxTable = preload("res://tools/sfx_table.gd")
+
+
 func _init() -> void:
 	_build_player()
 	_build_bean()
@@ -24,6 +27,7 @@ func _init() -> void:
 
 
 func _save(root: Node, path: String) -> void:
+	SfxTable.apply_for_scene(root, path)  # fill in the sound slots
 	var packed := PackedScene.new()
 	print("pack ", path, ": ", packed.pack(root))
 	print("save ", path, ": ", ResourceSaver.save(packed, path))

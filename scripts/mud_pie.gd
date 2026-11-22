@@ -9,11 +9,14 @@ extends Area3D
 @export var lifetime: float = 5.0
 
 var velocity: Vector3 = Vector3.ZERO
+## Played when it splats (the Gnome that threw it gives it one).
+var splat_sound: AudioStream
 
 
 ## Makes a pie and sends it from "from" so that it lands on "target" after "flight_time" seconds.
-static func throw(parent: Node, from: Vector3, target: Vector3, flight_time: float = 1.1) -> MudPie:
+static func throw(parent: Node, from: Vector3, target: Vector3, flight_time: float = 1.1, splat: AudioStream = null) -> MudPie:
 	var pie := MudPie.new()
+	pie.splat_sound = splat
 	parent.add_child(pie)
 	pie.global_position = from
 	var g: float = pie.fall_gravity
@@ -53,5 +56,6 @@ func _physics_process(delta: float) -> void:
 		if player != null:
 			player.hurt(global_position.x)
 		# Splat on whoever or whatever it hit.
+		Sfx.play(self, splat_sound)
 		queue_free()
 		return

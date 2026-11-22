@@ -18,6 +18,8 @@ signal puffed
 @export var phase: float = 0.0
 ## The steam column. Its origin is at the bottom, so scaling it makes it grow upwards.
 @export var column: Node3D
+## The hiss when it puffs.
+@export var puff_sound: AudioStream
 
 var is_puffing: bool = false
 var _age: float = 0.0
@@ -34,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	var warning: bool = not is_puffing and _age >= off_time - warn_time
 	if is_puffing and not was_puffing:
 		puffed.emit()
+		Sfx.play(self, puff_sound)
 	if column != null:
 		if is_puffing:
 			column.scale = Vector3.ONE

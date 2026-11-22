@@ -9,6 +9,8 @@ signal passed
 ## The ring model, so it can change colour.
 @export var ring: MeshInstance3D
 @export var done_color: Color = Color(0.3, 0.9, 0.4)
+## The ding when he flies through.
+@export var ding_sound: AudioStream
 
 var is_done: bool = false
 
@@ -22,6 +24,7 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	is_done = true
 	Stage.award(self, points)
+	Sfx.play(self, ding_sound)
 	if ring != null:
 		var paint := StandardMaterial3D.new()
 		paint.albedo_color = done_color

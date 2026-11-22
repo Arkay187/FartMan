@@ -3,6 +3,9 @@ extends RefCounted
 ## and the little TEST LEVELS list scene. (Run by tools/build_scenes.gd.)
 
 
+const SfxTable = preload("res://tools/sfx_table.gd")
+
+
 func build() -> void:
 	_build_spring()
 	_build_barrel_cannon()
@@ -10,6 +13,7 @@ func build() -> void:
 
 
 func _save(root: Node, path: String) -> void:
+	SfxTable.apply_for_scene(root, path)  # fill in the sound slots
 	var packed := PackedScene.new()
 	print("pack ", path, ": ", packed.pack(root))
 	print("save ", path, ": ", ResourceSaver.save(packed, path))

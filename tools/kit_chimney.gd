@@ -273,6 +273,7 @@ func colonel_cork(x: float, floor_y: float) -> Area3D:
 	var boss := Area3D.new()
 	boss.name = "ColonelCork"
 	boss.set_script(load("res://scripts/colonel_cork.gd"))
+	sfx_for(boss, "colonel_cork")
 	boss.position = Vector3(x, floor_y, 0)
 	_add("Goal", boss)
 	boss.set("floor_y", floor_y)

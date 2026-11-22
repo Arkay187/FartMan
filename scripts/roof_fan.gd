@@ -20,6 +20,8 @@ signal switched(now_on: bool)
 @export var column_height: float = 20.0
 ## How wide the fan and the wind are, in metres.
 @export var width: float = 5.0
+## The whoosh when it switches on.
+@export var switch_sound: AudioStream
 
 var is_on: bool = false
 var _age: float = 0.0
@@ -39,6 +41,8 @@ func _physics_process(delta: float) -> void:
 	is_on = _age >= off_time
 	if is_on != was_on:
 		switched.emit(is_on)
+		if is_on:
+			Sfx.play(self, switch_sound)
 	# Blades: slow while resting, speeding up in the warning, a blur while blowing.
 	var wanted: float = 2.0
 	if is_on:

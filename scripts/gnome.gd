@@ -15,6 +15,9 @@ extends Burpling
 @export var grumble_words: String = "HMPH!"
 ## Where the throw starts, compared to the middle of the gnome.
 @export var hand_offset: Vector3 = Vector3(0, 0.6, 0)
+## The throw, and the splat when the pie lands.
+@export var throw_sound: AudioStream
+@export var splat_sound: AudioStream
 
 var _timer: float = 0.0
 var _warned: bool = false
@@ -39,4 +42,5 @@ func _move(delta: float) -> void:
 		_timer = throw_every
 		_warned = false
 		# Throw at where he is standing now: keep moving and it misses.
-		MudPie.throw(get_parent(), global_position + hand_offset, player.global_position, flight_time)
+		Sfx.play(self, throw_sound)
+		MudPie.throw(get_parent(), global_position + hand_offset, player.global_position, flight_time, splat_sound)

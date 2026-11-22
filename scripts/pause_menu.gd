@@ -2,13 +2,16 @@ class_name PauseMenu
 extends CanvasLayer
 ## The pause menu. Every stage gets one (Stage adds it). Built entirely in code.
 ## Esc, P or pad Start opens and closes it. Up/down picks, jump chooses.
-## Left/right flips CONTROLS and GAS.
+## Left/right flips CONTROLS, GAS and MUSIC.
 
 ## Which choice is which.
 const RESUME: int = 0
 const CONTROLS: int = 1
 const GAS: int = 2
-const BACK: int = 3
+const MUSIC: int = 3
+const BACK: int = 4
+## How many choices there are.
+const CHOICES: int = 5
 
 ## Where BACK TO MENU goes (NEW GAME and TEST LEVELS live there).
 @export_file("*.tscn") var menu_scene: String = "res://scenes/start_menu.tscn"
@@ -18,6 +21,12 @@ const BACK: int = 3
 @export var plain_color: Color = Color(1.0, 1.0, 1.0)
 ## How dark the see-through backdrop is, 0 to 1.
 @export var backdrop_darkness: float = 0.65
+## Sounds for the menu (tick as you move, a ding when you choose, whoosh when it opens and closes).
+## The Stage makes this menu in code, so empty ones are filled in from res://audio/sfx.
+@export var move_sound: AudioStream
+@export var accept_sound: AudioStream
+@export var open_sound: AudioStream
+@export var close_sound: AudioStream
 
 var is_open: bool = false
 var choice: int = 0
@@ -33,6 +42,10 @@ func _ready() -> void:
 	layer = 90
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_stage = get_parent() as Stage
+	move_sound = move_sound if move_sound != null else Sfx.named("menu_move")
+	accept_sound = accept_sound if accept_sound != null else Sfx.named("menu_accept")
+	open_sound = open_sound if open_sound != null else Sfx.named("pause_open")
+	close_sound = close_sound if close_sound != null else Sfx.named("pause_close")
 	_build()
 	_root.visible = false
 
@@ -55,9 +68,9 @@ func _process(delta: float) -> void:
 		return
 	_since_open += delta
 	if Input.is_action_just_pressed(&"ui_down"):
-		select((choice + 1) % 4)
+		select((choice + 1) % CHOICES)
 	elif Input.is_action_just_pressed(&"ui_up"):
-		select((choice + 3) % 4)
+		select((choice + CHOICES - 1) % CHOICES)
 	elif Input.is_action_just_pressed(&"ui_left"):
 		flip(-1)
 	elif Input.is_action_just_pressed(&"ui_right"):
@@ -76,6 +89,7 @@ func open() -> void:
 	get_tree().paused = true
 	_root.visible = true
 	_refresh()
+	_tick(open_sound)
 
 
 ## Hides the menu and carries on.
@@ -85,12 +99,14 @@ func close() -> void:
 	is_open = false
 	_root.visible = false
 	get_tree().paused = false
+	_tick(close_sound)
 
 
-## Moves the highlight to this choice (0 RESUME, 1 CONTROLS, 2 GAS, 3 BACK TO MENU).
+## Moves the highlight to this choice (0 RESUME, 1 CONTROLS, 2 GAS, 3 MUSIC, 4 BACK TO MENU).
 func select(index: int) -> void:
-	choice = clampi(index, 0, 3)
+	choice = clampi(index, 0, CHOICES - 1)
 	_refresh()
+	_tick(move_sound)
 
 
 ## Does what the highlighted choice says.
@@ -98,13 +114,13 @@ func choose() -> void:
 	match choice:
 		RESUME:
 			close()
-		CONTROLS, GAS:
+		CONTROLS, GAS, MUSIC:
 			flip(1)
 		BACK:
 			_back_to_menu()
 
 
-## Changes the highlighted setting (CONTROLS or GAS). Does nothing on the other choices.
+## Changes the highlighted setting (CONTROLS, GAS or MUSIC). Does nothing on the other choices.
 func flip(step: int) -> void:
 	var options := _options()
 	if options == null:
@@ -114,7 +130,16 @@ func flip(step: int) -> void:
 	elif choice == GAS:
 		var count: int = DebugOptionsData.MODE_NAMES.size()
 		options.set_gas_mode((options.gas_mode + step + count) % count)
+	elif choice == MUSIC:
+		options.set_music(not options.music_on)
+	else:
+		return
+	_tick(accept_sound)
 	_refresh()
+
+
+func _tick(sound: AudioStream) -> void:
+	Sfx.play(self, sound)
 
 
 func _back_to_menu() -> void:
@@ -139,6 +164,9 @@ func choice_text(index: int) -> String:
 		GAS:
 			var mode: int = options.gas_mode if options != null else 0
 			return "GAS: " + DebugOptionsData.MODE_NAMES[mode]
+		MUSIC:
+			var on: bool = options == null or options.music_on
+			return "MUSIC: " + ("ON" if on else "OFF")
 	return "BACK TO MENU"
 
 
@@ -172,7 +200,7 @@ func _build() -> void:
 	box.add_theme_constant_override("separation", 12)
 	_root.add_child(box)
 	box.add_child(_make_label(72, "PAUSED"))
-	for i in 4:
+	for i in CHOICES:
 		var label := _make_label(52, "")
 		box.add_child(label)
 		_labels.append(label)

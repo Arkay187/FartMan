@@ -76,6 +76,15 @@ enum State { WAITING, INTRO, IDLE, CORKS, WINDUP, CHARGE, DIZZY, HIT, DEFEATED }
 @export var gate: Node3D
 @export var scene_player: ScenePlayer
 
+@export_group("Sounds")
+## The snort before a charge, the BONK on the wall, a cork popping out of his hat,
+## getting stomped, and popping away when he is beaten.
+@export var snort_sound: AudioStream
+@export var bonk_sound: AudioStream
+@export var shot_sound: AudioStream
+@export var hit_sound: AudioStream
+@export var defeat_sound: AudioStream
+
 var state: State = State.WAITING
 var hits: int = 0
 var _run_id: int = 0
@@ -196,6 +205,7 @@ func _fire_corks(id: int) -> void:
 	state = State.CORKS
 	for i in count:
 		SpeechBubble.say(head, "POP!", 0.7, 1.8)
+		Sfx.play(head, shot_sound)
 		_hat_jump()
 		# The first cork lands right on him. The others land either side.
 		var offsets: Array[float] = [0.0, cork_spread, -cork_spread]
@@ -214,6 +224,7 @@ func _charge(id: int) -> void:
 	# He charges towards whichever wall is further away.
 	_dir = -1.0 if position.x - arena_left_x > arena_right_x - position.x else 1.0
 	SpeechBubble.say(head, "SNORT!", windup_time, 1.8)
+	Sfx.play(head, snort_sound)
 	if warning != null:
 		warning.visible = true
 	var shake: Tween = create_tween()
@@ -253,6 +264,7 @@ func _bonk() -> void:
 	state = State.DIZZY
 	visual.rotation.z = 0.0
 	SpeechBubble.say(head, "BONK!", 1.0, 1.8)
+	Sfx.play(head, bonk_sound)
 	_shake_camera(0.3, 0.4)
 	bonked.emit()
 	_show_dizzy(true)
@@ -273,6 +285,7 @@ func _be_dizzy(id: int) -> void:
 func _take_hit() -> void:
 	hits += 1
 	hit.emit(hits_to_win - hits)
+	Sfx.play(head, hit_sound)
 	_burst_crumbs()
 	if hits >= hits_to_win:
 		_defeat()
@@ -307,6 +320,7 @@ func pop() -> void:
 	if visual == null or state != State.DEFEATED:
 		return
 	_shake_camera(0.4, 0.5)
+	Sfx.play(head, defeat_sound)
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(visual, "position:y", 22.0, 0.9).set_ease(Tween.EASE_OUT)

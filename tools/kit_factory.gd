@@ -71,6 +71,7 @@ func biscuit(cx: float, top: float, width: float = 3.0, props: Dictionary = {}, 
 	var body := StaticBody3D.new()
 	body.name = "Biscuit"
 	body.set_script(load("res://scripts/crumble_platform.gd"))
+	sfx_for(body, "crumble_platform")
 	body.position = Vector3(cx, top - thick * 0.5, 0)
 	_add("Biscuits", body)
 	var visual := Node3D.new()
@@ -127,6 +128,7 @@ func switch_button(x: float, top: float) -> Area3D:
 	var button := Area3D.new()
 	button.name = "SwitchButton"
 	button.set_script(load("res://scripts/switch_button.gd"))
+	sfx_for(button, "switch_button")
 	button.position = Vector3(x, top, 0)
 	_add("SwitchBlocks", button)
 	var base := CylinderMesh.new()
@@ -151,6 +153,7 @@ func warp_pipe(x: float, top: float, enter_dir: float, destination: Vector3) -> 
 	var pipe := Area3D.new()
 	pipe.name = "WarpPipe"
 	pipe.set_script(load("res://scripts/warp_pipe.gd"))
+	sfx_for(pipe, "warp_pipe")
 	pipe.position = Vector3(x, top, 0)
 	_add("Pipes", pipe)
 	var tube := CylinderMesh.new()
@@ -226,6 +229,7 @@ func vent(x: float, top: float, props: Dictionary = {}) -> Area3D:
 	var steam := Area3D.new()
 	steam.name = "SteamVent"
 	steam.set_script(load("res://scripts/steam_vent.gd"))
+	sfx_for(steam, "steam_vent")
 	steam.position = Vector3(x, top, 0)
 	_add("Vents", steam)
 	var grate := BoxMesh.new()
@@ -259,6 +263,7 @@ func stamp(x: float, top: float, props: Dictionary = {}) -> Node3D:
 	var press := Node3D.new()
 	press.name = "StampPress"
 	press.set_script(load("res://scripts/stamp_press.gd"))
+	sfx_for(press, "stamp_press")
 	press.position = Vector3(x, top, 0)
 	_add("Presses", press)
 	var thickness: float = 1.2

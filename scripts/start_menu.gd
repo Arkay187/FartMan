@@ -13,6 +13,10 @@ extends Control
 @export_file("*.tscn") var story_scene: String = "res://scenes/storybook.tscn"
 @export_file("*.tscn") var map_scene: String = "res://scenes/world_map.tscn"
 @export_file("*.tscn") var test_levels_scene: String = "res://scenes/test_levels.tscn"
+## The song that plays here (empty = none). Menu sounds: moving the highlight, choosing.
+@export var music_song: String = "theme"
+@export var move_sound: AudioStream
+@export var accept_sound: AudioStream
 ## The "seen it" flag for the opening story.
 @export var seen_flag: String = "intro_story"
 ## Ignore buttons for this long after the menu appears.
@@ -40,6 +44,8 @@ func _ready() -> void:
 	choice = 0 if has_save else 1
 	hint_label.text = ""
 	_refresh()
+	if music_song != "":
+		MusicPlayer.play_song(self, music_song)
 
 
 func _process(delta: float) -> void:
@@ -78,10 +84,12 @@ func _move(step: int) -> void:
 	_armed = false
 	hint_label.text = ""
 	_refresh()
+	Sfx.play(self, move_sound)
 
 
 ## Does what the highlighted choice says.
 func accept() -> void:
+	Sfx.play(self, accept_sound)
 	if choice == 2 and test_levels_label != null:
 		get_tree().change_scene_to_file(test_levels_scene)
 		return

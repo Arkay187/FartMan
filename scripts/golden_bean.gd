@@ -11,6 +11,8 @@ signal collected
 @export var points: int = 100
 ## What Fart Man says when he finds one. Leave empty for nothing.
 @export var found_words: String = "GOLDEN BEAN!"
+## The little fanfare when it is found.
+@export var found_sound: AudioStream
 
 
 func _ready() -> void:
@@ -29,4 +31,5 @@ func _on_body_entered(body: Node3D) -> void:
 	collected.emit()
 	Stage.award(self, points)
 	player.say(found_words)
+	Sfx.play(self, found_sound)
 	queue_free()

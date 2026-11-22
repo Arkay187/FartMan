@@ -24,20 +24,31 @@ signal squashed
 @export var visual: Node3D
 ## Plays its walk and squash clips. Leave empty for the plain flatten-and-vanish.
 @export var animator: EnemyAnimator
+## The sound when it gets squashed.
+@export var squash_sound: AudioStream
+## A sound it makes now and then while alive (a caw, a flap, a rumble). Leave empty for quiet.
+@export var idle_sound: AudioStream
+## About how many seconds between those sounds.
+@export var idle_every: float = 3.0
+## How loud that sound is, in decibels (0 = full, -6 = half).
+@export var idle_volume_db: float = -4.0
 
 var is_squashed: bool = false
 var direction: float = 1.0
 var start_x: float = 0.0
+var _idle_left: float = 0.0
 
 
 func _ready() -> void:
 	start_x = position.x
+	_idle_left = randf_range(0.2, idle_every)
 
 
 func _physics_process(delta: float) -> void:
 	if is_squashed:
 		return
 	_move(delta)
+	_make_idle_noise(delta)
 
 	# Is Fart Man touching us?
 	for body: Node3D in get_overlapping_bodies():
@@ -53,6 +64,16 @@ func _physics_process(delta: float) -> void:
 		else:
 			player.hurt(global_position.x)
 		return
+
+
+## Now and then it makes its own little noise (only if it has an idle_sound).
+func _make_idle_noise(delta: float) -> void:
+	if idle_sound == null:
+		return
+	_idle_left -= delta
+	if _idle_left <= 0.0:
+		_idle_left = idle_every * randf_range(0.75, 1.25)
+		Sfx.play(self, idle_sound, idle_volume_db)
 
 
 ## How this enemy moves each frame. Burplings waddle; other enemies replace this.
@@ -80,6 +101,7 @@ func _get_squashed() -> void:
 	Stage.award(self, points)
 	SpeechBubble.say(self, squash_words, 0.6, 1.0)
 	squashed.emit()
+	Sfx.play(self, squash_sound)
 	if animator != null:
 		# The animator does the flattening, we just wait for it.
 		var wait: float = maxf(animator.squash(), squash_time)

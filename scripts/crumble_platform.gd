@@ -17,6 +17,8 @@ extends StaticBody3D
 @export var visual: Node3D
 ## The solid part's shape, switched off while it is gone.
 @export var shape: CollisionShape3D
+## The crack when it gives way.
+@export var crack_sound: AudioStream
 
 enum State { SOLID, SHAKING, FALLEN }
 
@@ -41,6 +43,7 @@ func _physics_process(delta: float) -> void:
 			if _timer <= 0.0:
 				state = State.FALLEN
 				_timer = return_after
+				Sfx.play(self, crack_sound)
 				if shape != null:
 					shape.set_deferred("disabled", true)
 		State.FALLEN:

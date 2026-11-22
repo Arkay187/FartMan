@@ -20,6 +20,11 @@ signal stage_cleared
 ## For a flying stage: the lowest and highest height. He starts the stage already flying.
 ## (0, 0) = a normal running stage.
 @export var start_flight: Vector2 = Vector2.ZERO
+## Which song plays, like "garden". Leave empty to choose by the stage number:
+## 1-x garden, 2-x factory, 3-x planet_whiff, any x-4 boss fight, test levels garden.
+@export var music_song: String = ""
+## Flying stages play their song this much faster (1 = same speed).
+@export var flight_music_speed: float = 1.15
 ## Where to go after the stage is cleared.
 @export_file("*.tscn") var map_scene: String = "res://scenes/world_map.tscn"
 ## How long the STAGE CLEAR banner stays before going back to the map.
@@ -47,6 +52,31 @@ static func award(from: Node, points: int) -> void:
 		stage.add_points(points)
 
 
+## The song for this stage: the music_song setting, or one chosen from the stage number.
+func song_name() -> String:
+	return music_song if music_song != "" else Stage.song_for(stage_id)
+
+
+## True for flying stages: they start in the air, or are the third stage of a world.
+func is_flying_stage() -> bool:
+	return start_flight != Vector2.ZERO or stage_id.ends_with("-3")
+
+
+## Which song a stage id like "2-2" plays. Anything unknown (test levels) gets the garden song.
+static func song_for(id: String) -> String:
+	var parts: PackedStringArray = id.split("-")
+	if parts.size() != 2:
+		return "garden"
+	if parts[1] == "4":
+		return "boss"
+	match parts[0]:
+		"2":
+			return "factory"
+		"3":
+			return "planet_whiff"
+	return "garden"
+
+
 func add_points(points: int) -> void:
 	score += points
 	score_changed.emit(score)
@@ -56,6 +86,7 @@ func _ready() -> void:
 	add_to_group(&"stage")
 	set_process(false)  # only needed after the stage is cleared
 	add_child(PauseMenu.new())  # Esc / P / Start opens it
+	MusicPlayer.play_song(self, song_name(), flight_music_speed if is_flying_stage() else 1.0)
 	# Find every Golden Bean and Bean Can in the stage and listen to them.
 	for bean: Node in get_tree().get_nodes_in_group(&"golden_beans"):
 		golden_total += 1

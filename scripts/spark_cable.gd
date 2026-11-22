@@ -17,6 +17,8 @@ signal switched(now_on: bool)
 @export var warn_time: float = 0.7
 ## Where in the cycle it starts (0 to 1), so a row of cables does not all go off together.
 @export var phase: float = 0.0
+## The zap when it switches on.
+@export var zap_sound: AudioStream
 
 var is_on: bool = false
 var _age: float = 0.0
@@ -38,6 +40,8 @@ func _physics_process(delta: float) -> void:
 	if is_on != _was_on:
 		_was_on = is_on
 		switched.emit(is_on)
+		if is_on:
+			Sfx.play(self, zap_sound)
 	_update_look()
 	if not is_on:
 		return

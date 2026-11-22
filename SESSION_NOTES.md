@@ -559,3 +559,50 @@ Built by two Sonnet helpers in parallel worktrees, merged into main, scenes rebu
 1. Play SIMPLE with your son: is the double jump big enough, is 4 s of hover right, does the cloud read clearly?
 2. If SIMPLE becomes the main way to play: make it the default and change the hint signs to match.
 3. Possible: springs giving the double jump back in SIMPLE; hover in CLASSIC too.
+
+## Music and sound effects (22 Nov 2026)
+Built by a Sonnet helper in its own worktree. Nothing here has been listened to by a person yet.
+
+### Music: real .mid files, one song per world (res://audio/music)
+- Written by `tools/make_music.gd` (run: `godot --headless --script res://tools/make_music.gd`) using `tools/midi_writer.gd`.
+  The songs are written in a tiny note language at the top of that file, so they are easy to edit and regenerate.
+  Or open the .mid files in any music program, or replace them with your own (channel 1 lead, 2 harmony, 3 bass, 10 drums).
+- Songs: garden (C major, 130 BPM, 44 s), factory (D dorian, 140 BPM, 41 s), planet_whiff (G lydian, 110 BPM, 35 s),
+  boss (E minor, 160 BPM, 48 s), theme (F major, 120 BPM, 48 s, the FART MAN! theme). Garden ends with a sad
+  trombone "wah wah wah waaah", theme ends with a tiny toot.
+- `scripts/midi_file.gd` (MidiFile) reads .mid bytes. `scripts/music_player.gd` (MusicPlayer) is a chiptune synth through
+  AudioStreamGenerator (22050 Hz): square lead (50%), thinner square harmony (25%), triangle bass, noise drums.
+  No autoload and no project.godot change: `MusicPlayer.play_song(self, "garden")` finds or makes one player on the tree root,
+  so music carries on over scene changes, and asking for the song already playing does nothing.
+- Stage picks the song from its id (`Stage.song_for`): 1-x garden, 2-x factory, 3-x planet_whiff, x-4 boss, test levels garden.
+  `music_song` overrides it. Flying stages (x-3 or start_flight) play 1.15x faster (`flight_music_speed`).
+  Start menu, world map, storybook and test levels list play `theme` (`music_song` on each).
+- Pause menu has MUSIC: ON / OFF (remembered in user://debug_options.json as `music_on`). Music keeps going, quieter, while paused.
+- "Music" and "Sounds" audio buses are made at runtime if missing (Sfx.ensure_buses). Music starts at -10 dB (`volume_db`).
+- EXPORTING: .mid files are not Godot resources. In the export settings add `*.mid` to "Filters to export non-resource files".
+
+### Sound effects (res://audio/sfx, 43 small WAVs)
+- Made by `tools/make_sfx.gd` (sfxr-style beeps, slides and noise). Re-run it to regenerate, then import.
+- `scripts/sfx.gd` (Sfx): `Sfx.play(self, sound)` plays once on the "Sounds" bus with a little pitch wobble and skips sounds
+  more than 30 m from the camera. In headless runs it only records file names in `Sfx.played` (for tests).
+- Each script has `@export var ..._sound` slots (drop in your own recordings). `tools/sfx_table.gd` says which file goes in each
+  slot; the scene builders and kits fill them in. Burpling (base of all enemies) has `squash_sound` plus an optional
+  `idle_sound` (crow caw, bat flap, cork bot rumble).
+- Covered: beans, Golden Bean, chilli, Mega Bean Can, Rocket Burrito, landing zone, Bean Can opening, toilet flush, every enemy
+  squash, Hiccup hop, Gnome throw and mud splat, crow caw, cork bot roll, fizz bat flap, Sneezy Weezy (wind-up, ACHOO, hit, beaten),
+  Colonel Cork (snort, BONK, cork pop, hit, pop away), springs, bounce pads, hoops, smoke rings (pitch rises along a chain),
+  roof fans, spark cables, steam vents and clouds, stamp press, crumble biscuits, switch button, barrel cannon, warp pipe,
+  menu move/accept, pause open/close.
+- `fire_burp.wav` and `fireball_pop.wav` are made but NOT hooked up (the Fire Burp helper does that).
+- Still silent: conveyor belts, rising soup, sideways fans, up-drafts, pollen/petals, hover cloud, spiky balls/prickles (the
+  voice "ouch" covers the hit), hearts, the STAGE CLEAR banner, gas bar warnings.
+
+### Tested
+- New tests: test_music, test_sfx; test_pause_menu has the MUSIC row.
+- NOT checked by ear: how any song or sound actually sounds, the mix balance between music, voice and effects, whether
+  the synth is glitch-free on a real sound card, how the music feels when paused, whether the songs are catchy.
+
+### What to do next
+1. Listen to all five songs and the effects; tune volumes (`volume_db` on MusicPlayer, the table rows) and edit the tunes in make_music.gd.
+2. Planet Whiff's song is ready for when World 3 exists. Hook up fire_burp / fireball_pop.
+3. Possible: a stage-clear jingle, a boss-intro sting, sounds for the silent things above.

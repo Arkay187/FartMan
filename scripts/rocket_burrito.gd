@@ -11,6 +11,8 @@ extends Area3D
 @export var spin_speed: float = 3.0
 ## What Fart Man shouts on take-off. Leave empty for nothing.
 @export var grab_words: String = "BLAST OFF!"
+## The whoosh when he grabs it.
+@export var grab_sound: AudioStream
 
 var points_given: bool = false
 
@@ -29,6 +31,7 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	player.start_flying(lowest_y, highest_y)
 	player.say(grab_words, 1.5)
+	Sfx.play(self, grab_sound)
 	if not points_given:
 		points_given = true
 		Stage.award(self, points)

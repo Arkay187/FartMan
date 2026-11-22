@@ -19,6 +19,10 @@ signal passed(chain: int)
 @export var flat: bool = false
 ## How big the ring is, in metres across the hole.
 @export var radius: float = 2.2
+## The ding when he flies through. It gets higher with each ring in a row.
+@export var ding_sound: AudioStream
+## How much higher each ring in a chain sounds (0.12 = about two notes up).
+@export var chain_pitch_step: float = 0.12
 
 ## When the chain last grew (in game seconds) and how long it is. Shared by all rings.
 static var _chain_time: float = -1000.0
@@ -60,6 +64,7 @@ func _on_body_entered(body: Node3D) -> void:
 	_chain_time = now
 	var multiplier: int = mini(_chain_count, max_chain)
 	Stage.award(self, points * multiplier)
+	Sfx.play(self, ding_sound, 0.0, 1.0 + chain_pitch_step * (multiplier - 1))
 	if multiplier > 1:
 		SpeechBubble.say(body as Node3D, "x%d!" % multiplier, 0.8, 1.8)
 	_pop_beans(body as Node3D)

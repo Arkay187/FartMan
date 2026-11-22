@@ -7,6 +7,8 @@ extends Area3D
 @export var points: int = 10
 ## How fast it spins, just so it is easy to spot.
 @export var spin_speed: float = 3.0
+## The bling when it is picked up.
+@export var pickup_sound: AudioStream
 
 
 func _ready() -> void:
@@ -24,4 +26,5 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	player.gas_tank.refill(gas_amount)
 	Stage.award(self, points)
+	Sfx.play(self, pickup_sound)
 	queue_free()

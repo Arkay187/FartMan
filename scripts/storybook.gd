@@ -28,6 +28,9 @@ signal finished
 @export var zoom_amount: float = 0.03
 ## How long the little pop at the start of each page takes.
 @export var pop_time: float = 0.25
+## The song that plays here (empty = none), and the sound of turning a page.
+@export var music_song: String = "theme"
+@export var page_sound: AudioStream
 
 var pages: Array[Dictionary] = []
 var page_index: int = 0
@@ -38,6 +41,8 @@ var _held: float = 0.0
 
 
 func _ready() -> void:
+	if music_song != "":
+		MusicPlayer.play_song(self, music_song)
 	pages = StoryPages.get_story(story_name)
 	if pages.is_empty():
 		_finish()
@@ -76,6 +81,8 @@ func next_page() -> void:
 
 
 func _show_page(number: int) -> void:
+	if number > 0:
+		Sfx.play(self, page_sound)
 	page_index = number
 	_page_age = 0.0
 	var page: Dictionary = pages[number]
