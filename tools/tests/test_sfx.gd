@@ -156,7 +156,7 @@ func _check_boss() -> void:
 	stage.player.flashing_left = 1000.0
 	await _wait(1.0)
 	Sfx.played.clear()
-	boss._sneeze(0, boss._run_id)
+	boss._sneeze(0, false, false, boss._run_id)
 	await _wait(1.5)
 	var heard: Array[String] = _heard()
 	_check("a sneeze plays the wind-up and then the ACHOO (%s)" % str(heard),

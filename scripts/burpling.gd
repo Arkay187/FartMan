@@ -33,6 +33,23 @@ signal squashed
 ## How loud that sound is, in decibels (0 = full, -6 = half).
 @export var idle_volume_db: float = -4.0
 
+@export_group("Loot when squashed")
+## It throws out at least this many beans when it gets squashed...
+@export var drop_beans_min: int = 2
+## ...and at most this many.
+@export var drop_beans_max: int = 3
+## Chance (0 to 1) that it also drops one random pickup from the list below.
+@export var drop_chance: float = 0.15
+## The pickups it can drop (scene files). The weights say how often each one comes up.
+@export var drop_scenes: Array[String] = [
+	"res://scenes/heart.tscn",
+	"res://scenes/chilli.tscn",
+	"res://scenes/hot_sauce.tscn",
+	"res://scenes/mega_bean_can.tscn",
+]
+## How likely each pickup is, in the same order as the list above (bigger = more often).
+@export var drop_weights: Array[float] = [3.0, 3.0, 2.0, 2.0]
+
 var is_squashed: bool = false
 var direction: float = 1.0
 var start_x: float = 0.0
@@ -102,6 +119,7 @@ func _get_squashed() -> void:
 	SpeechBubble.say(self, squash_words, 0.6, 1.0)
 	squashed.emit()
 	Sfx.play(self, squash_sound)
+	_drop_loot()
 	if animator != null:
 		# The animator does the flattening, we just wait for it.
 		var wait: float = maxf(animator.squash(), squash_time)
@@ -117,3 +135,33 @@ func _get_squashed() -> void:
 	tween.tween_property(visual, "position:y", -0.35, squash_time * 0.4)
 	tween.chain().tween_interval(squash_time * 0.6)
 	tween.chain().tween_callback(queue_free)
+
+
+## Throws out a few beans and, now and then, one random pickup. Not in flying stages
+## (there is no floor for them to land on).
+func _drop_loot() -> void:
+	var stage := get_tree().get_first_node_in_group(&"stage") as Stage
+	if stage != null and stage.is_flying_stage():
+		return
+	var count: int = randi_range(mini(drop_beans_min, drop_beans_max), maxi(drop_beans_min, drop_beans_max))
+	if count > 0:
+		Loot.beans(self, count, 3.0, 7.0)
+	if randf() < drop_chance:
+		var scene_path: String = _pick_drop()
+		if scene_path != "":
+			Loot.thing(self, scene_path, Vector3(randf_range(-1.5, 1.5), 8.0, 0.0))
+
+
+## Picks one pickup scene from drop_scenes, favouring the ones with bigger weights.
+func _pick_drop() -> String:
+	var total: float = 0.0
+	for i in drop_scenes.size():
+		total += drop_weights[i] if i < drop_weights.size() else 1.0
+	if total <= 0.0:
+		return ""
+	var roll: float = randf() * total
+	for i in drop_scenes.size():
+		roll -= drop_weights[i] if i < drop_weights.size() else 1.0
+		if roll <= 0.0:
+			return drop_scenes[i]
+	return drop_scenes[drop_scenes.size() - 1]

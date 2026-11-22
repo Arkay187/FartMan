@@ -145,6 +145,14 @@ func _build_player() -> void:
 	hearts.owner = player
 	player.set("hearts", hearts)
 
+	# Spills beans whenever he is hurt (Sonic-ring style).
+	var spill := Node.new()
+	spill.name = "BeanSpill"
+	spill.set_script(load("res://scripts/bean_spill.gd"))
+	SfxTable.apply(spill, "bean_spill")
+	player.add_child(spill)
+	spill.owner = player
+
 	var trail := Node3D.new()
 	trail.name = "FlameTrail"
 	trail.set_script(load("res://scripts/flame_trail.gd"))
@@ -620,6 +628,25 @@ func _build_powerups() -> void:
 	var stalk_mesh := _mesh(chilli, chilli, "Stalk", stalk, Color(0.2, 0.6, 0.2), Vector3(-0.38, 0.45, 0))
 	stalk_mesh.rotation_degrees = Vector3(0, 0, 40)
 	_save(chilli, "res://scenes/chilli.tscn")
+
+	# Heart: a red heart made of two round bumps and a point, on a "Visual" that spins and bobs.
+	var heart := _pickup("Heart", "res://scripts/heart_pickup.gd")
+	var heart_visual := Node3D.new()
+	heart_visual.name = "Visual"
+	heart.add_child(heart_visual)
+	heart_visual.owner = heart
+	var red := Color(0.95, 0.12, 0.25)
+	for side in [-1.0, 1.0]:
+		var bump := SphereMesh.new()
+		bump.radius = 0.24
+		bump.height = 0.48
+		_mesh(heart_visual, heart, "Bump", bump, red, Vector3(side * 0.18, 0.12, 0))
+	var point := BoxMesh.new()
+	point.size = Vector3(0.36, 0.36, 0.3)
+	var point_mesh := _mesh(heart_visual, heart, "Point", point, red, Vector3(0, -0.02, 0))
+	point_mesh.rotation_degrees = Vector3(0, 0, 45)
+	heart.set("visual", heart_visual)
+	_save(heart, "res://scenes/heart.tscn")
 
 	# Hot Sauce: a small red bottle with a yellow cap.
 	var sauce := _pickup("HotSauce", "res://scripts/hot_sauce.gd")
