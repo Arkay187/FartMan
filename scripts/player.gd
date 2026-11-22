@@ -132,7 +132,7 @@ const TIER_NAMES: Array[String] = ["Toot", "Trump", "Thunder"]
 @export var jump_action: StringName = &"jump"
 ## Hold to charge a fart, let go to launch. Also the double jump in the air.
 @export var fart_action: StringName = &"fart"
-## The fire button (C / pad B). Without the Fire Burp power it works exactly like the fart button.
+## The fire button (C / pad B). Shoots fireballs once he has the Fire Burp power, otherwise does nothing.
 @export var fire_action: StringName = &"fire"
 
 @export_group("Testing")
@@ -200,14 +200,14 @@ func has_fire_burp() -> bool:
 	return fire_burp != null and fire_burp.has_power
 
 
-## Is a fart button held? The fire button counts too, until he gets the Fire Burp power.
+## Is a fart button held? (The fire button never counts: it only shoots fireballs.)
 func fart_held() -> bool:
-	return Input.is_action_pressed(fart_action) or (not has_fire_burp() and Input.is_action_pressed(fire_action))
+	return Input.is_action_pressed(fart_action)
 
 
-## Was a fart button just pressed? (Same rule as fart_held.)
+## Was a fart button just pressed?
 func fart_just_pressed() -> bool:
-	return Input.is_action_just_pressed(fart_action) or (not has_fire_burp() and Input.is_action_just_pressed(fire_action))
+	return Input.is_action_just_pressed(fart_action)
 
 
 ## True when the SIMPLE control scheme is on (pause menu). CLASSIC otherwise.

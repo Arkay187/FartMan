@@ -110,27 +110,22 @@ func _run() -> void:
 	_check("the player carries a FireBurpPower, not yet active", power != null and not p.has_fire_burp())
 	_check("fire is not lost when hurt by default", not power.lost_when_hurt)
 
-	# ---------------------------------------------------------------- no power: fire = fart (CLASSIC)
+	# ---------------------------------------------------------------- no power: fire does nothing
 	Input.action_press(&"fire")
 	await _wait(0.3)
-	_check("CLASSIC, no power: holding fire charges the belly", p.is_charging and p.belly.visible)
 	Input.action_release(&"fire")
 	await _wait(0.1)
-	_check("CLASSIC, no power: letting go of fire launches a fart jump (%s)" % str(farts), farts.size() == 1 and farts[0] == "Trump")
+	_check("CLASSIC, no power: fire does not fart or charge (%s)" % str(farts), farts.is_empty() and not p.is_charging)
 	_check("CLASSIC, no power: no fireball", _fireballs().is_empty() and burps == 0)
-	await _wait(2.0)
 
-	# ---------------------------------------------------------------- no power: fire = jump (SIMPLE)
 	options.set_simple_controls(true)
 	_reset()
 	await _wait(0.3)
+	var y_before: float = p.global_position.y
 	await _press(&"fire", 0.5)
-	_check("SIMPLE, no power: fire jumps (%s)" % str(farts), farts.size() >= 1 and farts[0] == "Toot")
-	await _wait(0.1)
-	await _press(&"fire", 0.3)  # in the air: the automatic double jump
-	_check("SIMPLE, no power: fire in the air is the double jump (%s)" % str(farts), farts.has("Thunder"))
+	_check("SIMPLE, no power: fire does not jump (%s, rose %.2f m)" % [str(farts), p.global_position.y - y_before],
+		farts.is_empty() and p.global_position.y - y_before < 0.1)
 	_check("SIMPLE, no power: no fireball", _fireballs().is_empty())
-	await _wait(2.0)
 	options.set_simple_controls(false)
 	_reset()
 	await _wait(0.3)

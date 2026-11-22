@@ -101,6 +101,19 @@ static func ensure_input_actions() -> void:
 	_ensure_action(&"pause", [_key(KEY_ESCAPE), _key(KEY_P), _pad(JOY_BUTTON_START)])
 	_ensure_action(&"hover", [_key(KEY_SHIFT), _key(KEY_X), _pad(JOY_BUTTON_LEFT_SHOULDER)])
 	_ensure_action(&"fire", [_key(KEY_C), _pad(JOY_BUTTON_B)])
+	# Pad B is only the fire button: it must never fart or jump as well (or every fireball
+	# would jump too). Older copies of project.godot had B on fart.
+	_take_pad_button_off(&"fart", JOY_BUTTON_B)
+	_take_pad_button_off(&"jump", JOY_BUTTON_B)
+
+
+static func _take_pad_button_off(action: StringName, button: JoyButton) -> void:
+	if not InputMap.has_action(action):
+		return
+	for event: InputEvent in InputMap.action_get_events(action):
+		var pad := event as InputEventJoypadButton
+		if pad != null and pad.button_index == button:
+			InputMap.action_erase_event(action, event)
 
 
 static func _ensure_action(action: StringName, events: Array[InputEvent]) -> void:
