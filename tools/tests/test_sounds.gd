@@ -58,6 +58,8 @@ func _hold(action: StringName, seconds: float) -> void:
 
 
 func _run() -> void:
+	# This test is about the CLASSIC charge-fart controls (SIMPLE is the default now).
+	(root.get_node("DebugOptions") as DebugOptionsData).set_simple_controls(false)
 	_fresh()
 	await _wait(0.5)
 	_heard()

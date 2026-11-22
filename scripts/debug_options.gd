@@ -24,14 +24,18 @@ signal music_changed(on: bool)
 enum GasMode { NORMAL, NO_GAS, ALWAYS_FULL, FILL_ON_LAND }
 const MODE_NAMES: Array[String] = ["NORMAL", "NO GAS", "ALWAYS FULL", "FILL ON LAND"]
 
+## Bumped when a setting's default changes. Saves without this number get the new default once.
+## 2 = SIMPLE became the default control scheme.
+const SETTINGS_VERSION: int = 2
+
 ## Where the switches are remembered.
 @export var save_path: String = "user://debug_options.json"
 ## How long the "GAS: ..." message stays on screen after pressing F1.
 @export var message_time: float = 2.0
 
 var gas_mode: int = GasMode.NORMAL
-## CLASSIC (false): hold fart to charge. SIMPLE (true): double jump, and hover on gas.
-var simple_controls: bool = false
+## CLASSIC (false): hold fart to charge. SIMPLE (true, the default): double jump, and hover on gas.
+var simple_controls: bool = true
 ## Music on (true) or off (false). The pause menu's MUSIC choice.
 var music_on: bool = true
 ## Only the music test sets this, to try saving and loading with a throw-away file.
@@ -182,8 +186,13 @@ func _load() -> void:
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(save_path))
 	if data is Dictionary:
 		gas_mode = clampi(int(data.get("gas_mode", 0)), 0, MODE_NAMES.size() - 1)
-		simple_controls = bool(data.get("simple_controls", false))
 		music_on = bool(data.get("music_on", true))
+		if int(data.get("settings_version", 1)) < SETTINGS_VERSION:
+			# An old save: its "CLASSIC" only meant "the old default". Switch to SIMPLE once.
+			simple_controls = true
+			_store()
+		else:
+			simple_controls = bool(data.get("simple_controls", true))
 
 
 func _store() -> void:
@@ -191,4 +200,4 @@ func _store() -> void:
 		return
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"gas_mode": gas_mode, "simple_controls": simple_controls, "music_on": music_on}))
+		file.store_string(JSON.stringify({"settings_version": SETTINGS_VERSION, "gas_mode": gas_mode, "simple_controls": simple_controls, "music_on": music_on}))

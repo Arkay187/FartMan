@@ -40,6 +40,12 @@ func refill_air_jumps() -> void:
 	_air_jumps_left = air_jumps
 
 
+## Used by the hover: leaving the ground to hover must not leave a ground jump to spend.
+func cancel_coyote() -> void:
+	_coyote_left = 0.0
+	_buffer_left = 0.0
+
+
 ## Called by the Player every physics frame, before it moves.
 func update(delta: float) -> void:
 	if _player == null:
