@@ -315,7 +315,9 @@ func _run() -> void:
 	_check("flames are bigger while flying (%.2f -> %.2f)" % [hover_flame, flame.scale.x], flame.scale.x > hover_flame * 1.5)
 	await _wait(1.2)
 	_check("and the ship lands over the next stop", map.ship.position.distance_to(map.stop_hover_position(1)) < 0.1 and not map.ship.is_flying)
-	_check("board_ship still does nothing with no hub", not map.board_ship())
+	_check("the map goes aboard the ship hub by default", map.ship_hub_scene == "res://scenes/ship_hub.tscn" and map.hub_hint.visible)
+	map.ship_hub_scene = ""
+	_check("board_ship does nothing with no hub", not map.board_ship())
 
 	save.reset()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_FILE))

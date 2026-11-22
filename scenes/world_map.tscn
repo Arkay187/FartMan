@@ -2894,7 +2894,7 @@ height = 0.1
 radial_segments = 10
 rings = 1
 
-[node name="WorldMap" type="Control" unique_id=1696178316 node_paths=PackedStringArray("ship", "camera", "stops_root", "name_label", "info_label", "soon_label", "world_label", "hub_hint")]
+[node name="WorldMap" type="Control" unique_id=815228638 node_paths=PackedStringArray("ship", "camera", "stops_root", "name_label", "info_label", "soon_label", "world_label", "hub_hint")]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
@@ -2910,1762 +2910,1763 @@ world_label = NodePath("WorldLabel")
 hub_hint = NodePath("HubHint")
 move_sound = ExtResource("2_55716")
 accept_sound = ExtResource("3_0hitc")
+ship_hub_scene = "res://scenes/ship_hub.tscn"
 
-[node name="Diorama" type="Node3D" parent="." unique_id=1579316359]
+[node name="Diorama" type="Node3D" parent="." unique_id=430186547]
 
-[node name="Sky" type="WorldEnvironment" parent="Diorama" unique_id=1072416587]
+[node name="Sky" type="WorldEnvironment" parent="Diorama" unique_id=847114719]
 environment = SubResource("Environment_d3p07")
 
-[node name="Sun" type="DirectionalLight3D" parent="Diorama" unique_id=325851067]
+[node name="Sun" type="DirectionalLight3D" parent="Diorama" unique_id=670855961]
 transform = Transform3D(0.8660254, 0.39400536, -0.30783075, 0, 0.6156615, 0.7880107, 0.5, -0.6824373, 0.5331785, 0, 0, 0)
 light_energy = 0.9
 shadow_enabled = true
 
-[node name="Sea" type="MeshInstance3D" parent="Diorama" unique_id=1115611903]
+[node name="Sea" type="MeshInstance3D" parent="Diorama" unique_id=645735225]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, -2.2, 0)
 mesh = SubResource("PlaneMesh_1ra3e")
 
-[node name="GrandmasGarden" type="Node3D" parent="Diorama" unique_id=1860671305]
+[node name="GrandmasGarden" type="Node3D" parent="Diorama" unique_id=1976422300]
 
-[node name="Ground" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=23362116]
+[node name="Ground" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=1300262805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1.5, 0)
 mesh = SubResource("BoxMesh_qwkcd")
 
-[node name="House" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1593434701]
+[node name="House" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1957932262]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -6)
 
-[node name="Walls" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=1501425767]
+[node name="Walls" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=681540315]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("BoxMesh_a1fuh")
 
-[node name="Roof" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=119006491]
+[node name="Roof" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=1378996696]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
 mesh = SubResource("PrismMesh_qeq5b")
 
-[node name="Door" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=925885470]
+[node name="Door" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=1413558502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 1.72)
 mesh = SubResource("BoxMesh_c8vak")
 
-[node name="Window" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=1135149852]
+[node name="Window" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=1837260495]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1.6, 1.72)
 mesh = SubResource("BoxMesh_o77pg")
 
-[node name="Chimney" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=120651544]
+[node name="Chimney" type="MeshInstance3D" parent="Diorama/GrandmasGarden/House" unique_id=887699086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 3.9, -0.7)
 mesh = SubResource("BoxMesh_h33lm")
 
-[node name="Hill0" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=2003842141]
+[node name="Hill0" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=60621705]
 transform = Transform3D(1.8, 0, 0, 0, 0.7, 0, 0, 0, 1.2, -6, -1, -17)
 mesh = SubResource("SphereMesh_8fygl")
 
-[node name="Hill1" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=1790486633]
+[node name="Hill1" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=1684664847]
 transform = Transform3D(1.8, 0, 0, 0, 0.7, 0, 0, 0, 1.2, 10, -1, -15)
 mesh = SubResource("SphereMesh_mqlt1")
 
-[node name="Hill2" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=1168187993]
+[node name="Hill2" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=1698438668]
 transform = Transform3D(1.8, 0, 0, 0, 0.7, 0, 0, 0, 1.2, 28, -1, -16)
 mesh = SubResource("SphereMesh_vsl5p")
 
-[node name="Hill3" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=488003011]
+[node name="Hill3" type="MeshInstance3D" parent="Diorama/GrandmasGarden" unique_id=1694875406]
 transform = Transform3D(1.8, 0, 0, 0, 0.7, 0, 0, 0, 1.2, 46, -1, -14)
 mesh = SubResource("SphereMesh_c5up0")
 
-[node name="Tree0" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1079241185]
+[node name="Tree0" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=221579991]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 8)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree0" unique_id=886609612]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree0" unique_id=1937912618]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_4gnoo")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree0" unique_id=1992855256]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree0" unique_id=1569853404]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_7xmex")
 
-[node name="Tree1" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=587467850]
+[node name="Tree1" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1776049107]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 13)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree1" unique_id=948532624]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree1" unique_id=894815561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_62d7k")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree1" unique_id=919528598]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree1" unique_id=291747241]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_ef0lx")
 
-[node name="Tree2" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1259491034]
+[node name="Tree2" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=675568355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 12)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree2" unique_id=1332153537]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree2" unique_id=1901008794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_y360i")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree2" unique_id=805385794]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree2" unique_id=363572270]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_074pg")
 
-[node name="Tree3" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=381064421]
+[node name="Tree3" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=741988917]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 11)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree3" unique_id=807806268]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree3" unique_id=1262523178]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_5d3s6")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree3" unique_id=1365109195]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree3" unique_id=1705130000]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_kkqtg")
 
-[node name="Tree4" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=528707416]
+[node name="Tree4" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=208589808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, 8)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree4" unique_id=712303494]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree4" unique_id=824260988]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_ijmin")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree4" unique_id=1872349442]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree4" unique_id=1850550676]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_hglhk")
 
-[node name="Tree5" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=607403345]
+[node name="Tree5" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1724426290]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -10)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree5" unique_id=556422847]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree5" unique_id=668705957]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_c12k4")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree5" unique_id=353574906]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree5" unique_id=25599988]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_vaewu")
 
-[node name="Tree6" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=320166805]
+[node name="Tree6" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=105350502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -9)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree6" unique_id=575297533]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree6" unique_id=486085235]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_hswgs")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree6" unique_id=1839744737]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree6" unique_id=1669295564]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_jmy5t")
 
-[node name="Tree7" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1209727317]
+[node name="Tree7" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=1958109603]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -12)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree7" unique_id=392442469]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree7" unique_id=1947284633]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_ktbr8")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree7" unique_id=2021698081]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree7" unique_id=36676721]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_hrwdy")
 
-[node name="Tree8" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=531743400]
+[node name="Tree8" type="Node3D" parent="Diorama/GrandmasGarden" unique_id=410584576]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, -6)
 
-[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree8" unique_id=1991261151]
+[node name="Trunk" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree8" unique_id=1293088191]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 mesh = SubResource("CylinderMesh_6f8wg")
 
-[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree8" unique_id=8283935]
+[node name="Leaves" type="MeshInstance3D" parent="Diorama/GrandmasGarden/Tree8" unique_id=164731908]
 transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_3d1ul")
 
-[node name="BeanFactory" type="Node3D" parent="Diorama" unique_id=1912027987]
+[node name="BeanFactory" type="Node3D" parent="Diorama" unique_id=1706369873]
 
-[node name="Ground" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1726123433]
+[node name="Ground" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=682227668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83, -1.5, 0)
 mesh = SubResource("BoxMesh_aulxf")
 
-[node name="Block0" type="Node3D" parent="Diorama/BeanFactory" unique_id=162024146]
+[node name="Block0" type="Node3D" parent="Diorama/BeanFactory" unique_id=948738979]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 0, -13)
 
-[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=1404709896]
+[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=384444325]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 mesh = SubResource("BoxMesh_d03j4")
 
-[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=1920718467]
+[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=1694798011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.02)
 mesh = SubResource("BoxMesh_gfrpi")
 
-[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=110997451]
+[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=300121766]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 6.5, 0)
 mesh = SubResource("CylinderMesh_m4233")
 
-[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=263607444]
+[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=1976994118]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 8.6, 0)
 mesh = SubResource("SphereMesh_ws1lj")
 
-[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=1204861041]
+[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block0" unique_id=108981580]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 9.9, 0)
 mesh = SubResource("SphereMesh_8x0n6")
 
-[node name="Block1" type="Node3D" parent="Diorama/BeanFactory" unique_id=1689685350]
+[node name="Block1" type="Node3D" parent="Diorama/BeanFactory" unique_id=632776384]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 0, -15)
 
-[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=1467179773]
+[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=728900534]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 mesh = SubResource("BoxMesh_yuq1i")
 
-[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=445338338]
+[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=884404285]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.02)
 mesh = SubResource("BoxMesh_cx0re")
 
-[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=54301695]
+[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=472672179]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 8.5, 0)
 mesh = SubResource("CylinderMesh_22wx2")
 
-[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=1311515564]
+[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=499868647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 10.6, 0)
 mesh = SubResource("SphereMesh_k0hjd")
 
-[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=1856023964]
+[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block1" unique_id=259464290]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 11.9, 0)
 mesh = SubResource("SphereMesh_5mw78")
 
-[node name="Block2" type="Node3D" parent="Diorama/BeanFactory" unique_id=1272268787]
+[node name="Block2" type="Node3D" parent="Diorama/BeanFactory" unique_id=2058215710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 0, -13)
 
-[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=1488860969]
+[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=637442302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("BoxMesh_b8ao8")
 
-[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=1292425967]
+[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=278845857]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.02)
 mesh = SubResource("BoxMesh_a1jgy")
 
-[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=895953407]
+[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=369801231]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 5.5, 0)
 mesh = SubResource("CylinderMesh_131xl")
 
-[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=13602449]
+[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=1678555179]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 7.6, 0)
 mesh = SubResource("SphereMesh_6p0q8")
 
-[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=1359042540]
+[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block2" unique_id=457426056]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 8.9, 0)
 mesh = SubResource("SphereMesh_d4x65")
 
-[node name="Block3" type="Node3D" parent="Diorama/BeanFactory" unique_id=691825968]
+[node name="Block3" type="Node3D" parent="Diorama/BeanFactory" unique_id=923486951]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, -15)
 
-[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=602574768]
+[node name="Walls" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=916180053]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 mesh = SubResource("BoxMesh_ghjj2")
 
-[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=199094609]
+[node name="Door" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=1587903968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.02)
 mesh = SubResource("BoxMesh_qwj4y")
 
-[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=902137521]
+[node name="Chimney" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=120614546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 7.5, 0)
 mesh = SubResource("CylinderMesh_dqstl")
 
-[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=1270463718]
+[node name="Smoke1" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=34576661]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 9.6, 0)
 mesh = SubResource("SphereMesh_8u8dn")
 
-[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=1544595819]
+[node name="Smoke2" type="MeshInstance3D" parent="Diorama/BeanFactory/Block3" unique_id=860460863]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 10.9, 0)
 mesh = SubResource("SphereMesh_ssydw")
 
-[node name="Pipe0" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1790827756]
+[node name="Pipe0" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=371853406]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 65, 1, 11)
 mesh = SubResource("CylinderMesh_pffhq")
 
-[node name="PipeLeg0" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1043132729]
+[node name="PipeLeg0" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1967111257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.5, 0.25, 11)
 mesh = SubResource("CylinderMesh_1gxhr")
 
-[node name="Pipe1" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=478845867]
+[node name="Pipe1" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1501064339]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 82, 1, 11)
 mesh = SubResource("CylinderMesh_ywnwg")
 
-[node name="PipeLeg1" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1484621675]
+[node name="PipeLeg1" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=2087825724]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, 0.25, 11)
 mesh = SubResource("CylinderMesh_diok5")
 
-[node name="Pipe2" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1400064124]
+[node name="Pipe2" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1972091047]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 99, 1, 11)
 mesh = SubResource("CylinderMesh_s65fi")
 
-[node name="PipeLeg2" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=1329642424]
+[node name="PipeLeg2" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=717625322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.5, 0.25, 11)
 mesh = SubResource("CylinderMesh_mnam0")
 
-[node name="BigTank" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=984962110]
+[node name="BigTank" type="MeshInstance3D" parent="Diorama/BeanFactory" unique_id=2044123153]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 2, 8)
 mesh = SubResource("CylinderMesh_owfy6")
 
-[node name="PlanetWhiff" type="Node3D" parent="Diorama" unique_id=1159988651]
+[node name="PlanetWhiff" type="Node3D" parent="Diorama" unique_id=445147405]
 
-[node name="Cloud_3-1" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=302028555]
+[node name="Cloud_3-1" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=795179813]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 7, 4)
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-1" unique_id=328864019]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-1" unique_id=774143357]
 transform = Transform3D(1, 0, 0, 0, 0.45, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_bvajh")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-1" unique_id=1109439224]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-1" unique_id=644144882]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -4.5, -0.6, 1)
 mesh = SubResource("SphereMesh_201ec")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-1" unique_id=43230959]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-1" unique_id=1741833448]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 4.5, -0.8, -1)
 mesh = SubResource("SphereMesh_gfv8q")
 
-[node name="Cloud_3-2" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=507709161]
+[node name="Cloud_3-2" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1851805432]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 7, -4)
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-2" unique_id=387999507]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-2" unique_id=321798077]
 transform = Transform3D(1, 0, 0, 0, 0.45, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_q5cqr")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-2" unique_id=377035262]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-2" unique_id=406207315]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -4.5, -0.6, 1)
 mesh = SubResource("SphereMesh_gnnxd")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-2" unique_id=2127516537]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-2" unique_id=1969152874]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 4.5, -0.8, -1)
 mesh = SubResource("SphereMesh_uya6b")
 
-[node name="Cloud_3-3" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=175442893]
+[node name="Cloud_3-3" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=305487091]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 7, 5)
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-3" unique_id=1049670799]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-3" unique_id=1495153449]
 transform = Transform3D(1, 0, 0, 0, 0.45, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_5ohy3")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-3" unique_id=1584843033]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-3" unique_id=61341861]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -4.5, -0.6, 1)
 mesh = SubResource("SphereMesh_eigo0")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-3" unique_id=849019155]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-3" unique_id=1714985108]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 4.5, -0.8, -1)
 mesh = SubResource("SphereMesh_8vav1")
 
-[node name="Cloud_3-4" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=754012764]
+[node name="Cloud_3-4" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1144666919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 159, 7, -3)
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-4" unique_id=1261464478]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-4" unique_id=666869634]
 transform = Transform3D(1, 0, 0, 0, 0.45, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_m8h3b")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-4" unique_id=699203892]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-4" unique_id=175018165]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -4.5, -0.6, 1)
 mesh = SubResource("SphereMesh_pqg7v")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-4" unique_id=120376316]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Cloud_3-4" unique_id=1477781960]
 transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 4.5, -0.8, -1)
 mesh = SubResource("SphereMesh_7372e")
 
-[node name="Drift0" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=1259502748]
+[node name="Drift0" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=556109754]
 transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 112, 4, -8)
 mesh = SubResource("SphereMesh_cq1he")
 
-[node name="Drift1" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=1879710676]
+[node name="Drift1" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=812455095]
 transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 125, 14, -12)
 mesh = SubResource("SphereMesh_ys47d")
 
-[node name="Drift2" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=569342359]
+[node name="Drift2" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=1148259103]
 transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 140, 3, -10)
 mesh = SubResource("SphereMesh_nsubm")
 
-[node name="Drift3" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=1149463649]
+[node name="Drift3" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=287085903]
 transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 152, 15, 8)
 mesh = SubResource("SphereMesh_3xce1")
 
-[node name="Drift4" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=71776910]
+[node name="Drift4" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=1728348312]
 transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 164, 5, 8)
 mesh = SubResource("SphereMesh_dnukf")
 
-[node name="Drift5" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=1642473487]
+[node name="Drift5" type="MeshInstance3D" parent="Diorama/PlanetWhiff" unique_id=910172577]
 transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 124, 2, 12)
 mesh = SubResource("SphereMesh_3i1cn")
 
-[node name="Swirl0" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=662735633]
+[node name="Swirl0" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=247931893]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 15, -2)
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(40, 30, 0)
 
-[node name="Ring" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl0" unique_id=770513017]
+[node name="Ring" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl0" unique_id=819621053]
 transform = Transform3D(1, 0, 0, 0, 0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0)
 mesh = SubResource("TorusMesh_gfhic")
 
-[node name="InnerRing" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl0" unique_id=997368834]
+[node name="InnerRing" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl0" unique_id=1621578371]
 transform = Transform3D(1, 0, 0, 0, 0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0)
 mesh = SubResource("TorusMesh_smro4")
 
-[node name="Swirl1" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1977182348]
+[node name="Swirl1" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1902187907]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 16, 1)
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(40, 40, 0)
 
-[node name="Ring" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl1" unique_id=1573578318]
+[node name="Ring" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl1" unique_id=769460617]
 transform = Transform3D(1, 0, 0, 0, 0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0)
 mesh = SubResource("TorusMesh_0tgge")
 
-[node name="InnerRing" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl1" unique_id=1963143413]
+[node name="InnerRing" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl1" unique_id=1693029113]
 transform = Transform3D(1, 0, 0, 0, 0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0)
 mesh = SubResource("TorusMesh_1xag3")
 
-[node name="Swirl2" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1187295883]
+[node name="Swirl2" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1763001013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152, 15, 0)
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(40, 50, 0)
 
-[node name="Ring" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl2" unique_id=260310255]
+[node name="Ring" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl2" unique_id=760471661]
 transform = Transform3D(1, 0, 0, 0, 0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0)
 mesh = SubResource("TorusMesh_rdfvm")
 
-[node name="InnerRing" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl2" unique_id=1907373559]
+[node name="InnerRing" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Swirl2" unique_id=138113344]
 transform = Transform3D(1, 0, 0, 0, 0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0)
 mesh = SubResource("TorusMesh_ir3t3")
 
-[node name="Plant0" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1440754193]
+[node name="Plant0" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=387551533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114, 10, 8)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant0" unique_id=173021584]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant0" unique_id=213363155]
 transform = Transform3D(0.99026805, 0.1391731, 0, -0.1391731, 0.99026805, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_hdp45")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant0" unique_id=935306759]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant0" unique_id=505686609]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_k7xel")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant0" unique_id=948399035]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant0" unique_id=496321518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_ollaa")
 
-[node name="Plant1" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1680606877]
+[node name="Plant1" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1973391360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 123, 10, -1)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant1" unique_id=455115410]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant1" unique_id=2064080141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_3b47g")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant1" unique_id=16900363]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant1" unique_id=2013219768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_7vcsm")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant1" unique_id=918936461]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant1" unique_id=566910814]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_5xsvm")
 
-[node name="Plant2" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=110172559]
+[node name="Plant2" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1573883852]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 10, -8)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant2" unique_id=1852542149]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant2" unique_id=212580083]
 transform = Transform3D(0.99026805, -0.1391731, 0, 0.1391731, 0.99026805, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_wslip")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant2" unique_id=1218598390]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant2" unique_id=1323417308]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_0rrih")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant2" unique_id=121184050]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant2" unique_id=991054431]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_4t0st")
 
-[node name="Plant3" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=876712977]
+[node name="Plant3" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1618308494]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 137, 10, 1)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant3" unique_id=957030954]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant3" unique_id=980527822]
 transform = Transform3D(0.99026805, 0.1391731, 0, -0.1391731, 0.99026805, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_11wwo")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant3" unique_id=817472666]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant3" unique_id=786972564]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_qh847")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant3" unique_id=1838476925]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant3" unique_id=23664273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_3sceu")
 
-[node name="Plant4" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=894403014]
+[node name="Plant4" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1968021197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143, 10, 9)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant4" unique_id=1629114848]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant4" unique_id=849455040]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_rcsbh")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant4" unique_id=945186770]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant4" unique_id=124273361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_kcrog")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant4" unique_id=1063164738]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant4" unique_id=1168093445]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_0kju5")
 
-[node name="Plant5" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1920558665]
+[node name="Plant5" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=1999849412]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 10, 0)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant5" unique_id=84469956]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant5" unique_id=698254465]
 transform = Transform3D(0.99026805, -0.1391731, 0, 0.1391731, 0.99026805, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_1036c")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant5" unique_id=564584602]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant5" unique_id=1866371718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_dh72n")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant5" unique_id=582933199]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant5" unique_id=1647459047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_tv4ju")
 
-[node name="Plant6" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=561833032]
+[node name="Plant6" type="Node3D" parent="Diorama/PlanetWhiff" unique_id=782000130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163, 10, 2)
 
-[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant6" unique_id=571437349]
+[node name="Stalk" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant6" unique_id=232755579]
 transform = Transform3D(0.99026805, 0.1391731, 0, -0.1391731, 0.99026805, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("CylinderMesh_6jev4")
 
-[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant6" unique_id=578795107]
+[node name="Bulb" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant6" unique_id=283339901]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 mesh = SubResource("SphereMesh_0364d")
 
-[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant6" unique_id=995860474]
+[node name="Bulb2" type="MeshInstance3D" parent="Diorama/PlanetWhiff/Plant6" unique_id=306790173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.7, 0)
 mesh = SubResource("SphereMesh_8vy3w")
 
-[node name="Stops" type="Node3D" parent="Diorama" unique_id=691327921]
+[node name="Stops" type="Node3D" parent="Diorama" unique_id=236803237]
 
-[node name="Stop_1-1" type="Node3D" parent="Diorama/Stops" unique_id=27259613]
+[node name="Stop_1-1" type="Node3D" parent="Diorama/Stops" unique_id=1562671570]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=888515410]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=1331493152]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=440091293]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=517365037]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_1by4f")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=243811659]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=348602085]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_27erq")
 
-[node name="Row0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1000624688]
+[node name="Row0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1683064736]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0.85, 0)
 mesh = SubResource("BoxMesh_r4emc")
 
-[node name="Cabbage0_0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1171375201]
+[node name="Cabbage0_0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1096131325]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.2, -1.1)
 mesh = SubResource("SphereMesh_jva2y")
 
-[node name="Cabbage0_1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1723229822]
+[node name="Cabbage0_1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1167869442]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.2, 0)
 mesh = SubResource("SphereMesh_vil8i")
 
-[node name="Cabbage0_2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=561443957]
+[node name="Cabbage0_2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=676732226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.2, 1.1)
 mesh = SubResource("SphereMesh_e410p")
 
-[node name="Row1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=590280593]
+[node name="Row1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1978375718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 mesh = SubResource("BoxMesh_4dcrm")
 
-[node name="Cabbage1_0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1624522020]
+[node name="Cabbage1_0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=92892490]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -1.1)
 mesh = SubResource("SphereMesh_kv1x8")
 
-[node name="Cabbage1_1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=2001434504]
+[node name="Cabbage1_1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1614350835]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 mesh = SubResource("SphereMesh_6oby2")
 
-[node name="Cabbage1_2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=125200224]
+[node name="Cabbage1_2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=943449462]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 1.1)
 mesh = SubResource("SphereMesh_mx0ub")
 
-[node name="Row2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=566617398]
+[node name="Row2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=170823538]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.85, 0)
 mesh = SubResource("BoxMesh_mjjqu")
 
-[node name="Cabbage2_0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=2017250524]
+[node name="Cabbage2_0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=653388967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, -1.1)
 mesh = SubResource("SphereMesh_r22oq")
 
-[node name="Cabbage2_1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=1932655412]
+[node name="Cabbage2_1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=393109556]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
 mesh = SubResource("SphereMesh_ix3uj")
 
-[node name="Cabbage2_2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=670870066]
+[node name="Cabbage2_2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Look" unique_id=481802667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 1.1)
 mesh = SubResource("SphereMesh_rw4oh")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=1665324337]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=852510869]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Flag" unique_id=1697086872]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Flag" unique_id=1058778145]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_tf1o5")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Flag" unique_id=2119841907]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Flag" unique_id=2052110132]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_488ce")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=26369016]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=132770852]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Lock" unique_id=909295411]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Lock" unique_id=1352753952]
 mesh = SubResource("BoxMesh_saww2")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Lock" unique_id=942479243]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Lock" unique_id=688640834]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_i36j5")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Lock" unique_id=1013851747]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Lock" unique_id=1224795903]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_jf1rn")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=727919475]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-1" unique_id=908386244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Pips" unique_id=487105556]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Pips" unique_id=340124838]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_pa7yp")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Pips" unique_id=848053849]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Pips" unique_id=248007868]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_dg644")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Pips" unique_id=1151233419]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-1/Pips" unique_id=1505572475]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_ruu2q")
 
-[node name="Stop_1-2" type="Node3D" parent="Diorama/Stops" unique_id=1423248534]
+[node name="Stop_1-2" type="Node3D" parent="Diorama/Stops" unique_id=1303499569]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -3)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=1579352222]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=1537914340]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=1211010659]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=2008960889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_ysabh")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=202030902]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=14291927]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_m5vrm")
 
-[node name="Frame" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=2011144200]
+[node name="Frame" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=692772578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 mesh = SubResource("BoxMesh_kgqse")
 
-[node name="Glass" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=1108691670]
+[node name="Glass" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=7008061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
 mesh = SubResource("BoxMesh_dy882")
 
-[node name="GlassRoof" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=1733508122]
+[node name="GlassRoof" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=277681147]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, 0)
 mesh = SubResource("PrismMesh_q3nc6")
 
-[node name="Plant0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=1948391796]
+[node name="Plant0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=345583137]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.25, 0)
 mesh = SubResource("SphereMesh_vnsfi")
 
-[node name="Plant1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=323746719]
+[node name="Plant1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=1774893026]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 mesh = SubResource("SphereMesh_81mrs")
 
-[node name="Plant2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=969943878]
+[node name="Plant2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Look" unique_id=1319933627]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.25, 0)
 mesh = SubResource("SphereMesh_eh57g")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=984079270]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=2114566110]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Flag" unique_id=1932608210]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Flag" unique_id=1271460842]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_tin6q")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Flag" unique_id=1128888783]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Flag" unique_id=1022411110]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_7vsrt")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=1101346243]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=1625185125]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Lock" unique_id=1069231817]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Lock" unique_id=392379691]
 mesh = SubResource("BoxMesh_671jp")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Lock" unique_id=696487505]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Lock" unique_id=2108274327]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_6n6ai")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Lock" unique_id=281244437]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Lock" unique_id=195211237]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_14eoy")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=487734661]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-2" unique_id=2032057669]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Pips" unique_id=1048212149]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Pips" unique_id=214413390]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_pt6na")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Pips" unique_id=1881316631]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Pips" unique_id=1891131006]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_7v6fx")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Pips" unique_id=1815481348]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-2/Pips" unique_id=1222295278]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_i4upi")
 
-[node name="Stop_1-3" type="Node3D" parent="Diorama/Stops" unique_id=1600522873]
+[node name="Stop_1-3" type="Node3D" parent="Diorama/Stops" unique_id=80670950]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 5)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=1919416338]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=1360619296]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=17746485]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1180175520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_r1m7v")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1106612941]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1837503793]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_0qdvy")
 
-[node name="Pad" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=227780213]
+[node name="Pad" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=988846466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
 mesh = SubResource("CylinderMesh_aua5p")
 
-[node name="PadStripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1713262128]
+[node name="PadStripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=98496768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89, 0)
 mesh = SubResource("CylinderMesh_6butf")
 
-[node name="Arrow" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1271610135]
+[node name="Arrow" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=2094163293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("PrismMesh_g2vy6")
 
-[node name="BoosterL" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=593099000]
+[node name="BoosterL" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=732947599]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.6, 0)
 mesh = SubResource("CylinderMesh_y75h0")
 
-[node name="BoosterR" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=75553635]
+[node name="BoosterR" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1004367540]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.6, 0)
 mesh = SubResource("CylinderMesh_5na6j")
 
-[node name="Puff0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1398994636]
+[node name="Puff0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=575254128]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 2.6710768, 0.4, 1.1293132)
 mesh = SubResource("SphereMesh_15us5")
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=914287883]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=459724160]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -0.24863252, 0.4, 2.889322)
 mesh = SubResource("SphereMesh_3am1c")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=442966652]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=303202076]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -2.8247402, 0.4, 0.656386)
 mesh = SubResource("SphereMesh_3r8ju")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=2088260371]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1772369360]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -1.4971529, 0.4, -2.483653)
 mesh = SubResource("SphereMesh_a537j")
 
-[node name="Puff4" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=1819988280]
+[node name="Puff4" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Look" unique_id=29666043]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 1.8994489, 0.4, -2.191368)
 mesh = SubResource("SphereMesh_aiwya")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=883555145]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=1490554832]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Flag" unique_id=1083419457]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Flag" unique_id=231229458]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_ce4e2")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Flag" unique_id=1037213398]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Flag" unique_id=516432011]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_5jgef")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=1814826186]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=582778425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Lock" unique_id=1045704833]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Lock" unique_id=670904061]
 mesh = SubResource("BoxMesh_i1ihf")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Lock" unique_id=1113179616]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Lock" unique_id=2042446021]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_iydnk")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Lock" unique_id=1198743393]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Lock" unique_id=1932549219]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_mve7p")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=1564287940]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-3" unique_id=1648905290]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Pips" unique_id=1974775616]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Pips" unique_id=2011533132]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_c5umd")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Pips" unique_id=2043273792]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Pips" unique_id=1064363767]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_tkrpc")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Pips" unique_id=1010412677]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-3/Pips" unique_id=251310477]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_6ff5b")
 
-[node name="Stop_1-4" type="Node3D" parent="Diorama/Stops" unique_id=1935418406]
+[node name="Stop_1-4" type="Node3D" parent="Diorama/Stops" unique_id=1612140686]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, -4)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=1587295387]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=68055286]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1605410990]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1983811714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_7gy4f")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=716126248]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1734293071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_55n6i")
 
-[node name="Stem" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=24689137]
+[node name="Stem" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1649914304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95, 0)
 mesh = SubResource("CylinderMesh_5uv7e")
 
-[node name="Petal0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=966283805]
+[node name="Petal0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1219297691]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 1.2, 3.3, 0.2)
 mesh = SubResource("SphereMesh_mep3p")
 
-[node name="Petal1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1325403093]
+[node name="Petal1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1668164474]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0.6, 4.3392305, 0.2)
 mesh = SubResource("SphereMesh_emqnq")
 
-[node name="Petal2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1959408407]
+[node name="Petal2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=782559772]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -0.6, 4.3392305, 0.2)
 mesh = SubResource("SphereMesh_g3geo")
 
-[node name="Petal3" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=7183864]
+[node name="Petal3" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=2078862709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -1.2, 3.3, 0.2)
 mesh = SubResource("SphereMesh_lv11d")
 
-[node name="Petal4" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1994971634]
+[node name="Petal4" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=653932149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -0.6, 2.2607696, 0.2)
 mesh = SubResource("SphereMesh_tgeuw")
 
-[node name="Petal5" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=614151342]
+[node name="Petal5" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1782791398]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0.6, 2.2607696, 0.2)
 mesh = SubResource("SphereMesh_xemud")
 
-[node name="Centre" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=1127737655]
+[node name="Centre" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Look" unique_id=442205813]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0.35)
 mesh = SubResource("SphereMesh_nmuej")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=341741330]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=119260995]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Flag" unique_id=866847641]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Flag" unique_id=692402361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_0n6mi")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Flag" unique_id=590493898]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Flag" unique_id=30018563]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_11x2n")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=927738413]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=268946069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Lock" unique_id=1377962543]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Lock" unique_id=312734168]
 mesh = SubResource("BoxMesh_f0rc7")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Lock" unique_id=1310295473]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Lock" unique_id=1046530516]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_mbdpv")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Lock" unique_id=229905370]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Lock" unique_id=566543870]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_jw87e")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=965255257]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_1-4" unique_id=290506132]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Pips" unique_id=262781997]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Pips" unique_id=9912430]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_e3fkt")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Pips" unique_id=1246948188]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Pips" unique_id=213741097]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_mvvqc")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Pips" unique_id=1289415658]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_1-4/Pips" unique_id=289795486]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_63ee0")
 
-[node name="Stop_2-1" type="Node3D" parent="Diorama/Stops" unique_id=904442805]
+[node name="Stop_2-1" type="Node3D" parent="Diorama/Stops" unique_id=1299196600]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 0, 4)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=593975505]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=1131847797]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=543526726]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=633724962]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_mk6b3")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=610592225]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=929418181]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_jrbei")
 
-[node name="Belt" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=262096945]
+[node name="Belt" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=1513001718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_h420r")
 
-[node name="RollerL" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=1078442596]
+[node name="RollerL" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=18043831]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2.3, 1, 0)
 mesh = SubResource("CylinderMesh_joyqf")
 
-[node name="RollerR" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=866135737]
+[node name="RollerR" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=1388058315]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 2.3, 1, 0)
 mesh = SubResource("CylinderMesh_hiwfn")
 
-[node name="Crate1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=1023973972]
+[node name="Crate1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=1720190934]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.6, 0)
 mesh = SubResource("BoxMesh_76cwv")
 
-[node name="Crate2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=986020330]
+[node name="Crate2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Look" unique_id=20870973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.55, 0)
 mesh = SubResource("BoxMesh_64cjm")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=1747717359]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=855374760]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Flag" unique_id=287066848]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Flag" unique_id=111013078]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_1anf7")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Flag" unique_id=2119695066]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Flag" unique_id=521253618]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_w785r")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=920994117]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=1433941995]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Lock" unique_id=790744402]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Lock" unique_id=1584388390]
 mesh = SubResource("BoxMesh_q37gy")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Lock" unique_id=162352441]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Lock" unique_id=1719139320]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_s5b6q")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Lock" unique_id=882397050]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Lock" unique_id=1492600536]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_4mi0a")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=626130806]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-1" unique_id=42593702]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Pips" unique_id=802671321]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Pips" unique_id=1972566998]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_v52bx")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Pips" unique_id=29892961]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Pips" unique_id=9139548]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_1t4tl")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Pips" unique_id=85461010]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-1/Pips" unique_id=206807735]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_6ac2x")
 
-[node name="Stop_2-2" type="Node3D" parent="Diorama/Stops" unique_id=1252987877]
+[node name="Stop_2-2" type="Node3D" parent="Diorama/Stops" unique_id=99722340]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 0, -4)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=959355677]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=1899585314]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=1087479779]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=448171059]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_g5pc4")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=1211439018]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=1293532585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_wprny")
 
-[node name="PipeA" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=81842830]
+[node name="PipeA" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=1302581016]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1.4, 0.8)
 mesh = SubResource("CylinderMesh_mag28")
 
-[node name="PipeB" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=871811012]
+[node name="PipeB" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=905640074]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.2, 0.8)
 mesh = SubResource("CylinderMesh_1mpd6")
 
-[node name="PipeC" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=680122313]
+[node name="PipeC" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=1433606117]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 2.4, -0.8)
 mesh = SubResource("CylinderMesh_4kolb")
 
-[node name="PipeD" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=2044363574]
+[node name="PipeD" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Look" unique_id=1934104631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.8, -2)
 mesh = SubResource("CylinderMesh_ag3dd")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=59947954]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=920626033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Flag" unique_id=1733200314]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Flag" unique_id=960527905]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_36j4h")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Flag" unique_id=1039323299]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Flag" unique_id=1636256594]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_p6tir")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=56717110]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=1911897837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Lock" unique_id=1638470163]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Lock" unique_id=1435604564]
 mesh = SubResource("BoxMesh_oaexm")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Lock" unique_id=1967195995]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Lock" unique_id=582548421]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_btjjd")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Lock" unique_id=1082067649]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Lock" unique_id=835163803]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_1fx7y")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=597110877]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-2" unique_id=548520382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Pips" unique_id=940090330]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Pips" unique_id=2056556719]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_k830t")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Pips" unique_id=909137950]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Pips" unique_id=2026393864]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_pb3k7")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Pips" unique_id=629553687]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-2/Pips" unique_id=1303210173]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_bjhv2")
 
-[node name="Stop_2-3" type="Node3D" parent="Diorama/Stops" unique_id=940871317]
+[node name="Stop_2-3" type="Node3D" parent="Diorama/Stops" unique_id=2145501497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 0, 5)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=1731147124]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=649601837]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1063617020]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1943699043]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_h6c0u")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=674036057]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1444527731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_lit51")
 
-[node name="Pad" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1589346044]
+[node name="Pad" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=856518366]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
 mesh = SubResource("CylinderMesh_bkalo")
 
-[node name="PadStripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=510856687]
+[node name="PadStripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1727552831]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89, 0)
 mesh = SubResource("CylinderMesh_k2ubv")
 
-[node name="Arrow" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=411961563]
+[node name="Arrow" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1736093056]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("PrismMesh_t1bdu")
 
-[node name="BoosterL" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=2005626097]
+[node name="BoosterL" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1824944603]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.6, 0)
 mesh = SubResource("CylinderMesh_n0y2k")
 
-[node name="BoosterR" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1246223292]
+[node name="BoosterR" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=198787205]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.6, 0)
 mesh = SubResource("CylinderMesh_0h4hr")
 
-[node name="Puff0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=261884868]
+[node name="Puff0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1772575271]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 2.6710768, 0.4, 1.1293132)
 mesh = SubResource("SphereMesh_g7btu")
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=268685291]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1559622289]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -0.24863252, 0.4, 2.889322)
 mesh = SubResource("SphereMesh_0jo4p")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=427318560]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1721469081]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -2.8247402, 0.4, 0.656386)
 mesh = SubResource("SphereMesh_qqkhd")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=43910464]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=2060645274]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -1.4971529, 0.4, -2.483653)
 mesh = SubResource("SphereMesh_fh12w")
 
-[node name="Puff4" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=1499273362]
+[node name="Puff4" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Look" unique_id=172692755]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 1.8994489, 0.4, -2.191368)
 mesh = SubResource("SphereMesh_ty3kk")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=1660041557]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=1192934102]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Flag" unique_id=2077415367]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Flag" unique_id=2139963136]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_esqc4")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Flag" unique_id=562449943]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Flag" unique_id=1472961724]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_gwxyb")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=1128167319]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=1619482288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Lock" unique_id=1945662922]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Lock" unique_id=1906163830]
 mesh = SubResource("BoxMesh_e0t4a")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Lock" unique_id=1448151230]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Lock" unique_id=1353485601]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_rl6j6")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Lock" unique_id=307602897]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Lock" unique_id=646587978]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_sxkrw")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=106497299]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-3" unique_id=867088270]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Pips" unique_id=1882593209]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Pips" unique_id=1726109508]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_a54vu")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Pips" unique_id=362834152]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Pips" unique_id=841616971]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_l3uiw")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Pips" unique_id=314545928]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-3/Pips" unique_id=208162836]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_cjgxh")
 
-[node name="Stop_2-4" type="Node3D" parent="Diorama/Stops" unique_id=153637732]
+[node name="Stop_2-4" type="Node3D" parent="Diorama/Stops" unique_id=724981221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99, 0, -3)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=1414319599]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=325166746]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1951913281]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1346536317]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_6xdfq")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=54874536]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1736239399]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_dvaua")
 
-[node name="Cork" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=2039166729]
+[node name="Cork" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=505500163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
 mesh = SubResource("CylinderMesh_4q33f")
 
-[node name="Hat" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=859405847]
+[node name="Hat" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1545998079]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 mesh = SubResource("CylinderMesh_01wec")
 
-[node name="HatTop" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1031719415]
+[node name="HatTop" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1711164034]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 mesh = SubResource("CylinderMesh_xefyj")
 
-[node name="Stripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1416731012]
+[node name="Stripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Look" unique_id=1799908211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.1)
 mesh = SubResource("BoxMesh_myshk")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=1202962993]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=1169885037]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Flag" unique_id=1406884366]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Flag" unique_id=1428637121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_ke637")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Flag" unique_id=1310496977]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Flag" unique_id=746900829]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_ngvh2")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=448767752]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=233132355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Lock" unique_id=540843988]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Lock" unique_id=1636982526]
 mesh = SubResource("BoxMesh_ohkkt")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Lock" unique_id=1114895968]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Lock" unique_id=1241808890]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_06lfx")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Lock" unique_id=398698052]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Lock" unique_id=1422864143]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_huioe")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=879033263]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_2-4" unique_id=2116969557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Pips" unique_id=262212042]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Pips" unique_id=534334395]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_g6x67")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Pips" unique_id=1465903864]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Pips" unique_id=465199376]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_3orsh")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Pips" unique_id=1257906453]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_2-4/Pips" unique_id=679345121]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_npcow")
 
-[node name="Stop_3-1" type="Node3D" parent="Diorama/Stops" unique_id=1818882691]
+[node name="Stop_3-1" type="Node3D" parent="Diorama/Stops" unique_id=1073088563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 10, 4)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=1000171394]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=1903057830]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=440510482]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=953128915]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_tt2f5")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=1845041734]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=872618230]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_mjrjx")
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=527477239]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=397217477]
 transform = Transform3D(1.3, 0, 0, 0, 0.8, 0, 0, 0, 1, -1.2, 1.6, 0)
 mesh = SubResource("SphereMesh_tnq63")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=937424365]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=535447038]
 transform = Transform3D(1.3, 0, 0, 0, 0.8, 0, 0, 0, 1, 0.8, 1.5, 0.8)
 mesh = SubResource("SphereMesh_ce6gq")
 
-[node name="Crystal" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=1153239926]
+[node name="Crystal" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Look" unique_id=1626081222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.8, -0.8)
 mesh = SubResource("CylinderMesh_euj45")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=1265368645]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=112880326]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Flag" unique_id=843947823]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Flag" unique_id=1939300669]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_rlr4y")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Flag" unique_id=1892816899]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Flag" unique_id=1434568646]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_i32cb")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=260600040]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=755376172]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Lock" unique_id=266117749]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Lock" unique_id=1186867455]
 mesh = SubResource("BoxMesh_b16yr")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Lock" unique_id=985248605]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Lock" unique_id=146794156]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_ldycm")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Lock" unique_id=903204130]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Lock" unique_id=660178475]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_b0ykf")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=1216526920]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-1" unique_id=1315986927]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Pips" unique_id=518760352]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Pips" unique_id=687778421]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_stmq2")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Pips" unique_id=1778033780]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Pips" unique_id=122703693]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_xpnpa")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Pips" unique_id=777845927]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-1/Pips" unique_id=1158761431]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_360oh")
 
-[node name="Stop_3-2" type="Node3D" parent="Diorama/Stops" unique_id=1149826457]
+[node name="Stop_3-2" type="Node3D" parent="Diorama/Stops" unique_id=312899924]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 10, -4)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=2141205843]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=1443551362]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1729631331]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1708559163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_bkxfs")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1718482390]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=422491143]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_qnm3f")
 
-[node name="Wall" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1168097588]
+[node name="Wall" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1092283083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
 mesh = SubResource("BoxMesh_o4dp4")
 
-[node name="Tower-1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1937921866]
+[node name="Tower-1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1733883799]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 2.35, 0)
 mesh = SubResource("CylinderMesh_mt1kd")
 
-[node name="TowerTop-1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1035209782]
+[node name="TowerTop-1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=831506918]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 4.1, 0)
 mesh = SubResource("CylinderMesh_bt5j6")
 
-[node name="Tower1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1012653990]
+[node name="Tower1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1159132936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 2.35, 0)
 mesh = SubResource("CylinderMesh_j443l")
 
-[node name="TowerTop1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=463251846]
+[node name="TowerTop1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=588162924]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 4.1, 0)
 mesh = SubResource("CylinderMesh_q4suc")
 
-[node name="Bubble" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1288525721]
+[node name="Bubble" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Look" unique_id=1754787372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0.6)
 mesh = SubResource("SphereMesh_7avv1")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=535605215]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=256468301]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Flag" unique_id=1188647328]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Flag" unique_id=1904958723]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_66dv1")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Flag" unique_id=316286625]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Flag" unique_id=2032768511]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_1uuc7")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=152032022]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=856673498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Lock" unique_id=766280116]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Lock" unique_id=1763790789]
 mesh = SubResource("BoxMesh_21soh")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Lock" unique_id=826655113]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Lock" unique_id=1598444290]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_unedt")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Lock" unique_id=1159281006]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Lock" unique_id=726377631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_4c2jy")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=606695904]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-2" unique_id=1979296184]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Pips" unique_id=1949383546]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Pips" unique_id=1235312534]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_v6ptg")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Pips" unique_id=1529029538]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Pips" unique_id=878737134]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_w1rw2")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Pips" unique_id=83646291]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-2/Pips" unique_id=1134415569]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_iip6e")
 
-[node name="Stop_3-3" type="Node3D" parent="Diorama/Stops" unique_id=1779784687]
+[node name="Stop_3-3" type="Node3D" parent="Diorama/Stops" unique_id=672907533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146, 10, 5)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=1560114640]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=1218688848]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1615266923]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1687477098]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_ld845")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=631313637]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=140223110]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_h2f3k")
 
-[node name="Pad" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1818507696]
+[node name="Pad" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=753872979]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
 mesh = SubResource("CylinderMesh_rw5mf")
 
-[node name="PadStripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=503732296]
+[node name="PadStripe" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1280693197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89, 0)
 mesh = SubResource("CylinderMesh_g1g6m")
 
-[node name="Arrow" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=637433604]
+[node name="Arrow" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=230543385]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 mesh = SubResource("PrismMesh_hg7rg")
 
-[node name="BoosterL" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=788287144]
+[node name="BoosterL" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=2066205499]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.6, 0)
 mesh = SubResource("CylinderMesh_jswx3")
 
-[node name="BoosterR" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1580899451]
+[node name="BoosterR" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1039537017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.6, 0)
 mesh = SubResource("CylinderMesh_5kux6")
 
-[node name="Puff0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=475621061]
+[node name="Puff0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1454189645]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 2.6710768, 0.4, 1.1293132)
 mesh = SubResource("SphereMesh_3f0cw")
 
-[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1263711488]
+[node name="Puff1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1659124691]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -0.24863252, 0.4, 2.889322)
 mesh = SubResource("SphereMesh_lwf21")
 
-[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1924299508]
+[node name="Puff2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1383825456]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -2.8247402, 0.4, 0.656386)
 mesh = SubResource("SphereMesh_bvi1e")
 
-[node name="Puff3" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=940376626]
+[node name="Puff3" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=1745501732]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -1.4971529, 0.4, -2.483653)
 mesh = SubResource("SphereMesh_14g8p")
 
-[node name="Puff4" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=811128714]
+[node name="Puff4" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Look" unique_id=975474905]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 1.8994489, 0.4, -2.191368)
 mesh = SubResource("SphereMesh_6acis")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=1477443599]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=97499031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Flag" unique_id=1632225541]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Flag" unique_id=1330424982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_k1gfs")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Flag" unique_id=581274976]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Flag" unique_id=464776067]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_e0rbk")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=921998267]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=568202676]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Lock" unique_id=657092205]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Lock" unique_id=773926047]
 mesh = SubResource("BoxMesh_027a0")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Lock" unique_id=1804711455]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Lock" unique_id=289790257]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_ihxb1")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Lock" unique_id=1719142822]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Lock" unique_id=1641531562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_b74uu")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=1216852881]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-3" unique_id=898753305]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Pips" unique_id=29299876]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Pips" unique_id=1414864685]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_lynys")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Pips" unique_id=2026317343]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Pips" unique_id=298758128]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_r7m3c")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Pips" unique_id=1920648997]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-3/Pips" unique_id=853701183]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_3p4tu")
 
-[node name="Stop_3-4" type="Node3D" parent="Diorama/Stops" unique_id=934245913]
+[node name="Stop_3-4" type="Node3D" parent="Diorama/Stops" unique_id=698782604]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 159, 10, -3)
 
-[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=1758921668]
+[node name="Look" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=868974827]
 
-[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1411611057]
+[node name="Platform" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1173219651]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_cv8k6")
 
-[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1762857025]
+[node name="Top" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=2073991058]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
 mesh = SubResource("CylinderMesh_oh0om")
 
-[node name="Burp" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=2094544012]
+[node name="Burp" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1339753196]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
 mesh = SubResource("SphereMesh_3w0lg")
 
-[node name="EyeL" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=100414578]
+[node name="EyeL" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1650748797]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 3.2, 1.65)
 mesh = SubResource("SphereMesh_fclxs")
 
-[node name="EyeR" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1927305101]
+[node name="EyeR" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=681601333]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 3.2, 1.65)
 mesh = SubResource("SphereMesh_v67qd")
 
-[node name="Mouth" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1537102525]
+[node name="Mouth" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Look" unique_id=1166521550]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 1.75)
 mesh = SubResource("BoxMesh_eto0w")
 
-[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=993472628]
+[node name="Flag" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=191498409]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 0.7, 0.9)
 visible = false
 
-[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Flag" unique_id=1215283232]
+[node name="Pole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Flag" unique_id=5626577]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 mesh = SubResource("CylinderMesh_wfsgt")
 
-[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Flag" unique_id=417809124]
+[node name="Pennant" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Flag" unique_id=975365893]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.6, 2.2, 0)
 mesh = SubResource("PrismMesh_sc6uc")
 
-[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=1331577649]
+[node name="Lock" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=1916572659]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 visible = false
 
-[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Lock" unique_id=1930131987]
+[node name="Body" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Lock" unique_id=816965925]
 mesh = SubResource("BoxMesh_0uuyx")
 
-[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Lock" unique_id=247705821]
+[node name="Shackle" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Lock" unique_id=2098061538]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.65, 0)
 mesh = SubResource("TorusMesh_lrjvn")
 
-[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Lock" unique_id=2060757083]
+[node name="Keyhole" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Lock" unique_id=939901161]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.26)
 mesh = SubResource("BoxMesh_hgni8")
 
-[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=770073895]
+[node name="Pips" type="Node3D" parent="Diorama/Stops/Stop_3-4" unique_id=1476913437]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 visible = false
 script = ExtResource("4_6a477")
 degrees_per_second = Vector3(0, 70, 0)
 
-[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Pips" unique_id=190533712]
+[node name="Pip0" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Pips" unique_id=993896812]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 2.4, 0, 0)
 mesh = SubResource("SphereMesh_hya6d")
 
-[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Pips" unique_id=1561956092]
+[node name="Pip1" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Pips" unique_id=1275889325]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, 2.078461)
 mesh = SubResource("SphereMesh_dkmew")
 
-[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Pips" unique_id=1097159921]
+[node name="Pip2" type="MeshInstance3D" parent="Diorama/Stops/Stop_3-4/Pips" unique_id=568685022]
 transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 0.8, -1.2, 0, -2.078461)
 mesh = SubResource("SphereMesh_p5fwe")
 
-[node name="Path" type="Node3D" parent="Diorama" unique_id=1199227447]
+[node name="Path" type="Node3D" parent="Diorama" unique_id=852974360]
 
-[node name="Dot0" type="MeshInstance3D" parent="Diorama/Path" unique_id=1976790978]
+[node name="Dot0" type="MeshInstance3D" parent="Diorama/Path" unique_id=2067572551]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.666667, 0.08, 3)
 mesh = SubResource("CylinderMesh_4ahli")
 
-[node name="Dot1" type="MeshInstance3D" parent="Diorama/Path" unique_id=1093114199]
+[node name="Dot1" type="MeshInstance3D" parent="Diorama/Path" unique_id=1166414350]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2222223, 0.08, 2)
 mesh = SubResource("CylinderMesh_iwwmr")
 
-[node name="Dot2" type="MeshInstance3D" parent="Diorama/Path" unique_id=636954848]
+[node name="Dot2" type="MeshInstance3D" parent="Diorama/Path" unique_id=840381798]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.777778, 0.08, 1)
 mesh = SubResource("CylinderMesh_obkq5")
 
-[node name="Dot3" type="MeshInstance3D" parent="Diorama/Path" unique_id=788111557]
+[node name="Dot3" type="MeshInstance3D" parent="Diorama/Path" unique_id=277456737]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.333334, 0.08, 0)
 mesh = SubResource("CylinderMesh_ggsdb")
 
-[node name="Dot4" type="MeshInstance3D" parent="Diorama/Path" unique_id=163755356]
+[node name="Dot4" type="MeshInstance3D" parent="Diorama/Path" unique_id=1989804295]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.666668, 0.08, -0.33333325)
 mesh = SubResource("CylinderMesh_fqq7f")
 
-[node name="Dot5" type="MeshInstance3D" parent="Diorama/Path" unique_id=1511490814]
+[node name="Dot5" type="MeshInstance3D" parent="Diorama/Path" unique_id=1406062994]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.222221, 0.08, 0.5555556)
 mesh = SubResource("CylinderMesh_ypp7n")
 
-[node name="Dot6" type="MeshInstance3D" parent="Diorama/Path" unique_id=160886493]
+[node name="Dot6" type="MeshInstance3D" parent="Diorama/Path" unique_id=1785465958]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.777779, 0.08, 1.4444447)
 mesh = SubResource("CylinderMesh_pv1kp")
 
-[node name="Dot7" type="MeshInstance3D" parent="Diorama/Path" unique_id=2042223178]
+[node name="Dot7" type="MeshInstance3D" parent="Diorama/Path" unique_id=1079185503]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.333334, 0.08, 2.3333335)
 mesh = SubResource("CylinderMesh_5173n")
 
-[node name="Dot8" type="MeshInstance3D" parent="Diorama/Path" unique_id=510792751]
+[node name="Dot8" type="MeshInstance3D" parent="Diorama/Path" unique_id=489837732]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.333332, 0.08, 2)
 mesh = SubResource("CylinderMesh_8kwim")
 
-[node name="Dot9" type="MeshInstance3D" parent="Diorama/Path" unique_id=1392173083]
+[node name="Dot9" type="MeshInstance3D" parent="Diorama/Path" unique_id=1715340288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.77778, 0.08, 1)
 mesh = SubResource("CylinderMesh_6cgah")
 
-[node name="Dot10" type="MeshInstance3D" parent="Diorama/Path" unique_id=1718775962]
+[node name="Dot10" type="MeshInstance3D" parent="Diorama/Path" unique_id=175211380]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.22222, 0.08, 0)
 mesh = SubResource("CylinderMesh_lyjs1")
 
-[node name="Dot11" type="MeshInstance3D" parent="Diorama/Path" unique_id=428130317]
+[node name="Dot11" type="MeshInstance3D" parent="Diorama/Path" unique_id=1056245714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.666668, 0.08, -1)
 mesh = SubResource("CylinderMesh_2xkjw")
 
-[node name="Dot12" type="MeshInstance3D" parent="Diorama/Path" unique_id=1660411128]
+[node name="Dot12" type="MeshInstance3D" parent="Diorama/Path" unique_id=2013081559]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.636364, 0.08, -1.8181818)
 mesh = SubResource("CylinderMesh_w2d0e")
 
-[node name="Dot13" type="MeshInstance3D" parent="Diorama/Path" unique_id=700096348]
+[node name="Dot13" type="MeshInstance3D" parent="Diorama/Path" unique_id=502286137]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.18182, 0.08, -1.090909)
 mesh = SubResource("CylinderMesh_pr71q")
 
-[node name="Dot14" type="MeshInstance3D" parent="Diorama/Path" unique_id=1084959786]
+[node name="Dot14" type="MeshInstance3D" parent="Diorama/Path" unique_id=312662743]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.727272, 0.08, -0.36363626)
 mesh = SubResource("CylinderMesh_1xss6")
 
-[node name="Dot15" type="MeshInstance3D" parent="Diorama/Path" unique_id=1541143643]
+[node name="Dot15" type="MeshInstance3D" parent="Diorama/Path" unique_id=1922779283]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.272728, 0.08, 0.3636365)
 mesh = SubResource("CylinderMesh_dc8wl")
 
-[node name="Dot16" type="MeshInstance3D" parent="Diorama/Path" unique_id=65687779]
+[node name="Dot16" type="MeshInstance3D" parent="Diorama/Path" unique_id=1814713136]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.818184, 0.08, 1.090909)
 mesh = SubResource("CylinderMesh_twhu4")
 
-[node name="Dot17" type="MeshInstance3D" parent="Diorama/Path" unique_id=432508986]
+[node name="Dot17" type="MeshInstance3D" parent="Diorama/Path" unique_id=788573921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.363636, 0.08, 1.818182)
 mesh = SubResource("CylinderMesh_l8o14")
 
-[node name="Dot18" type="MeshInstance3D" parent="Diorama/Path" unique_id=1763449937]
+[node name="Dot18" type="MeshInstance3D" parent="Diorama/Path" unique_id=923198030]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.666668, 0.08, 1.3333333)
 mesh = SubResource("CylinderMesh_twxel")
 
-[node name="Dot19" type="MeshInstance3D" parent="Diorama/Path" unique_id=1423480452]
+[node name="Dot19" type="MeshInstance3D" parent="Diorama/Path" unique_id=1395910117]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.22222, 0.08, 0.44444442)
 mesh = SubResource("CylinderMesh_eh5yt")
 
-[node name="Dot20" type="MeshInstance3D" parent="Diorama/Path" unique_id=1987506478]
+[node name="Dot20" type="MeshInstance3D" parent="Diorama/Path" unique_id=787773687]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.77778, 0.08, -0.44444466)
 mesh = SubResource("CylinderMesh_jugbc")
 
-[node name="Dot21" type="MeshInstance3D" parent="Diorama/Path" unique_id=2078561157]
+[node name="Dot21" type="MeshInstance3D" parent="Diorama/Path" unique_id=1825129407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.333336, 0.08, -1.3333335)
 mesh = SubResource("CylinderMesh_21xwg")
 
-[node name="Dot22" type="MeshInstance3D" parent="Diorama/Path" unique_id=1639852683]
+[node name="Dot22" type="MeshInstance3D" parent="Diorama/Path" unique_id=1036696490]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.666664, 0.08, -1)
 mesh = SubResource("CylinderMesh_sid44")
 
-[node name="Dot23" type="MeshInstance3D" parent="Diorama/Path" unique_id=2080276503]
+[node name="Dot23" type="MeshInstance3D" parent="Diorama/Path" unique_id=2086461611]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.22222, 0.08, 0)
 mesh = SubResource("CylinderMesh_sf1ft")
 
-[node name="Dot24" type="MeshInstance3D" parent="Diorama/Path" unique_id=1184207079]
+[node name="Dot24" type="MeshInstance3D" parent="Diorama/Path" unique_id=1729181827]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.77778, 0.08, 1)
 mesh = SubResource("CylinderMesh_s68cj")
 
-[node name="Dot25" type="MeshInstance3D" parent="Diorama/Path" unique_id=980315961]
+[node name="Dot25" type="MeshInstance3D" parent="Diorama/Path" unique_id=1602666384]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.333336, 0.08, 2)
 mesh = SubResource("CylinderMesh_i88d4")
 
-[node name="Dot26" type="MeshInstance3D" parent="Diorama/Path" unique_id=2034368462]
+[node name="Dot26" type="MeshInstance3D" parent="Diorama/Path" unique_id=1432230174]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.875, 0.08, 2)
 mesh = SubResource("CylinderMesh_6p7x6")
 
-[node name="Dot27" type="MeshInstance3D" parent="Diorama/Path" unique_id=505948769]
+[node name="Dot27" type="MeshInstance3D" parent="Diorama/Path" unique_id=176527135]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.5, 0.08, 1)
 mesh = SubResource("CylinderMesh_hrwks")
 
-[node name="Dot28" type="MeshInstance3D" parent="Diorama/Path" unique_id=901825469]
+[node name="Dot28" type="MeshInstance3D" parent="Diorama/Path" unique_id=1749595576]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.125, 0.08, 0)
 mesh = SubResource("CylinderMesh_feica")
 
-[node name="Dot29" type="MeshInstance3D" parent="Diorama/Path" unique_id=1202378812]
+[node name="Dot29" type="MeshInstance3D" parent="Diorama/Path" unique_id=515005496]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.38461, 2.3876922, -1.3846154)
 mesh = SubResource("CylinderMesh_oeavl")
 
-[node name="Dot30" type="MeshInstance3D" parent="Diorama/Path" unique_id=912210564]
+[node name="Dot30" type="MeshInstance3D" parent="Diorama/Path" unique_id=1998723217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.84615, 3.156923, -0.84615374)
 mesh = SubResource("CylinderMesh_al4gx")
 
-[node name="Dot31" type="MeshInstance3D" parent="Diorama/Path" unique_id=1465809350]
+[node name="Dot31" type="MeshInstance3D" parent="Diorama/Path" unique_id=27746687]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.30769, 3.926154, -0.3076923)
 mesh = SubResource("CylinderMesh_5338s")
 
-[node name="Dot32" type="MeshInstance3D" parent="Diorama/Path" unique_id=1697721157]
+[node name="Dot32" type="MeshInstance3D" parent="Diorama/Path" unique_id=475109867]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.76923, 4.6953845, 0.23076916)
 mesh = SubResource("CylinderMesh_0jcop")
 
-[node name="Dot33" type="MeshInstance3D" parent="Diorama/Path" unique_id=791614363]
+[node name="Dot33" type="MeshInstance3D" parent="Diorama/Path" unique_id=1527396828]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.230774, 5.464616, 0.76923084)
 mesh = SubResource("CylinderMesh_fp6sg")
 
-[node name="Dot34" type="MeshInstance3D" parent="Diorama/Path" unique_id=955750657]
+[node name="Dot34" type="MeshInstance3D" parent="Diorama/Path" unique_id=1179433232]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.69231, 6.233846, 1.3076925)
 mesh = SubResource("CylinderMesh_fquca")
 
-[node name="Dot35" type="MeshInstance3D" parent="Diorama/Path" unique_id=1239971874]
+[node name="Dot35" type="MeshInstance3D" parent="Diorama/Path" unique_id=142712247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.15385, 7.003077, 1.8461542)
 mesh = SubResource("CylinderMesh_u68ed")
 
-[node name="Dot36" type="MeshInstance3D" parent="Diorama/Path" unique_id=575927223]
+[node name="Dot36" type="MeshInstance3D" parent="Diorama/Path" unique_id=1846063266]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 113.61539, 7.772308, 2.3846154)
 mesh = SubResource("CylinderMesh_5e8pj")
 
-[node name="Dot37" type="MeshInstance3D" parent="Diorama/Path" unique_id=38691293]
+[node name="Dot37" type="MeshInstance3D" parent="Diorama/Path" unique_id=2023108574]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.666664, 10.08, 1.3333333)
 mesh = SubResource("CylinderMesh_835sv")
 
-[node name="Dot38" type="MeshInstance3D" parent="Diorama/Path" unique_id=1758837410]
+[node name="Dot38" type="MeshInstance3D" parent="Diorama/Path" unique_id=1396609840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.22222, 10.08, 0.44444442)
 mesh = SubResource("CylinderMesh_17j7r")
 
-[node name="Dot39" type="MeshInstance3D" parent="Diorama/Path" unique_id=635324172]
+[node name="Dot39" type="MeshInstance3D" parent="Diorama/Path" unique_id=71780588]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.77778, 10.08, -0.44444466)
 mesh = SubResource("CylinderMesh_fkyvf")
 
-[node name="Dot40" type="MeshInstance3D" parent="Diorama/Path" unique_id=941746093]
+[node name="Dot40" type="MeshInstance3D" parent="Diorama/Path" unique_id=970029265]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127.333336, 10.08, -1.3333335)
 mesh = SubResource("CylinderMesh_aehxq")
 
-[node name="Dot41" type="MeshInstance3D" parent="Diorama/Path" unique_id=1132042593]
+[node name="Dot41" type="MeshInstance3D" parent="Diorama/Path" unique_id=1154356335]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 136.66667, 10.08, -1)
 mesh = SubResource("CylinderMesh_dxnc2")
 
-[node name="Dot42" type="MeshInstance3D" parent="Diorama/Path" unique_id=2060432912]
+[node name="Dot42" type="MeshInstance3D" parent="Diorama/Path" unique_id=1791609647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 138.22223, 10.08, 0)
 mesh = SubResource("CylinderMesh_d28mt")
 
-[node name="Dot43" type="MeshInstance3D" parent="Diorama/Path" unique_id=1174462163]
+[node name="Dot43" type="MeshInstance3D" parent="Diorama/Path" unique_id=1452926021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.77777, 10.08, 1)
 mesh = SubResource("CylinderMesh_onbaa")
 
-[node name="Dot44" type="MeshInstance3D" parent="Diorama/Path" unique_id=834035122]
+[node name="Dot44" type="MeshInstance3D" parent="Diorama/Path" unique_id=2055386546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.33333, 10.08, 2)
 mesh = SubResource("CylinderMesh_0yqbo")
 
-[node name="Dot45" type="MeshInstance3D" parent="Diorama/Path" unique_id=582536524]
+[node name="Dot45" type="MeshInstance3D" parent="Diorama/Path" unique_id=280161772]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150.875, 10.08, 2)
 mesh = SubResource("CylinderMesh_hvavt")
 
-[node name="Dot46" type="MeshInstance3D" parent="Diorama/Path" unique_id=325333477]
+[node name="Dot46" type="MeshInstance3D" parent="Diorama/Path" unique_id=1008438195]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152.5, 10.08, 1)
 mesh = SubResource("CylinderMesh_bjjpl")
 
-[node name="Dot47" type="MeshInstance3D" parent="Diorama/Path" unique_id=135469950]
+[node name="Dot47" type="MeshInstance3D" parent="Diorama/Path" unique_id=1583763206]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 154.125, 10.08, 0)
 mesh = SubResource("CylinderMesh_w5q75")
 
-[node name="Ship" type="Node3D" parent="." unique_id=2098580035 node_paths=PackedStringArray("rig", "pilot", "flames")]
+[node name="Ship" type="Node3D" parent="." unique_id=373179469 node_paths=PackedStringArray("rig", "pilot", "flames")]
 script = ExtResource("5_1xmgx")
 rig = NodePath("Rig")
 pilot = NodePath("Rig/Pilot")
 flames = NodePath("Rig/Flames")
 
-[node name="Rig" type="Node3D" parent="Ship" unique_id=282308765]
+[node name="Rig" type="Node3D" parent="Ship" unique_id=388189715]
 
-[node name="Hull" type="MeshInstance3D" parent="Ship/Rig" unique_id=299029770]
+[node name="Hull" type="MeshInstance3D" parent="Ship/Rig" unique_id=86221940]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_rilkb")
 
-[node name="NoseCap" type="MeshInstance3D" parent="Ship/Rig" unique_id=750106557]
+[node name="NoseCap" type="MeshInstance3D" parent="Ship/Rig" unique_id=1591939737]
 transform = Transform3D(1, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 2.1, 0, 0)
 mesh = SubResource("SphereMesh_enxa1")
 
-[node name="Band" type="MeshInstance3D" parent="Ship/Rig" unique_id=56685458]
+[node name="Band" type="MeshInstance3D" parent="Ship/Rig" unique_id=1375120560]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -1.5, 0, 0)
 mesh = SubResource("CylinderMesh_b12j0")
 
-[node name="NameLabelFront" type="Label3D" parent="Ship/Rig" unique_id=879625621]
+[node name="NameLabelFront" type="Label3D" parent="Ship/Rig" unique_id=1205830447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, -0.05, 1.17)
 pixel_size = 0.0075
 double_sided = false
@@ -4674,7 +4675,7 @@ text = "COMPLEX2000"
 font_size = 64
 outline_size = 0
 
-[node name="NameLabelBack" type="Label3D" parent="Ship/Rig" unique_id=1500394482]
+[node name="NameLabelBack" type="Label3D" parent="Ship/Rig" unique_id=1873742384]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.45, -0.05, -1.17)
 pixel_size = 0.0075
 double_sided = false
@@ -4683,136 +4684,136 @@ text = "COMPLEX2000"
 font_size = 64
 outline_size = 0
 
-[node name="Porthole1" type="MeshInstance3D" parent="Ship/Rig" unique_id=1388536177]
+[node name="Porthole1" type="MeshInstance3D" parent="Ship/Rig" unique_id=885297718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -2.2, 0.1, 0.95)
 mesh = SubResource("SphereMesh_3nyst")
 
-[node name="Porthole-1" type="MeshInstance3D" parent="Ship/Rig" unique_id=611958270]
+[node name="Porthole-1" type="MeshInstance3D" parent="Ship/Rig" unique_id=1565005763]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -2.2, 0.1, -0.95)
 mesh = SubResource("SphereMesh_nkqpk")
 
-[node name="Dome" type="MeshInstance3D" parent="Ship/Rig" unique_id=944058256]
+[node name="Dome" type="MeshInstance3D" parent="Ship/Rig" unique_id=1929827857]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.15, 0)
 mesh = SubResource("SphereMesh_vkfaq")
 
-[node name="Pilot" type="Node3D" parent="Ship/Rig" unique_id=1949753207]
+[node name="Pilot" type="Node3D" parent="Ship/Rig" unique_id=832347972]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.8, 1.35, 0)
 
-[node name="Body" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1634967963]
+[node name="Body" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1811567389]
 mesh = SubResource("CapsuleMesh_jboim")
 
-[node name="Head" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1240212159]
+[node name="Head" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1771720141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, 0)
 mesh = SubResource("SphereMesh_yt6lg")
 
-[node name="GoggleL" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1529088798]
+[node name="GoggleL" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1863175933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.84, 0.28)
 mesh = SubResource("SphereMesh_iv6j0")
 
-[node name="GoggleR" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=425964750]
+[node name="GoggleR" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=2077191032]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.84, 0.28)
 mesh = SubResource("SphereMesh_d7jkc")
 
-[node name="PupilL" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=936495496]
+[node name="PupilL" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1793681703]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.84, 0.39)
 mesh = SubResource("SphereMesh_as2t6")
 
-[node name="PupilR" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=580815715]
+[node name="PupilR" type="MeshInstance3D" parent="Ship/Rig/Pilot" unique_id=1114031417]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0.84, 0.39)
 mesh = SubResource("SphereMesh_aw7qi")
 
-[node name="FinTop" type="MeshInstance3D" parent="Ship/Rig" unique_id=988921602]
+[node name="FinTop" type="MeshInstance3D" parent="Ship/Rig" unique_id=1970573110]
 transform = Transform3D(0.9396926, -0.34202012, 0, 0.34202012, 0.9396926, 0, 0, 0, 1, -2.3, 1.45, 0)
 mesh = SubResource("BoxMesh_hfj12")
 
-[node name="FinSide1" type="MeshInstance3D" parent="Ship/Rig" unique_id=715650643]
+[node name="FinSide1" type="MeshInstance3D" parent="Ship/Rig" unique_id=2007564111]
 transform = Transform3D(0.90630776, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.90630776, -2.1, -0.3, 1.2)
 mesh = SubResource("BoxMesh_vubho")
 
-[node name="FinSide-1" type="MeshInstance3D" parent="Ship/Rig" unique_id=403960662]
+[node name="FinSide-1" type="MeshInstance3D" parent="Ship/Rig" unique_id=1797956555]
 transform = Transform3D(0.90630776, 0, -0.42261827, 0, 1, 0, 0.42261827, 0, 0.90630776, -2.1, -0.3, -1.2)
 mesh = SubResource("BoxMesh_1pla4")
 
-[node name="Nozzle" type="MeshInstance3D" parent="Ship/Rig" unique_id=1898428027]
+[node name="Nozzle" type="MeshInstance3D" parent="Ship/Rig" unique_id=1890491900]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -3.15, 0, 0)
 mesh = SubResource("CylinderMesh_do72r")
 
-[node name="Flames" type="Node3D" parent="Ship/Rig" unique_id=1961134171]
+[node name="Flames" type="Node3D" parent="Ship/Rig" unique_id=1915590616]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 0)
 
-[node name="Flame" type="Node3D" parent="Ship/Rig/Flames" unique_id=1514736306]
+[node name="Flame" type="Node3D" parent="Ship/Rig/Flames" unique_id=1971422181]
 script = ExtResource("6_jc8yp")
 
-[node name="Outer" type="MeshInstance3D" parent="Ship/Rig/Flames/Flame" unique_id=33611999]
+[node name="Outer" type="MeshInstance3D" parent="Ship/Rig/Flames/Flame" unique_id=2014766053]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.9, 0, 0)
 mesh = SubResource("CylinderMesh_ujowq")
 
-[node name="Inner" type="MeshInstance3D" parent="Ship/Rig/Flames/Flame" unique_id=947569593]
+[node name="Inner" type="MeshInstance3D" parent="Ship/Rig/Flames/Flame" unique_id=2046722796]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.585, 0, 0)
 mesh = SubResource("CylinderMesh_stjdg")
 
-[node name="FlameLow" type="Node3D" parent="Ship/Rig/Flames" unique_id=352781802]
+[node name="FlameLow" type="Node3D" parent="Ship/Rig/Flames" unique_id=1909735091]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.55, 0)
 script = ExtResource("6_jc8yp")
 
-[node name="Outer" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameLow" unique_id=1550756530]
+[node name="Outer" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameLow" unique_id=1034198544]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.4, 0, 0)
 mesh = SubResource("CylinderMesh_yvhkb")
 
-[node name="Inner" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameLow" unique_id=579400000]
+[node name="Inner" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameLow" unique_id=532235548]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.26, 0, 0)
 mesh = SubResource("CylinderMesh_bvngb")
 
-[node name="FlameHigh" type="Node3D" parent="Ship/Rig/Flames" unique_id=419160807]
+[node name="FlameHigh" type="Node3D" parent="Ship/Rig/Flames" unique_id=1467269512]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.55, 0)
 script = ExtResource("6_jc8yp")
 
-[node name="Outer" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameHigh" unique_id=1428593794]
+[node name="Outer" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameHigh" unique_id=1148079417]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.4, 0, 0)
 mesh = SubResource("CylinderMesh_1ckbk")
 
-[node name="Inner" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameHigh" unique_id=289633049]
+[node name="Inner" type="MeshInstance3D" parent="Ship/Rig/Flames/FlameHigh" unique_id=1257390582]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.26, 0, 0)
 mesh = SubResource("CylinderMesh_7ev78")
 
-[node name="Leg_-16_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=741379842]
+[node name="Leg_-16_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1497643980]
 transform = Transform3D(0.985996, -0.16676874, 0, 0.1627524, 0.96225, 0.21814324, -0.036379475, -0.21508837, 0.97591674, -1.6, -1.35, -0.77)
 mesh = SubResource("CylinderMesh_h3jjy")
 
-[node name="Foot_-16_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1597385440]
+[node name="Foot_-16_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1945959235]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44, -1.95, -0.945)
 mesh = SubResource("CylinderMesh_2ksst")
 
-[node name="Leg_-16_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1668517578]
+[node name="Leg_-16_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=469149774]
 transform = Transform3D(0.985996, -0.16676874, 0, 0.1627524, 0.96225, -0.21814324, 0.036379475, 0.21508837, 0.97591674, -1.6, -1.35, 0.77)
 mesh = SubResource("CylinderMesh_myhre")
 
-[node name="Foot_-16_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=687231474]
+[node name="Foot_-16_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=553906803]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44, -1.95, 0.945)
 mesh = SubResource("CylinderMesh_optvi")
 
-[node name="Leg_14_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=32042113]
+[node name="Leg_14_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=2017994576]
 transform = Transform3D(0.98927236, 0.14608303, 0, -0.14256488, 0.9654475, 0.21814324, 0.031867024, -0.21580307, 0.97591674, 1.4, -1.35, -0.77)
 mesh = SubResource("CylinderMesh_eh4rs")
 
-[node name="Foot_14_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1213365466]
+[node name="Foot_14_-7" type="MeshInstance3D" parent="Ship/Rig" unique_id=908011425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26, -1.95, -0.945)
 mesh = SubResource("CylinderMesh_kjcwf")
 
-[node name="Leg_14_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1458121817]
+[node name="Leg_14_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1472147354]
 transform = Transform3D(0.98927236, 0.14608303, 0, -0.14256488, 0.9654475, -0.21814324, -0.031867024, 0.21580307, 0.97591674, 1.4, -1.35, 0.77)
 mesh = SubResource("CylinderMesh_slm47")
 
-[node name="Foot_14_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=1525657162]
+[node name="Foot_14_7" type="MeshInstance3D" parent="Ship/Rig" unique_id=212188759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26, -1.95, 0.945)
 mesh = SubResource("CylinderMesh_reb2a")
 
-[node name="Camera" type="Camera3D" parent="." unique_id=1126105718 node_paths=PackedStringArray("target")]
+[node name="Camera" type="Camera3D" parent="." unique_id=1827220774 node_paths=PackedStringArray("target")]
 fov = 55.0
 script = ExtResource("7_c7uu0")
 target = NodePath("../Ship")
 
-[node name="NameLabel" type="Label" parent="." unique_id=74375675]
+[node name="NameLabel" type="Label" parent="." unique_id=762185331]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 0
 anchor_right = 1.0
@@ -4825,7 +4826,7 @@ theme_override_constants/outline_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WorldLabel" type="Label" parent="." unique_id=1257491056]
+[node name="WorldLabel" type="Label" parent="." unique_id=102393753]
 visible = false
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 0
@@ -4840,7 +4841,7 @@ theme_override_constants/outline_size = 7
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InfoLabel" type="Label" parent="." unique_id=1399868327]
+[node name="InfoLabel" type="Label" parent="." unique_id=102235603]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 0
 anchor_top = 1.0
@@ -4855,7 +4856,7 @@ theme_override_constants/outline_size = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BeanJarLabel" type="HBoxContainer" parent="." unique_id=1134798749]
+[node name="BeanJarLabel" type="HBoxContainer" parent="." unique_id=893991156]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
@@ -4867,7 +4868,7 @@ grow_horizontal = 2
 script = ExtResource("8_fsuak")
 font_size = 38
 
-[node name="SoonLabel" type="Label" parent="." unique_id=448299162]
+[node name="SoonLabel" type="Label" parent="." unique_id=1775814570]
 visible = false
 layout_mode = 0
 anchor_left = 0.5
@@ -4888,7 +4889,7 @@ text = "COMING SOON!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HubHint" type="Label" parent="." unique_id=1886374371]
+[node name="HubHint" type="Label" parent="." unique_id=1726722963]
 visible = false
 layout_mode = 0
 anchor_left = 1.0

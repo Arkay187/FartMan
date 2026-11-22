@@ -58,6 +58,31 @@ func _run() -> void:
 	await _press(&"ui_up")
 	_check("up picks CONTINUE again", menu.choice == 0)
 
+	# UPGRADES: ON / OFF sits between NEW GAME and TEST LEVELS.
+	var options: DebugOptionsData = root.get_node("DebugOptions")
+	options.set_upgrades_on(true)
+	menu._refresh()
+	_check("the menu has an UPGRADES row ('%s')" % menu.upgrades_label.text, menu.upgrades_label != null and menu.upgrades_label.visible)
+	await _press(&"ui_down")
+	await _press(&"ui_down")
+	_check("down twice picks UPGRADES (after NEW GAME)", menu.choice == 3 and menu.upgrades_label.text == "> UPGRADES: ON <")
+	await _press(&"ui_accept")
+	_check("jump flips it OFF ('%s'), remembered by the options" % menu.upgrades_label.text,
+		not options.upgrades_on and menu.upgrades_label.text == "> UPGRADES: OFF <" and menu.choice == 3)
+	await _press(&"ui_right")
+	_check("right flips it back ON", options.upgrades_on and menu.upgrades_label.text == "> UPGRADES: ON <")
+	await _press(&"ui_left")
+	_check("left flips it OFF", not options.upgrades_on)
+	_check("flipping does not leave the menu or touch the save", menu.is_inside_tree() and save.is_cleared("1-1"))
+	await _press(&"ui_down")
+	_check("down from UPGRADES picks TEST LEVELS", menu.choice == 2)
+	await _press(&"ui_up")
+	await _press(&"ui_up")
+	_check("up twice is NEW GAME again", menu.choice == 1)
+	await _press(&"ui_up")
+	options.set_upgrades_on(true)
+	_check("and up once more is CONTINUE", menu.choice == 0)
+
 	# NEW GAME asks twice and keeps the save after the first press.
 	await _press(&"ui_down")
 	await _press(&"ui_accept")

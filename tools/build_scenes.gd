@@ -1090,7 +1090,7 @@ func _build_world_map() -> void:
 	var diorama: Dictionary = load("res://tools/world_map_3d.gd").new().call("build", root)
 
 	# Stop name big at the top, the world's name under it, beans and score at the bottom,
-	# COMING SOON in the middle and the (hidden for now) GO ABOARD hint in the corner.
+	# COMING SOON in the middle and the GO ABOARD hint in the corner.
 	var title := _big_label(root, "NameLabel", "", 64)
 	title.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	title.custom_minimum_size.y = 90
@@ -1135,6 +1135,8 @@ func _build_world_map() -> void:
 	root.set("info_label", info)
 	root.set("soon_label", soon)
 	root.set("hub_hint", hub)
+	# Y goes aboard the Complex2000 (built by tools/builders/ship_hub.gd).
+	root.set("ship_hub_scene", "res://scenes/ship_hub.tscn")
 	_save(root, "res://scenes/world_map.tscn")
 
 
@@ -1215,23 +1217,28 @@ func _build_start_menu() -> void:
 	var go := _big_label(root, "ContinueLabel", "CONTINUE", 80)
 	go.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	go.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	go.offset_top = -10
+	go.offset_top = -30
 	var fresh := _big_label(root, "NewGameLabel", "NEW GAME", 80)
 	fresh.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	fresh.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	fresh.offset_top = 80
-	var tests := _big_label(root, "TestLevelsLabel", "TEST LEVELS", 56)
+	fresh.offset_top = 55
+	var upgrades := _big_label(root, "UpgradesLabel", "UPGRADES: ON", 48)
+	upgrades.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	upgrades.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	upgrades.offset_top = 140
+	var tests := _big_label(root, "TestLevelsLabel", "TEST LEVELS", 44)
 	tests.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	tests.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	tests.offset_top = 170
+	tests.offset_top = 200
 	var hint := _big_label(root, "HintLabel", "", 36)
 	hint.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	hint.offset_top = -80
-	hint.offset_bottom = -20
+	hint.offset_top = -60
+	hint.offset_bottom = -10
 
 	root.set("continue_label", go)
 	root.set("new_game_label", fresh)
 	root.set("test_levels_label", tests)
+	root.set("upgrades_label", upgrades)
 	root.set("hint_label", hint)
 	_save(root, "res://scenes/start_menu.tscn")
 
