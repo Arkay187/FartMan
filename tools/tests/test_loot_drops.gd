@@ -176,7 +176,7 @@ func _run() -> void:
 	await _wait(0.1)
 	var spilled: Array[Node3D] = _beans(world)
 	_check("getting hurt spills beans (%d)" % spilled.size(), spilled.size() == 2)
-	_check("their gas is taken away (100 -> %.0f)" % p.gas_tank.gas, absf(p.gas_tank.gas - 50.0) < 1.0)
+	_check("their gas is taken away, 10 each (100 -> %.0f)" % p.gas_tank.gas, absf(p.gas_tank.gas - 80.0) < 1.0)
 	for node: Node3D in spilled:
 		node.free()
 
@@ -206,13 +206,13 @@ func _run() -> void:
 	await _wait(0.1)
 	spilled = _beans(world)
 	var after_spill: float = p.gas_tank.gas
-	_check("3 beans cost 75 gas (80 -> %.0f)" % after_spill, absf(after_spill - 5.0) < 1.0)
+	_check("3 beans cost 30 gas (80 -> %.0f)" % after_spill, absf(after_spill - 50.0) < 1.0)
 	await _wait(1.0)
 	p.global_position = spilled[0].global_position
 	p.velocity = Vector3.ZERO
 	await _wait(0.3)
-	_check("grabbing a spilled bean gives its 25 gas back (%.0f -> %.0f)" % [after_spill, p.gas_tank.gas],
-		p.gas_tank.gas > after_spill + 20.0 and not is_instance_valid(spilled[0]))
+	_check("grabbing a spilled bean gives its 10 gas back (%.0f -> %.0f)" % [after_spill, p.gas_tank.gas],
+		p.gas_tank.gas > after_spill + 8.0 and not is_instance_valid(spilled[0]))
 
 	if save != null:
 		save.reset()

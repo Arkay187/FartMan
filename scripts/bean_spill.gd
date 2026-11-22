@@ -11,6 +11,9 @@ extends Node
 ## How far sideways the beans fly, and how high they pop up (metres per second).
 @export var spill_spread: float = 5.0
 @export var spill_up: float = 8.0
+## How much gas each spilled bean is worth (taken away now, given back when grabbed).
+## A normal bean is 25; spilled ones are worth less so one hit never empties a full tank.
+@export var gas_per_bean: float = 10.0
 ## The "scatter" sound.
 @export var spill_sound: AudioStream
 
@@ -35,6 +38,7 @@ func _spill() -> void:
 		return
 	var worth: float = 0.0
 	for bean: Node3D in beans:
-		worth += float(bean.get("gas_amount"))
+		bean.set("gas_amount", gas_per_bean)
+		worth += gas_per_bean
 	# drain() never takes him below empty.
 	_player.gas_tank.drain(worth)

@@ -546,13 +546,13 @@ size = Vector3(8, 0.5, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_w4i4w"]
 size = Vector3(8, 0.5, 4)
 
-[node name="StageT_1" type="Node3D" unique_id=1075039919 node_paths=PackedStringArray("player")]
+[node name="StageT_1" type="Node3D" unique_id=1854276823 node_paths=PackedStringArray("player")]
 script = ExtResource("1_npiqg")
 player = NodePath("Player")
 opening_words = "UP THE BEANSTALK!"
 map_scene = "res://scenes/test_levels.tscn"
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1045201836 node_paths=PackedStringArray("gas_tank", "hearts", "fire_burp", "chilli", "flight", "visual", "belly") instance=ExtResource("2_7ctsq")]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=922205134 node_paths=PackedStringArray("gas_tank", "hearts", "fire_burp", "chilli", "flight", "visual", "belly") instance=ExtResource("2_7ctsq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.2, 0)
 script = ExtResource("3_pnugv")
 gas_tank = NodePath("GasTank")
@@ -564,10 +564,10 @@ flight = NodePath("FlightPower")
 visual = NodePath("Visual")
 belly = NodePath("Visual/ModelTurn/Model/Skeleton3D/BellyBone/BellySpot/Belly")
 
-[node name="WallJump" type="Node" parent="Player" unique_id=1304065719]
+[node name="WallJump" type="Node" parent="Player" unique_id=1024945823]
 script = ExtResource("4_qwdou")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1057982989 node_paths=PackedStringArray("target")]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2001958231 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.7, 16)
 far = 600.0
 script = ExtResource("5_ig1c6")
@@ -575,17 +575,17 @@ target = NodePath("../Player")
 vertical_look_ahead = 0.3
 vertical_look_max = 4.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1981707821]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1124479475]
 transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_max_distance = 80.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1870434382]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1181222387]
 environment = SubResource("Environment_yt2cc")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=291461313]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=18155125]
 
-[node name="GasLabel" type="Label" parent="HUD" unique_id=1554245790]
+[node name="GasLabel" type="Label" parent="HUD" unique_id=434402515]
 offset_left = 20.0
 offset_top = 18.0
 offset_right = 20.0
@@ -593,7 +593,7 @@ offset_bottom = 18.0
 theme_override_font_sizes/font_size = 24
 text = "GAS"
 
-[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=176330200 node_paths=PackedStringArray("player")]
+[node name="GasBar" type="ProgressBar" parent="HUD" unique_id=444720628 node_paths=PackedStringArray("player")]
 offset_left = 90.0
 offset_top = 20.0
 offset_right = 390.0
@@ -602,7 +602,7 @@ show_percentage = false
 script = ExtResource("6_yoc1h")
 player = NodePath("../../Player")
 
-[node name="HeartsBar" type="HBoxContainer" parent="HUD" unique_id=90893491 node_paths=PackedStringArray("player")]
+[node name="HeartsBar" type="HBoxContainer" parent="HUD" unique_id=1872987195 node_paths=PackedStringArray("player")]
 offset_left = 20.0
 offset_top = 64.0
 offset_right = 20.0
@@ -611,7 +611,7 @@ theme_override_constants/separation = 8
 script = ExtResource("7_orkrh")
 player = NodePath("../../Player")
 
-[node name="GoldenBeanBar" type="HBoxContainer" parent="HUD" unique_id=1235491217 node_paths=PackedStringArray("stage")]
+[node name="GoldenBeanBar" type="HBoxContainer" parent="HUD" unique_id=1952825222 node_paths=PackedStringArray("stage")]
 offset_left = 20.0
 offset_top = 104.0
 offset_right = 20.0
@@ -621,7 +621,7 @@ script = ExtResource("8_44gyy")
 stage = NodePath("../..")
 full_color = Color(1, 0.8, 0.1, 1)
 
-[node name="ScoreLabel" type="Label" parent="HUD" unique_id=29034568 node_paths=PackedStringArray("stage")]
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=1749656536 node_paths=PackedStringArray("stage")]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -638,7 +638,7 @@ horizontal_alignment = 2
 script = ExtResource("9_n77dd")
 stage = NodePath("../..")
 
-[node name="StageClearBanner" type="Label" parent="HUD" unique_id=1353426982 node_paths=PackedStringArray("stage")]
+[node name="StageClearBanner" type="Label" parent="HUD" unique_id=1504623197 node_paths=PackedStringArray("stage")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -655,130 +655,130 @@ horizontal_alignment = 1
 script = ExtResource("10_5ljbh")
 stage = NodePath("../..")
 
-[node name="Decor" type="Node3D" parent="." unique_id=1099312947]
+[node name="Decor" type="Node3D" parent="." unique_id=175306095]
 
-[node name="Stalk" type="MeshInstance3D" parent="Decor" unique_id=407470177]
+[node name="Stalk" type="MeshInstance3D" parent="Decor" unique_id=970945753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28, -7)
 mesh = SubResource("CylinderMesh_xgi3f")
 
-[node name="Leaf" type="MeshInstance3D" parent="Decor" unique_id=1882350001]
+[node name="Leaf" type="MeshInstance3D" parent="Decor" unique_id=1359488815]
 transform = Transform3D(0.95105654, -0.309017, 0, 0.309017, 0.95105654, 0, 0, 0, 1, 5, 4, -7)
 mesh = SubResource("BoxMesh_0i121")
 
-[node name="@MeshInstance3D@2391" type="MeshInstance3D" parent="Decor" unique_id=938124304]
+[node name="@MeshInstance3D@3710" type="MeshInstance3D" parent="Decor" unique_id=1550053975]
 transform = Transform3D(0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0, 0, 1, -5, 10.217638, -7)
 mesh = SubResource("BoxMesh_mv5md")
 
-[node name="@MeshInstance3D@2392" type="MeshInstance3D" parent="Decor" unique_id=854017782]
+[node name="@MeshInstance3D@3711" type="MeshInstance3D" parent="Decor" unique_id=1717631714]
 transform = Transform3D(0.95105654, -0.309017, 0, 0.309017, 0.95105654, 0, 0, 0, 1, 5, 16.013123, -7)
 mesh = SubResource("BoxMesh_wjlj2")
 
-[node name="@MeshInstance3D@2393" type="MeshInstance3D" parent="Decor" unique_id=1049788527]
+[node name="@MeshInstance3D@3712" type="MeshInstance3D" parent="Decor" unique_id=2116351495]
 transform = Transform3D(0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0, 0, 1, -5, 21.261732, -7)
 mesh = SubResource("BoxMesh_cvtgy")
 
-[node name="@MeshInstance3D@2394" type="MeshInstance3D" parent="Decor" unique_id=1564603417]
+[node name="@MeshInstance3D@3713" type="MeshInstance3D" parent="Decor" unique_id=1879554158]
 transform = Transform3D(0.95105654, -0.309017, 0, 0.309017, 0.95105654, 0, 0, 0, 1, 5, 26.697756, -7)
 mesh = SubResource("BoxMesh_iip3m")
 
-[node name="@MeshInstance3D@2395" type="MeshInstance3D" parent="Decor" unique_id=887974134]
+[node name="@MeshInstance3D@3714" type="MeshInstance3D" parent="Decor" unique_id=524978023]
 transform = Transform3D(0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0, 0, 1, -5, 31.356627, -7)
 mesh = SubResource("BoxMesh_xej1h")
 
-[node name="@MeshInstance3D@2396" type="MeshInstance3D" parent="Decor" unique_id=1365973327]
+[node name="@MeshInstance3D@3715" type="MeshInstance3D" parent="Decor" unique_id=708198213]
 transform = Transform3D(0.95105654, -0.309017, 0, 0.309017, 0.95105654, 0, 0, 0, 1, 5, 35.45533, -7)
 mesh = SubResource("BoxMesh_65nbv")
 
-[node name="@MeshInstance3D@2397" type="MeshInstance3D" parent="Decor" unique_id=993584642]
+[node name="@MeshInstance3D@3716" type="MeshInstance3D" parent="Decor" unique_id=1826183233]
 transform = Transform3D(0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0, 0, 1, -5, 41.465652, -7)
 mesh = SubResource("BoxMesh_dyer5")
 
-[node name="@MeshInstance3D@2398" type="MeshInstance3D" parent="Decor" unique_id=1281302602]
+[node name="@MeshInstance3D@3717" type="MeshInstance3D" parent="Decor" unique_id=487199653]
 transform = Transform3D(0.95105654, -0.309017, 0, 0.309017, 0.95105654, 0, 0, 0, 1, 5, 46.59479, -7)
 mesh = SubResource("BoxMesh_ojnql")
 
-[node name="@MeshInstance3D@2399" type="MeshInstance3D" parent="Decor" unique_id=378509123]
+[node name="@MeshInstance3D@3718" type="MeshInstance3D" parent="Decor" unique_id=194081874]
 transform = Transform3D(0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0, 0, 1, -5, 51.657513, -7)
 mesh = SubResource("BoxMesh_3775u")
 
-[node name="@MeshInstance3D@2400" type="MeshInstance3D" parent="Decor" unique_id=164343181]
+[node name="@MeshInstance3D@3719" type="MeshInstance3D" parent="Decor" unique_id=687126945]
 transform = Transform3D(0.95105654, -0.309017, 0, 0.309017, 0.95105654, 0, 0, 0, 1, 5, 57.329758, -7)
 mesh = SubResource("BoxMesh_1bfby")
 
-[node name="@MeshInstance3D@2401" type="MeshInstance3D" parent="Decor" unique_id=513474273]
+[node name="@MeshInstance3D@3720" type="MeshInstance3D" parent="Decor" unique_id=2141950156]
 transform = Transform3D(0.95105654, 0.309017, 0, -0.309017, 0.95105654, 0, 0, 0, 1, -5, 63.33223, -7)
 mesh = SubResource("BoxMesh_45vur")
 
-[node name="Cloud" type="MeshInstance3D" parent="Decor" unique_id=669392567]
+[node name="Cloud" type="MeshInstance3D" parent="Decor" unique_id=570010382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.73122, 6, -12.395874)
 mesh = SubResource("SphereMesh_yu487")
 
-[node name="@MeshInstance3D@2402" type="MeshInstance3D" parent="Decor" unique_id=1259926710]
+[node name="@MeshInstance3D@3721" type="MeshInstance3D" parent="Decor" unique_id=1049752895]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.467693, 12.459524, -21.576075)
 mesh = SubResource("SphereMesh_nkmek")
 
-[node name="@MeshInstance3D@2403" type="MeshInstance3D" parent="Decor" unique_id=2008819176]
+[node name="@MeshInstance3D@3722" type="MeshInstance3D" parent="Decor" unique_id=377587985]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.392145, 18.802814, -20.388868)
 mesh = SubResource("SphereMesh_kti3g")
 
-[node name="@MeshInstance3D@2404" type="MeshInstance3D" parent="Decor" unique_id=1449988478]
+[node name="@MeshInstance3D@3723" type="MeshInstance3D" parent="Decor" unique_id=932604992]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.959614, 23.956963, -15.92822)
 mesh = SubResource("SphereMesh_2gwt6")
 
-[node name="@MeshInstance3D@2405" type="MeshInstance3D" parent="Decor" unique_id=1990766510]
+[node name="@MeshInstance3D@3724" type="MeshInstance3D" parent="Decor" unique_id=419370546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.264084, 30.096113, -15.922489)
 mesh = SubResource("SphereMesh_346kf")
 
-[node name="@MeshInstance3D@2406" type="MeshInstance3D" parent="Decor" unique_id=783378557]
+[node name="@MeshInstance3D@3725" type="MeshInstance3D" parent="Decor" unique_id=442645616]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.085947, 36.02021, -16.562176)
 mesh = SubResource("SphereMesh_nmutn")
 
-[node name="@MeshInstance3D@2407" type="MeshInstance3D" parent="Decor" unique_id=1782580763]
+[node name="@MeshInstance3D@3726" type="MeshInstance3D" parent="Decor" unique_id=535608599]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.604454, 40.113403, -21.462673)
 mesh = SubResource("SphereMesh_ipqdd")
 
-[node name="@MeshInstance3D@2408" type="MeshInstance3D" parent="Decor" unique_id=1440073505]
+[node name="@MeshInstance3D@3727" type="MeshInstance3D" parent="Decor" unique_id=992840045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.465866, 44.387577, -14.524666)
 mesh = SubResource("SphereMesh_7r1bb")
 
-[node name="@MeshInstance3D@2409" type="MeshInstance3D" parent="Decor" unique_id=246134512]
+[node name="@MeshInstance3D@3728" type="MeshInstance3D" parent="Decor" unique_id=1066968694]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1084805, 51.05615, -20.276054)
 mesh = SubResource("SphereMesh_fvj5y")
 
-[node name="@MeshInstance3D@2410" type="MeshInstance3D" parent="Decor" unique_id=920238661]
+[node name="@MeshInstance3D@3729" type="MeshInstance3D" parent="Decor" unique_id=1232748503]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3616123, 58.959015, -12.0062)
 mesh = SubResource("SphereMesh_7il0g")
 
-[node name="@MeshInstance3D@2411" type="MeshInstance3D" parent="Decor" unique_id=114986276]
+[node name="@MeshInstance3D@3730" type="MeshInstance3D" parent="Decor" unique_id=1833708323]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.167063, 63.66743, -16.607216)
 mesh = SubResource("SphereMesh_5b60f")
 
-[node name="@MeshInstance3D@2412" type="MeshInstance3D" parent="Decor" unique_id=46031908]
+[node name="@MeshInstance3D@3731" type="MeshInstance3D" parent="Decor" unique_id=2143156614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.129944, 69.45317, -15.813059)
 mesh = SubResource("SphereMesh_b27j5")
 
-[node name="@MeshInstance3D@2413" type="MeshInstance3D" parent="Decor" unique_id=2090387495]
+[node name="@MeshInstance3D@3732" type="MeshInstance3D" parent="Decor" unique_id=1905956171]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.097282, 75.724686, -14.00508)
 mesh = SubResource("SphereMesh_jhudk")
 
-[node name="Ground" type="Node3D" parent="." unique_id=887922162]
+[node name="Ground" type="Node3D" parent="." unique_id=1465531056]
 
-[node name="Ground" type="StaticBody3D" parent="Ground" unique_id=89510462]
+[node name="Ground" type="StaticBody3D" parent="Ground" unique_id=453675493]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="Ground/Ground" unique_id=1511324015]
+[node name="Mesh" type="MeshInstance3D" parent="Ground/Ground" unique_id=401987921]
 mesh = SubResource("BoxMesh_tbhs0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Ground" unique_id=536571552]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Ground" unique_id=486735805]
 shape = SubResource("BoxShape3D_34sb0")
 
-[node name="Top" type="MeshInstance3D" parent="Ground/Ground" unique_id=1738977196]
+[node name="Top" type="MeshInstance3D" parent="Ground/Ground" unique_id=873844194]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.875, 0)
 mesh = SubResource("BoxMesh_3f0ym")
 
-[node name="Hints" type="Node3D" parent="." unique_id=1537815260]
+[node name="Hints" type="Node3D" parent="." unique_id=1824267077]
 
-[node name="Hint" type="Area3D" parent="Hints" unique_id=231542209]
+[node name="Hint" type="Area3D" parent="Hints" unique_id=724430384]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 script = ExtResource("11_n32rt")
 words = "PRESS F1: FILL ON LAND!"
@@ -786,19 +786,19 @@ seconds = 6.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/Hint" unique_id=428503392]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/Hint" unique_id=1048628503]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_rng0p")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/Hint" unique_id=1898637566]
+[node name="Post" type="MeshInstance3D" parent="Hints/Hint" unique_id=853451679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_23ulo")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/Hint" unique_id=13865436]
+[node name="Board" type="MeshInstance3D" parent="Hints/Hint" unique_id=639680516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_fanwg")
 
-[node name="@Area3D@2414" type="Area3D" parent="Hints" unique_id=2124994784]
+[node name="@Area3D@3733" type="Area3D" parent="Hints" unique_id=726760457]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
 script = ExtResource("11_n32rt")
 words = "HOT SAUCE! PRESS C OR B TO FIRE BURP!"
@@ -806,19 +806,19 @@ seconds = 4.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@2414" unique_id=1800143699]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@3733" unique_id=1142006778]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_wgdpx")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@2414" unique_id=1762214544]
+[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@3733" unique_id=464090248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_34d5f")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@2414" unique_id=1194193473]
+[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@3733" unique_id=1761171293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_ar3u5")
 
-[node name="@Area3D@2426" type="Area3D" parent="Hints" unique_id=790145513]
+[node name="@Area3D@3745" type="Area3D" parent="Hints" unique_id=1325466752]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 script = ExtResource("11_n32rt")
 words = "HOP UP THE LEAVES! FART AGAIN IN THE AIR!"
@@ -826,19 +826,19 @@ seconds = 4.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@2426" unique_id=448067718]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@3745" unique_id=1220263493]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_0fkuw")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@2426" unique_id=563661704]
+[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@3745" unique_id=873585245]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_i4ttp")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@2426" unique_id=1914752170]
+[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@3745" unique_id=840880273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_5bax7")
 
-[node name="@Area3D@2438" type="Area3D" parent="Hints" unique_id=343450896]
+[node name="@Area3D@3757" type="Area3D" parent="Hints" unique_id=1005938121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 14.4, 0)
 script = ExtResource("11_n32rt")
 words = "HOLD FART, LET GO. THEN FART AGAIN IN THE AIR!"
@@ -846,19 +846,19 @@ seconds = 4.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@2438" unique_id=148529005]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@3757" unique_id=561832363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_5gbr5")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@2438" unique_id=220889842]
+[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@3757" unique_id=813213919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_j0eej")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@2438" unique_id=1812168596]
+[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@3757" unique_id=1561441422]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_fu8i7")
 
-[node name="@Area3D@2444" type="Area3D" parent="Hints" unique_id=834331661]
+[node name="@Area3D@3763" type="Area3D" parent="Hints" unique_id=2058390909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25.2, 0)
 script = ExtResource("11_n32rt")
 words = "BOING! PRESS JUMP AS YOU LAND FOR A MEGA BOING!"
@@ -866,19 +866,19 @@ seconds = 4.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@2444" unique_id=1015203075]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@3763" unique_id=2016949168]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_w42do")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@2444" unique_id=1269164317]
+[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@3763" unique_id=483010262]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_qa07t")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@2444" unique_id=1867928548]
+[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@3763" unique_id=1450181524]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_86kdc")
 
-[node name="@Area3D@2450" type="Area3D" parent="Hints" unique_id=774526582]
+[node name="@Area3D@3769" type="Area3D" parent="Hints" unique_id=272996913]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 35.2, 0)
 script = ExtResource("11_n32rt")
 words = "WALL JUMP! PUSH AT A WALL, THEN PRESS JUMP!"
@@ -886,19 +886,19 @@ seconds = 4.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@2450" unique_id=2092649380]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@3769" unique_id=1210199414]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_be63y")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@2450" unique_id=766644841]
+[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@3769" unique_id=174860458]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_a2eka")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@2450" unique_id=196568017]
+[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@3769" unique_id=1904559309]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_e0gvk")
 
-[node name="@Area3D@2458" type="Area3D" parent="Hints" unique_id=1046601605]
+[node name="@Area3D@3777" type="Area3D" parent="Hints" unique_id=1595161593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 49.5, 0)
 script = ExtResource("11_n32rt")
 words = "BARRELS! PRESS JUMP TO FIRE!"
@@ -906,28 +906,28 @@ seconds = 4.0
 height = 2.6
 show_at_top = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@2458" unique_id=801929378]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hints/@Area3D@3777" unique_id=1838501018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_2adl0")
 
-[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@2458" unique_id=1414224822]
+[node name="Post" type="MeshInstance3D" parent="Hints/@Area3D@3777" unique_id=202516501]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.2)
 mesh = SubResource("BoxMesh_hae7c")
 
-[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@2458" unique_id=1730308137]
+[node name="Board" type="MeshInstance3D" parent="Hints/@Area3D@3777" unique_id=1765030739]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.2)
 mesh = SubResource("BoxMesh_jcwhp")
 
-[node name="PowerUps" type="Node3D" parent="." unique_id=1086547269]
+[node name="PowerUps" type="Node3D" parent="." unique_id=1748487390]
 
-[node name="HotSauce" type="Area3D" parent="PowerUps" unique_id=379015512 instance=ExtResource("12_t3fat")]
+[node name="HotSauce" type="Area3D" parent="PowerUps" unique_id=1500452679 instance=ExtResource("12_t3fat")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.4, 0)
 script = ExtResource("13_76y1a")
 grab_sound = ExtResource("14_fgpho")
 
-[node name="Enemies" type="Node3D" parent="." unique_id=459679971]
+[node name="Enemies" type="Node3D" parent="." unique_id=649864412]
 
-[node name="Burpling" type="Area3D" parent="Enemies" unique_id=564607914 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="Burpling" type="Area3D" parent="Enemies" unique_id=289678954 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -936,7 +936,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2415" type="Area3D" parent="Enemies" unique_id=1580019461 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3734" type="Area3D" parent="Enemies" unique_id=1449162674 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.3, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -945,7 +945,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2416" type="Area3D" parent="Enemies" unique_id=1528098742 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3735" type="Area3D" parent="Enemies" unique_id=1375176613 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -954,7 +954,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2417" type="Area3D" parent="Enemies" unique_id=1536469560 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3736" type="Area3D" parent="Enemies" unique_id=1126273624 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.9, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -963,7 +963,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2418" type="Area3D" parent="Enemies" unique_id=1053125622 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3737" type="Area3D" parent="Enemies" unique_id=1810384698 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -972,7 +972,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2419" type="Area3D" parent="Enemies" unique_id=1390094986 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3738" type="Area3D" parent="Enemies" unique_id=1288249896 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -981,7 +981,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2420" type="Area3D" parent="Enemies" unique_id=1384310049 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3739" type="Area3D" parent="Enemies" unique_id=50191470 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -990,7 +990,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2421" type="Area3D" parent="Enemies" unique_id=348438249 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3740" type="Area3D" parent="Enemies" unique_id=1736461188 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -999,7 +999,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2422" type="Area3D" parent="Enemies" unique_id=1596462630 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3741" type="Area3D" parent="Enemies" unique_id=776927859 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -1008,7 +1008,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2423" type="Area3D" parent="Enemies" unique_id=359221109 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3742" type="Area3D" parent="Enemies" unique_id=2054869579 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -1017,7 +1017,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2424" type="Area3D" parent="Enemies" unique_id=1483659656 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3743" type="Area3D" parent="Enemies" unique_id=1256598411 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.8, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -1026,7 +1026,7 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="@Area3D@2425" type="Area3D" parent="Enemies" unique_id=878088692 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
+[node name="@Area3D@3744" type="Area3D" parent="Enemies" unique_id=1430619750 node_paths=PackedStringArray("visual", "animator") instance=ExtResource("15_r0a88")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.2, 0.45, 0)
 script = ExtResource("16_a0fir")
 walk_speed = 0.0
@@ -1035,294 +1035,294 @@ visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
 squash_sound = ExtResource("17_1h3us")
 
-[node name="Platforms" type="Node3D" parent="." unique_id=6814130]
+[node name="Platforms" type="Node3D" parent="." unique_id=44914977]
 
-[node name="OneWay" type="StaticBody3D" parent="Platforms" unique_id=1548307205]
+[node name="OneWay" type="StaticBody3D" parent="Platforms" unique_id=412547413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.35, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/OneWay" unique_id=1425298141]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/OneWay" unique_id=1201576365]
 mesh = SubResource("BoxMesh_gygsu")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/OneWay" unique_id=1473440492]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/OneWay" unique_id=1049836670]
 shape = SubResource("BoxShape3D_wndj3")
 
-[node name="@StaticBody3D@2427" type="StaticBody3D" parent="Platforms" unique_id=2078729937]
+[node name="@StaticBody3D@3746" type="StaticBody3D" parent="Platforms" unique_id=3645690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 6.95, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2427" unique_id=73640532]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3746" unique_id=1766063214]
 mesh = SubResource("BoxMesh_ab27e")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2427" unique_id=938145738]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3746" unique_id=873012034]
 shape = SubResource("BoxShape3D_pdsrs")
 
-[node name="@StaticBody3D@2428" type="StaticBody3D" parent="Platforms" unique_id=341804101]
+[node name="@StaticBody3D@3747" type="StaticBody3D" parent="Platforms" unique_id=2132255602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 10.55, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2428" unique_id=1184010343]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3747" unique_id=356818414]
 mesh = SubResource("BoxMesh_g7dp3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2428" unique_id=755751918]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3747" unique_id=1911833772]
 shape = SubResource("BoxShape3D_hb32e")
 
-[node name="@StaticBody3D@2436" type="StaticBody3D" parent="Platforms" unique_id=1503476658]
+[node name="@StaticBody3D@3755" type="StaticBody3D" parent="Platforms" unique_id=840640079]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.15, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2436" unique_id=28238092]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3755" unique_id=1599851360]
 mesh = SubResource("BoxMesh_g2rm5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2436" unique_id=220612924]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3755" unique_id=1446675867]
 shape = SubResource("BoxShape3D_elmcc")
 
-[node name="@StaticBody3D@2437" type="StaticBody3D" parent="Platforms" unique_id=399426970]
+[node name="@StaticBody3D@3756" type="StaticBody3D" parent="Platforms" unique_id=2079130537]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 16.75, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2437" unique_id=402836658]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3756" unique_id=638925209]
 mesh = SubResource("BoxMesh_8bs8k")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2437" unique_id=408799418]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3756" unique_id=1338458089]
 shape = SubResource("BoxShape3D_8r283")
 
-[node name="@StaticBody3D@2439" type="StaticBody3D" parent="Platforms" unique_id=1294129912]
+[node name="@StaticBody3D@3758" type="StaticBody3D" parent="Platforms" unique_id=736906130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 17.75, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2439" unique_id=310597588]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3758" unique_id=1629114787]
 mesh = SubResource("BoxMesh_kyo5i")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2439" unique_id=215781677]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3758" unique_id=1371864818]
 shape = SubResource("BoxShape3D_qspnv")
 
-[node name="@StaticBody3D@2440" type="StaticBody3D" parent="Platforms" unique_id=63927761]
+[node name="@StaticBody3D@3759" type="StaticBody3D" parent="Platforms" unique_id=1172236017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 21.35, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2440" unique_id=1813560846]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3759" unique_id=2119009532]
 mesh = SubResource("BoxMesh_fdau2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2440" unique_id=1432724152]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3759" unique_id=1613349214]
 shape = SubResource("BoxShape3D_0l7vs")
 
-[node name="@StaticBody3D@2441" type="StaticBody3D" parent="Platforms" unique_id=188825897]
+[node name="@StaticBody3D@3760" type="StaticBody3D" parent="Platforms" unique_id=1217209560]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 22.75, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2441" unique_id=838951920]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3760" unique_id=18460858]
 mesh = SubResource("BoxMesh_8ohrd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2441" unique_id=1431470577]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3760" unique_id=1794148859]
 shape = SubResource("BoxShape3D_n7l6r")
 
-[node name="@StaticBody3D@2443" type="StaticBody3D" parent="Platforms" unique_id=26183221]
+[node name="@StaticBody3D@3762" type="StaticBody3D" parent="Platforms" unique_id=1628245872]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 24.95, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2443" unique_id=711652341]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3762" unique_id=357372669]
 mesh = SubResource("BoxMesh_f8ixq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2443" unique_id=434164677]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3762" unique_id=2035982263]
 shape = SubResource("BoxShape3D_t5d5w")
 
-[node name="@StaticBody3D@2445" type="StaticBody3D" parent="Platforms" unique_id=1800536766]
+[node name="@StaticBody3D@3764" type="StaticBody3D" parent="Platforms" unique_id=1403649687]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 31.15, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2445" unique_id=2055128127]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3764" unique_id=994711627]
 mesh = SubResource("BoxMesh_l3iuj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2445" unique_id=1092398782]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3764" unique_id=600077154]
 shape = SubResource("BoxShape3D_7p7hr")
 
-[node name="@StaticBody3D@2448" type="StaticBody3D" parent="Platforms" unique_id=867119992]
+[node name="@StaticBody3D@3767" type="StaticBody3D" parent="Platforms" unique_id=2108199009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 34.95, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2448" unique_id=37467107]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3767" unique_id=1448563490]
 mesh = SubResource("BoxMesh_jdcrg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2448" unique_id=1769881310]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3767" unique_id=626414154]
 shape = SubResource("BoxShape3D_fqfxs")
 
-[node name="Platform" type="StaticBody3D" parent="Platforms" unique_id=670926537]
+[node name="Platform" type="StaticBody3D" parent="Platforms" unique_id=1408749319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 43.25, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/Platform" unique_id=600789257]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/Platform" unique_id=837077606]
 mesh = SubResource("BoxMesh_kjpyt")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/Platform" unique_id=1783840210]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/Platform" unique_id=173346043]
 shape = SubResource("BoxShape3D_1fahv")
 
-[node name="@StaticBody3D@2451" type="StaticBody3D" parent="Platforms" unique_id=675894328]
+[node name="@StaticBody3D@3770" type="StaticBody3D" parent="Platforms" unique_id=386289698]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 43.25, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2451" unique_id=559388744]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3770" unique_id=533633066]
 mesh = SubResource("BoxMesh_xpxps")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2451" unique_id=1724034717]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3770" unique_id=112149822]
 shape = SubResource("BoxShape3D_mdkh8")
 
-[node name="@StaticBody3D@2453" type="StaticBody3D" parent="Platforms" unique_id=871715745]
+[node name="@StaticBody3D@3772" type="StaticBody3D" parent="Platforms" unique_id=524130652]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 38.65, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2453" unique_id=40439946]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3772" unique_id=1876975681]
 mesh = SubResource("BoxMesh_6ohha")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2453" unique_id=618655425]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3772" unique_id=1252819262]
 shape = SubResource("BoxShape3D_m40sc")
 
-[node name="@StaticBody3D@2454" type="StaticBody3D" parent="Platforms" unique_id=1620195952]
+[node name="@StaticBody3D@3773" type="StaticBody3D" parent="Platforms" unique_id=2063851903]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42.25, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2454" unique_id=648724218]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3773" unique_id=472861736]
 mesh = SubResource("BoxMesh_5jn4o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2454" unique_id=480941484]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3773" unique_id=742752028]
 shape = SubResource("BoxShape3D_aqw6y")
 
-[node name="@StaticBody3D@2455" type="StaticBody3D" parent="Platforms" unique_id=1038602780]
+[node name="@StaticBody3D@3774" type="StaticBody3D" parent="Platforms" unique_id=821412041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 45.75, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2455" unique_id=1301008667]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3774" unique_id=1754887295]
 mesh = SubResource("BoxMesh_suv50")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2455" unique_id=783786635]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3774" unique_id=136307394]
 shape = SubResource("BoxShape3D_7a8qx")
 
-[node name="@StaticBody3D@2456" type="StaticBody3D" parent="Platforms" unique_id=67531908]
+[node name="@StaticBody3D@3775" type="StaticBody3D" parent="Platforms" unique_id=789903680]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49.25, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2456" unique_id=729930456]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3775" unique_id=36103559]
 mesh = SubResource("BoxMesh_34su3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2456" unique_id=1695456042]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3775" unique_id=1212614724]
 shape = SubResource("BoxShape3D_cayll")
 
-[node name="@StaticBody3D@2460" type="StaticBody3D" parent="Platforms" unique_id=1742312995]
+[node name="@StaticBody3D@3779" type="StaticBody3D" parent="Platforms" unique_id=1068027834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 57.25, 0)
 script = ExtResource("18_y8eo0")
 
-[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@2460" unique_id=1602462512]
+[node name="Mesh" type="MeshInstance3D" parent="Platforms/@StaticBody3D@3779" unique_id=800435774]
 mesh = SubResource("BoxMesh_2mbc7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@2460" unique_id=1486249818]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/@StaticBody3D@3779" unique_id=2050847658]
 shape = SubResource("BoxShape3D_w4i4w")
 
-[node name="Beans" type="Node3D" parent="." unique_id=1505630381]
+[node name="Beans" type="Node3D" parent="." unique_id=684842496]
 
-[node name="Bean" type="Area3D" parent="Beans" unique_id=904492636 instance=ExtResource("19_1xr1s")]
+[node name="Bean" type="Area3D" parent="Beans" unique_id=1360048554 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4.8, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2429" type="Area3D" parent="Beans" unique_id=1367186030 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3748" type="Area3D" parent="Beans" unique_id=419516944 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6666667, 6.099038, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2430" type="Area3D" parent="Beans" unique_id=44828840 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3749" type="Area3D" parent="Beans" unique_id=686200015 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3333333, 6.099038, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2431" type="Area3D" parent="Beans" unique_id=658683104 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3750" type="Area3D" parent="Beans" unique_id=2112530759 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.8, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2432" type="Area3D" parent="Beans" unique_id=813214305 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3751" type="Area3D" parent="Beans" unique_id=678974169 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 8.4, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2433" type="Area3D" parent="Beans" unique_id=301274430 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3752" type="Area3D" parent="Beans" unique_id=676550907 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 9.6990385, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2434" type="Area3D" parent="Beans" unique_id=2015742679 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3753" type="Area3D" parent="Beans" unique_id=1902248063 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 9.6990385, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2435" type="Area3D" parent="Beans" unique_id=1045949250 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3754" type="Area3D" parent="Beans" unique_id=262493736 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 8.4, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2446" type="Area3D" parent="Beans" unique_id=883533496 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3765" type="Area3D" parent="Beans" unique_id=652568393 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 37, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="@Area3D@2447" type="Area3D" parent="Beans" unique_id=856737696 instance=ExtResource("19_1xr1s")]
+[node name="@Area3D@3766" type="Area3D" parent="Beans" unique_id=561493783 instance=ExtResource("19_1xr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 39, 0)
 script = ExtResource("20_hiou4")
 pickup_sound = ExtResource("21_wxjuq")
 
-[node name="Checkpoints" type="Node3D" parent="." unique_id=570647828]
+[node name="Checkpoints" type="Node3D" parent="." unique_id=1313861524]
 
-[node name="Toilet" type="Area3D" parent="Checkpoints" unique_id=339395947 node_paths=PackedStringArray("visual") instance=ExtResource("22_xjooa")]
+[node name="Toilet" type="Area3D" parent="Checkpoints" unique_id=730672464 node_paths=PackedStringArray("visual") instance=ExtResource("22_xjooa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 14.4, 0)
 script = ExtResource("23_hcdak")
 visual = NodePath("Visual")
 flush_sound = ExtResource("24_qf5t3")
 
-[node name="@Area3D@2449" type="Area3D" parent="Checkpoints" unique_id=497329195 node_paths=PackedStringArray("visual") instance=ExtResource("22_xjooa")]
+[node name="@Area3D@3768" type="Area3D" parent="Checkpoints" unique_id=954327881 node_paths=PackedStringArray("visual") instance=ExtResource("22_xjooa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 35.2, 0)
 script = ExtResource("23_hcdak")
 visual = NodePath("Visual")
 flush_sound = ExtResource("24_qf5t3")
 
-[node name="@Area3D@2457" type="Area3D" parent="Checkpoints" unique_id=1952023371 node_paths=PackedStringArray("visual") instance=ExtResource("22_xjooa")]
+[node name="@Area3D@3776" type="Area3D" parent="Checkpoints" unique_id=1461443100 node_paths=PackedStringArray("visual") instance=ExtResource("22_xjooa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 49.5, 0)
 script = ExtResource("23_hcdak")
 visual = NodePath("Visual")
 flush_sound = ExtResource("24_qf5t3")
 
-[node name="GoldenBeans" type="Node3D" parent="." unique_id=2128187200]
+[node name="GoldenBeans" type="Node3D" parent="." unique_id=818441716]
 
-[node name="GoldenBean" type="Area3D" parent="GoldenBeans" unique_id=2089308918 instance=ExtResource("25_25dv7")]
+[node name="GoldenBean" type="Area3D" parent="GoldenBeans" unique_id=1751949044 instance=ExtResource("25_25dv7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 18.4, 0)
 script = ExtResource("26_kwccw")
 found_sound = ExtResource("27_760s0")
 
-[node name="@Area3D@2442" type="Area3D" parent="GoldenBeans" unique_id=1953527791 instance=ExtResource("25_25dv7")]
+[node name="@Area3D@3761" type="Area3D" parent="GoldenBeans" unique_id=6569665 instance=ExtResource("25_25dv7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 24.4, 0)
 script = ExtResource("26_kwccw")
 found_sound = ExtResource("27_760s0")
 
-[node name="@Area3D@2452" type="Area3D" parent="GoldenBeans" unique_id=1203847650 instance=ExtResource("25_25dv7")]
+[node name="@Area3D@3771" type="Area3D" parent="GoldenBeans" unique_id=376449234 instance=ExtResource("25_25dv7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.25, 49.5, 0)
 script = ExtResource("26_kwccw")
 found_sound = ExtResource("27_760s0")
 
-[node name="Pads" type="Node3D" parent="." unique_id=337163182]
+[node name="Pads" type="Node3D" parent="." unique_id=955321184]
 
-[node name="Spring" type="Area3D" parent="Pads" unique_id=1028427148 node_paths=PackedStringArray("coil") instance=ExtResource("28_q8u1b")]
+[node name="Spring" type="Area3D" parent="Pads" unique_id=1885378555 node_paths=PackedStringArray("coil") instance=ExtResource("28_q8u1b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 25.2, 0)
 script = ExtResource("29_ndhlr")
 coil = NodePath("Coil")
 boing_sound = ExtResource("30_i0x1y")
 mega_sound = ExtResource("31_7ppt7")
 
-[node name="Barrels" type="Node3D" parent="." unique_id=1316172079]
+[node name="Barrels" type="Node3D" parent="." unique_id=813557350]
 
-[node name="BarrelCannon" type="Area3D" parent="Barrels" unique_id=276234024 node_paths=PackedStringArray("barrel") instance=ExtResource("32_a84p6")]
+[node name="BarrelCannon" type="Area3D" parent="Barrels" unique_id=1796447955 node_paths=PackedStringArray("barrel") instance=ExtResource("32_a84p6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 54, 0)
 script = ExtResource("33_tnmax")
 barrel = NodePath("Barrel")
 load_sound = ExtResource("34_xwspc")
 fire_sound = ExtResource("35_oa2ub")
 
-[node name="@Area3D@2459" type="Area3D" parent="Barrels" unique_id=1657699875 node_paths=PackedStringArray("barrel") instance=ExtResource("32_a84p6")]
+[node name="@Area3D@3778" type="Area3D" parent="Barrels" unique_id=1088065090 node_paths=PackedStringArray("barrel") instance=ExtResource("32_a84p6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 60, 0)
 script = ExtResource("33_tnmax")
 aim_degrees = 30.0
@@ -1332,9 +1332,9 @@ barrel = NodePath("Barrel")
 load_sound = ExtResource("34_xwspc")
 fire_sound = ExtResource("35_oa2ub")
 
-[node name="Goal" type="Node3D" parent="." unique_id=1277373625]
+[node name="Goal" type="Node3D" parent="." unique_id=1933447636]
 
-[node name="BeanCan" type="StaticBody3D" parent="Goal" unique_id=1484636955 node_paths=PackedStringArray("lid", "lid_sensor") instance=ExtResource("36_pow1g")]
+[node name="BeanCan" type="StaticBody3D" parent="Goal" unique_id=973621690 node_paths=PackedStringArray("lid", "lid_sensor") instance=ExtResource("36_pow1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 57.5, 0)
 script = ExtResource("37_l25qr")
 lid = NodePath("Lid")
