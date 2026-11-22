@@ -36,6 +36,9 @@ func _ready() -> void:
 	if music_song != "":
 		MusicPlayer.play_song(self, music_song, music_speed)
 	hatch.body_entered.connect(_on_hatch_entered)
+	# He feels what he has bought aboard too (faster sneakers, springy pants...), unless UPGRADES is OFF.
+	# Things bought now start working when the next stage (or the next visit) begins.
+	UpgradeApplier.apply(player)
 	# Every counter opens the one shop.
 	for counter: ShopCounter in counters():
 		if counter.panel == null:

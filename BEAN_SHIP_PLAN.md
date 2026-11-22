@@ -1,4 +1,4 @@
-# The Complex2000: a plan (approved choices, step 1 being built)
+# The Complex2000: a plan (approved choices, steps 1 and 2 built)
 
 A reason to collect loads of beans. Every bean goes into Fart Man's **Bean Jar**. You spend the jar aboard
 **the Complex2000** (named by our chief designer, age 6): Fart Man's spaceship, which hovers above the
@@ -133,9 +133,9 @@ nearly every stage, it's about right.
   stage end, quitting and losing all hearts. The map gets you to the ship and back.
 
 ## Build order (each step is playable on its own)
-1. **The Bean Jar** (being built now): counting, banking, the HUD counter, the end-of-stage pour, the jar
+1. **The Bean Jar** (built): counting, banking, the HUD counter, the end-of-stage pour, the jar
    total on the map, spills taking from the pot, and the map ship becoming the Complex2000.
-2. **The ship and the shop**: Grandma and the Kitchen, Gym, Hot Sauce Lab and Garage, plus the main menu
+2. **The ship and the shop** (built): Grandma and the Kitchen, Gym, Hot Sauce Lab and Garage, plus the main menu
    UPGRADES setting.
 3. **The Pantry and Mystery Crates**: the crates in every stage and the six new pickups.
 4. **The Wardrobe**: hats, fart colours, fart sounds, ship paint.

@@ -732,3 +732,72 @@ Built by Sonnet helpers in worktrees, merged and tested together. Not seen or pl
   - Test: test_bean_jar.
 - Not checked by eye or ear: the ship's look, the HUD counter and jar layout, the pour timing, the cha-ching.
 - Next: step 2, the ship hub with Grandma's shop (Kitchen, Gym, Hot Sauce Lab, Garage) and the UPGRADES setting.
+
+## The Complex2000 step 2: the ship, Grandma's shop, UPGRADES ON/OFF (22 Nov 2026)
+Groundwork by the main session, the two halves by Sonnet helpers in worktrees, merged and tested together.
+Nothing here has been watched, played or listened to by a person yet.
+
+### How to try it
+- On the 3D world map press **Y** ("Y: GO ABOARD" bottom right). Walk right past the four rooms. At a counter
+  press jump (or up): Grandma pops up ("OOOH!") and the shop opens. Up/down picks, jump buys, Esc / P / Start
+  (or ui_cancel) leaves. Walk left into the airlock hatch to go back to the map, over the same stop.
+- Start menu: **UPGRADES: ON / OFF** sits between NEW GAME and TEST LEVELS (jump or left/right flips it).
+- To test with beans: bank some in a stage, or edit `bean_jar` in the save file.
+
+### Decisions
+- **One price table**: `scripts/upgrade_table.gd` (UpgradeTable). Every upgrade: id, room, name, two-word
+  "words", icon key, `prices` per level and `values` per level (comments say what each value means). Prices
+  match BEAN_SHIP_PLAN.md (Kitchen 2,850, Gym 3,450, Lab 3,350, Garage 2,700).
+- **Save**: `SaveData.upgrades` (id -> levels owned), `upgrade_level()`, `can_buy_upgrade()`, `buy_upgrade()`.
+  Buying goes through `spend_beans()`, still the only thing that lowers the jar. A messy save is tidied on load.
+  NEW GAME (reset) forgets upgrades with everything else.
+- **UPGRADES setting**: `DebugOptions.upgrades_on` / `set_upgrades_on()`, saved in the options file. OFF = the
+  applier changes nothing; the shop still sells and keeps things.
+- **Applying**: `scripts/upgrade_applier.gd` (UpgradeApplier) runs once at the start of every stage (from
+  `Stage._ready`) and when he comes aboard. Springy Pants values are jump HEIGHT, so jump speeds are multiplied
+  by the square root. Spicy Start gives the Fire Burp quietly (`FireBurpPower.give(true)`: no hint each stage).
+  Lucky Beans sets `Stage.extra_drop_beans` (2) and `Stage.drop_chance_multiplier` (2). Triple Jump adds a SIMPLE
+  air jump and one CLASSIC air fart in the free-gas test modes (normal CLASSIC is limited by gas only).
+- New player nodes, all off until bought: `BeanMagnet` (pull_range 2/4/6 m, pull_speed 14), `SuperStomp`
+  (radius 4 m from his feet, a ring and a thump), `SecretSniffer` (9 m, every 0.5 s, 4 s cooldown; a body wiggle,
+  a "SNIFF!" bubble and a pitched-up ding near unfound Golden Beans and secrets). Reused sounds: `stamp_thump`
+  for the stomp wave, `ring_ding` at 1.6x for the sniff.
+- Fireballs: `Fireball.size` (Big Fireballs 1.6: picture, radius and copies of both shapes) and `bouncy`
+  (`gap_hop_speed` 7 off ledges, `bouncy_lifetime_multiplier` 1.6). Hearts: `heal_per_pickup`, `gain(count)`.
+  Beans are `class_name Bean` in group `beans`; every enemy (Burpling) is in group `enemies`.
+- **The hub**: `tools/builders/ship_hub.gd` builds `scenes/ship_hub.tscn` (ShipHub). A long cut-away floor,
+  hatch on the left, then Kitchen, Gym, Hot Sauce Lab, Gadget Garage (UpgradeTable.ROOMS order), room signs and
+  low-poly props, portholes with stars, end walls, the Bean Jar total, the theme at 0.85 speed.
+- **Grandma** (`grandma.gd`) hides behind each `ShopCounter`; the counter runs before the player and locks him
+  the same frame, so the jump that opens the shop never hops. One `ShopPanel` for the ship: a row per upgrade
+  (picture from `upgrade_icon.gd`, name, `level_dots.gd`, bean price or OWNED), Grandma's line ("OOOH! 150
+  BEANS?", "YUM!"), a jar picture that shows "NEED 120 MORE" when short. Cha-ching + toot on buying, a "nope"
+  and a jar wiggle when too poor. The camera slides over while the shop is open. Buttons are ignored for 0.25 s
+  after opening, and he is let go 0.25 s after closing.
+- **Map**: `ship_hub_scene` is set, so the GO ABOARD hint shows and Y boards. The hatch scene change is
+  deferred (changing scene inside the physics callback gave an engine error).
+
+### Files
+- New scripts: upgrade_table, upgrade_applier, bean_magnet, super_stomp, secret_sniffer, ship_hub, grandma,
+  shop_counter, shop_panel, upgrade_icon, level_dots. New builder: tools/builders/ship_hub.gd. New scene:
+  scenes/ship_hub.tscn.
+- Changed: save_game, debug_options, stage, hearts, heart_pickup, bean, burpling, fireball, fire_burp_power,
+  start_menu, tools/build_scenes.gd (player nodes, start menu row, map hub), tools/sfx_table.gd.
+- New tests: test_upgrade_table, test_upgrades, test_upgrades_more (with the helper tools/tests/upgrade_test_base.gd),
+  test_ship_hub. Updated: test_start_menu, test_world_map, test_bean_jar (the hub now exists), test_vertical (TEST
+  LEVELS is one row further down now).
+
+### Not checked by eye, ear or a real player
+- The whole ship: how the rooms, props, signs, portholes and ceiling lamps look (the lamps were noted as odd);
+  only the hatch end, the Kitchen and the Kitchen shop were seen, in screenshots. The Gym, Lab and Garage rooms and
+  most shop icons (sneaker, spring, stomp, fireballs, chilli, magnet, clover, nose) were never looked at.
+- Grandma's look and pop-up bounce, the jar wiggle, whether a 6 year old can read the panel.
+- The Super Stomp ring, the sniff wiggle and bubble, big and bouncy fireballs in motion.
+- All sounds (cha-ching, toot, nope, hatch whoosh, stomp thump, sniff) and the 0.85 music speed.
+- Whether the faster run, higher jumps, magnet pull and prices feel right. A real gamepad.
+
+### What to do next
+1. Play it: earn beans in 1-1, board with Y, buy Bigger Belly, play again. Fix whatever looks wrong in the ship.
+2. Possible tweaks: Esc / Start does nothing in the ship when no shop is open (the hatch is the only way out);
+   things bought aboard start working at the next stage or visit, not on the spot.
+3. Step 3 of BEAN_SHIP_PLAN.md: the Pantry and Mystery Crates.

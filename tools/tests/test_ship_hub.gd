@@ -249,6 +249,25 @@ func _run() -> void:
 	map = current_scene as WorldMap
 	_check("leaving comes back to the same stop (%s)" % stop_id, map != null and MapStops.STOPS[map.index]["id"] == stop_id)
 
+	# ---------------------------------------------------------------- upgrades work aboard too
+	var plain := (load("res://scenes/player.tscn") as PackedScene).instantiate() as Player
+	var base_speed: float = plain.move_speed
+	plain.free()
+	current_scene.queue_free()
+	await _wait(0.2)
+	save.upgrades["speedy_sneakers"] = 2
+	await _load_hub()
+	_check("aboard, Speedy Sneakers 2 makes him run faster (%.2f -> %.2f)" % [base_speed, p.move_speed],
+		is_equal_approx(p.move_speed, base_speed * 1.3))
+	hub.queue_free()
+	await _wait(0.2)
+	options.set_upgrades_on(false)
+	await _load_hub()
+	_check("with UPGRADES OFF he runs at the normal speed aboard (%.2f)" % p.move_speed, is_equal_approx(p.move_speed, base_speed))
+	options.set_upgrades_on(true)
+	hub.queue_free()
+	await _wait(0.2)
+
 	options.set_simple_controls(true)
 	save.reset()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_FILE))
