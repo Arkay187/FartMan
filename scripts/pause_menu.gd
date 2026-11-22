@@ -173,7 +173,7 @@ func choice_text(index: int) -> String:
 func _describe_controls() -> String:
 	var options := _options()
 	if options != null and options.simple_controls:
-		return "JUMP TWICE TO FART-JUMP. HOLD LB TO HOVER"
+		return "JUMP TWICE TO FART-JUMP. HOLD HOVER (LB) TO FLOAT UP"
 	return "HOLD FART, LET GO TO JUMP"
 
 

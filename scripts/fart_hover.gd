@@ -8,15 +8,27 @@ extends Node
 signal started
 signal stopped
 
-## Rising slower than this (m/s) counts as "done jumping": then the hover takes hold.
-## 0 = he floats level. A bit above 0 = he drifts slowly upwards.
+## How high above the ground he floats when hover is pressed on the ground, in metres.
+@export var hover_height: float = 2.5
+## How quickly he rises to that height. Higher = snappier. It eases in, so no bounce past it.
+@export var rise_gain: float = 9.0
+## The fastest he ever rises on the way up (m/s).
+@export var rise_max_speed: float = 12.0
+## Pressed in the air: rising slower than this (m/s) counts as "done jumping" when the button
+## was already held, so a held button takes over at the top of a jump.
 @export var hover_rise_speed: float = 0.0
-## How hard the hover pushes his up/down speed towards the hover speed (m/s per second).
+## How hard the hover pushes his up/down speed towards where it wants him (m/s per second).
 @export var hover_lift: float = 60.0
 ## Gas used each second while hovering. 25 means a full tank lasts 4 seconds.
 @export var hover_gas_per_second: float = 25.0
 ## In the NO GAS / ALWAYS FULL test modes: how many seconds of hover per time in the air.
 @export var hover_time_free_gas: float = 3.0
+## Right after leaving the ground he is not "landed" for this long (seconds).
+@export var liftoff_grace: float = 0.15
+
+## Sent while hovering with how much hover is left (0 to 1), and once more when it ends.
+## `timed` is true in the free-gas test modes, where the fuel is time and not the gas tank.
+signal fuel_changed(fraction: float, active: bool, timed: bool)
 
 var is_hovering: bool = false
 var cloud: HoverCloud
@@ -24,6 +36,11 @@ var _player: Player
 var _free_time_left: float = 0.0
 ## Out of gas: no more hover until he lets go or lands.
 var _spent: bool = false
+## The height (the Player's y) he is floating at.
+var _target_y: float = 0.0
+## The up/down speed the hover set last frame, to notice a jump pushing him up.
+var _set_vy: float = 0.0
+var _grace_left: float = 0.0
 
 
 func _ready() -> void:
@@ -42,21 +59,42 @@ func update(delta: float) -> void:
 	if _player == null:
 		return
 	var p: Player = _player
-	if p.is_on_floor():
+	var pressed: bool = Input.is_action_just_pressed(&"hover")
+	var from_ground: bool = false
+	_grace_left = maxf(_grace_left - delta, 0.0)
+	if p.is_on_floor() and _grace_left <= 0.0:
 		_free_time_left = hover_time_free_gas
 		_spent = false
 		_stop()
-		return
-	if not Input.is_action_pressed(&"hover"):
+		# Hover pressed on the ground: jump up to the standard hover height (unless the jump
+		# button is jumping this very moment).
+		if pressed and not _jump_pressed(p):
+			_target_y = p.global_position.y + hover_height
+			from_ground = true
+			_leave_ground(p)
+		else:
+			return
+	elif not Input.is_action_pressed(&"hover"):
 		_spent = false
 		_stop()
 		return
 	if _spent:
 		return
-	if p.velocity.y > hover_rise_speed:
-		# Still going up from the jump: hold on, the hover takes over at the top.
+	if from_ground:
+		pass  # the target is already set
+	elif not is_hovering:
+		if pressed:
+			_target_y = p.global_position.y  # pressed in the air: stay at this height
+		elif p.velocity.y > hover_rise_speed:
+			return  # button was already held, still going up from a jump: wait for the top
+		else:
+			_target_y = p.global_position.y
+	elif p.velocity.y > _set_vy + 1.0:
+		# Something pushed him up (the double jump, a spring): let it, hover again at the top.
 		_stop()
 		return
+	if p.is_on_ceiling() and _target_y > p.global_position.y:
+		_target_y = p.global_position.y  # bumped his head: float here
 	if not _pay(delta):
 		_spent = true
 		_stop()
@@ -64,8 +102,44 @@ func update(delta: float) -> void:
 		if p.print_farts:
 			print("Pfft...")
 		return
-	p.velocity.y = move_toward(p.velocity.y, hover_rise_speed, hover_lift * delta)
+	# Ease towards the hover height: quick at first, gentle at the end, no overshoot.
+	var want: float = clampf((_target_y - p.global_position.y) * rise_gain, -rise_max_speed, rise_max_speed)
+	p.velocity.y = move_toward(p.velocity.y, want, hover_lift * delta)
+	_set_vy = p.velocity.y
 	_start()
+	_send_fuel(true)
+
+
+## Leaves the ground for a ground hover.
+func _leave_ground(p: Player) -> void:
+	_grace_left = liftoff_grace
+	if p.simple_helper != null:
+		p.simple_helper.cancel_coyote()
+	_set_vy = 0.0
+
+
+func _jump_pressed(p: Player) -> bool:
+	return Input.is_action_just_pressed(p.jump_action) or p.fart_just_pressed()
+
+
+## How much hover he has left, 0 to 1.
+func fuel_fraction() -> float:
+	var tank: GasTank = _player.gas_tank
+	if _time_limited():
+		return clampf(_free_time_left / hover_time_free_gas, 0.0, 1.0)
+	if tank == null or tank.max_gas <= 0.0:
+		return 1.0
+	return clampf(tank.gas / tank.max_gas, 0.0, 1.0)
+
+
+## True in the free-gas test modes, where hover is limited by time, not by the tank.
+func _time_limited() -> bool:
+	var options := get_node_or_null("/root/DebugOptions") as DebugOptionsData
+	return options != null and options.farts_are_free()
+
+
+func _send_fuel(active: bool) -> void:
+	fuel_changed.emit(fuel_fraction(), active, _time_limited())
 
 
 ## Uses a little gas (or a little of the free time). False when there is none left.
@@ -73,8 +147,7 @@ func _pay(delta: float) -> bool:
 	var tank: GasTank = _player.gas_tank
 	if tank == null:
 		return true
-	var options := get_node_or_null("/root/DebugOptions") as DebugOptionsData
-	if options != null and options.farts_are_free():
+	if _time_limited():
 		_free_time_left -= delta
 		return _free_time_left > 0.0
 	if tank.gas <= 0.0:
@@ -99,6 +172,7 @@ func _stop() -> void:
 	is_hovering = false
 	if cloud != null:
 		cloud.set_active(false)
+	_send_fuel(false)
 	stopped.emit()
 	_player.hover_stopped.emit()
 

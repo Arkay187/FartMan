@@ -31,6 +31,8 @@ func _check(label: String, ok: bool) -> void:
 
 
 func _run(level: Node) -> void:
+	# This test is about the CLASSIC charge-fart controls (SIMPLE is the default now).
+	(root.get_node("DebugOptions") as DebugOptionsData).set_simple_controls(false)
 	var player: Player = level.get_node("Player")
 	var anim: PlayerAnimator = player.get_node("Animator")
 	var tank: Node = player.get_node("GasTank")

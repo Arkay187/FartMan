@@ -47,6 +47,8 @@ func _watch(camera: Camera3D, player: Player, seconds: float) -> Vector2:
 
 
 func _run() -> void:
+	# This test is about the CLASSIC charge-fart controls (SIMPLE is the default now).
+	(root.get_node("DebugOptions") as DebugOptionsData).set_simple_controls(false)
 	var save: Node = root.get_node_or_null("SaveGame")
 	if save != null:
 		save.use_file("user://test_screen_size_save.json")
