@@ -11,6 +11,8 @@ const SOUNDS: Dictionary = {
 	"bean": {"pickup_sound": "bean_pickup"},
 	"golden_bean": {"found_sound": "golden_bean"},
 	"chilli": {"grab_sound": "chilli_sizzle"},
+	"heart": {"grab_sound": "heart_pickup"},
+	"bean_spill": {"spill_sound": "bean_spill"},
 	"hot_sauce": {"grab_sound": "chilli_sizzle"},
 	"fireball": {"pop_sound": "fireball_pop"},
 	"mega_bean_can": {"grab_sound": "mega_can_glug"},
@@ -26,8 +28,8 @@ const SOUNDS: Dictionary = {
 	"cork_bot": {"squash_sound": "cork_pop", "idle_sound": "cork_roll", "idle_every": 1.8, "idle_volume_db": -9.0},
 	"fizz_bat": {"squash_sound": "squash", "idle_sound": "bat_flap", "idle_every": 1.3, "idle_volume_db": -9.0},
 	# Bosses
-	"sneezy_weezy": {"windup_sound": "sneeze_windup", "achoo_sound": "sneeze_achoo", "hit_sound": "boss_hit", "defeat_sound": "boss_defeat"},
-	"colonel_cork": {"snort_sound": "cork_snort", "bonk_sound": "cork_bonk", "shot_sound": "cork_shot", "hit_sound": "boss_hit", "defeat_sound": "cork_pop"},
+	"sneezy_weezy": {"windup_sound": "sneeze_windup", "achoo_sound": "sneeze_achoo", "hit_sound": "boss_hit", "phase_sound": "boss_phase", "defeat_sound": "boss_defeat"},
+	"colonel_cork": {"snort_sound": "cork_snort", "bonk_sound": "cork_bonk", "shot_sound": "cork_shot", "hit_sound": "boss_hit", "phase_sound": "boss_phase", "defeat_sound": "cork_pop"},
 	# Gadgets and hazards
 	"spring": {"boing_sound": "boing", "mega_sound": "mega_boing"},
 	"bounce_pad": {"boing_sound": "boing"},

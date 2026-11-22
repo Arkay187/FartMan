@@ -46,6 +46,16 @@ func _pickups() -> void:
 	# Chilli pepper: a sizzle, crackling, with a hot whoosh.
 	var sizzle: PackedFloat32Array = _crackle(_shape(_hiss(0.55, 0.9, true, 0.8), 0.02, 1.2), 0.012)
 	_save("chilli_sizzle", _mix([sizzle, _shape(_tone("saw", 250.0, 900.0, 0.45, 0.25), 0.05, 1.5)]))
+	# Heart: a warm, rising two-note chime.
+	_save("heart_pickup", _join([
+		_shape(_tone("sine", 660.0, 660.0, 0.09, 0.6), 0.003, 1.5),
+		_shape(_tone("sine", 990.0, 1320.0, 0.3, 0.6, 0.5, 6.0, 0.02), 0.003, 2.0)]))
+	# Spilled beans: a quick scatter of falling clinks, going down in pitch.
+	var clinks: Array[PackedFloat32Array] = []
+	for pitch: float in [1500.0, 1250.0, 1400.0, 1000.0, 1150.0, 820.0]:
+		clinks.append(_shape(_tone("square", pitch, pitch * 0.8, 0.045, 0.4, 0.25), 0.001, 2.0))
+		clinks.append(_silence(0.025))
+	_save("bean_spill", _join(clinks))
 	# Mega Bean Can: glug, glug, glug.
 	var glugs: Array[PackedFloat32Array] = []
 	for pitch: float in [260.0, 330.0, 230.0]:
@@ -116,6 +126,13 @@ func _bosses() -> void:
 	_save("cork_shot", _mix([
 		_shape(_tone("sine", 900.0, 260.0, 0.08), 0.001, 3.0),
 		_delay(_shape(_hiss(0.25, 0.5, true, 0.25), 0.1, 1.0), 0.05)]))
+	# A boss starts a new, harder phase: a rumbling roar that rises.
+	# (It puts the random numbers back afterwards, so the older sounds come out exactly as before.)
+	var random_state: int = _random.state
+	_save("boss_phase", _mix([
+		_shape(_tone("saw", 90.0, 220.0, 0.7, 0.5, 0.5, 9.0, 0.1), 0.05, 1.0),
+		_shape(_hiss(0.7, 0.2, false, 0.5), 0.1, 1.0)]))
+	_random.state = random_state
 	# A boss gets stomped: ow!
 	_save("boss_hit", _mix([_shape(_tone("square", 520.0, 240.0, 0.25, 0.5, 0.5, 15.0, 0.08), 0.005, 1.5), _shape(_hiss(0.08, 0.7), 0.0, 2.0)]))
 	# A boss is beaten: a silly sliding-down tune, then a big "bwoop".

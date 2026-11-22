@@ -4,11 +4,17 @@ extends Area3D
 ## Fart Man was standing. A red flashing patch on the floor shows where it will land, the
 ## moment it is fired, so there is plenty of time to step away. It only hurts while it flies
 ## and in the instant it lands. Then it pops into crumbs.
+## A BOUNCING cork does not pop at once: it hops on along the floor a few more times, and a
+## new red patch shows each next landing spot.
 
 ## How slowly it flies, in seconds (set by the boss for each round).
 var flight_time: float = 2.2
 ## How high the lob goes above the line from hat to floor, in metres.
 var arc_height: float = 5.0
+## How many more times it bounces after landing (0 = pops straight away).
+var bounces_left: int = 0
+## How far each bounce goes, in metres.
+var bounce_distance: float = 4.0
 var _from: Vector3
 var _target_x: float = 0.0
 var _floor_y: float = 0.0
@@ -19,9 +25,12 @@ var _cork: MeshInstance3D
 
 
 ## Fires a cork from "from" that will land at x on the floor whose top is floor_y.
-static func launch(parent: Node, from: Vector3, target_x: float, floor_y: float, seconds: float) -> CorkShot:
+## arc = how high it lobs. bounces = how many extra hops it makes after landing.
+static func launch(parent: Node, from: Vector3, target_x: float, floor_y: float, seconds: float, arc: float = 5.0, bounces: int = 0) -> CorkShot:
 	var shot := CorkShot.new()
 	shot.flight_time = seconds
+	shot.arc_height = arc
+	shot.bounces_left = bounces
 	shot._from = from
 	shot._target_x = target_x
 	shot._floor_y = floor_y
@@ -93,8 +102,11 @@ func _hurt_whoever_is_touching() -> void:
 			player.hurt(global_position.x)
 
 
-## Lands with a thud, and pops into crumbs.
+## Lands with a thud, and pops into crumbs (or hops on, if it still has bounces left).
 func _land() -> void:
+	if bounces_left > 0:
+		_bounce_on()
+		return
 	_landed = true
 	if is_instance_valid(_marker):
 		_marker.queue_free()
@@ -120,3 +132,18 @@ func _land() -> void:
 func _exit_tree() -> void:
 	if is_instance_valid(_marker):
 		_marker.queue_free()
+
+
+## A smaller hop further on in the direction it was going, with a new warning patch.
+func _bounce_on() -> void:
+	bounces_left -= 1
+	var heading: float = signf(_target_x - _from.x)
+	if heading == 0.0:
+		heading = -1.0
+	_from = Vector3(_target_x, _floor_y + 0.4, 0.0)
+	_target_x += heading * bounce_distance
+	flight_time = maxf(flight_time * 0.7, 0.8)
+	arc_height *= 0.6
+	_age = 0.0
+	if is_instance_valid(_marker):
+		_marker.global_position = Vector3(_target_x, _floor_y + 0.05, 0.0)

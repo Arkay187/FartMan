@@ -27,6 +27,9 @@ func _run(level: Node) -> void:
 	var hearts: Node = player.get_node("Hearts")
 	var tank: Node = player.get_node("GasTank")
 	var enemies: Node = level.get_node("Enemies")
+	# Random pickup drops (a Chilli would make him run through everything) would spoil this check.
+	for enemy: Node in enemies.get_children():
+		(enemy as Burpling).drop_chance = 0.0
 	var bar: Node = level.get_node("HUD/HeartsBar")
 	player.respawned.connect(func() -> void: respawns += 1)
 	await _wait(1.0)

@@ -1,7 +1,8 @@
 extends RefCounted
 ## Stage 1-4: BOSS, SNEEZY WEEZY (about 3 minutes).
 ## A toilet checkpoint outside the door. Dodge the pollen, wait for her to droop,
-## stomp her head. Three stomps wins, and the gate to the Bean Can opens.
+## stomp her head. Six stomps in three phases wins (see sneezy_weezy.gd), and the gate to
+## the Bean Can opens.
 
 const PINK: Color = Color(1.0, 0.45, 0.7)
 const LEAF: Color = Color(0.25, 0.65, 0.3)
@@ -27,6 +28,7 @@ func build(k) -> Array[String]:
 	k.golden(26, 4.6)
 	k.beans_arc(10, 22, 1.2, 2.5, 7)
 	k.mega_can(12, 1.4)
+	k.heart(20, 1.4)
 
 	# --- Sneezy Weezy herself. -------------------------------------------------------
 	var boss := Area3D.new()
@@ -102,6 +104,7 @@ func build(k) -> Array[String]:
 	boss.set("trigger", trigger)
 	boss.set("gate", gate)
 	boss.set("scene_player", scene_player)
+	boss.set("friend_scene", load("res://scenes/burpling.tscn"))
 	k._own(boss)
 
 	# --- Beyond the gate: the Bean Can. ------------------------------------------------

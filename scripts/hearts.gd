@@ -22,6 +22,15 @@ func lose_one() -> bool:
 	return hearts > 0
 
 
+## Gives one heart back. Returns false (and does nothing) if he is already full.
+func gain_one() -> bool:
+	if hearts >= max_hearts:
+		return false
+	hearts += 1
+	hearts_changed.emit(hearts, max_hearts)
+	return true
+
+
 ## Back to full hearts.
 func refill() -> void:
 	hearts = max_hearts

@@ -25,7 +25,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_time += delta
 	rotate_y(spin_speed * delta)
-	position.y = _home_y + sin(_time * bob_speed) * bob_height
+	# A thrown bottle (from an enemy) is moved by its LootBounce: don't bob until it is resting.
+	if get_node_or_null("LootBounce") == null:
+		position.y = _home_y + sin(_time * bob_speed) * bob_height
 
 
 func _on_body_entered(body: Node3D) -> void:
