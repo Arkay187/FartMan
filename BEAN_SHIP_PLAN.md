@@ -7,7 +7,8 @@ upgrades aboard **the Bean Blimp**: Grandma's giant flying bean-shaped airship, 
 
 1. Play a stage and grab beans. A counter on the HUD shows the beans grabbed in this stage.
 2. At the end of the stage, "+312 BEANS!" pours into a big jar on screen, with a cha-ching and a toot.
-3. On the world map, walk to the blimp, or press Y. Inside, walk to a station and press jump to shop.
+3. On the 3D world map the blimp hovers over the level you're on. Press Y to go aboard. Inside, walk to a
+   station and press jump to shop.
 4. Buy an upgrade. It works straight away in every stage. Go back for more beans: replay a favourite
    stage, or raid the bean rooms (about 110 beans each, 10 rooms in the game).
 
@@ -101,7 +102,9 @@ week of play: if he's buying something after nearly every stage, it's about righ
 - **The blimp**: a hub scene made by the builder. Fart Man walks along the inside of the blimp, past station
   rooms. Each station opens a big, simple shop panel with pictures, a bean price, and a jar that shows how
   many more beans you need. Up and down to pick, jump to buy, back to leave.
-- **The map**: the blimp floats over the map. Walking to it, or pressing Y, goes aboard.
+- **The map**: the world map is a 3D diorama (being built now). The Bean Blimp hovers above whichever level
+  you're on, with Fart Man in the gondola, and flies along the path when you move. Pressing Y goes aboard.
+  The map already has a `board_ship()` hook waiting for the hub.
 - **Tests**: buying takes beans and can't go below zero. Upgrades are saved and come back after reloading.
   Each upgrade really changes the player in a stage. Banking works at toilets, stage end and quit. Spilled
   beans not grabbed are lost from the jar. The map gets you to the blimp and back.
