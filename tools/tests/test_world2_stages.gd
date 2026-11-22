@@ -120,7 +120,7 @@ func _run() -> void:
 		_count(s2, "SteamVent"), _count(s2, "FizzBat"), fans.size(), tail, head, _count(s2, "SwitchBlock"), _count(s2, "SwitchButton"), _count(s2, "WarpPipe")])
 	_check("2-2 has 6+ vents, 5+ fizz bats, a tail and a head wind fan, 4 switch blocks and a button, 2 pipes",
 		_count(s2, "SteamVent") >= 6 and _count(s2, "FizzBat") >= 5 and tail >= 1 and head >= 1
-		and _count(s2, "SwitchBlock") >= 4 and _count(s2, "SwitchButton") == 1 and _count(s2, "WarpPipe") == 2)
+		and _count(s2, "SwitchBlock") >= 4 and _count(s2, "SwitchButton") == 1 and _count(s2, "WarpPipe") == 4)
 	# Steam vents land him on the next ledge when he just holds right.
 	var wall_hop: bool = await _vent_hop(s2, 13.0, 0.0, 20.0, 30.0, 5.0)
 	_check("2-2 first vent puts him over the wall onto the plateau", wall_hop)

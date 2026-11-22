@@ -5,6 +5,8 @@ extends Area3D
 
 ## What it says.
 @export var words: String = "HELLO!"
+## What it says when the SIMPLE controls are on. Leave empty to say `words` for both.
+@export var simple_words: String = ""
 ## How long the bubble stays.
 @export var seconds: float = 2.5
 ## How high above this spot the bubble floats.
@@ -27,7 +29,15 @@ func _ready() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player and not (_done and only_once):
 		_done = true
+		var text: String = what_to_say(body as Player)
 		if show_at_top:
-			HintBanner.show_hint(self, words, seconds)
+			HintBanner.show_hint(self, text, seconds)
 			return
-		SpeechBubble.say(speaker if speaker != null else self, words, seconds, height)
+		SpeechBubble.say(speaker if speaker != null else self, text, seconds, height)
+
+
+## The words for the controls he is using: simple_words for SIMPLE (if set), otherwise words.
+func what_to_say(player: Player) -> String:
+	if simple_words != "" and player != null and player.is_simple():
+		return simple_words
+	return words

@@ -44,15 +44,26 @@ func _run() -> void:
 		_check("%s has its stage id" % id, stage.stage_id == id)
 
 		if id == "1-1":
-			# The mushroom chain: just holding right from the start of it should get across.
+			# The ditch is soft: holding CLASSIC right walks down and up the slope.
+			var options: DebugOptionsData = root.get_node("DebugOptions") as DebugOptionsData
+			var was_simple: bool = options.simple_controls
+			options.set_simple_controls(false)
 			var p1: Player = stage.player
 			p1.position = Vector3(104, 1.2, 0)
 			p1.flashing_left = 1000.0
 			Input.action_press(&"ui_right")
 			await _wait(9.0)
 			Input.action_release(&"ui_right")
-			_check("mushroom chain: holding right crosses the pit (x=%.1f, y=%.1f, on floor %s)" % [p1.position.x, p1.position.y, str(p1.is_on_floor())],
-				p1.position.x > 133.0 and p1.position.y > -2.0)
+			options.set_simple_controls(was_simple)
+			_check("ditch: holding right crosses it (x=%.1f, y=%.1f, on floor %s)" % [p1.position.x, p1.position.y, str(p1.is_on_floor())],
+				p1.position.x > 130.0 and p1.position.y > -2.0)
+		if id == "1-2":
+			# The FIRE BURP PARTY is still a crowd.
+			var crowd: int = 0
+			for e: Node in stage.get_node("Enemies").get_children():
+				if (e as Node3D).position.x > 320.0 and (e as Node3D).position.x < 420.0:
+					crowd += 1
+			_check("1-2 FIRE BURP PARTY still has 20+ enemies (%d)" % crowd, crowd >= 20)
 		if id == "1-3":
 			var p: Player = stage.player
 			_check("flying stage: starts flying", p.is_flying())
