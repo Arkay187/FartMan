@@ -401,9 +401,9 @@ func _run() -> void:
 		scene_name == "TestLevels" and (save == null or not save.has_progress()))
 	list = current_scene as TestLevels
 	await _wait(0.4)
-	await _press(&"ui_down", 0.1)
-	await _press(&"ui_down", 0.1)
-	_check("list: BACK is the last row (%d)" % list.choice, list.choice == 2)
+	# Up from the first row wraps round to the last row, BACK (World 3 rows sit before it).
+	await _press(&"ui_up", 0.1)
+	_check("list: BACK is the last row (%d)" % list.choice, list.choice == list.rows.size() - 1)
 	await _press(&"ui_accept", 0.1)
 	await _wait(0.8)
 	scene_name = current_scene.name if current_scene != null else "none"

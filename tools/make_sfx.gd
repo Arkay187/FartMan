@@ -25,6 +25,7 @@ func _init() -> void:
 	_things()
 	_menus()
 	_fire_burp_pieces()
+	_world3()
 	print("made %d sound files" % _made)
 	quit()
 
@@ -197,6 +198,31 @@ func _fire_burp_pieces() -> void:
 		_shape(_tone("sine", 1000.0, 300.0, 0.08), 0.001, 2.5),
 		_shape(_hiss(0.2, 0.7, true, 0.5), 0.005, 2.0),
 		_shape(_tone("saw", 300.0, 600.0, 0.15, 0.3), 0.01, 1.5)]))
+
+
+## World 3 (Planet Whiff): bubbles, stink puffs, geysers, thunder and Big Bad Burp's giant burp.
+func _world3() -> void:
+	# Burp Bubble pops: a bright blip going up.
+	_save("bubble_pop", _mix([
+		_shape(_tone("sine", 500.0, 1500.0, 0.1), 0.001, 3.0),
+		_shape(_hiss(0.05, 0.8, true, 0.3), 0.0, 2.0)]))
+	# A Whiffler puffs: a soft, rude pfffffft.
+	_save("whiffler_puff", _mix([
+		_shape(_hiss(0.45, 0.3, false, 0.7), 0.03, 1.4),
+		_shape(_tone("saw", 140.0, 75.0, 0.4, 0.4, 0.5, 30.0, 0.2), 0.02, 1.2)]))
+	# Gas geyser blasts: a rising whoosh.
+	_save("geyser_blast", _mix([
+		_shape(_hiss(0.6, 0.2, false, 0.8), 0.05, 1.2),
+		_shape(_tone("saw", 120.0, 520.0, 0.5, 0.3), 0.05, 1.5)]))
+	# Thunder: a crack, then a long low rumble.
+	_save("thunder", _mix([
+		_shape(_hiss(0.04, 0.9, true, 0.9), 0.0, 1.0),
+		_shape(_hiss(0.9, 0.05, false, 0.9), 0.05, 1.0),
+		_shape(_tone("sine", 70.0, 40.0, 0.9, 0.5), 0.02, 1.2)]))
+	# Big Bad Burp's giant burp: long, low and wobbly.
+	_save("big_burp", _mix([
+		_shape(_tone("saw", 105.0, 50.0, 0.75, 0.6, 0.5, 22.0, 0.3), 0.02, 1.2),
+		_shape(_hiss(0.7, 0.3, false, 0.5), 0.05, 1.4)]))
 
 
 # ------------------------------------------------------------------ the building blocks

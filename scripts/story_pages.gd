@@ -16,10 +16,21 @@ const OPENING: Array[Dictionary] = [
 	{"text": "FART MAN!", "color": Color(0.9, 0.25, 0.25), "image": "res://art/story/opening_5.png"},
 ]
 
+## The ending, after Big Bad Burp is beaten.
+const ENDING: Array[Dictionary] = [
+	{"text": "BIG BAD BURP HAS NEVER FARTED!", "color": Color(0.55, 0.35, 0.7), "image": "res://art/story/ending_1.png"},
+	{"text": "FART MAN GIVES HIM A BEAN. UH OH!", "color": Color(0.95, 0.7, 0.3), "image": "res://art/story/ending_2.png"},
+	{"text": "THE BIGGEST FART IN HISTORY!", "color": Color(0.5, 0.8, 0.3), "image": "res://art/story/ending_3.png"},
+	{"text": "THE CORK POPS! BEANS RAIN EVERYWHERE!", "color": Color(0.4, 0.75, 0.95), "image": "res://art/story/ending_4.png"},
+	{"text": "EVERYBODY FARTS. THE END.", "color": Color(0.9, 0.25, 0.25), "image": "res://art/story/ending_5.png"},
+]
+
 
 ## Look a story up by name ("opening"). Unknown names give an empty list.
 static func get_story(story_name: String) -> Array[Dictionary]:
 	match story_name:
 		"opening":
 			return OPENING
+		"ending":
+			return ENDING
 	return []

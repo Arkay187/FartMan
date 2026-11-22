@@ -53,24 +53,36 @@ func _run() -> void:
 	print("1-2 not cleared, press right: stays on %s" % MapStops.STOPS[map.index]["id"])
 	print("marker is at the 1-2 spot: %s" % (map.marker.position.distance_to(map.stop_marker_position(1)) < 1.0))
 
-	# Worlds 1 and 2 have stages now, so walk on to 3-1, which has no stage yet.
-	for stop_id in ["1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4"]:
+	# World 3 (Planet Whiff) is locked until 2-4 is cleared: walk on with everything before it cleared.
+	for stop_id in ["1-2", "1-3", "1-4", "2-1", "2-2", "2-3"]:
 		save.record_stage(stop_id, 0, 1)
-	for i in 7:
+	for i in 10:
 		await _press(&"ui_right")
+	print("2-4 not cleared, 10 presses right: stays on %s (World 3 is locked)" % MapStops.STOPS[map.index]["id"])
+	save.record_stage("2-4", 0, 1)
+	await _press(&"ui_right")
+	print("2-4 cleared, press right: on %s name='%s' (World 3 is open)" % [MapStops.STOPS[map.index]["id"], map.name_label.text])
+	await _press(&"ui_right")
+	print("3-1 not cleared, press right: stays on %s" % MapStops.STOPS[map.index]["id"])
+	for stop_id in ["3-1", "3-2", "3-3"]:
+		save.record_stage(stop_id, 1, 1)
+	for i in 4:
+		await _press(&"ui_right")
+	print("World 3 cleared up to 3-3, 4 presses right: on %s name='%s'" % [MapStops.STOPS[map.index]["id"], map.name_label.text])
+	var all_have_scenes: bool = true
+	for stop: Dictionary in MapStops.STOPS:
+		all_have_scenes = all_have_scenes and ResourceLoader.exists(stop["scene"])
+	print("all 12 stops have a stage: %s" % all_have_scenes)
 
-	# Entering a stop with no stage shows COMING SOON.
-	print("coming soon before jump: %s" % map.soon_label.visible)
-	Input.action_press(&"ui_accept")
-	await _wait(0.1)
-	Input.action_release(&"ui_accept")
-	await _wait(0.2)
-	print("jump on 1-2: coming soon visible=%s text='%s' still on the map=%s" % [map.soon_label.visible, map.soon_label.text, map.is_inside_tree()])
+	# A stop with no stage would say COMING SOON (all 12 have one now, so ask for it directly).
+	print("coming soon before: %s" % map.soon_label.visible)
+	map._show_soon()
+	print("coming soon shows: visible=%s text='%s' still on the map=%s" % [map.soon_label.visible, map.soon_label.text, map.is_inside_tree()])
 	await _wait(map.soon_time + 0.3)
 	print("coming soon fades: visible=%s" % map.soon_label.visible)
 
 	# Back on the cleared stop: it shows beans and the best score.
-	for i in 8:
+	for i in 12:
 		await _press(&"ui_left")
 	print("back on %s: info='%s' golden=%d score=%d" % [MapStops.STOPS[map.index]["id"], map.info_label.text, map.stop_golden(0), map.stop_score(0)])
 
