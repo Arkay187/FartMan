@@ -85,7 +85,7 @@ func _run() -> void:
 	_check("start: on %s name='%s' info='%s'" % [_id(map), map.name_label.text, map.info_label.text], map.index == 0 and map.name_label.text == "THE VEG PATCH" and map.info_label.text == "")
 	_check("the ship hovers above the start stop", _above(map, 0) and map.ship.position.y > MapStops.STOPS[0]["pos"].y + 3.0)
 	_check("the world's name shows on arrival: '%s'" % map.world_label.text, map.world_label.visible and map.world_label.text == "GRANDMA'S GARDEN")
-	_check("hub hint hidden while there is no hub", not map.hub_hint.visible and not map.board_ship())
+	_check("the Complex2000 hub is set, so the GO ABOARD hint shows", map.hub_hint.visible and map.ship_hub_scene == "res://scenes/ship_hub.tscn")
 
 	# Camera keeps the ship, the stop under it and a bit of what is next in view.
 	_check("camera sees the ship and its stop", _in_view(map.camera, map.ship.global_position) and _in_view(map.camera, MapStops.STOPS[0]["pos"]))

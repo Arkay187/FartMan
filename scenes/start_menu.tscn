@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" path="res://audio/sfx/menu_move.wav" id="2_h61rw"]
 [ext_resource type="AudioStream" path="res://audio/sfx/menu_accept.wav" id="3_fcv5n"]
 
-[node name="StartMenu" type="Control" unique_id=830996342 node_paths=PackedStringArray("continue_label", "new_game_label", "test_levels_label", "hint_label")]
+[node name="StartMenu" type="Control" unique_id=1804392979 node_paths=PackedStringArray("continue_label", "new_game_label", "test_levels_label", "upgrades_label", "hint_label")]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
@@ -13,17 +13,18 @@ script = ExtResource("1_m7x51")
 continue_label = NodePath("ContinueLabel")
 new_game_label = NodePath("NewGameLabel")
 test_levels_label = NodePath("TestLevelsLabel")
+upgrades_label = NodePath("UpgradesLabel")
 hint_label = NodePath("HintLabel")
 move_sound = ExtResource("2_h61rw")
 accept_sound = ExtResource("3_fcv5n")
 
-[node name="Background" type="ColorRect" parent="." unique_id=2136598250]
+[node name="Background" type="ColorRect" parent="." unique_id=78996114]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.55, 0.8, 0.95, 1)
 
-[node name="Hill" type="ColorRect" parent="." unique_id=411533707]
+[node name="Hill" type="ColorRect" parent="." unique_id=1191665971]
 layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -31,7 +32,7 @@ anchor_bottom = 1.0
 offset_top = -220.0
 color = Color(0.4, 0.7, 0.3, 1)
 
-[node name="Title" type="Label" parent="." unique_id=182375773]
+[node name="Title" type="Label" parent="." unique_id=1148142643]
 layout_mode = 0
 anchor_right = 1.0
 offset_top = 70.0
@@ -44,14 +45,14 @@ text = "FART MAN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContinueLabel" type="Label" parent="." unique_id=1713899618]
+[node name="ContinueLabel" type="Label" parent="." unique_id=1260495117]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -41.5
-offset_top = -10.0
+offset_top = -30.0
 offset_right = 41.5
 offset_bottom = 11.5
 grow_horizontal = 2
@@ -62,14 +63,14 @@ text = "CONTINUE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NewGameLabel" type="Label" parent="." unique_id=2095184820]
+[node name="NewGameLabel" type="Label" parent="." unique_id=566068675]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -43.5
-offset_top = 80.0
+offset_top = 55.0
 offset_right = 43.5
 offset_bottom = 11.5
 grow_horizontal = 2
@@ -80,31 +81,49 @@ text = "NEW GAME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TestLevelsLabel" type="Label" parent="." unique_id=125546397]
+[node name="UpgradesLabel" type="Label" parent="." unique_id=1565907661]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = 140.0
+offset_right = 59.0
+offset_bottom = 11.5
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+text = "UPGRADES: ON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TestLevelsLabel" type="Label" parent="." unique_id=464268536]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -47.5
-offset_top = 170.0
+offset_top = 200.0
 offset_right = 47.5
 offset_bottom = 11.5
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 56
+theme_override_font_sizes/font_size = 44
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 9
+theme_override_constants/outline_size = 7
 text = "TEST LEVELS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HintLabel" type="Label" parent="." unique_id=1302277279]
+[node name="HintLabel" type="Label" parent="." unique_id=329176424]
 layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -80.0
-offset_bottom = -20.0
+offset_top = -60.0
+offset_bottom = -10.0
 theme_override_font_sizes/font_size = 36
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
