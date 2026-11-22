@@ -283,11 +283,13 @@ func sprinkler(x: float, top: float, phase: float = 0.0, height: float = 3.5, on
 
 ## A hint that shows at the top middle of the screen when he passes. Draws a little wooden
 ## sign on the ground.
-func hint(x: float, top: float, words: String, seconds: float = 3.0) -> Chatterbox:
+## simple_words (optional) is shown instead when the SIMPLE controls are on; words is for CLASSIC.
+func hint(x: float, top: float, words: String, seconds: float = 3.0, simple_words: String = "") -> Chatterbox:
 	var talker := Chatterbox.new()
 	talker.name = "Hint"
 	talker.position = Vector3(x, top, 0)
 	talker.set("words", words)
+	talker.set("simple_words", simple_words)
 	talker.set("seconds", seconds)
 	talker.set("height", 2.6)
 	talker.set("show_at_top", true)
