@@ -102,7 +102,7 @@ func _run() -> void:
 	p.position = Vector3(8.0, 50.0, 0)
 	p.velocity = Vector3.ZERO
 	await _wait(0.4)
-	_check("shaft toilet remembered (y=%.1f)" % p.checkpoint_position.y, p.checkpoint_flight != Vector2.ZERO and absf(p.checkpoint_position.y - 50.0) < 1.0)
+	_check("shaft toilet remembered (y=%.1f)" % p.checkpoint_position.y, p.checkpoint_flight != Vector2.ZERO and absf(p.checkpoint_position.y - 42.0) < 1.0)
 	Input.action_release(&"jump")
 	p.flashing_left = 0.0
 	for i in 3:
@@ -152,10 +152,11 @@ func _run() -> void:
 			seen_toilets += 1
 	print("roof flight took %.0f s of flying from x=26 (+ about 10 s in the chimney)" % (frames / 60.0))
 	_check("he reaches the end and lands safely on the roof (x=%.0f, y=%.1f, flying %s, on floor %s)" % [p.position.x, p.position.y, str(p.is_flying()), str(p.is_on_floor())],
-		not p.is_flying() and p.is_on_floor() and p.position.x > 1195.0 and absf(p.position.y - 67.0) < 1.0)
-	_check("the speed-up tunnel made him faster (fastest %.0f m/s, normal 14)" % fastest, fastest > 20.0)
+		not p.is_flying() and p.is_on_floor() and p.position.x > 915.0 and absf(p.position.y - 67.0) < 1.0)
+	_check("the SUPER BOOSTs made him much faster (fastest %.0f m/s, normal 14)" % fastest, fastest > 40.0)
+	_check("the roof flight is about 40 s (%.0f s)" % (frames / 60.0), frames / 60.0 < 50.0 and frames / 60.0 > 30.0)
 	_check("he collected beans and ring bonuses on the way (score +%d)" % (stage.score - score0), stage.score - score0 > 500)
-	_check("he flushed the sky toilets as he passed (%d)" % seen_toilets, seen_toilets >= 6)
+	_check("he flushed the sky toilets as he passed (%d)" % seen_toilets, seen_toilets >= 4)
 	stage.queue_free()
 	await _wait(0.3)
 

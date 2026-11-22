@@ -41,6 +41,10 @@ extends Camera3D
 @export var flight_look_ahead: Vector3 = Vector3(10.0, 0.0, 0.0)
 ## View angle while flying, wider so he can see the hoops coming.
 @export_range(10.0, 90.0) var flight_fov: float = 75.0
+## In a SUPER BOOST the view stretches wider by up to this many degrees, so it feels fast.
+@export_range(0.0, 40.0) var boost_fov: float = 22.0
+## In a boost the camera sticks this much tighter to him (1 = twice as tight), so he stays on screen.
+@export var boost_follow: float = 1.5
 
 @export_group("Smoothness")
 ## How tightly it follows. Bigger = sticks closer, smaller = lazier and smoother.
@@ -54,6 +58,8 @@ var flying_amount: float = 0.0
 var also_show: Array[Node3D] = []
 ## The lean up (plus) or down (minus) at the moment, in metres.
 var vertical_lean: float = 0.0
+## 0 = normal speed, 1 = full SUPER BOOST. Eases so the view stretches smoothly.
+var boost_amount: float = 0.0
 
 
 func _ready() -> void:
@@ -86,7 +92,12 @@ func _physics_process(delta: float) -> void:
 		wanted = 1.0 - climb
 		climbing = climb > 0.5
 	flying_amount = lerpf(flying_amount, wanted, 1.0 - exp(-swing_speed * delta))
-	var smooth: float = 1.0 - exp(-follow_speed * delta)
+	# SUPER BOOST: the faster he flies, the wider the view and the tighter the follow.
+	var boost_wanted: float = 0.0
+	if player != null and player.is_flying():
+		boost_wanted = clampf((player.flight.speed_applied - 1.0) / 3.0, 0.0, 1.0) * flying_amount
+	boost_amount = lerpf(boost_amount, boost_wanted, 1.0 - exp(-4.0 * delta))
+	var smooth: float = 1.0 - exp(-follow_speed * (1.0 + boost_follow * boost_amount) * delta)
 
 	# Walking: aim at him (or between him and a boss), and zoom out if they don't both fit.
 	var aim: Vector3 = target.global_position
@@ -101,7 +112,7 @@ func _physics_process(delta: float) -> void:
 		aim.x = (left + right) * 0.5
 		var half_height: float = ((right - left) * 0.5 + show_too_margin) / _aspect()
 		walk_angle = maxf(walk_fov, rad_to_deg(2.0 * atan(half_height / offset.z)))
-	fov = lerpf(fov, lerpf(walk_angle, flight_fov, flying_amount), smooth)
+	fov = lerpf(fov, lerpf(walk_angle, flight_fov, flying_amount) + boost_fov * boost_amount, smooth)
 
 	# Move to a spot between the two views. When zoomed out it sits higher too, so the
 	# ground stays near the bottom of the screen instead of filling half of it.

@@ -2,7 +2,7 @@ extends SceneTree
 # Chimney climb and burst-out: while climbing inside the chimney the camera is fully side on
 # and Fart Man points straight up like a rocket; when he bursts out of the top he turns flat and
 # the camera swings round to the flying view; a respawn at the half-way toilet is upright again.
-# Also: the flying stages 1-3 and 2-3 were cut by 30% (they land earlier, still 3 Golden Beans).
+# Also: the flying stages 1-3 and 2-3 never got longer and still have 3 Golden Beans each.
 
 var failures: int = 0
 var p: Player
@@ -125,9 +125,9 @@ func _run() -> void:
 	await _wait(0.3)
 
 	# ------------------------------------------------------------------ shorter stages
-	print("landing x: 1-3 = %.0f (was 1200), 2-3 = %.0f (was 1710)" % [new_1_3, new_2_3])
-	_check("1-3 is at least 28 percent shorter", new_1_3 <= 1200.0 * 0.72)
-	_check("2-3 is at least 28 percent shorter", new_2_3 <= 1710.0 * 0.72)
+	print("landing x: 1-3 = %.0f (was 840), 2-3 = %.0f (was 1200)" % [new_1_3, new_2_3])
+	_check("1-3 is no longer than after the last cut (840); the flying time is checked in test_super_boost", new_1_3 <= 840.0)
+	_check("2-3 is no longer than after the last cut (1200); the flying time is checked in test_super_boost", new_2_3 <= 1200.0)
 	_check("1-3 still has 3 Golden Beans", golden_1_3 == 3)
 	_check("2-3 still has 3 Golden Beans", golden_2_3 == 3)
 
