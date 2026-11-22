@@ -16,6 +16,9 @@ signal bounced(mega: bool)
 @export var cooldown: float = 0.3
 ## The coil part that squashes when it bounces.
 @export var coil: Node3D
+## Boing sounds for a plain bounce and for a MEGA bounce.
+@export var boing_sound: AudioStream
+@export var mega_sound: AudioStream
 
 var _cooldown_left: float = 0.0
 var _since_press: float = 100.0
@@ -40,6 +43,7 @@ func _physics_process(delta: float) -> void:
 		_cooldown_left = cooldown
 		_since_press = 100.0
 		_squash(mega)
+		Sfx.play(self, mega_sound if mega else boing_sound)
 		bounced.emit(mega)
 		return
 

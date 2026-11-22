@@ -4,6 +4,8 @@ extends RefCounted
 ## kit.enemy("hiccup", 60, 0), kit.toilet(70, 0), then kit.finish("res://scenes/x.tscn").
 ## Heights are "top" = the height of the walkable surface. Ground level is usually 0.
 
+const SfxTable = preload("res://tools/sfx_table.gd")
+
 const GRASS: Color = Color(0.35, 0.72, 0.3)
 const DIRT: Color = Color(0.5, 0.35, 0.22)
 const WOOD: Color = Color(0.65, 0.45, 0.25)
@@ -179,6 +181,7 @@ func sky_toilet(x: float, lane: Vector2 = Vector2(3.0, 16.0)) -> Area3D:
 	t.set("flight_range", lane)
 	t.set("respawn_height", 0.0)
 	t.set("flush_words", "FLUSH! WHEEE!")
+	sfx_for(t, "toilet")
 	_add("Checkpoints", t)
 	var visual := Node3D.new()
 	visual.name = "Visual"
@@ -543,6 +546,12 @@ func finish(path: String) -> Array[String]:
 
 
 # ---------------------------------------------------------------- inside the kit
+
+## Fills in the sound slots of something made in code ("toilet", "switch_button", ...).
+## Which sound goes where is listed in tools/sfx_table.gd.
+func sfx_for(node: Node, kind: String) -> void:
+	SfxTable.apply(node, kind)
+
 
 ## Makes something from a scene file and puts it in a named group node.
 func place(scene_path: String, node_name: String, pos: Vector3, group: String) -> Node3D:

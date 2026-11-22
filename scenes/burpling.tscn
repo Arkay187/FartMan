@@ -1,30 +1,32 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/burpling.gd" id="1_csuut"]
-[ext_resource type="Script" path="res://scripts/enemy_animator.gd" id="2_km1x2"]
+[ext_resource type="Script" path="res://scripts/burpling.gd" id="1_km1x2"]
+[ext_resource type="AudioStream" path="res://audio/sfx/burpling_squish.wav" id="2_tg2fn"]
+[ext_resource type="Script" path="res://scripts/enemy_animator.gd" id="3_5tjlh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tg2fn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b73yl"]
 albedo_color = Color(0.35, 0.75, 0.25, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_5tjlh"]
-material = SubResource("StandardMaterial3D_tg2fn")
+[sub_resource type="SphereMesh" id="SphereMesh_sy834"]
+material = SubResource("StandardMaterial3D_b73yl")
 radius = 0.45
 height = 0.8
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_b73yl"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_6gbow"]
 radius = 0.45
 
-[node name="Burpling" type="Area3D" unique_id=1346218057 node_paths=PackedStringArray("visual", "animator")]
-script = ExtResource("1_csuut")
+[node name="Burpling" type="Area3D" unique_id=309657444 node_paths=PackedStringArray("visual", "animator")]
+script = ExtResource("1_km1x2")
 visual = NodePath("MeshInstance3D")
 animator = NodePath("Animator")
+squash_sound = ExtResource("2_tg2fn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=189974725]
-mesh = SubResource("SphereMesh_5tjlh")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1442704044]
+mesh = SubResource("SphereMesh_sy834")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=148153693]
-shape = SubResource("SphereShape3D_b73yl")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1506282403]
+shape = SubResource("SphereShape3D_6gbow")
 
-[node name="Animator" type="Node" parent="." unique_id=1068071664 node_paths=PackedStringArray("squash_target")]
-script = ExtResource("2_km1x2")
+[node name="Animator" type="Node" parent="." unique_id=2078207664 node_paths=PackedStringArray("squash_target")]
+script = ExtResource("3_5tjlh")
 squash_target = NodePath("../MeshInstance3D")

@@ -1,24 +1,26 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/bean.gd" id="1_fkxq7"]
+[ext_resource type="Script" path="res://scripts/bean.gd" id="1_vdqyq"]
+[ext_resource type="AudioStream" path="res://audio/sfx/bean_pickup.wav" id="2_cphwl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdqyq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfort"]
 albedo_color = Color(0.5, 0.27, 0.1, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cphwl"]
-material = SubResource("StandardMaterial3D_vdqyq")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mjp81"]
+material = SubResource("StandardMaterial3D_rfort")
 radius = 0.2
 height = 0.7
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_rfort"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_0bndg"]
 radius = 0.45
 
-[node name="Bean" type="Area3D" unique_id=460711254]
-script = ExtResource("1_fkxq7")
+[node name="Bean" type="Area3D" unique_id=2140442285]
+script = ExtResource("1_vdqyq")
+pickup_sound = ExtResource("2_cphwl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2143099680]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1273988528]
 transform = Transform3D(0.81915206, -0.57357645, 0, 0.57357645, 0.81915206, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_cphwl")
+mesh = SubResource("CapsuleMesh_mjp81")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=356105894]
-shape = SubResource("SphereShape3D_rfort")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2075944215]
+shape = SubResource("SphereShape3D_0bndg")

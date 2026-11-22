@@ -7,6 +7,8 @@ extends Area3D
 @export var spin_speed: float = 3.0
 ## What Fart Man says when he grabs it. Leave empty for nothing.
 @export var grab_words: String = "HOT HOT HOT!"
+## The sizzle when he grabs it.
+@export var grab_sound: AudioStream
 
 
 func _ready() -> void:
@@ -24,4 +26,5 @@ func _on_body_entered(body: Node3D) -> void:
 	player.chilli.start()
 	Stage.award(self, points)
 	player.say(grab_words, 1.2)
+	Sfx.play(self, grab_sound)
 	queue_free()

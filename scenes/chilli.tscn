@@ -1,35 +1,37 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/chilli.gd" id="1_7sc6l"]
+[ext_resource type="Script" path="res://scripts/chilli.gd" id="1_e1btf"]
+[ext_resource type="AudioStream" path="res://audio/sfx/chilli_sizzle.wav" id="2_elt51"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_e1btf"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_4q74n"]
 radius = 0.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_elt51"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gofbn"]
 albedo_color = Color(0.9, 0.1, 0.1, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_4q74n"]
-material = SubResource("StandardMaterial3D_elt51")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4necn"]
+material = SubResource("StandardMaterial3D_gofbn")
 radius = 0.18
 height = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gofbn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umjdi"]
 albedo_color = Color(0.2, 0.6, 0.2, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_4necn"]
-material = SubResource("StandardMaterial3D_gofbn")
+[sub_resource type="BoxMesh" id="BoxMesh_k5k7p"]
+material = SubResource("StandardMaterial3D_umjdi")
 size = Vector3(0.12, 0.3, 0.12)
 
-[node name="Chilli" type="Area3D" unique_id=1844412146]
-script = ExtResource("1_7sc6l")
+[node name="Chilli" type="Area3D" unique_id=1923081161]
+script = ExtResource("1_e1btf")
+grab_sound = ExtResource("2_elt51")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=95003233]
-shape = SubResource("SphereShape3D_e1btf")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=975081135]
+shape = SubResource("SphereShape3D_4q74n")
 
-[node name="Pepper" type="MeshInstance3D" parent="." unique_id=649242679]
+[node name="Pepper" type="MeshInstance3D" parent="." unique_id=1781502100]
 transform = Transform3D(0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_4q74n")
+mesh = SubResource("CapsuleMesh_4necn")
 
-[node name="Stalk" type="MeshInstance3D" parent="." unique_id=43592591]
+[node name="Stalk" type="MeshInstance3D" parent="." unique_id=1071832158]
 transform = Transform3D(0.76604444, -0.6427876, 0, 0.6427876, 0.76604444, 0, 0, 0, 1, -0.38, 0.45, 0)
-mesh = SubResource("BoxMesh_4necn")
+mesh = SubResource("BoxMesh_k5k7p")

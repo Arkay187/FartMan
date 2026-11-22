@@ -23,6 +23,8 @@ signal popped
 @export var ball: Node3D
 ## Looks for enemies and bosses it touches (a child Area3D).
 @export var squash_area: Area3D
+## Plays when it pops.
+@export var pop_sound: AudioStream
 
 ## 1 = rolls right, -1 = rolls left. Set before it is added to the level.
 var direction: float = 1.0
@@ -94,6 +96,7 @@ func pop() -> void:
 	is_popped = true
 	remove_from_group(&"fireballs")
 	popped.emit()
+	Sfx.play(self, pop_sound, -4.0)
 	_puff()
 	queue_free()
 

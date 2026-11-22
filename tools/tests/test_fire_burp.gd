@@ -303,6 +303,16 @@ func _run() -> void:
 	p.hurt(p.global_position.x - 1.0)
 	_check("with lost_when_hurt on, getting hurt takes it away", not p.has_fire_burp() and not p.get_node("FireFlame").visible)
 	power.lost_when_hurt = false
+
+	# ---------------------------------------------------------------- sounds (it can't hear: checks the file names)
+	var heard: Array[String] = []
+	for s: Node in p.get_children():
+		if s is PlayerSounds:
+			heard.append_array((s as PlayerSounds).played)
+	_check("each shot plays the fire burp sound", heard.has("fire_burp.wav"))
+	_check("popping fireballs play the pop sound", Sfx.played.has("fireball_pop.wav"))
+	_check("Hot Sauce plays a grab sound", Sfx.played.has("chilli_sizzle.wav"))
+
 	world.queue_free()
 	await _wait(0.3)
 

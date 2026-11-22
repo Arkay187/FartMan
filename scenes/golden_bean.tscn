@@ -1,24 +1,26 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/golden_bean.gd" id="1_14ajp"]
+[ext_resource type="Script" path="res://scripts/golden_bean.gd" id="1_7vx41"]
+[ext_resource type="AudioStream" path="res://audio/sfx/golden_bean.wav" id="2_k0ums"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vx41"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cltly"]
 albedo_color = Color(1, 0.8, 0.1, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_k0ums"]
-material = SubResource("StandardMaterial3D_7vx41")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rmh2l"]
+material = SubResource("StandardMaterial3D_cltly")
 radius = 0.3
 height = 1.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_cltly"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_dg5kp"]
 radius = 0.6
 
-[node name="GoldenBean" type="Area3D" unique_id=123215291]
-script = ExtResource("1_14ajp")
+[node name="GoldenBean" type="Area3D" unique_id=1832330003]
+script = ExtResource("1_7vx41")
+found_sound = ExtResource("2_k0ums")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=693086800]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=458072037]
 transform = Transform3D(0.81915206, -0.57357645, 0, 0.57357645, 0.81915206, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_k0ums")
+mesh = SubResource("CapsuleMesh_rmh2l")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=354519489]
-shape = SubResource("SphereShape3D_cltly")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=807901982]
+shape = SubResource("SphereShape3D_dg5kp")

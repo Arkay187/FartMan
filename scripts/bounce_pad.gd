@@ -14,6 +14,8 @@ signal bounced
 @export var cooldown: float = 0.25
 ## The mushroom cap, so it can squash when it bounces.
 @export var cap: Node3D
+## The boing.
+@export var boing_sound: AudioStream
 
 var _cooldown_left: float = 0.0
 
@@ -30,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		player.velocity.y = high_bounce_power if holding else bounce_power
 		_cooldown_left = cooldown
 		_squash()
+		Sfx.play(self, boing_sound)
 		bounced.emit()
 		return
 

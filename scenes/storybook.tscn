@@ -1,25 +1,27 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/storybook.gd" id="1_7w1n3"]
+[ext_resource type="Script" path="res://scripts/storybook.gd" id="1_0djhe"]
+[ext_resource type="AudioStream" path="res://audio/sfx/menu_move.wav" id="2_0igu7"]
 
-[node name="Storybook" type="Control" unique_id=439054296 node_paths=PackedStringArray("card", "picture", "caption")]
+[node name="Storybook" type="Control" unique_id=1674223892 node_paths=PackedStringArray("card", "picture", "caption")]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("1_7w1n3")
+script = ExtResource("1_0djhe")
 card = NodePath("Card")
 picture = NodePath("Card/Picture")
 caption = NodePath("Caption")
 next_scene = "res://scenes/world_map.tscn"
+page_sound = ExtResource("2_0igu7")
 
-[node name="Background" type="ColorRect" parent="." unique_id=978408621]
+[node name="Background" type="ColorRect" parent="." unique_id=117512080]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.12, 0.1, 0.18, 1)
 
-[node name="Card" type="ColorRect" parent="." unique_id=524020581]
+[node name="Card" type="ColorRect" parent="." unique_id=1158634716]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,7 +31,7 @@ offset_right = -120.0
 offset_bottom = -200.0
 color = Color(0.5, 0.5, 0.5, 1)
 
-[node name="Picture" type="TextureRect" parent="Card" unique_id=1728125642]
+[node name="Picture" type="TextureRect" parent="Card" unique_id=590567599]
 visible = false
 layout_mode = 0
 anchor_right = 1.0
@@ -37,7 +39,7 @@ anchor_bottom = 1.0
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Caption" type="Label" parent="." unique_id=1644612156]
+[node name="Caption" type="Label" parent="." unique_id=1376655194]
 layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0

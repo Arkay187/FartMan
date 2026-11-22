@@ -12,6 +12,8 @@ signal left
 @export var size: Vector2 = Vector2(12.0, 10.0)
 ## What he says the first time he goes in. Leave empty for nothing.
 @export var words: String = "SMELLS LIKE BEANS!"
+## The hiss as he flies in.
+@export var enter_sound: AudioStream
 
 var player_inside: bool = false
 var _age: float = 0.0
@@ -38,6 +40,7 @@ func _on_enter(body: Node3D) -> void:
 	if not (body is Player):
 		return
 	player_inside = true
+	Sfx.play(self, enter_sound)
 	if not _said and words != "":
 		_said = true
 		(body as Player).say(words, 1.5)

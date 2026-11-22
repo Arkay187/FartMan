@@ -14,6 +14,8 @@ signal opened
 @export var points: int = 500
 ## What Fart Man shouts when it opens. Leave empty for nothing.
 @export var open_words: String = "BEANS! TOOT TOOT!"
+## The pop and the rattle of beans when the lid flies off.
+@export var open_sound: AudioStream
 ## How high the lid flies, and how long it takes.
 @export var lid_fly_height: float = 8.0
 @export var lid_fly_time: float = 0.7
@@ -35,6 +37,7 @@ func _on_lid_touched(body: Node3D) -> void:
 	Stage.award(self, points)
 	player.say(open_words, 3.0)
 	player.celebrate()
+	Sfx.play(self, open_sound)
 	_pop_lid()
 	opened.emit()
 

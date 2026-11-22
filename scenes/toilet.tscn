@@ -1,38 +1,40 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/toilet.gd" id="1_ujtcc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyxms"]
-albedo_color = Color(0.95, 0.95, 0.95, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_5rkpo"]
-material = SubResource("StandardMaterial3D_yyxms")
-size = Vector3(0.9, 0.7, 0.8)
+[ext_resource type="Script" path="res://scripts/toilet.gd" id="1_yyxms"]
+[ext_resource type="AudioStream" path="res://audio/sfx/flush.wav" id="2_5rkpo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jh3ps"]
 albedo_color = Color(0.95, 0.95, 0.95, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_vwyy6"]
 material = SubResource("StandardMaterial3D_jh3ps")
+size = Vector3(0.9, 0.7, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5rr3v"]
+albedo_color = Color(0.95, 0.95, 0.95, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ca85b"]
+material = SubResource("StandardMaterial3D_5rr3v")
 size = Vector3(0.35, 1, 0.8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5rr3v"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4b3qh"]
 size = Vector3(1.4, 3, 4)
 
-[node name="Toilet" type="Area3D" unique_id=368900187 node_paths=PackedStringArray("visual")]
-script = ExtResource("1_ujtcc")
+[node name="Toilet" type="Area3D" unique_id=1397778352 node_paths=PackedStringArray("visual")]
+script = ExtResource("1_yyxms")
 visual = NodePath("Visual")
+flush_sound = ExtResource("2_5rkpo")
 
-[node name="Visual" type="Node3D" parent="." unique_id=2084288733]
+[node name="Visual" type="Node3D" parent="." unique_id=2055546505]
 
-[node name="Bowl" type="MeshInstance3D" parent="Visual" unique_id=1420440575]
+[node name="Bowl" type="MeshInstance3D" parent="Visual" unique_id=338195471]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.35, 0)
-mesh = SubResource("BoxMesh_5rkpo")
-
-[node name="Tank" type="MeshInstance3D" parent="Visual" unique_id=922701706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.9, 0)
 mesh = SubResource("BoxMesh_vwyy6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1971642919]
+[node name="Tank" type="MeshInstance3D" parent="Visual" unique_id=443232414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.9, 0)
+mesh = SubResource("BoxMesh_ca85b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=313523761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("BoxShape3D_5rr3v")
+shape = SubResource("BoxShape3D_4b3qh")

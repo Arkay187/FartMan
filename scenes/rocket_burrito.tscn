@@ -1,37 +1,39 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/rocket_burrito.gd" id="1_k7ygx"]
+[ext_resource type="Script" path="res://scripts/rocket_burrito.gd" id="1_wowfh"]
+[ext_resource type="AudioStream" path="res://audio/sfx/burrito_blast.wav" id="2_yr37a"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wowfh"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_acj4g"]
 radius = 0.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yr37a"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30vj6"]
 albedo_color = Color(0.9, 0.75, 0.5, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_acj4g"]
-material = SubResource("StandardMaterial3D_yr37a")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wgkyh"]
+material = SubResource("StandardMaterial3D_30vj6")
 radius = 0.3
 height = 1.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30vj6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_04n2o"]
 albedo_color = Color(0.9, 0.15, 0.1, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_wgkyh"]
-material = SubResource("StandardMaterial3D_30vj6")
+[sub_resource type="CylinderMesh" id="CylinderMesh_2xypa"]
+material = SubResource("StandardMaterial3D_04n2o")
 top_radius = 0.0
 bottom_radius = 0.3
 height = 0.5
 
-[node name="RocketBurrito" type="Area3D" unique_id=1703300140]
-script = ExtResource("1_k7ygx")
+[node name="RocketBurrito" type="Area3D" unique_id=1014087730]
+script = ExtResource("1_wowfh")
+grab_sound = ExtResource("2_yr37a")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=883972389]
-shape = SubResource("SphereShape3D_wowfh")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1829362997]
+shape = SubResource("SphereShape3D_acj4g")
 
-[node name="Roll" type="MeshInstance3D" parent="." unique_id=714037004]
+[node name="Roll" type="MeshInstance3D" parent="." unique_id=2071128734]
 transform = Transform3D(0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_acj4g")
+mesh = SubResource("CapsuleMesh_wgkyh")
 
-[node name="Nose" type="MeshInstance3D" parent="." unique_id=126170472]
+[node name="Nose" type="MeshInstance3D" parent="." unique_id=299856800]
 transform = Transform3D(0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0, 1, 0.62, 0.36, 0)
-mesh = SubResource("CylinderMesh_wgkyh")
+mesh = SubResource("CylinderMesh_2xypa")

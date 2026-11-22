@@ -1,25 +1,27 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/hoop.gd" id="1_kqfn8"]
+[ext_resource type="Script" path="res://scripts/hoop.gd" id="1_8ufma"]
+[ext_resource type="AudioStream" path="res://audio/sfx/hoop_ding.wav" id="2_osnbx"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ufma"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_es7gt"]
 albedo_color = Color(1, 0.8, 0.1, 1)
 
-[sub_resource type="TorusMesh" id="TorusMesh_osnbx"]
-material = SubResource("StandardMaterial3D_8ufma")
+[sub_resource type="TorusMesh" id="TorusMesh_88bej"]
+material = SubResource("StandardMaterial3D_es7gt")
 inner_radius = 1.5
 outer_radius = 1.85
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_es7gt"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_itur4"]
 size = Vector3(0.6, 2.6, 4)
 
-[node name="Hoop" type="Area3D" unique_id=663515714 node_paths=PackedStringArray("ring")]
-script = ExtResource("1_kqfn8")
+[node name="Hoop" type="Area3D" unique_id=1225967759 node_paths=PackedStringArray("ring")]
+script = ExtResource("1_8ufma")
 ring = NodePath("Ring")
+ding_sound = ExtResource("2_osnbx")
 
-[node name="Ring" type="MeshInstance3D" parent="." unique_id=1544868209]
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=349518507]
 transform = Transform3D(-3.7855173e-08, -0.8660254, 0.5, 1, -4.371139e-08, 0, 2.1855694e-08, 0.5, 0.8660254, 0, 0, 0)
-mesh = SubResource("TorusMesh_osnbx")
+mesh = SubResource("TorusMesh_88bej")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1614783334]
-shape = SubResource("BoxShape3D_es7gt")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2090833792]
+shape = SubResource("BoxShape3D_itur4")

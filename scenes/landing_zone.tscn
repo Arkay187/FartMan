@@ -1,25 +1,27 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/landing_zone.gd" id="1_xb862"]
+[ext_resource type="Script" path="res://scripts/landing_zone.gd" id="1_nkdga"]
+[ext_resource type="AudioStream" path="res://audio/sfx/landing_tada.wav" id="2_ghgfm"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkdga"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3f2x2"]
 transparency = 1
 albedo_color = Color(0.3, 1, 0.4, 0.25)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ghgfm"]
-material = SubResource("StandardMaterial3D_nkdga")
+[sub_resource type="BoxMesh" id="BoxMesh_c7431"]
+material = SubResource("StandardMaterial3D_3f2x2")
 size = Vector3(0.3, 40, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3f2x2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_487fu"]
 size = Vector3(2, 40, 4)
 
-[node name="LandingZone" type="Area3D" unique_id=522942363]
-script = ExtResource("1_xb862")
+[node name="LandingZone" type="Area3D" unique_id=743555430]
+script = ExtResource("1_nkdga")
+landing_sound = ExtResource("2_ghgfm")
 
-[node name="Curtain" type="MeshInstance3D" parent="." unique_id=1864357971]
+[node name="Curtain" type="MeshInstance3D" parent="." unique_id=82352337]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
-mesh = SubResource("BoxMesh_ghgfm")
+mesh = SubResource("BoxMesh_c7431")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1433593415]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=806260679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
-shape = SubResource("BoxShape3D_3f2x2")
+shape = SubResource("BoxShape3D_487fu")

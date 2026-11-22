@@ -18,6 +18,9 @@ signal gas_mode_changed(mode: int)
 ## Sent when the control scheme changes (pause menu). true = SIMPLE, false = CLASSIC.
 signal controls_changed(simple: bool)
 
+## Sent when the music is switched on or off (pause menu). true = music on.
+signal music_changed(on: bool)
+
 enum GasMode { NORMAL, NO_GAS, ALWAYS_FULL, FILL_ON_LAND }
 const MODE_NAMES: Array[String] = ["NORMAL", "NO GAS", "ALWAYS FULL", "FILL ON LAND"]
 
@@ -29,6 +32,10 @@ const MODE_NAMES: Array[String] = ["NORMAL", "NO GAS", "ALWAYS FULL", "FILL ON L
 var gas_mode: int = GasMode.NORMAL
 ## CLASSIC (false): hold fart to charge. SIMPLE (true): double jump, and hover on gas.
 var simple_controls: bool = false
+## Music on (true) or off (false). The pause menu's MUSIC choice.
+var music_on: bool = true
+## Only the music test sets this, to try saving and loading with a throw-away file.
+var test_saving: bool = false
 var _message: Label
 var _corner: Label
 var _message_left: float = 0.0
@@ -79,6 +86,13 @@ func set_simple_controls(on: bool) -> void:
 	simple_controls = on
 	_store()
 	controls_changed.emit(on)
+
+
+## Turns the music on (true) or off (false) and remembers it.
+func set_music(on: bool) -> void:
+	music_on = on
+	_store()
+	music_changed.emit(on)
 
 
 ## Makes sure the `pause`, `hover` and `fire` buttons exist, even if project.godot lost them
@@ -146,7 +160,7 @@ func _make_label(font_size: int, preset: Control.LayoutPreset) -> Label:
 
 # Headless test runs never read or write the file, so tests always start on NORMAL.
 func _headless() -> bool:
-	return DisplayServer.get_name() == "headless"
+	return DisplayServer.get_name() == "headless" and not test_saving
 
 
 func _load() -> void:
@@ -156,6 +170,7 @@ func _load() -> void:
 	if data is Dictionary:
 		gas_mode = clampi(int(data.get("gas_mode", 0)), 0, MODE_NAMES.size() - 1)
 		simple_controls = bool(data.get("simple_controls", false))
+		music_on = bool(data.get("music_on", true))
 
 
 func _store() -> void:
@@ -163,4 +178,4 @@ func _store() -> void:
 		return
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file != null:
-		file.store_string(JSON.stringify({"gas_mode": gas_mode, "simple_controls": simple_controls}))
+		file.store_string(JSON.stringify({"gas_mode": gas_mode, "simple_controls": simple_controls, "music_on": music_on}))

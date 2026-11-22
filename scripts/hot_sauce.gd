@@ -10,6 +10,8 @@ extends Area3D
 @export var bob_height: float = 0.12
 ## How fast it bobs.
 @export var bob_speed: float = 3.0
+## Plays when he grabs it.
+@export var grab_sound: AudioStream
 
 var _time: float = 0.0
 var _home_y: float = 0.0
@@ -32,4 +34,5 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	player.fire_burp.collect()
 	Stage.award(self, points)
+	Sfx.play(self, grab_sound)
 	queue_free()

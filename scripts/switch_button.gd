@@ -9,6 +9,8 @@ extends Area3D
 @export var cap: MeshInstance3D
 ## What it says when pressed.
 @export var words: String = "CLICK!"
+## The click.
+@export var click_sound: AudioStream
 
 var _cooldown_left: float = 0.0
 
@@ -37,6 +39,7 @@ func press() -> void:
 	get_tree().call_group(&"switch_blocks", &"toggle")
 	get_tree().call_group(&"switch_buttons", &"refresh")
 	SpeechBubble.say(self, words, 0.8, 1.2)
+	Sfx.play(self, click_sound)
 	if cap != null:
 		var tween: Tween = create_tween()
 		tween.tween_property(cap, "scale", Vector3(1.0, 0.3, 1.0), 0.06)

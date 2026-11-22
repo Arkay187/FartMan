@@ -1,33 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/spring.gd" id="1_61klm"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6vrsj"]
-albedo_color = Color(0.35, 0.35, 0.4, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_f6w1c"]
-material = SubResource("StandardMaterial3D_6vrsj")
-top_radius = 0.8
-bottom_radius = 0.8
-height = 0.15
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iudvb"]
-albedo_color = Color(0.9, 0.2, 0.2, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_l13eo"]
-material = SubResource("StandardMaterial3D_iudvb")
-top_radius = 0.55
-bottom_radius = 0.55
-height = 0.12
+[ext_resource type="Script" path="res://scripts/spring.gd" id="1_f6w1c"]
+[ext_resource type="AudioStream" path="res://audio/sfx/boing.wav" id="2_iudvb"]
+[ext_resource type="AudioStream" path="res://audio/sfx/mega_boing.wav" id="3_l13eo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrxyh"]
-albedo_color = Color(0.95, 0.85, 0.2, 1)
+albedo_color = Color(0.35, 0.35, 0.4, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_l7nqg"]
 material = SubResource("StandardMaterial3D_yrxyh")
-top_radius = 0.55
-bottom_radius = 0.55
-height = 0.12
+top_radius = 0.8
+bottom_radius = 0.8
+height = 0.15
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yqx6w"]
 albedo_color = Color(0.9, 0.2, 0.2, 1)
@@ -52,44 +36,64 @@ albedo_color = Color(0.9, 0.2, 0.2, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ycc1q"]
 material = SubResource("StandardMaterial3D_pcqmq")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_430fb"]
+albedo_color = Color(0.95, 0.85, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2jyx3"]
+material = SubResource("StandardMaterial3D_430fb")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftlf4"]
+albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jtajw"]
+material = SubResource("StandardMaterial3D_ftlf4")
 top_radius = 0.75
 bottom_radius = 0.75
 height = 0.15
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_430fb"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_vw4hl"]
 size = Vector3(1.4, 1, 2)
 
-[node name="Spring" type="Area3D" unique_id=337159492 node_paths=PackedStringArray("coil")]
-script = ExtResource("1_61klm")
+[node name="Spring" type="Area3D" unique_id=636256354 node_paths=PackedStringArray("coil")]
+script = ExtResource("1_f6w1c")
 coil = NodePath("Coil")
+boing_sound = ExtResource("2_iudvb")
+mega_sound = ExtResource("3_l13eo")
 
-[node name="Plate" type="MeshInstance3D" parent="." unique_id=109327859]
+[node name="Plate" type="MeshInstance3D" parent="." unique_id=681193919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
-mesh = SubResource("CylinderMesh_f6w1c")
-
-[node name="Coil" type="Node3D" parent="." unique_id=1952807256]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-
-[node name="Ring" type="MeshInstance3D" parent="Coil" unique_id=358779736]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-mesh = SubResource("CylinderMesh_l13eo")
-
-[node name="@MeshInstance3D@11" type="MeshInstance3D" parent="Coil" unique_id=140196177]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37, 0)
 mesh = SubResource("CylinderMesh_l7nqg")
 
-[node name="@MeshInstance3D@12" type="MeshInstance3D" parent="Coil" unique_id=568217774]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, 0)
+[node name="Coil" type="Node3D" parent="." unique_id=2061277842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+
+[node name="Ring" type="MeshInstance3D" parent="Coil" unique_id=673750114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 mesh = SubResource("CylinderMesh_01pfy")
 
-[node name="@MeshInstance3D@13" type="MeshInstance3D" parent="Coil" unique_id=857173257]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81, 0)
+[node name="@MeshInstance3D@11" type="MeshInstance3D" parent="Coil" unique_id=770388911]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37, 0)
 mesh = SubResource("CylinderMesh_58nyd")
 
-[node name="Top" type="MeshInstance3D" parent="Coil" unique_id=314398405]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="@MeshInstance3D@12" type="MeshInstance3D" parent="Coil" unique_id=839420273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, 0)
 mesh = SubResource("CylinderMesh_ycc1q")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1947411204]
+[node name="@MeshInstance3D@13" type="MeshInstance3D" parent="Coil" unique_id=135711626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81, 0)
+mesh = SubResource("CylinderMesh_2jyx3")
+
+[node name="Top" type="MeshInstance3D" parent="Coil" unique_id=122121631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_jtajw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=765606049]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_430fb")
+shape = SubResource("BoxShape3D_vw4hl")

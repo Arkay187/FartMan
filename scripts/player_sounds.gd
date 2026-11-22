@@ -33,6 +33,10 @@ extends Node
 ## How long after the death sound the "game over" comes, in seconds.
 @export var game_over_delay: float = 1.4
 
+@export_group("Fire Burp")
+## Each fireball shot (Hot Sauce power).
+@export var fire_burp_sound: AudioStream
+
 @export_group("Hooray")
 ## Reached the Bean Can at the end of a stage.
 @export var clear_sound: AudioStream
@@ -74,6 +78,7 @@ func _ready() -> void:
 	_player.hover_stopped.connect(_squeak.stop)
 	_player.got_hurt.connect(_on_hurt)
 	_player.died.connect(func() -> void: _play(_voice, death_sound))
+	_player.fire_burped.connect(func() -> void: _play(_fart, fire_burp_sound))
 	if _player.flight != null:
 		_player.flight.started.connect(_on_flight_started)
 		_player.flight.ended.connect(_on_flight_ended)

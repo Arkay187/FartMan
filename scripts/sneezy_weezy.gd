@@ -58,6 +58,13 @@ enum State { WAITING, INTRO, IDLE, WINDUP, TIRED, HIT, DEFEATED }
 @export var gate: Node3D
 @export var scene_player: ScenePlayer
 
+@export_group("Sounds")
+## The AH... AH... before a sneeze, the ACHOO!, getting stomped, and being beaten.
+@export var windup_sound: AudioStream
+@export var achoo_sound: AudioStream
+@export var hit_sound: AudioStream
+@export var defeat_sound: AudioStream
+
 var state: State = State.WAITING
 var hits: int = 0
 var _run_id: int = 0
@@ -141,6 +148,7 @@ func _fight(id: int) -> void:
 func _sneeze(round_now: int, id: int) -> void:
 	state = State.WINDUP
 	SpeechBubble.say(head, "AH... AH...", windup_time, 1.6)
+	Sfx.play(head, windup_sound)
 	var tween: Tween = create_tween()
 	tween.tween_property(face, "scale", Vector3.ONE * 1.3, windup_time)
 	await _wait(windup_time)
@@ -148,6 +156,7 @@ func _sneeze(round_now: int, id: int) -> void:
 		return
 	face.scale = Vector3.ONE
 	SpeechBubble.say(head, "ACHOO!", 0.8, 1.6)
+	Sfx.play(head, achoo_sound)
 	for i in pollen_per_sneeze[round_now]:
 		Pollen.launch(get_parent(), global_position + pollen_offset, pollen_speed[round_now], arena_left_x)
 		if i < pollen_per_sneeze[round_now] - 1:
@@ -177,6 +186,7 @@ func _be_tired(id: int) -> void:
 func _take_hit() -> void:
 	hits += 1
 	hit.emit(hits_to_win - hits)
+	Sfx.play(head, hit_sound)
 	_burst_petals()
 	if hits >= hits_to_win:
 		_defeat()
@@ -204,6 +214,7 @@ func _defeat() -> void:
 	state = State.DEFEATED
 	_run_id += 1
 	_clear_shots()
+	Sfx.play(head, defeat_sound)
 	if scene_player != null:
 		await scene_player.play(load("res://scripts/puppet/sneezy_goodbye.gd").STEPS,
 			{"boss": self, "player": _player}, "sneezy_goodbye")

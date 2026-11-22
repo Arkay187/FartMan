@@ -32,6 +32,7 @@ func build(k) -> Array[String]:
 	var boss := Area3D.new()
 	boss.name = "SneezyWeezy"
 	boss.set_script(load("res://scripts/sneezy_weezy.gd"))
+	k.sfx_for(boss, "sneezy_weezy")
 	boss.position = Vector3(33, 0, 0)
 	k._add("Goal", boss)
 	boss.set("floor_y", 0.0)

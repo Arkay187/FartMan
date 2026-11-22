@@ -1,27 +1,18 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_3s14c"]
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_1gl40"]
+[ext_resource type="AudioStream" path="res://audio/sfx/fireball_pop.wav" id="2_cb14k"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gl40"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kba2"]
 albedo_color = Color(1, 0.45, 0.05, 1)
 emission_enabled = true
 emission = Color(1, 0.45, 0.05, 1)
 emission_energy_multiplier = 1.6
 
-[sub_resource type="SphereMesh" id="SphereMesh_cb14k"]
-material = SubResource("StandardMaterial3D_1gl40")
-radius = 0.35
-height = 0.7
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kba2"]
-albedo_color = Color(1, 0.9, 0.2, 1)
-emission_enabled = true
-emission = Color(1, 0.9, 0.2, 1)
-
 [sub_resource type="SphereMesh" id="SphereMesh_43lgj"]
 material = SubResource("StandardMaterial3D_7kba2")
-radius = 0.1
-height = 0.2
+radius = 0.35
+height = 0.7
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqoxj"]
 albedo_color = Color(1, 0.9, 0.2, 1)
@@ -53,41 +44,52 @@ material = SubResource("StandardMaterial3D_wyo3q")
 radius = 0.1
 height = 0.2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_tyqc2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tyqc2"]
+albedo_color = Color(1, 0.9, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.9, 0.2, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pq144"]
+material = SubResource("StandardMaterial3D_tyqc2")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0rtms"]
 radius = 0.35
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_pq144"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_nxa2u"]
 
-[node name="Fireball" type="CharacterBody3D" unique_id=282333022 node_paths=PackedStringArray("ball", "squash_area")]
-script = ExtResource("1_3s14c")
+[node name="Fireball" type="CharacterBody3D" unique_id=1058591353 node_paths=PackedStringArray("ball", "squash_area")]
+script = ExtResource("1_1gl40")
 ball = NodePath("Ball")
 squash_area = NodePath("SquashArea")
+pop_sound = ExtResource("2_cb14k")
 
-[node name="Ball" type="Node3D" parent="." unique_id=1166458047]
+[node name="Ball" type="Node3D" parent="." unique_id=399680722]
 
-[node name="Orb" type="MeshInstance3D" parent="Ball" unique_id=1434045747]
-mesh = SubResource("SphereMesh_cb14k")
-
-[node name="Spot0" type="MeshInstance3D" parent="Ball" unique_id=1880581547]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, 0)
+[node name="Orb" type="MeshInstance3D" parent="Ball" unique_id=457133880]
 mesh = SubResource("SphereMesh_43lgj")
 
-[node name="Spot1" type="MeshInstance3D" parent="Ball" unique_id=151538762]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.25, 0.1)
+[node name="Spot0" type="MeshInstance3D" parent="Ball" unique_id=1519951708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, 0)
 mesh = SubResource("SphereMesh_86oub")
 
-[node name="Spot2" type="MeshInstance3D" parent="Ball" unique_id=1319450879]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.3, 0.1)
+[node name="Spot1" type="MeshInstance3D" parent="Ball" unique_id=907866143]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.25, 0.1)
 mesh = SubResource("SphereMesh_mi4h5")
 
-[node name="Spot3" type="MeshInstance3D" parent="Ball" unique_id=147096585]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0.33)
+[node name="Spot2" type="MeshInstance3D" parent="Ball" unique_id=1974301723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.3, 0.1)
 mesh = SubResource("SphereMesh_1fb5b")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1982932825]
-shape = SubResource("SphereShape3D_tyqc2")
+[node name="Spot3" type="MeshInstance3D" parent="Ball" unique_id=1715868383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0.33)
+mesh = SubResource("SphereMesh_pq144")
 
-[node name="SquashArea" type="Area3D" parent="." unique_id=1470178289]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1534921339]
+shape = SubResource("SphereShape3D_0rtms")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SquashArea" unique_id=300357127]
-shape = SubResource("SphereShape3D_pq144")
+[node name="SquashArea" type="Area3D" parent="." unique_id=1066736534]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SquashArea" unique_id=1663481739]
+shape = SubResource("SphereShape3D_nxa2u")

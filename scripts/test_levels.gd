@@ -13,6 +13,10 @@ extends Control
 @export var descriptions: Array[String] = []
 @export var description_label: Label
 @export_file("*.tscn") var back_scene: String = "res://scenes/start_menu.tscn"
+## The song that plays here (empty = none), and the sounds for moving and choosing.
+@export var music_song: String = "theme"
+@export var move_sound: AudioStream
+@export var accept_sound: AudioStream
 ## Ignore buttons for this long after the list appears.
 @export var input_delay: float = 0.3
 @export var up_action: StringName = &"ui_up"
@@ -26,7 +30,13 @@ var choice: int = 0
 var _age: float = 0.0
 
 
+func _tick(sound: AudioStream) -> void:
+	Sfx.play(self, sound)
+
+
 func _ready() -> void:
+	if music_song != "":
+		MusicPlayer.play_song(self, music_song)
 	_refresh()
 
 
@@ -37,9 +47,11 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(down_action):
 		choice = (choice + 1) % rows.size()
 		_refresh()
+		_tick(move_sound)
 	elif Input.is_action_just_pressed(up_action):
 		choice = (choice + rows.size() - 1) % rows.size()
 		_refresh()
+		_tick(move_sound)
 	elif Input.is_action_just_pressed(accept_action):
 		accept()
 	elif Input.is_action_just_pressed(cancel_action):
@@ -48,6 +60,7 @@ func _process(delta: float) -> void:
 
 ## Opens the highlighted row (or goes back if it is the last one).
 func accept() -> void:
+	_tick(accept_sound)
 	if choice >= scenes.size() or scenes[choice] == "":
 		get_tree().change_scene_to_file(back_scene)
 	else:

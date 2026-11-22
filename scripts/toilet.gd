@@ -16,6 +16,8 @@ signal flushed
 ## He comes back flying. Leave at (0, 0) for a normal toilet.
 @export var flight_range: Vector2 = Vector2.ZERO
 @export var flushed_color: Color = Color(0.45, 0.75, 1.0)
+## The flush.
+@export var flush_sound: AudioStream
 
 var is_flushed: bool = false
 
@@ -32,6 +34,7 @@ func _on_body_entered(body: Node3D) -> void:
 	player.set_checkpoint(global_position + Vector3.UP * respawn_height, flight_range)
 	_show_flushed()
 	SpeechBubble.say(self, flush_words, 1.5, 2.6)
+	Sfx.play(self, flush_sound)
 	flushed.emit()
 
 

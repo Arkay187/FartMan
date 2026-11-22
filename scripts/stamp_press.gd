@@ -28,6 +28,8 @@ extends Node3D
 @export var down_time: float = 0.5
 ## Where in the beat it starts (0 to 1), so presses next to each other go out of step.
 @export var phase: float = 0.0
+## The THUMP when it hits the floor.
+@export var slam_sound: AudioStream
 
 enum State { WAIT, WARN, SLAM, DOWN, RISE }
 
@@ -72,6 +74,7 @@ func _physics_process(delta: float) -> void:
 			if _y <= _bottom_y():
 				state = State.DOWN
 				_timer = down_time
+				Sfx.play(self, slam_sound)
 		State.DOWN:
 			if _timer <= 0.0:
 				state = State.RISE

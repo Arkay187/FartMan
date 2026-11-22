@@ -1,31 +1,35 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/world_map.gd" id="1_u82pb"]
-[ext_resource type="Script" path="res://scripts/map_canvas.gd" id="2_pls23"]
-[ext_resource type="Script" path="res://scripts/map_marker.gd" id="3_qj3iy"]
+[ext_resource type="Script" path="res://scripts/world_map.gd" id="1_qj3iy"]
+[ext_resource type="AudioStream" path="res://audio/sfx/menu_move.wav" id="2_sh0tg"]
+[ext_resource type="AudioStream" path="res://audio/sfx/menu_accept.wav" id="3_27p3u"]
+[ext_resource type="Script" path="res://scripts/map_canvas.gd" id="4_gqm84"]
+[ext_resource type="Script" path="res://scripts/map_marker.gd" id="5_55716"]
 
-[node name="WorldMap" type="Control" unique_id=2033485985 node_paths=PackedStringArray("marker", "name_label", "info_label", "soon_label", "canvas")]
+[node name="WorldMap" type="Control" unique_id=1032598480 node_paths=PackedStringArray("marker", "name_label", "info_label", "soon_label", "canvas")]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("1_u82pb")
+script = ExtResource("1_qj3iy")
 marker = NodePath("Marker")
 name_label = NodePath("NameLabel")
 info_label = NodePath("InfoLabel")
 soon_label = NodePath("SoonLabel")
 canvas = NodePath("Canvas")
+move_sound = ExtResource("2_sh0tg")
+accept_sound = ExtResource("3_27p3u")
 
-[node name="Canvas" type="Control" parent="." unique_id=1287410037]
+[node name="Canvas" type="Control" parent="." unique_id=639723094]
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("2_pls23")
+script = ExtResource("4_gqm84")
 
-[node name="Marker" type="Node2D" parent="." unique_id=913163720]
-script = ExtResource("3_qj3iy")
+[node name="Marker" type="Node2D" parent="." unique_id=1044135009]
+script = ExtResource("5_55716")
 
-[node name="NameLabel" type="Label" parent="." unique_id=2031366231]
+[node name="NameLabel" type="Label" parent="." unique_id=1291754790]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 0
 anchor_right = 1.0
@@ -38,7 +42,7 @@ theme_override_constants/outline_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InfoLabel" type="Label" parent="." unique_id=1232898709]
+[node name="InfoLabel" type="Label" parent="." unique_id=737416901]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 0
 anchor_top = 1.0
@@ -53,7 +57,7 @@ theme_override_constants/outline_size = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SoonLabel" type="Label" parent="." unique_id=1744869794]
+[node name="SoonLabel" type="Label" parent="." unique_id=1784470547]
 visible = false
 layout_mode = 0
 anchor_left = 0.5

@@ -112,6 +112,16 @@ func _run() -> void:
 	await _press(&"ui_left")
 	_check("left goes back round to NORMAL", options.gas_mode == DebugOptionsData.GasMode.NORMAL)
 
+	# Music toggle.
+	menu.select(PauseMenu.MUSIC)
+	_check("MUSIC starts ON", options.music_on and menu.choice_text(PauseMenu.MUSIC) == "MUSIC: ON")
+	await _press(&"jump")
+	_check("choosing MUSIC turns it OFF", not options.music_on and menu.choice_text(PauseMenu.MUSIC) == "MUSIC: OFF")
+	await _press(&"ui_right")
+	_check("right turns it back ON", options.music_on)
+	options.set_music(true)
+	_check("the menu has five rows", PauseMenu.CHOICES == 5)
+
 	# Not once the stage is cleared.
 	menu.close()
 	stage.is_cleared = true

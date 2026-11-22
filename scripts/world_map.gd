@@ -27,6 +27,10 @@ extends Control
 @export var left_action: StringName = &"ui_left"
 @export var right_action: StringName = &"ui_right"
 @export var jump_action: StringName = &"ui_accept"
+## The song that plays here (empty = none), and the sounds for moving along the path and going in.
+@export var music_song: String = "theme"
+@export var move_sound: AudioStream
+@export var accept_sound: AudioStream
 
 ## Sent when Fart Man finishes sliding to a stop.
 signal arrived(stop_id: String)
@@ -40,6 +44,8 @@ var _save: SaveData
 
 
 func _ready() -> void:
+	if music_song != "":
+		MusicPlayer.play_song(self, music_song)
 	_save = SaveLookup.find(self)
 	# Start on the stop we came back from, or the first one not cleared yet.
 	var start: int = first_open_index()
@@ -109,6 +115,7 @@ func move(direction: int) -> void:
 		return
 	index = target
 	_moving = true
+	Sfx.play(self, move_sound)
 	_hide_soon()
 	var tween: Tween = create_tween()
 	tween.tween_property(marker, "position", stop_marker_position(index), slide_time)
@@ -127,6 +134,7 @@ func enter_stop() -> void:
 		return
 	if _save != null:
 		_save.set_last_stop(stop["id"])
+	Sfx.play(self, accept_sound)
 	get_tree().change_scene_to_file(scene_path)
 
 

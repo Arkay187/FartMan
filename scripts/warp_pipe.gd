@@ -11,6 +11,8 @@ extends Area3D
 @export var exit_words: String = "PLOP!"
 ## Seconds before any pipe will take him again, so he does not bounce back and forth.
 @export var cooldown: float = 1.0
+## The bloop as he goes in.
+@export var warp_sound: AudioStream
 
 ## The time (in seconds of game physics) before which no pipe takes anyone.
 static var _blocked_until: float = 0.0
@@ -28,6 +30,7 @@ func _physics_process(_delta: float) -> void:
 		if player.velocity.x * enter_dir < 1.0:
 			continue
 		_blocked_until = now + cooldown
+		Sfx.play(self, warp_sound)
 		player.global_position = destination
 		player.velocity = Vector3.ZERO
 		player.say(exit_words, 1.0)

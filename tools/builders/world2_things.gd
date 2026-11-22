@@ -4,12 +4,16 @@ extends RefCounted
 ## build_scenes.gd runs build() on every script in tools/builders/.
 
 
+const SfxTable = preload("res://tools/sfx_table.gd")
+
+
 func build() -> void:
 	_build_cork_bot()
 	_build_fizz_bat()
 
 
 func _save(root: Node, path: String) -> void:
+	SfxTable.apply_for_scene(root, path)  # fill in the sound slots
 	var packed := PackedScene.new()
 	print("pack ", path, ": ", packed.pack(root))
 	print("save ", path, ": ", ResourceSaver.save(packed, path))
