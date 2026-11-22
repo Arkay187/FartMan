@@ -13,6 +13,9 @@ extends Area3D
 @export var only_once: bool = true
 ## Who the bubble points at. Leave empty to point at this spot.
 @export var speaker: Node3D
+## On for hint signs: the words show at the top middle of the screen instead of in a
+## bubble, so they never cover the game. Off for characters talking (like the cow).
+@export var show_at_top: bool = false
 
 var _done: bool = false
 
@@ -24,4 +27,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player and not (_done and only_once):
 		_done = true
+		if show_at_top:
+			HintBanner.show_hint(self, words, seconds)
+			return
 		SpeechBubble.say(speaker if speaker != null else self, words, seconds, height)

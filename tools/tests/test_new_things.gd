@@ -190,6 +190,39 @@ func _run() -> void:
 	root.child_entered_tree.disconnect(counter)
 	_check("hint spoke once (%d bubbles)" % bubbles[0], bubbles[0] == 1)
 
+	# --- Hint signs show at the top middle of the screen, not in a bubble. ---
+	talker.queue_free()
+	var sign_hint := Chatterbox.new()
+	sign_hint.words = "TOP HINT!"
+	sign_hint.show_at_top = true
+	var sign_col := CollisionShape3D.new()
+	var sign_shape := BoxShape3D.new()
+	sign_shape.size = Vector3(4, 4, 4)
+	sign_col.shape = sign_shape
+	sign_hint.add_child(sign_col)
+	sign_hint.position = Vector3(40, 1, 0)
+	world.add_child(sign_hint)
+	var top_kinds: Array[String] = []
+	var spotter := func(n: Node) -> void:
+		if n is HintBanner:
+			top_kinds.append("banner")
+		elif n is SpeechBubble:
+			top_kinds.append("bubble")
+	root.child_entered_tree.connect(spotter)
+	player.position.x = 40
+	await _wait(0.5)
+	root.child_entered_tree.disconnect(spotter)
+	_check("sign hint shows as a top banner, no bubble (%s)" % str(top_kinds), top_kinds == ["banner"])
+	var top_banner: HintBanner = root.get_meta(&"hint_banner") if root.has_meta(&"hint_banner") else null
+	if top_banner != null and is_instance_valid(top_banner):
+		var screen_w: float = top_banner.get_viewport().get_visible_rect().size.x
+		var middle: float = top_banner.panel.position.x + top_banner.panel.size.x * 0.5
+		_check("banner sits in the middle at the top (middle %.0f of %.0f, y %.0f)" % [middle, screen_w, top_banner.panel.position.y],
+			absf(middle - screen_w * 0.5) < 2.0 and top_banner.panel.position.y < 200.0)
+	else:
+		_check("banner sits in the middle at the top (no banner found)", false)
+	sign_hint.queue_free()
+
 	# --- Up-draught shoves a flying Fart Man upwards. ---
 	_fresh(false, Vector3(0, 6, 0))
 	var draft := UpDraft.new()

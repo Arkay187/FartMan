@@ -274,7 +274,8 @@ func sprinkler(x: float, top: float, phase: float = 0.0, height: float = 3.5, on
 	return jet_area
 
 
-## A bubble that says something when he passes. Draws a little wooden sign on the ground.
+## A hint that shows at the top middle of the screen when he passes. Draws a little wooden
+## sign on the ground.
 func hint(x: float, top: float, words: String, seconds: float = 3.0) -> Chatterbox:
 	var talker := Chatterbox.new()
 	talker.name = "Hint"
@@ -282,6 +283,7 @@ func hint(x: float, top: float, words: String, seconds: float = 3.0) -> Chatterb
 	talker.set("words", words)
 	talker.set("seconds", seconds)
 	talker.set("height", 2.6)
+	talker.set("show_at_top", true)
 	_add("Hints", talker)
 	_collider(talker, Vector3(2.0, 8.0, 4.0), Vector3(0, 4.0, 0))
 	var post := BoxMesh.new()

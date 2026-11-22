@@ -390,7 +390,7 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2w11d"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1395226649 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
+[node name="Player" type="CharacterBody3D" unique_id=1434062744 node_paths=PackedStringArray("gas_tank", "hearts", "chilli", "flight", "visual", "belly")]
 script = ExtResource("1_gl8cc")
 gas_tank = NodePath("GasTank")
 hearts = NodePath("Hearts")
@@ -399,15 +399,15 @@ flight = NodePath("FlightPower")
 visual = NodePath("Visual")
 belly = NodePath("Visual/ModelTurn/Model/Skeleton3D/BellyBone/BellySpot/Belly")
 
-[node name="Visual" type="Node3D" parent="." unique_id=1229474259]
+[node name="Visual" type="Node3D" parent="." unique_id=2057958276]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=626345242]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=623035897]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_51ujp")
 
-[node name="ModelTurn" type="Node3D" parent="Visual" unique_id=1969629882]
+[node name="ModelTurn" type="Node3D" parent="Visual" unique_id=733019597]
 transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 0, 0, 0)
 script = ExtResource("2_487ah")
 
@@ -709,44 +709,44 @@ mesh = SubResource("ArrayMesh_y1xfh")
 skin = SubResource("Skin_u157y")
 skeleton = NodePath("..")
 
-[node name="BellyBone" type="BoneAttachment3D" parent="Visual/ModelTurn/Model/Skeleton3D" index="1" unique_id=1503302428]
+[node name="BellyBone" type="BoneAttachment3D" parent="Visual/ModelTurn/Model/Skeleton3D" index="1" unique_id=955053371]
 transform = Transform3D(1, 0, 0, 0, 0.99247384, 0.12245689, 0, -0.12245689, 0.99247384, -2.8701127e-06, 0.004904351, -8.8924346e-05)
 bone_name = "mixamorig_Spine"
 bone_idx = 1
 
-[node name="BellySpot" type="Node3D" parent="Visual/ModelTurn/Model/Skeleton3D/BellyBone" unique_id=1863006729]
+[node name="BellySpot" type="Node3D" parent="Visual/ModelTurn/Model/Skeleton3D/BellyBone" unique_id=908363966]
 transform = Transform3D(0.004885145, 0, 0, 0, 0.0048483787, -0.0005982197, 0, 0.0005982197, 0.0048483787, 2.8701127e-06, -0.00045183534, 0.0015105058)
 
-[node name="Belly" type="MeshInstance3D" parent="Visual/ModelTurn/Model/Skeleton3D/BellyBone/BellySpot" unique_id=88745982]
+[node name="Belly" type="MeshInstance3D" parent="Visual/ModelTurn/Model/Skeleton3D/BellyBone/BellySpot" unique_id=1855351726]
 visible = false
 mesh = SubResource("SphereMesh_8txt3")
 
 [node name="AnimationPlayer" parent="Visual/ModelTurn/Model" index="1" unique_id=113591768]
 libraries/ = SubResource("AnimationLibrary_qb8jf")
 
-[node name="Clips" type="AnimationPlayer" parent="Visual/ModelTurn/Model" unique_id=498436271]
+[node name="Clips" type="AnimationPlayer" parent="Visual/ModelTurn/Model" unique_id=814338359]
 libraries/ = ExtResource("8_j2b1d")
 playback_default_blend_time = 0.15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1634379232]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2085809492]
 shape = SubResource("CapsuleShape3D_2w11d")
 
-[node name="GasTank" type="Node" parent="." unique_id=1161957095]
+[node name="GasTank" type="Node" parent="." unique_id=600294205]
 script = ExtResource("9_cs1tg")
 
-[node name="Hearts" type="Node" parent="." unique_id=934120656]
+[node name="Hearts" type="Node" parent="." unique_id=342246260]
 script = ExtResource("10_2dvfe")
 
-[node name="FlameTrail" type="Node3D" parent="." unique_id=1685759875]
+[node name="FlameTrail" type="Node3D" parent="." unique_id=1156808614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 script = ExtResource("11_giy8y")
 
-[node name="ChilliPower" type="Node" parent="." unique_id=952251912 node_paths=PackedStringArray("body", "trail")]
+[node name="ChilliPower" type="Node" parent="." unique_id=794905827 node_paths=PackedStringArray("body", "trail")]
 script = ExtResource("12_fdfoy")
 body = NodePath("../Visual")
 trail = NodePath("../FlameTrail")
 
-[node name="RainbowTrail" type="Node3D" parent="." unique_id=1907483278]
+[node name="RainbowTrail" type="Node3D" parent="." unique_id=1078889276]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.3, 0)
 script = ExtResource("11_giy8y")
 puff_every = 0.03
@@ -754,17 +754,17 @@ puff_life = 1.2
 puff_size = 1.3
 rainbow = true
 
-[node name="FlightPower" type="Node" parent="." unique_id=602325808 node_paths=PackedStringArray("trail")]
+[node name="FlightPower" type="Node" parent="." unique_id=874126345 node_paths=PackedStringArray("trail")]
 script = ExtResource("13_hhpqf")
 tilt_degrees = 0.0
 trail = NodePath("../RainbowTrail")
 
-[node name="Animator" type="Node" parent="." unique_id=1621585193 node_paths=PackedStringArray("animation_player", "squash_target")]
+[node name="Animator" type="Node" parent="." unique_id=20893826 node_paths=PackedStringArray("animation_player", "squash_target")]
 script = ExtResource("14_g5jhy")
 animation_player = NodePath("../Visual/ModelTurn/Model/Clips")
 squash_target = NodePath("../Visual")
 
-[node name="Sounds" type="Node" parent="." unique_id=2044312401]
+[node name="Sounds" type="Node" parent="." unique_id=1267802111]
 script = ExtResource("15_holxr")
 hop_sounds = Array[AudioStream]([ExtResource("16_mx1m4"), ExtResource("17_4gjji")])
 trump_sounds = Array[AudioStream]([ExtResource("18_u2ulf"), ExtResource("19_6e8lb"), ExtResource("20_2gdjj"), ExtResource("21_sc3ue")])

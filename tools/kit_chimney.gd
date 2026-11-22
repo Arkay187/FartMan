@@ -99,6 +99,7 @@ func say_zone(x: float, y: float, w: float, h: float, words: String, seconds: fl
 	talker.set("seconds", seconds)
 	talker.set("height", 1.8)
 	talker.set("speaker", player)
+	talker.set("show_at_top", true)
 	_add("Hints", talker)
 	_collider(talker, Vector3(w, h, 4.0), Vector3.ZERO)
 	_own(talker)
