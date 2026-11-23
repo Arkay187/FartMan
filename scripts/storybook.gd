@@ -1,7 +1,8 @@
 class_name Storybook
 extends Control
-## Full-screen picture-book pages. Jump turns the page. After the last page it says
-## "finished" and goes to the next scene. Hold jump for about a second to skip it all.
+## Full-screen picture-book pages. Jump turns the page, the back button (pad B) turns back a page.
+## After the last page it says "finished" and goes to the next scene. Hold jump for about a second
+## to skip it all.
 ## The pages live in story_pages.gd.
 
 ## Sent after the last page (or a skip).
@@ -18,6 +19,8 @@ signal finished
 ## Where to go afterwards. Leave empty to just stay put.
 @export_file("*.tscn") var next_scene: String = ""
 @export var jump_action: StringName = &"ui_accept"
+## Turns back one page (pad B, Esc or Backspace). Does nothing on the first page.
+@export var back_action: StringName = &"back"
 ## Hold jump this long to skip the whole story.
 @export var skip_hold_time: float = 1.0
 ## Ignore buttons for this long at the start.
@@ -41,6 +44,7 @@ var _held: float = 0.0
 
 
 func _ready() -> void:
+	DebugOptionsData.ensure_input_actions()
 	if music_song != "":
 		MusicPlayer.play_song(self, music_song)
 	pages = StoryPages.get_story(story_name)
@@ -68,6 +72,15 @@ func _process(delta: float) -> void:
 		_held = 0.0
 	if Input.is_action_just_pressed(jump_action):
 		next_page()
+	elif InputMap.has_action(back_action) and Input.is_action_just_pressed(back_action):
+		previous_page()
+
+
+## Turn back one page. Does nothing on the first page.
+func previous_page() -> void:
+	if is_finished or page_index <= 0:
+		return
+	_show_page(page_index - 1)
 
 
 ## Turn the page, or finish if that was the last one.
@@ -81,7 +94,8 @@ func next_page() -> void:
 
 
 func _show_page(number: int) -> void:
-	if number > 0:
+	# The page-turn sound, whenever the page changes (not for the very first page).
+	if number != page_index:
 		Sfx.play(self, page_sound)
 	page_index = number
 	_page_age = 0.0

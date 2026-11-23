@@ -846,3 +846,25 @@ Asked by Rich (and his son, for the space levels).
 1. Play 3-2 and the boss: if it is too hard now, space out the Whifflers' puffs or swap a few for low jellyfish.
 2. Maybe make pad B go back in the other menus too (pause menu, TEST LEVELS list, storybook).
 3. Step 3 of BEAN_SHIP_PLAN.md: the Pantry and Mystery Crates.
+
+## Pad B goes back in every menu (23 Nov 2026, later)
+
+### How to try it
+- In a stage, press Start to pause, then B: the menu closes and the game carries on (no fireball pops out).
+- TEST LEVELS list: B (or Esc) goes back to the start menu.
+- Storybook: B turns back a page (nothing happens on the first page). Jump still turns forward; holding
+  jump still skips.
+
+### Decisions
+- Everything uses the `back` action from the last session (pad B, Esc, Backspace): `PauseMenu.back_action`,
+  `TestLevels.cancel_action` (was `ui_cancel`, which is only Esc), `Storybook.back_action`.
+- In the storybook B means "previous page", not "skip the story", so a stray B press can't throw the story away.
+- The start menu and the world map have nothing to go back to, so B does nothing there (B on the map could
+  go to the start menu if wanted).
+
+### Files
+- Changed: scripts/pause_menu.gd, scripts/test_levels.gd, scripts/storybook.gd (the page sound now plays on
+  any page change, back or forward). New test: tools/tests/test_back_button.gd.
+
+### Not checked
+- No real gamepad: the test sends the same button event a pad does.

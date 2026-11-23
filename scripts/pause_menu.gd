@@ -1,7 +1,7 @@
 class_name PauseMenu
 extends CanvasLayer
 ## The pause menu. Every stage gets one (Stage adds it). Built entirely in code.
-## Esc, P or pad Start opens and closes it. Up/down picks, jump chooses.
+## Esc, P or pad Start opens and closes it. Pad B (back) closes it too. Up/down picks, jump chooses.
 ## Left/right flips CONTROLS, GAS and MUSIC.
 
 ## Which choice is which.
@@ -17,6 +17,8 @@ const CHOICES: int = 5
 @export_file("*.tscn") var menu_scene: String = "res://scenes/start_menu.tscn"
 ## Ignore accept / jump for this long after opening (pad Start is also "accept").
 @export var input_delay: float = 0.25
+## This button closes the menu and carries on playing (pad B, Backspace or Esc).
+@export var back_action: StringName = &"back"
 @export var selected_color: Color = Color(1.0, 0.85, 0.1)
 @export var plain_color: Color = Color(1.0, 1.0, 1.0)
 ## How dark the see-through backdrop is, 0 to 1.
@@ -67,6 +69,9 @@ func _process(delta: float) -> void:
 	if not is_open:
 		return
 	_since_open += delta
+	if InputMap.has_action(back_action) and Input.is_action_just_pressed(back_action):
+		close()
+		return
 	if Input.is_action_just_pressed(&"ui_down"):
 		select((choice + 1) % CHOICES)
 	elif Input.is_action_just_pressed(&"ui_up"):

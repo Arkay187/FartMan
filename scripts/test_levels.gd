@@ -1,7 +1,8 @@
 class_name TestLevels
 extends Control
 ## A tiny list of test levels (reached from TEST LEVELS on the start menu).
-## Up/down picks a row, jump (or Start) opens it. The last row, BACK, goes to the start menu.
+## Up/down picks a row, jump (or Start) opens it. The last row, BACK, goes to the start menu,
+## and so does the back button (pad B, Esc or Backspace).
 
 ## One label per row. The last one is BACK.
 @export var rows: Array[Label] = []
@@ -22,7 +23,8 @@ extends Control
 @export var up_action: StringName = &"ui_up"
 @export var down_action: StringName = &"ui_down"
 @export var accept_action: StringName = &"ui_accept"
-@export var cancel_action: StringName = &"ui_cancel"
+## Goes back to the start menu. "back" is pad B, Esc and Backspace (see DebugOptionsData).
+@export var cancel_action: StringName = &"back"
 @export var selected_color: Color = Color(1.0, 0.85, 0.1)
 @export var plain_color: Color = Color(1.0, 1.0, 1.0)
 
@@ -43,6 +45,7 @@ func _tick(sound: AudioStream) -> void:
 
 
 func _ready() -> void:
+	DebugOptionsData.ensure_input_actions()
 	if music_song != "":
 		MusicPlayer.play_song(self, music_song)
 	_add_world3_rows()
@@ -82,7 +85,7 @@ func _process(delta: float) -> void:
 		_tick(move_sound)
 	elif Input.is_action_just_pressed(accept_action):
 		accept()
-	elif Input.is_action_just_pressed(cancel_action):
+	elif InputMap.has_action(cancel_action) and Input.is_action_just_pressed(cancel_action):
 		get_tree().change_scene_to_file(back_scene)
 
 
