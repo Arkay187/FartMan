@@ -112,12 +112,15 @@ func set_upgrades_on(on: bool) -> void:
 	upgrades_changed.emit(on)
 
 
-## Makes sure the `pause`, `hover` and `fire` buttons exist, even if project.godot lost them
+## Makes sure the `pause`, `hover`, `fire` and `back` buttons exist, even if project.godot lost them
 ## (the editor can rewrite that file). Safe to call any time.
 static func ensure_input_actions() -> void:
 	_ensure_action(&"pause", [_key(KEY_ESCAPE), _key(KEY_P), _pad(JOY_BUTTON_START)])
 	_ensure_action(&"hover", [_key(KEY_SHIFT), _key(KEY_X), _pad(JOY_BUTTON_LEFT_SHOULDER)])
 	_ensure_action(&"fire", [_key(KEY_C), _pad(JOY_BUTTON_B)])
+	# "back" leaves menus like Grandma's shop. Pad B is fire in the stages and back in menus
+	# (Godot's own ui_cancel has no pad button).
+	_ensure_action(&"back", [_key(KEY_ESCAPE), _key(KEY_BACKSPACE), _pad(JOY_BUTTON_B)])
 	# Pad B is only the fire button: it must never fart or jump as well (or every fireball
 	# would jump too). Older copies of project.godot had B on fart.
 	_take_pad_button_off(&"fart", JOY_BUTTON_B)
@@ -149,6 +152,8 @@ static func _key(code: Key) -> InputEventKey:
 
 static func _pad(button: JoyButton) -> InputEventJoypadButton:
 	var event := InputEventJoypadButton.new()
+	# -1 = any pad, not just the first one.
+	event.device = -1
 	event.button_index = button
 	return event
 

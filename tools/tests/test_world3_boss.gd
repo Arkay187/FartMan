@@ -265,8 +265,9 @@ func _run() -> void:
 
 	# --- Six stomps, three rounds that get faster, helpers come. ---
 	var rises: Array[float] = []
-	var saw_burplings: bool = false
+	var saw_jellyfish: bool = false
 	var saw_whifflers: bool = false
+	var saw_old: bool = false
 	# Count every bean thrown during the fight (hit beans vanish after a few seconds).
 	var thrown: Array[int] = [0]
 	var bean_counter := func(n: Node) -> void:
@@ -282,8 +283,9 @@ func _run() -> void:
 			rises.append((_shots()[0] as BurpBubble).rise_speed)
 		for h: Node in boss._helpers:
 			if is_instance_valid(h):
-				saw_burplings = saw_burplings or not (h is Whiffler)
+				saw_jellyfish = saw_jellyfish or h is Jellyfish
 				saw_whifflers = saw_whifflers or h is Whiffler
+				saw_old = saw_old or not (h is Jellyfish or h is Whiffler)
 		await _stomp_head()
 		_check("stomp %d counts (hits %d)" % [n + 1, boss.hits1], boss.hits1 == n + 1)
 		if n < 5:
@@ -293,7 +295,8 @@ func _run() -> void:
 			await _wait(1.5)
 			_check("perch %d (%.0f, %.1f): he and Fart Man are both in the shot" % [boss._perch + 1, boss.position.x, boss.position.y], _everyone_in_frame(camera))
 	_check("bubbles get faster each round (%s)" % str(rises), rises.size() >= 5 and rises[rises.size() - 1] > rises[0])
-	_check("Burplings and then Whifflers help him (%s, %s)" % [str(saw_burplings), str(saw_whifflers)], saw_burplings and saw_whifflers)
+	_check("jellyfish and then Whifflers help him, and no old enemies (%s, %s, old %s)" % [str(saw_jellyfish), str(saw_whifflers), str(saw_old)],
+		saw_jellyfish and saw_whifflers and not saw_old)
 	node_added.disconnect(bean_counter)
 	_check("hits shower beans (%d beans thrown)" % thrown[0], thrown[0] >= 20)
 

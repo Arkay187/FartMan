@@ -5,7 +5,7 @@ extends CanvasLayer
 ## words at the top, and a jar at the bottom showing how many beans he has.
 ##   up / down  picks an upgrade (wraps round)
 ##   jump       buys the picked one
-##   back (pause / Esc) leaves
+##   back       leaves: pad B (or Backspace), Esc, or Start
 ## All buying goes through SaveData.buy_upgrade(), so the jar can only ever go down by a purchase.
 ## Built entirely in code. A shop counter opens it with open_room().
 
@@ -16,6 +16,8 @@ signal bought(upgrade_id: String)
 
 ## Ignore buttons for this long after opening (so the jump that opened the shop cannot buy).
 @export var input_delay: float = 0.25
+## Any of these buttons leaves the shop. "back" is pad B (and Backspace and Esc), "pause" is Start.
+@export var back_actions: Array[StringName] = [&"back", &"pause", &"ui_cancel"]
 ## When the shop opens the camera slides this far (metres) so Fart Man and Grandma stay in
 ## view on the left while the shop fills the right.
 @export var camera_shift: float = 4.5
@@ -85,9 +87,10 @@ func _process(delta: float) -> void:
 		_say_left -= delta
 		if _say_left <= 0.0:
 			_refresh()
-	if Input.is_action_just_pressed(&"pause") or Input.is_action_just_pressed(&"ui_cancel"):
-		close()
-		return
+	for action: StringName in back_actions:
+		if InputMap.has_action(action) and Input.is_action_just_pressed(action):
+			close()
+			return
 	if _since_open < input_delay:
 		return
 	if Input.is_action_just_pressed(&"ui_down"):

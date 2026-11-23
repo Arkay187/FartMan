@@ -2,8 +2,9 @@ class_name ShipHub
 extends Node3D
 ## The inside of the Complex2000 spaceship, seen from the side like a doll's house. Fart Man
 ## walks along one long floor past four rooms (Kitchen, Gym, Hot Sauce Lab, Gadget Garage).
-## At each counter Grandma sells upgrades (see ShopCounter and ShopPanel). The airlock hatch at
-## the left end leads back to the world map, over the stop he boarded from.
+## At each counter Grandma sells upgrades (see ShopCounter and ShopPanel). There is an airlock
+## hatch at each end (left and far right): both lead back to the world map, over the stop he
+## boarded from.
 ## The scenery is built into ship_hub.tscn by tools/builders/ship_hub.gd.
 
 ## Sent when he walks into the hatch and the map is on its way.
@@ -14,6 +15,8 @@ signal leaving
 @export var camera: Camera3D
 ## The airlock hatch at the left end: walking into it goes back to the map.
 @export var hatch: Area3D
+## The second hatch at the far right end, past the Gadget Garage. It goes back to the map too.
+@export var far_hatch: Area3D
 ## The holder of the four counters (ShopCounter nodes, left to right).
 @export var counters_root: Node3D
 ## The shop screen (one for the whole ship) and the Bean Jar total on screen.
@@ -36,6 +39,8 @@ func _ready() -> void:
 	if music_song != "":
 		MusicPlayer.play_song(self, music_song, music_speed)
 	hatch.body_entered.connect(_on_hatch_entered)
+	if far_hatch != null:
+		far_hatch.body_entered.connect(_on_hatch_entered)
 	# He feels what he has bought aboard too (faster sneakers, springy pants...), unless UPGRADES is OFF.
 	# Things bought now start working when the next stage (or the next visit) begins.
 	UpgradeApplier.apply(player)
@@ -63,7 +68,7 @@ func counter_for(room_id: String) -> ShopCounter:
 	return null
 
 
-## Leaves through the hatch: back to the world map. The map starts over the stop he boarded from.
+## Leaves through a hatch: back to the world map. The map starts over the stop he boarded from.
 func leave() -> void:
 	if is_leaving:
 		return

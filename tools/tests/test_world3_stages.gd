@@ -3,7 +3,8 @@ extends SceneTree
 # 3 Golden Beans, toilets, a Bean Can (or a boss), a safe start; the geysers and bubbles really
 # carry him up the route; the secret bean rooms in 3-1 and 3-2 have loads of beans and things to
 # bounce on, and the pipes in and out work; the Stink Storm has its two boosts; the TEST LEVELS
-# list has the four stages.
+# list has the four stages; and only Planet Whiff creatures (Whifflers and jellyfish) live in World 3,
+# no old enemies from the garden or the factory.
 
 
 ## A level kit that does everything the real one does but does not save the scene file.
@@ -45,6 +46,15 @@ func _load(id: String) -> Stage:
 	var stage: Stage = load(_scene_path(id)).instantiate()
 	root.add_child(stage)
 	return stage
+
+
+## Enemies from the old worlds (Gnomes, Burplings, Cork Bots, Fizz Bats...) in a stage. Space has none.
+func _old_enemies(stage: Node) -> Array[String]:
+	var found: Array[String] = []
+	for node: Node in stage.find_children("*", "", true, false):
+		if node is Burpling and not (node is Whiffler or node is Jellyfish):
+			found.append(str(node.name))
+	return found
 
 
 ## How many beans (plain) are inside a box of the stage.
@@ -189,17 +199,19 @@ func _run() -> void:
 					nasty += 1
 		_check("%s starts safe (%d nasty things near, on floor or flying %s)" % [id, nasty, str(stage.player.is_on_floor() or stage.player.is_flying())],
 			nasty == 0 and (stage.player.is_on_floor() or stage.player.is_flying()))
+		var old: Array[String] = _old_enemies(stage)
+		_check("%s has only Planet Whiff enemies, no old ones in space (%d old: %s)" % [id, old.size(), ", ".join(old.slice(0, 4))], old.is_empty())
 		stage.free()
 		await _wait(0.2)
 
 	# --- 3-1: clouds, bubbles, geysers, Whifflers. ---
 	var s1: Stage = _load("3-1")
 	await _wait(0.5)
-	print("3-1: clouds %d, bubbles %d, geysers %d, whifflers %d, fizz bats %d" % [
-		_count(s1, "GasCloud"), _count(s1, "BurpBubble"), _count(s1, "GasGeyser"), _count(s1, "Whiffler"), _count(s1, "FizzBat")])
-	_check("3-1 has clouds, bubbles, geysers, whifflers and bats",
+	print("3-1: clouds %d, bubbles %d, geysers %d, whifflers %d, jellyfish %d" % [
+		_count(s1, "GasCloud"), _count(s1, "BurpBubble"), _count(s1, "GasGeyser"), _count(s1, "Whiffler"), _count(s1, "Jellyfish")])
+	_check("3-1 has clouds, bubbles, geysers, whifflers and jellyfish",
 		_count(s1, "GasCloud") >= 6 and _count(s1, "BurpBubble") >= 8 and _count(s1, "GasGeyser") >= 8
-		and _count(s1, "Whiffler") >= 8 and _count(s1, "FizzBat") >= 3)
+		and _count(s1, "Whiffler") >= 8 and _count(s1, "Jellyfish") >= 3)
 	var tower_a: bool = await _geyser_hop(s1, 122.0, 0.0, 131.0, 139.0, 9.5)
 	_check("3-1 first geyser lands him on the first tower rock", tower_a)
 	var tower_b: bool = await _geyser_hop(s1, 137.0, 9.5, 143.5, 150.5, 19.0)
@@ -243,17 +255,17 @@ func _run() -> void:
 	# --- 3-2: the fortress. ---
 	var s2: Stage = _load("3-2")
 	await _wait(0.5)
-	print("3-2: belts %d, presses %d, springs %d, barrels %d, fans %d, biscuits %d, switch blocks %d, pipes %d, vents %d, geysers %d, bubbles %d, whifflers %d, cork bots %d, gnomes %d, hot sauce %d, chilli %d" % [
+	print("3-2: belts %d, presses %d, springs %d, barrels %d, fans %d, biscuits %d, switch blocks %d, pipes %d, vents %d, geysers %d, bubbles %d, whifflers %d, jellyfish %d, old enemies %d, hot sauce %d, chilli %d" % [
 		_count(s2, "Conveyor"), _count(s2, "StampPress"), _count(s2, "Spring"), _count(s2, "BarrelCannon"), _count(s2, "Fan"), _count(s2, "CrumblePlatform"),
 		_count(s2, "SwitchBlock"), _count(s2, "WarpPipe"), _count(s2, "SteamVent"), _count(s2, "GasGeyser"), _count(s2, "BurpBubble"), _count(s2, "Whiffler"),
-		_count(s2, "CorkBot"), _count(s2, "Gnome"), s2.find_children("HotSauce*", "Area3D", true, false).size(), s2.find_children("Chilli*", "Area3D", true, false).size()])
+		_count(s2, "Jellyfish"), _old_enemies(s2).size(), s2.find_children("HotSauce*", "Area3D", true, false).size(), s2.find_children("Chilli*", "Area3D", true, false).size()])
 	_check("3-2 remixes the whole game (belts, presses, springs, a barrel, a fan, biscuits, switches, pipes, vents, geysers, bubbles)",
 		_count(s2, "Conveyor") >= 2 and _count(s2, "StampPress") >= 3 and _count(s2, "Spring") >= 3 and _count(s2, "BarrelCannon") >= 1
 		and _count(s2, "Fan") >= 1 and _count(s2, "CrumblePlatform") >= 5 and _count(s2, "SwitchBlock") >= 4 and _count(s2, "WarpPipe") >= 4
 		and _count(s2, "SteamVent") >= 1 and _count(s2, "GasGeyser") >= 8 and _count(s2, "BurpBubble") >= 8)
-	_check("3-2 has enemies from all three worlds, a chilli dash and a Hot Sauce party",
-		_count(s2, "Burpling") >= 40 and _count(s2, "Whiffler") >= 8 and _count(s2, "CorkBot") >= 6 and _count(s2, "Hiccup") >= 4
-		and s2.find_children("HotSauce*", "Area3D", true, false).size() == 1 and s2.find_children("Chilli*", "Area3D", true, false).size() >= 1)
+	_check("3-2 has a big crowd of space enemies (whifflers and jellyfish), a chilli dash and a Hot Sauce party",
+		_count(s2, "Whiffler") + _count(s2, "Jellyfish") >= 40 and _count(s2, "Whiffler") >= 20 and _count(s2, "Jellyfish") >= 15
+		and _old_enemies(s2).is_empty() and s2.find_children("HotSauce*", "Area3D", true, false).size() == 1 and s2.find_children("Chilli*", "Area3D", true, false).size() >= 1)
 	var t2a: bool = await _geyser_hop(s2, 609.0, 7.5, 616.0, 622.0, 16.5)
 	_check("3-2 tower geyser 1 lands him on the next rock", t2a)
 	var t2b: bool = await _geyser_hop(s2, 620.0, 16.5, 627.0, 633.0, 25.5)

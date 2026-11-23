@@ -801,3 +801,48 @@ Nothing here has been watched, played or listened to by a person yet.
 2. Possible tweaks: Esc / Start does nothing in the ship when no shop is open (the hatch is the only way out);
    things bought aboard start working at the next stage or visit, not on the spot.
 3. Step 3 of BEAN_SHIP_PLAN.md: the Pantry and Mystery Crates.
+
+## Ship second exit, pad B closes the shop, no old enemies in space (23 Nov 2026)
+
+Asked by Rich (and his son, for the space levels).
+
+### How to try it
+- Board the Complex2000 (Y on the map), walk right past the Gadget Garage: a second round hatch at the far right
+  end takes you back to the map, at the same stop, just like the left one.
+- Open any shop and press B on the gamepad: the shop closes (Esc, Backspace and Start still work too).
+- Play 3-1, 3-2 and the Big Bad Burp fight: only Whifflers and floating jellyfish now, no Gnomes, Hiccups,
+  Burplings, Cork Bots or Fizz Bats.
+
+### Decisions
+- The ship is one hatch bay longer (12 m): the right end mirrors the left (door, arrow, little world, lamp).
+  `ShipHub.far_hatch` is the new export; `hatch` (left) is unchanged.
+- New input action `back` (Esc, Backspace, pad B on any pad), added at run time by
+  `DebugOptionsData.ensure_input_actions()` like `pause` / `hover` / `fire`. Godot's own `ui_cancel` has only Esc,
+  which is why B did nothing before. Pad B is still the fire button in the stages; in the shop the player is
+  locked, so B only closes. `ShopPanel.back_actions` lists the buttons that close the shop. Only the shop uses
+  `back` so far (other menus unchanged).
+- Pad buttons added by `ensure_input_actions()` now listen to any pad (device -1), not just the first.
+- "No old enemies in space" is written into GAME_DESIGN.md (enemy table, plus a Jellyfish row). Fizz Bats swapped
+  for jellyfish; Cork Bots, Hiccups, Gnomes and Burplings swapped for Whifflers or low jellyfish. The 3-2 chilli
+  crowd and Hot Sauce party are now Whifflers and jellyfish (27 Whifflers, 23 jellyfish in 3-2).
+- Big Bad Burp's helpers: floating jellyfish in round 2 (`jellyfish_round2`, `helper_jelly_height` 1.7,
+  `helper_jelly_bob` 0.5), then Whifflers too in round 3, instead of Burplings then Whifflers.
+
+### Files
+- Changed: tools/builders/ship_hub.gd, scripts/ship_hub.gd, scripts/shop_panel.gd, scripts/debug_options.gd,
+  scripts/big_bad_burp.gd, tools/stages/stage_3_1.gd, stage_3_2.gd, stage_3_4.gd (comment), GAME_DESIGN.md.
+  Rebuilt: scenes/ship_hub.tscn, stage_3_1.tscn, stage_3_2.tscn.
+- Tests: test_ship_hub (far hatch exists and leads to the map; a real pad B event closes the Garage shop; pad B on
+  any pad is `back`), test_world3_stages (every World 3 stage has no old enemies; 3-1 and 3-2 counts),
+  test_world3_boss (jellyfish then Whifflers help him, nothing old).
+
+### Not checked by eye, ear or a real player
+- The far right hatch end was never looked at (it is a mirror of the left one, arrow pointing right).
+- A real gamepad's B button: the test fakes a pad B event, which is what a pad sends, but no real pad was used.
+- How 3-2 feels with so many Whifflers (they puff stink, harder than the Burplings and Hiccups they replace),
+  and whether the low jellyfish in the chilli crowd and the boss fight are easy enough to stomp or bowl over.
+
+### What to do next
+1. Play 3-2 and the boss: if it is too hard now, space out the Whifflers' puffs or swap a few for low jellyfish.
+2. Maybe make pad B go back in the other menus too (pause menu, TEST LEVELS list, storybook).
+3. Step 3 of BEAN_SHIP_PLAN.md: the Pantry and Mystery Crates.

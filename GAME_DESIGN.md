@@ -77,14 +77,18 @@ Each world has one full flight stage, and short surprise flights can be hidden i
 
 | Enemy | Where | What it does | How to beat it |
 |---|---|---|---|
-| **Burpling** | Everywhere | Small green blob, waddles back and forth | Stomp |
+| **Burpling** | Garden, Factory | Small green blob, waddles back and forth | Stomp |
 | **Hiccup** | Garden onwards | Hops on the spot, jumping high every few seconds | Stomp when it lands |
 | **Grumpy Gnome** | Garden | Stands still, throws a mud pie now and then | Stomp |
 | **Prickle** | Garden onwards | Spiky. Hurts if you land on it | Jump over it, or use a Chilli |
 | **Cork Bot** | Factory | Rolls quickly along platforms | Stomp |
-| **Fizz Bat** | Factory, Planet Whiff | Flies in a wave | Stomp it, or use it as a stepping stone |
+| **Fizz Bat** | Factory | Flies in a wave | Stomp it, or use it as a stepping stone |
 | **Burp Bubble** | Planet Whiff | Floats upwards slowly | Stomp it to bounce very high |
 | **Whiffler** | Planet Whiff | Little alien that puffs out a stink cloud you must not touch | Stomp it between puffs |
+| **Jellyfish** | Planet Whiff | Glowing alien jelly that bobs and drifts in the air | Stomp it from above |
+
+No old enemies in space: Planet Whiff only has its own aliens (Whifflers and jellyfish), even in
+the Fizzy Fortress and the boss fight. (His idea: gnomes and cork bots don't live in space.)
 
 ## The world map
 

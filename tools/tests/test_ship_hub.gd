@@ -1,8 +1,8 @@
 extends SceneTree
 # Checks the Complex2000 hub: Fart Man walks past four counters with fake key presses, Grandma pops up,
 # the shop opens (and he does not hop), buying spends exactly the price through the save, OWNED and
-# NOT ENOUGH, back closes it, the hatch leads to the map over the stop he boarded from, and the real
-# map's Y button goes aboard.
+# NOT ENOUGH, back closes it (a real pad B press too), the hatch at each end leads to the map over the
+# stop he boarded from, and the real map's Y button goes aboard.
 
 const SAVE_FILE: String = "user://test_ship_hub_save.json"
 var failures: int = 0
@@ -36,6 +36,18 @@ func _press(action: StringName, hold: float = 0.1) -> void:
 	Input.action_release(action)
 	await _wait(0.2)
 	lowest_jar = mini(lowest_jar, save.bean_jar)
+
+
+# A real gamepad button press and release (as if from the first pad).
+func _fake_pad(button: JoyButton) -> void:
+	for down: bool in [true, false]:
+		var event := InputEventJoypadButton.new()
+		event.device = 0
+		event.button_index = button
+		event.pressed = down
+		Input.parse_input_event(event)
+		await _wait(0.1)
+	await _wait(0.2)
 
 
 func _fake_key(code: Key) -> void:
@@ -98,6 +110,13 @@ func _run() -> void:
 		grandmas_ok = grandmas_ok and counter.grandma != null and counter.grandma.is_hidden_away() and counter.panel == panel
 	_check("a Grandma hides behind every counter", grandmas_ok)
 	_check("there is an airlock hatch at the left end", hub.hatch != null and hub.hatch.global_position.x < counters[0].global_position.x)
+	_check("and a second one at the far right end, past the last counter (x %.1f)" % (hub.far_hatch.global_position.x if hub.far_hatch != null else -1.0),
+		hub.far_hatch != null and hub.far_hatch.global_position.x > counters[counters.size() - 1].global_position.x + 6.0)
+	var pad_b := InputEventJoypadButton.new()
+	pad_b.device = 1
+	pad_b.button_index = JOY_BUTTON_B
+	pad_b.pressed = true
+	_check("pad B (on any pad) is the back button", InputMap.event_is_action(pad_b, &"back"))
 	_check("the Bean Jar total is on screen ('%s')" % hub.jar_label.label.text, hub.jar_label.label.text == "BEAN JAR 0")
 	var song: MusicPlayer = MusicPlayer.current(hub)
 	_check("calm, slower music", song != null and absf(song.speed - hub.music_speed) < 0.001 and hub.music_speed < 1.0)
@@ -188,7 +207,8 @@ func _run() -> void:
 	options.set_simple_controls(false)
 	var rooms: Array[String] = ["gym", "lab", "garage"]
 	var opens: Array[StringName] = [&"jump", &"ui_up", &"jump"]
-	var backs: Array[StringName] = [&"ui_cancel", &"pause", &"pause"]
+	# "pad_b" = a real press of the B button on a gamepad.
+	var backs: Array[StringName] = [&"ui_cancel", &"pause", &"pad_b"]
 	for i in rooms.size():
 		var counter: ShopCounter = hub.counter_for(rooms[i])
 		await _walk_to(counter)
@@ -206,7 +226,10 @@ func _run() -> void:
 		_check("%s: no hop (%.2f m) and he is locked" % [rooms[i], hop], hop < 0.1 and p.input_locked)
 		await _wait(0.5)
 		_check("%s: Grandma popped up" % rooms[i], counter.grandma.is_fully_up())
-		await _press(backs[i])
+		if backs[i] == &"pad_b":
+			await _fake_pad(JOY_BUTTON_B)
+		else:
+			await _press(backs[i])
 		await _wait(0.5)
 		_check("%s: %s closes it, Grandma ducks, he is free" % [rooms[i], backs[i]],
 			not panel.is_open and counter.grandma.is_hidden_away() and not p.input_locked)
@@ -236,18 +259,21 @@ func _run() -> void:
 	await _wait(0.5)
 	hub = current_scene as ShipHub
 	_check("a fake Y press goes aboard: the scene is the hub", hub != null and save.last_stop == stop_id)
+	# This time leave by the far right hatch: put him past the Gadget Garage and walk right.
 	p = hub.player
-	p.global_position = Vector3(9.0, 1.2, 0.0)
+	p.global_position = Vector3(hub.far_hatch.global_position.x - 8.0, 1.2, 0.0)
+	p.velocity = Vector3.ZERO
 	await _wait(0.5)
-	Input.action_press(&"ui_left")
+	Input.action_press(&"ui_right")
 	waited = 0.0
 	while current_scene == hub and waited < 8.0:
 		await _wait(0.1)
 		waited += 0.1
-	Input.action_release(&"ui_left")
+	Input.action_release(&"ui_right")
 	await _wait(0.5)
 	map = current_scene as WorldMap
-	_check("leaving comes back to the same stop (%s)" % stop_id, map != null and MapStops.STOPS[map.index]["id"] == stop_id)
+	_check("the far right hatch goes back to the map too, at the same stop (%s)" % stop_id,
+		map != null and MapStops.STOPS[map.index]["id"] == stop_id)
 
 	# ---------------------------------------------------------------- upgrades work aboard too
 	var plain := (load("res://scenes/player.tscn") as PackedScene).instantiate() as Player

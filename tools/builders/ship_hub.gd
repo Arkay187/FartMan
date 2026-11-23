@@ -1,14 +1,17 @@
 extends RefCounted
 ## Builds scenes/ship_hub.tscn: the inside of the Complex2000 spaceship, seen from the side.
 ## One long floor, an airlock hatch at the left end, then four rooms (the Kitchen, the Gym, the
-## Hot Sauce Lab, the Gadget Garage) each with a sign, props and a counter where Grandma hides.
+## Hot Sauce Lab, the Gadget Garage) each with a sign, props and a counter where Grandma hides,
+## then a second hatch at the right end, so he never has to walk all the way back.
 ## build_scenes.gd runs build() on every script in tools/builders/.
 ## All grey-box low-poly: boxes, cylinders and balls.
 
 const PATH: String = "res://scenes/ship_hub.tscn"
-## Every room is this wide, and the first one starts this far from the left end.
+## Every room is this wide. The hatch bay at each end is FIRST_ROOM_X wide.
 const ROOM_WIDTH: float = 24.0
 const FIRST_ROOM_X: float = 12.0
+## How far each round door is from its end wall.
+const DOOR_FROM_END: float = 3.5
 ## How tall the rooms are, and where the back wall is.
 const HEIGHT: float = 8.0
 const WALL_Z: float = -3.8
@@ -29,10 +32,11 @@ func build() -> void:
 	root = Node3D.new()
 	root.name = "ShipHub"
 	root.set_script(load("res://scripts/ship_hub.gd"))
-	var length: float = FIRST_ROOM_X + ROOM_WIDTH * UpgradeTable.ROOMS.size()
+	var length: float = FIRST_ROOM_X * 2.0 + ROOM_WIDTH * UpgradeTable.ROOMS.size()
 	_light_and_sky()
 	_hull(length)
-	var hatch: Area3D = _hatch_end()
+	var hatch: Area3D = _hatch_end("AirlockHatch", DOOR_FROM_END, 1.0)
+	var far_hatch: Area3D = _hatch_end("FarHatch", length - DOOR_FROM_END, -1.0)
 	var counters := Node3D.new()
 	counters.name = "Counters"
 	_add(root, counters)
@@ -61,6 +65,7 @@ func build() -> void:
 	root.set("player", player)
 	root.set("camera", camera)
 	root.set("hatch", hatch)
+	root.set("far_hatch", far_hatch)
 	root.set("counters_root", counters)
 	root.set("panel", panel_node)
 	root.set("jar_label", jar)
@@ -100,9 +105,11 @@ func _hull(length: float) -> void:
 	_solid("Ceiling", Vector3(wide, 6.0, 8.0), Vector3(wide, 6.0, 4.0), DARK_STEEL, Vector3(middle, HEIGHT + 3.0, 0))
 	_solid("WallLeft", Vector3(END_CAP, 22.0, 8.0), Vector3(END_CAP, 22.0, 4.0), DARK_STEEL, Vector3(-END_CAP * 0.5, 4.0, 0))
 	_solid("WallRight", Vector3(END_CAP, 22.0, 8.0), Vector3(END_CAP, 22.0, 4.0), DARK_STEEL, Vector3(length + END_CAP * 0.5, 4.0, 0))
-	# Back wall of the hatch end, and a stripe of colour on the floor for every room.
-	_box(root, "HatchWall", Vector3(FIRST_ROOM_X, HEIGHT, 0.4), Color(0.5, 0.58, 0.7), Vector3(FIRST_ROOM_X * 0.5, HEIGHT * 0.5, WALL_Z))
-	_box(root, "HatchSkirting", Vector3(FIRST_ROOM_X, 1.0, 0.5), DARK_STEEL, Vector3(FIRST_ROOM_X * 0.5, 0.5, WALL_Z + 0.1))
+	# Back wall and a ceiling lamp for both hatch ends, and a stripe of colour on the floor for every room.
+	for end_x: float in [FIRST_ROOM_X * 0.5, length - FIRST_ROOM_X * 0.5]:
+		_box(root, "HatchWall", Vector3(FIRST_ROOM_X, HEIGHT, 0.4), Color(0.5, 0.58, 0.7), Vector3(end_x, HEIGHT * 0.5, WALL_Z))
+		_box(root, "HatchSkirting", Vector3(FIRST_ROOM_X, 1.0, 0.5), DARK_STEEL, Vector3(end_x, 0.5, WALL_Z + 0.1))
+		_lamp(Vector3(end_x, HEIGHT - 0.1, -1.0))
 	for i in UpgradeTable.ROOMS.size() + 1:
 		var x: float = FIRST_ROOM_X + ROOM_WIDTH * float(i)
 		_box(root, "Pillar", Vector3(0.8, HEIGHT, 1.2), STEEL, Vector3(x, HEIGHT * 0.5, WALL_Z + 0.5))
@@ -110,8 +117,7 @@ func _hull(length: float) -> void:
 		var room_color: Color = UpgradeTable.ROOMS[i]["color"]
 		var cx: float = FIRST_ROOM_X + ROOM_WIDTH * (float(i) + 0.5)
 		_box(root, "FloorStripe", Vector3(ROOM_WIDTH - 1.0, 0.04, 5.0), room_color.darkened(0.25), Vector3(cx, 0.0, -0.5))
-	# A ceiling lamp for the hatch end and for every room.
-	_lamp(Vector3(FIRST_ROOM_X * 0.5, HEIGHT - 0.1, -1.0))
+	# A ceiling lamp for every room.
 	for i in UpgradeTable.ROOMS.size():
 		_lamp(Vector3(FIRST_ROOM_X + ROOM_WIDTH * (float(i) + 0.5), HEIGHT - 0.1, -1.0))
 
@@ -120,41 +126,45 @@ func _lamp(pos: Vector3) -> void:
 	_cyl(root, "Lamp", 1.6, 1.6, 0.2, Color(1.0, 0.97, 0.8), pos, Vector3.ZERO, true)
 
 
-# ---------------------------------------------------------------- the hatch at the left end
+# ---------------------------------------------------------------- the hatches at both ends
 
-func _hatch_end() -> Area3D:
+## An airlock hatch on the back wall at door_x: a round door, an arrow, a little world on a sign,
+## and the zone that sends him back to the map. inward is 1 at the left end and -1 at the right
+## end (the way back towards the rooms), so the right one is a mirror of the left one.
+func _hatch_end(holder_name: String, door_x: float, inward: float) -> Area3D:
 	var holder := Node3D.new()
-	holder.name = "AirlockHatch"
+	holder.name = holder_name
 	_add(root, holder)
 	# The round door, a yellow frame, a wheel to turn.
-	_cyl(holder, "Door", 2.2, 2.2, 0.3, Color(0.55, 0.6, 0.66), Vector3(3.5, 2.6, WALL_Z + 0.35), Vector3(90, 0, 0))
+	_cyl(holder, "Door", 2.2, 2.2, 0.3, Color(0.55, 0.6, 0.66), Vector3(door_x, 2.6, WALL_Z + 0.35), Vector3(90, 0, 0))
 	var frame := TorusMesh.new()
 	frame.inner_radius = 2.15
 	frame.outer_radius = 2.5
-	_mesh(holder, "Frame", frame, Color(1.0, 0.8, 0.1), Vector3(3.5, 2.6, WALL_Z + 0.5), Vector3(90, 0, 0))
+	_mesh(holder, "Frame", frame, Color(1.0, 0.8, 0.1), Vector3(door_x, 2.6, WALL_Z + 0.5), Vector3(90, 0, 0))
 	var wheel := TorusMesh.new()
 	wheel.inner_radius = 0.55
 	wheel.outer_radius = 0.75
-	_mesh(holder, "Wheel", wheel, Color(0.8, 0.2, 0.2), Vector3(3.5, 2.6, WALL_Z + 0.7), Vector3(90, 0, 0))
+	_mesh(holder, "Wheel", wheel, Color(0.8, 0.2, 0.2), Vector3(door_x, 2.6, WALL_Z + 0.7), Vector3(90, 0, 0))
 	for spoke in 3:
-		var bar: MeshInstance3D = _box(holder, "Spoke", Vector3(1.4, 0.12, 0.12), Color(0.8, 0.2, 0.2), Vector3(3.5, 2.6, WALL_Z + 0.7))
+		var bar: MeshInstance3D = _box(holder, "Spoke", Vector3(1.4, 0.12, 0.12), Color(0.8, 0.2, 0.2), Vector3(door_x, 2.6, WALL_Z + 0.7))
 		bar.rotation_degrees.z = 60.0 * float(spoke)
 	# A big arrow pointing at it, and a little world on a sign.
 	var arrow := Node3D.new()
 	arrow.name = "Arrow"
-	arrow.position = Vector3(4.6, 6.0, WALL_Z + 0.5)
+	arrow.position = Vector3(door_x + 1.1 * inward, 6.0, WALL_Z + 0.5)
 	_add(holder, arrow)
-	_box(arrow, "Shaft", Vector3(3.0, 0.9, 0.3), Color(1.0, 0.85, 0.1), Vector3(0.9, 0, 0))
+	_box(arrow, "Shaft", Vector3(3.0, 0.9, 0.3), Color(1.0, 0.85, 0.1), Vector3(0.9 * inward, 0, 0))
 	var head := PrismMesh.new()
 	head.size = Vector3(1.8, 1.9, 0.3)
-	_mesh(arrow, "Head", head, Color(1.0, 0.85, 0.1), Vector3(-1.1, 0, 0), Vector3(0, 0, 90))
-	_ball(holder, "World", 0.95, Color(0.2, 0.5, 0.95), Vector3(8.0, 6.0, WALL_Z + 0.7))
+	_mesh(arrow, "Head", head, Color(1.0, 0.85, 0.1), Vector3(-1.1 * inward, 0, 0), Vector3(0, 0, 90.0 * inward))
+	var world_spot := Vector3(door_x + 4.5 * inward, 6.0, WALL_Z + 0.7)
+	_ball(holder, "World", 0.95, Color(0.2, 0.5, 0.95), world_spot)
 	for patch: Vector3 in [Vector3(-0.3, 0.3, 0.7), Vector3(0.35, -0.2, 0.75), Vector3(0.1, 0.6, 0.6)]:
-		_ball(holder, "Land", 0.3, Color(0.3, 0.75, 0.35), Vector3(8.0, 6.0, WALL_Z + 0.7) + patch, Vector3(1.2, 0.8, 0.4))
+		_ball(holder, "Land", 0.3, Color(0.3, 0.75, 0.35), world_spot + patch, Vector3(1.2, 0.8, 0.4))
 	# The zone that sends him back to the map.
 	var area := Area3D.new()
 	area.name = "HatchZone"
-	area.position = Vector3(3.0, 2.5, 0)
+	area.position = Vector3(door_x - 0.5 * inward, 2.5, 0)
 	_add(holder, area)
 	_collider(area, Vector3(3.0, 5.0, 4.0), Vector3.ZERO)
 	return area

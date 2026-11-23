@@ -8,6 +8,8 @@ extends RefCounted
 ## Secrets: 3 Golden Beans (a bubble ledge in a fog, a geyser ledge in a fog, a fogged pocket under
 ## the last bridge) and two secret bean rooms (a pipe in the fog up a bubble ledge, and a pipe in
 ## the fog up a geyser ledge) with loads of beans and things to bounce on.
+## Only Planet Whiff creatures live here (Whifflers and floating jellyfish): no old enemies from
+## Earth or the factory in space.
 
 const KIT := "res://tools/kit_whiff.gd"
 
@@ -78,7 +80,7 @@ func _geysers(k) -> void:
 	# A tower of floating rocks, one geyser on each.
 	k.rock(135, 9.5, 8.0, true)
 	k.geyser(137, 9.5, {"phase": 0.3})
-	k.enemy("fizz_bat", 129, 8.0, {"patrol_distance": 3.0})
+	k.jelly(129, 8.0, {"bob_height": 1.5})
 	k.rock(147, 19.0, 7.0, true)
 	k.geyser(148, 19.0, {"phase": 0.6})
 	k.beans_arc(138, 146, 12.0, 4.0, 6)
@@ -117,7 +119,7 @@ func _whifflers(k) -> void:
 	k.toilet(300, 0)
 	k.enemy("whiffler", 313, 0, {"phase": 0.0})
 	k.enemy("whiffler", 320, 0, {"phase": 0.5})
-	k.enemy("fizz_bat", 316, 5.0, {"patrol_distance": 4.0})
+	k.jelly(316, 5.0, {"bob_height": 1.5, "drift": 3.0})
 	# Golden Bean 2: up a geyser to a rock hiding in a fog.
 	k.hint(298.5, 0, "A GEYSER? WHAT'S IN THE FOG?", 3.0)
 	k.geyser(302, 0, {"phase": 0.2})
@@ -142,7 +144,7 @@ func _climb(k) -> void:
 	k.assist(360, 372)
 	k.bubble(364, 8.0, {"rise_height": 8.0, "radius": 1.3})
 	k.bubble(369, 11.0, {"rise_height": 8.0, "radius": 1.3})
-	k.enemy("fizz_bat", 366, 17.0, {"patrol_distance": 3.0})
+	k.jelly(366, 17.0, {"bob_height": 1.5})
 	k.rock(375, 20.0, 6.0, true)
 	k.cloud(381, 393, 20.0)
 	k.beans_arc(374, 394, 22.0, 3.0, 8)

@@ -1,12 +1,14 @@
 extends RefCounted
 ## Stage 3-2: THE FIZZY FORTRESS (about 4 minutes). The hardest running stage: everything from the
 ## whole game, remixed. Big Bad Burp's fortress is made of the Bean Factory's bits and the planet's gas.
-##  A. THE GATE: belts (forwards and backwards) and Cork Bots.
+## The enemies are only Planet Whiff creatures (Whifflers and floating jellyfish): no old enemies
+## from Earth or the factory in space.
+##  A. THE GATE: belts (forwards and backwards) and Whifflers.
 ##  B. STAMPS AND STINK: stamping presses with Whifflers between, then a bouncy cloud.
 ##  C. SPRINGS AND A CANNON: spring up, then a barrel cannon shoots you over a pit.
 ##  D. THE GAS PIT: a tail-wind fan, crumbling biscuits and bubbles over a pit (a cloud net catches you).
-##  E. THE SWITCH YARD: red and blue blocks, Fizz Bats and Cork Bots.
-##  F. CHILLI DASH, then the HOT SAUCE PARTY: enemies from all three worlds to bowl over.
+##  E. THE SWITCH YARD: red and blue blocks, a jellyfish and a Whiffler.
+##  F. CHILLI DASH, then the HOT SAUCE PARTY: a big crowd of Whifflers and jellyfish to bowl over.
 ##  G. THE TOWER: steam vent, geysers and rocks up to the Bean Can.
 ## Secrets: 3 Golden Beans (on top of the stamps, in a fog over the gas pit, up a geyser at the
 ## tower) and two secret bean rooms (a fogged pipe up a geyser, and a pipe up a spring).
@@ -42,13 +44,13 @@ func _gate(k) -> void:
 	k.beans_line(0, 20, 1.3, 2.5)
 	k.toilet(8, 0)
 	k.belt(22, 44, 0, 3.0)
-	k.enemy("cork_bot", 33, 0, {"patrol_distance": 4.0})
+	k.enemy("whiffler", 33, 0, {"phase": 0.1})
 	k.beans_line(24, 42, 1.4, 2.0)
 	k.ground(44, 52, 0)
 	k.hint(45, 0, "BACKWARDS BELT! KEEP RUNNING!", 3.0)
 	k.belt(52, 76, 0, -3.0)
-	k.enemy("cork_bot", 63, 0, {"patrol_distance": 5.0})
-	k.enemy("fizz_bat", 66, 4.5, {"patrol_distance": 3.0})
+	k.enemy("whiffler", 63, 0, {"phase": 0.5})
+	k.jelly(67, 4.5, {"bob_height": 1.2})
 	k.beans_line(54, 74, 1.4, 2.5)
 	k.ground(76, 90, 0)
 	k.toilet(79, 0)
@@ -94,8 +96,8 @@ func _springs(k) -> void:
 	k.beans_arc(209, 221, 9.0, 4.0, 7)
 	k.ground(230, 262, 0)
 	k.toilet(234, 0)
-	k.enemy("hiccup", 244, 0)
-	k.enemy("gnome", 254, 0)
+	k.enemy("whiffler", 244, 0, {"phase": 0.3})
+	k.jelly(254, 1.8, {"bob_height": 0.6, "drift": 1.0})
 
 
 # ------------------------------------------------------------------ D. the gas pit
@@ -132,11 +134,11 @@ func _switch_yard(k) -> void:
 	k.hint(333, 0, "RED BLOCKS GO! BLUE BLOCKS COME!", 3.5)
 	k.switch_block(335, 338, 0.0, true)
 	k.switch_block(341, 344, 0.0, true)
-	k.enemy("fizz_bat", 339, 4.0, {"patrol_distance": 3.0})
+	k.jelly(339, 4.0, {"bob_height": 1.0})
 	k.beans_arc(334, 345, 1.5, 1.8, 6)
 	k.ground(347, 357, 0)
 	k.toilet(349, 0)
-	k.enemy("cork_bot", 351, 0, {"patrol_distance": 2.0})
+	k.enemy("whiffler", 351, 0, {"phase": 0.7})
 	k.hint(353, 0, "STEP ON THE BIG BUTTON!", 3.0)
 	k.switch_button(355.5, 0.0)
 	k.switch_block(360, 363, 0.0, false)
@@ -149,7 +151,7 @@ func _switch_yard(k) -> void:
 	k.rock(384, 7.0, 8.0, false)
 	var entry_b: Vector3 = k.bean_room(ROOM_B_X, ROOM_Y, Vector3(381.5, 8.3, 0))
 	k.bean_pipe(387.0, 7.0, 1.0, entry_b)
-	k.enemy("burpling", 390, 0, {"patrol_distance": 2.0})
+	k.enemy("whiffler", 390, 0, {"phase": 0.2})
 
 
 # ------------------------------------------------------------------ F. chilli dash and hot sauce party
@@ -159,18 +161,13 @@ func _party(k) -> void:
 	k.toilet(398, 0)
 	k.hint(401, 0, "CHILLI! RUN STRAIGHT THROUGH EVERYTHING!", 3.5)
 	k.chilli(406, 1.4)
-	# The chilli crowd: Burplings, Hiccups, Whifflers and Cork Bots in one long row.
+	# The chilli crowd: Whifflers and low jellyfish, turn about, in one long row.
 	var x: float = 416.0
 	for i in 16:
-		match i % 4:
-			0:
-				k.enemy("burpling", x, 0, {"patrol_distance": 1.5})
-			1:
-				k.enemy("hiccup", x, 0)
-			2:
-				k.enemy("cork_bot", x, 0, {"patrol_distance": 1.5})
-			3:
-				k.enemy("whiffler", x, 0, {"phase": float(i) * 0.13})
+		if i % 2 == 0:
+			k.enemy("whiffler", x, 0, {"phase": float(i) * 0.13})
+		else:
+			k.jelly(x, 1.7, {"bob_height": 0.5, "drift": 0.8})
 		x += 3.0
 	k.beans_line(414, 466, 1.4, 2.5)
 	k.toilet(468, 0)
@@ -178,21 +175,16 @@ func _party(k) -> void:
 	# The hot sauce party: fire burp them all.
 	k.hint(480, 0, "HOT SAUCE! SHOOT FIREBALLS WITH C OR B!", 4.0)
 	k.hot_sauce(486, 1.4)
+	# Whifflers, low jellyfish (fireballs reach them) and now and then a higher one.
 	var px: float = 498.0
 	for i in 22:
-		match i % 6:
-			0:
-				k.enemy("burpling", px, 0, {"patrol_distance": 1.5})
-			1:
-				k.enemy("hiccup", px, 0)
-			2:
-				k.enemy("cork_bot", px, 0, {"patrol_distance": 2.0})
-			3:
+		match i % 4:
+			0, 2:
 				k.enemy("whiffler", px, 0, {"phase": float(i) * 0.11})
-			4:
-				k.enemy("gnome", px, 0)
-			5:
-				k.enemy("fizz_bat", px, 3.0, {"patrol_distance": 2.0})
+			1:
+				k.jelly(px, 1.7, {"bob_height": 0.5, "drift": 0.8})
+			3:
+				k.jelly(px, 3.4, {"bob_height": 1.0, "drift": 1.0})
 		px += 3.5
 	k.beans_line(496, 572, 1.4, 3.0)
 	k.toilet(576, 0)
@@ -216,7 +208,7 @@ func _tower(k) -> void:
 	k.beans_arc(599, 607, 8.0, 4.0, 6)
 	k.rock(619, 16.5, 6.0, true)
 	k.geyser(620, 16.5, {"phase": 0.7})
-	k.enemy("fizz_bat", 614, 14.0, {"patrol_distance": 3.0})
+	k.jelly(614, 14.0, {"bob_height": 1.2})
 	k.beans_arc(610, 618, 17.0, 4.0, 6)
 	k.rock(630, 25.5, 6.0, true)
 	k.toilet(631, 25.5)

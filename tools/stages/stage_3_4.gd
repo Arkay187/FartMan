@@ -2,7 +2,7 @@ extends RefCounted
 ## Stage 3-4: THE FINAL BOSS, BIG BAD BURP. A toilet outside the door. Two parts.
 ## PART 1: he says hello down low (so he is in the shot), flies up, and burps giant bubbles (BUUURP! and they swell up first). Bounce up the
 ## bubbles like stairs and stomp his head. Green stinky bubbles hurt. He gets faster each round and
-## sends helpers (Burplings, then Whifflers). Six stomps. Then he flies off in a huff and a Rocket
+## sends helpers (floating jellyfish, then Whifflers). Six stomps. Then he flies off in a huff and a Rocket
 ## Burrito falls from the sky.
 ## PART 2: grab the burrito and chase him round the planet's rings. He burps rings and walls of
 ## stinky bubbles, then gets dizzy: fly into him. Four hits. Then the ending.

@@ -5,7 +5,7 @@ extends Area3D
 ## PART 1, the bubble fight. He floats high above the arena and burps giant bubbles (BUUURP! and the
 ## bubbles swell up first, so you see them coming). Land on a bubble to bounce very high, climb the
 ## bubbles like stairs and stomp his head. Green stinky bubbles hurt. He gets faster each round and
-## sends helpers (Burplings, then Whifflers). Six stomps.
+## sends helpers (floating jellyfish, then Whifflers). Six stomps.
 ## Then he flies off in a huff and drops a Rocket Burrito.
 ##
 ## PART 2, the ring chase. You fly after him round the planet's rings. He burps rings (fly through
@@ -47,9 +47,13 @@ enum Mood { CALM, TELL, DIZZY, HIT }
 @export var perches: Array[Vector2] = [Vector2(30, 12), Vector2(26, 13), Vector2(33, 11.5)]
 ## How long he takes to fly up from his low hello spot to his first perch.
 @export var fly_up_time: float = 1.4
-## Helpers on the floor: Burplings from round 2, plus Whifflers in round 3.
-@export var burplings_round2: int = 2
+## Helpers: floating jellyfish from round 2, plus Whifflers on the floor in round 3.
+## Only Planet Whiff creatures: no old enemies in space.
+@export var jellyfish_round2: int = 2
 @export var whifflers_round3: int = 2
+## How high over the floor the helper jellyfish float, and how far they bob up and down (metres).
+@export var helper_jelly_height: float = 1.7
+@export var helper_jelly_bob: float = 0.5
 
 @export_group("Part 2: the ring chase")
 ## Hits needed in the chase.
@@ -335,35 +339,38 @@ func _take_hit1() -> void:
 		_fight(id)
 
 
-## Helpers on the floor: Burplings from round 2, Whifflers too in round 3.
+## Helpers: floating jellyfish from round 2, Whifflers too in round 3.
 func _top_up_helpers() -> void:
 	var r: int = round_now()
-	var wanted_b: int = burplings_round2 if r >= 1 else 0
+	var wanted_j: int = jellyfish_round2 if r >= 1 else 0
 	var wanted_w: int = whifflers_round3 if r >= 2 else 0
 	var alive: Array[Node] = []
-	var have_b: int = 0
+	var have_j: int = 0
 	for helper: Node in _helpers:
 		if is_instance_valid(helper) and not bool(helper.get("is_squashed")):
 			alive.append(helper)
-			if not (helper is Whiffler):
-				have_b += 1
+			if helper is Jellyfish:
+				have_j += 1
 	_helpers = alive
-	var have_w: int = _helpers.size() - have_b
-	for i in maxi(wanted_b - have_b, 0):
-		_spawn_helper("res://scenes/burpling.tscn", 0.45, i)
+	var have_w: int = _helpers.size() - have_j
+	for i in maxi(wanted_j - have_j, 0):
+		var jelly: Node3D = _spawn_helper("res://scenes/jellyfish.tscn", helper_jelly_height, i)
+		if jelly != null:
+			jelly.set("bob_height", helper_jelly_bob)
 	for i in maxi(wanted_w - have_w, 0):
 		_spawn_helper("res://scenes/whiffler.tscn", 0.45, i + 2)
 
 
-func _spawn_helper(scene_path: String, lift: float, slot: int) -> void:
+func _spawn_helper(scene_path: String, lift: float, slot: int) -> Node3D:
 	var scene := load(scene_path) as PackedScene
 	if scene == null:
-		return
+		return null
 	var thing: Node3D = scene.instantiate()
 	var xs: Array[float] = [6.0, 54.0, 18.0, 44.0]
 	thing.position = Vector3(arena_left_x + xs[slot % 4], floor_y + lift, 0.0)
 	get_parent().add_child(thing)
 	_helpers.append(thing)
+	return thing
 
 
 func _clear_helpers() -> void:
